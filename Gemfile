@@ -46,7 +46,7 @@ group :development, :test do
 end
 
 # assets
-gem 'bootstrap-generators', '~> 3.0'
+gem 'bootstrap-generators', '~> 3.2.0'
 gem 'select2-rails', '~> 3.5.2'
 gem 'angularjs-rails', '~> 1.2.5'
 
