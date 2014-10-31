@@ -13,9 +13,9 @@ insurance 保险
 order 订单
 voucher 代金券
 violation 违章
-vehicle_type 车型
+car_brand 车品牌
+car_model 车型
 car 车
-garage 用户车库
 order 订单
 evaluate 评价
 
