@@ -3,6 +3,7 @@ zh-CN:
     models:
       admin_user: '管理员'
       city: '城市'
+      car_brand: '汽车品牌'
     attributes:
       admin_user:
         id: '编号'
@@ -20,5 +21,11 @@ zh-CN:
       city:
         id: '编号'
         name: '名称'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      car_brand:
+        id: '编号'
+        name: '名称'
+        first_letter: '首字母'
         created_at: '创建时间'
         updated_at: '更新时间'
