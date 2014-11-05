@@ -1,2 +1,24 @@
 zh-CN:
-  
+  activerecord:
+    models:
+      admin_user: '管理员'
+      city: '城市'
+    attributes:
+      admin_user:
+        id: '编号'
+        email: 'Email'
+        password: '密码'
+        password_confirmation: '确认密码'
+        remember_me: '记住我'
+        sign_in_count: '登陆次数'
+        current_sign_in_at: '当前登陆时间'
+        last_sign_in_at: '上次登陆时间'
+        current_sign_in_ip: '当前登陆ip'
+        last_sign_in_ip: '上次登陆ip'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      city:
+        id: '编号'
+        name: '名称'
+        created_at: '创建时间'
+        updated_at: '更新时间'

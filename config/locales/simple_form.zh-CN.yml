@@ -1,0 +1,4 @@
+zh-CN:
+  simple_form:
+    error_notification:
+      default_message: '出现错误，请修改后重试'
