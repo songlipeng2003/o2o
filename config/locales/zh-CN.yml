@@ -8,6 +8,7 @@ zh-CN:
       announcement: '公告'
       user: '用户'
       category: '分类'
+      store: '店铺'
     attributes:
       admin_user:
         id: '编号'
@@ -62,5 +63,16 @@ zh-CN:
       category:
         id: '编号'
         name: '名称'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      store:
+        id: '编号'
+        name: '名称'
+        address: '地址'
+        phone: '电话'
+        description: '描述'
+        good_rate: '好评率'
+        collect_count: '收藏数'
+        score: '分数'
         created_at: '创建时间'
         updated_at: '更新时间'
