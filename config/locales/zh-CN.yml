@@ -7,6 +7,7 @@ zh-CN:
       car_model: '汽车型号'
       announcement: '公告'
       user: '用户'
+      category: '分类'
     attributes:
       admin_user:
         id: '编号'
@@ -56,5 +57,10 @@ zh-CN:
         last_sign_in_at: '上次登陆时间'
         current_sign_in_ip: '当前登陆ip'
         last_sign_in_ip: '上次登陆ip'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      category:
+        id: '编号'
+        name: '名称'
         created_at: '创建时间'
         updated_at: '更新时间'

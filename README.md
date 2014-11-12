@@ -7,7 +7,7 @@ jquery、boostrap、angularjs
 merchant 商户 周边服务
 store 店铺 销售服务
 product 商品
-product_category 商品分类
+category 商品分类
 user 用户
 insurance 保险
 order 订单
