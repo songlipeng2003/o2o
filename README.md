@@ -31,4 +31,6 @@ system_push 系统推送
 ### redis
 异步任务队列、对象缓存
 
-## 
+## rails 命令备份
+rails g model model
+rails g scaffold_controller admin/model --model-name=category
