@@ -35,14 +35,14 @@ zh-CN:
       car_model:
         id: '编号'
         name: '名称'
-        first_letter: '首字母'
+        car_brand: '汽车品牌'
+        car_brand_id: '汽车品牌'
         created_at: '创建时间'
         updated_at: '更新时间'
       announcement:
         id: '编号'
         title: '标题'
         content: '内容'
-        first_letter: '首字母'
         created_at: '创建时间'
         updated_at: '更新时间'
       user:
