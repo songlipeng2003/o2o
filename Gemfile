@@ -43,6 +43,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.3.0'
   gem 'capybara', '~>2.2.0'
   gem 'database_cleaner', '~>1.2.0'
+  gem 'did_you_mean', '~>0.9.4'
 end
 
 # assets
