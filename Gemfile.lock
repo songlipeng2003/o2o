@@ -76,6 +76,8 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    did_you_mean (0.9.4)
+      interception
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
@@ -97,6 +99,7 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 4.2)
       responders (~> 1.0)
+    interception (0.5)
     jbuilder (2.2.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -219,6 +222,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
   devise (~> 3.2.2)
+  did_you_mean (~> 0.9.4)
   factory_girl_rails (~> 4.3.0)
   jbuilder (~> 2.0)
   jquery-rails
