@@ -223,7 +223,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  activerecord-postgis-adapter
+  activerecord-postgis-adapter (~> 2.2.1)
   angularjs-rails (~> 1.2.5)
   bootstrap-generators (~> 3.2.0)
   capybara (~> 2.2.0)
@@ -234,7 +234,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.3.0)
   jbuilder (~> 2.0)
   jquery-rails
-  pg
+  pg (~> 0.17.1)
   rails (= 4.1.6)
   rails-i18n (~> 4.0.0)
   rspec-rails (~> 3.0.0)

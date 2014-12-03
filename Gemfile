@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'pg', '~> 0.17.1'
-gem 'activerecord-postgis-adapter', '~2.2.1'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use sqli  te3 as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.17.1'
+gem 'activerecord-postgis-adapter', '~> 2.2.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
