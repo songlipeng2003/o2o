@@ -41,9 +41,11 @@ gem 'spring',        group: :development
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails', '~> 4.3.0'
-  gem 'capybara', '~>2.2.0'
-  gem 'database_cleaner', '~>1.2.0'
-  gem 'did_you_mean', '~>0.9.4'
+  gem 'capybara', '~> 2.2.0'
+  gem 'database_cleaner', '~> 1.2.0'
+  gem 'did_you_mean', '~> 0.9.4'
+
+  gem 'api_taster', '~> 0.8.4'
 end
 
 # assets
