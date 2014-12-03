@@ -64,4 +64,8 @@ gem 'devise', '~> 3.2.2'
 # gem 'will_paginate', '~> 3.0'
 # gem 'will_paginate-bootstrap', '~> 1.0.0'
 
+# tree
+gem 'ancestry', '~> 2.1.0'
+
 gem 'activeadmin', github: 'activeadmin'
+gem "active_admin-sortable_tree"

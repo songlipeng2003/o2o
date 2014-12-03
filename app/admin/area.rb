@@ -1,10 +1,9 @@
 ActiveAdmin.register Area do
+  sortable tree: true, sorting_attribute: :id
   permit_params :name, :parent_id
 
-  index do
-    selectable_column
-    id_column
-    column :name
+  index :as => :sortable do
+    label :name
     actions
   end
 
