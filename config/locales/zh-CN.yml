@@ -11,6 +11,7 @@ zh-CN:
       store: '店铺'
       area: '区域'
       community: '社区'
+      doc: '文档'
     attributes:
       admin_user:
         id: '编号'
@@ -91,5 +92,12 @@ zh-CN:
         address: '地址'
         area_id: '区域'
         area: '区域'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      doc:
+        id: '编号'
+        title: '标题'
+        key: '唯一键'
+        content: '内容'
         created_at: '创建时间'
         updated_at: '更新时间'
