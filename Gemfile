@@ -67,5 +67,9 @@ gem 'devise', '~> 3.2.2'
 # tree
 gem 'ancestry', '~> 2.1.0'
 
+# admin
 gem 'activeadmin', github: 'activeadmin'
 gem "active_admin-sortable_tree"
+
+# api
+gem 'grape', '~> 0.9.0'
