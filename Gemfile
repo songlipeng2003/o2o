@@ -46,6 +46,7 @@ group :development, :test do
   gem 'did_you_mean', '~> 0.9.4'
 
   gem 'api_taster', '~> 0.8.4'
+  gem 'better_errors', '~> 2.0.0'
 end
 
 # assets
