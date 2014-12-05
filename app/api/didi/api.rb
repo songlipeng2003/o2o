@@ -5,6 +5,10 @@ module Didi
     prefix :api
 
     resource :docs do
+      get do
+        present Doc.all(), with: Didi::Entities::DocList
+      end
+
       desc "Return a doc."
       params do
         requires :id, type: Integer, desc: "id"

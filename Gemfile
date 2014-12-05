@@ -79,3 +79,4 @@ gem "active_admin-sortable_tree"
 
 # api
 gem 'grape', '~> 0.9.0'
+gem 'grape-entity', '~> 0.4.4'
