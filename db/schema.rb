@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203161105) do
+ActiveRecord::Schema.define(version: 20141205043945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20141203161105) do
 
   add_index "areas", ["ancestry"], :name => "index_areas_on_ancestry"
   add_index "areas", ["parent_id"], :name => "index_areas_on_parent_id"
+
+  create_table "banners", force: true do |t|
+    t.string   "image"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "car_brands", force: true do |t|
     t.string   "name"

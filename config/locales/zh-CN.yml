@@ -12,6 +12,7 @@ zh-CN:
       area: '区域'
       community: '社区'
       doc: '文档'
+      banner: 'Banner'
     attributes:
       admin_user:
         id: '编号'
@@ -99,5 +100,11 @@ zh-CN:
         title: '标题'
         key: '唯一键'
         content: '内容'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      banner:
+        id: '编号'
+        image: '图片'
+        link: '链接'
         created_at: '创建时间'
         updated_at: '更新时间'

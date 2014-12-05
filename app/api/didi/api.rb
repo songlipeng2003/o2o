@@ -19,5 +19,11 @@ module Didi
         end
       end
     end
+
+    resource :banners do
+      get do
+        present Banner.all(), with: Didi::Entities::Banner
+      end
+    end
   end
 end

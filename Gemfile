@@ -80,3 +80,8 @@ gem "active_admin-sortable_tree"
 # api
 gem 'grape', '~> 0.9.0'
 gem 'grape-entity', '~> 0.4.4'
+
+
+# upload
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 3.7.0'

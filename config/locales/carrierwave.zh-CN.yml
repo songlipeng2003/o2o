@@ -1,0 +1,8 @@
+zh-CN:
+  errors:
+    messages:
+      carrierwave_processing_error: "不能转化图片."
+      carrierwave_integrity_error: "不是图片."
+      carrierwave_download_error: "不能下载图片."
+      extension_white_list_error: "不允许上传 %{extension} 文件, 允许格式: %{allowed_types}"
+      extension_black_list_error: "不允许上传 %{extension} 文件, 禁止格式: %{prohibited_types}"
