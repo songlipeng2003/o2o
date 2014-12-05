@@ -11,11 +11,11 @@ module Didi
 
       desc "Return a doc."
       params do
-        requires :id, type: Integer, desc: "id"
+        requires :key, desc: "key"
       end
-      route_param :id do
+      route_param :key do
         get do
-          Doc.find(params[:id])
+          Doc.where('key=?', params[:key])
         end
       end
     end
