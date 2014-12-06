@@ -1,8 +1,17 @@
+require 'grape-swagger'
+
 module Didi
   class API < Grape::API
     version 'v1', using: :path
     format :json
     prefix :api
+
+    add_swagger_documentation
+
+    before do
+      header['Access-Control-Allow-Origin'] = '*'
+      header['Access-Control-Request-Method'] = '*'
+    end
 
     resource :docs do
       desc "文档接口"
