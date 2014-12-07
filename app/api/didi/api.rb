@@ -3,10 +3,8 @@ require 'grape-swagger'
 module Didi
   class API < Grape::API
     version 'v1', using: :path
+    default_format :json
     format :json
-    prefix :api
-
-    add_swagger_documentation
 
     before do
       header['Access-Control-Allow-Origin'] = '*'
@@ -53,5 +51,9 @@ module Didi
         end
       end
     end
+
+    add_swagger_documentation hide_documentation_path: true,
+      base_path: '/api',
+      api_version: 'v1'
   end
 end

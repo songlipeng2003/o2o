@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   # api
-  mount Didi::API => '/'
+  mount Didi::API => '/api'
+
+  mount GrapeSwaggerRails::Engine => '/swagger'
 
   # api test
   mount ApiTaster::Engine => "/api_taster" if Rails.env.development?
