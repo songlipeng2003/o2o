@@ -1,4 +1,6 @@
 ActiveAdmin.register City do
+  menu parent: '基础数据'
+
   permit_params :name
 
   index do

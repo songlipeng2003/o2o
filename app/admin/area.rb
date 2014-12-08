@@ -1,4 +1,6 @@
 ActiveAdmin.register Area do
+  menu parent: '基础数据'
+
   sortable tree: true, sorting_attribute: :id
   permit_params :name, :parent_id
 

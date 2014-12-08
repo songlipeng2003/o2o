@@ -1,4 +1,6 @@
 ActiveAdmin.register Doc do
+  menu parent: '基础数据'
+
   permit_params :title, :key, :content
 
   index do

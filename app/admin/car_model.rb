@@ -1,4 +1,6 @@
 ActiveAdmin.register CarModel do
+  menu parent: '汽车'
+
   permit_params :name, :car_brand_id
 
   index do

@@ -19,7 +19,7 @@ module Didi
 
       desc "文档详情接口"
       params do
-        requires :key, desc: "Key"
+        requires :key, type: 'String', desc: "Key"
       end
       route_param :key do
         get do
@@ -43,7 +43,7 @@ module Didi
 
       desc "公告详情"
       params do
-        requires :id, desc: "ID"
+        requires :id, type: 'Integer', desc: "ID"
       end
       route_param :id do
         get do

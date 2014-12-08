@@ -1,4 +1,6 @@
 ActiveAdmin.register CarBrand do
+  menu parent: '汽车'
+
   permit_params :name, :first_letter
 
   index do
