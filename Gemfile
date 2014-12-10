@@ -3,8 +3,9 @@ source 'https://ruby.taobao.org/'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use sqli  te3 as the database for Active Record
-gem 'pg', '~> 0.17.1'
-gem 'activerecord-postgis-adapter', '~> 2.2.1'
+# gem 'pg', '~> 0.17.1'
+# gem 'activerecord-postgis-adapter', '~> 2.2.1'
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -33,7 +34,11 @@ gem 'spring',        group: :development
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+  gem 'capistrano', '~> 3.3.3'
+  gem 'capistrano-rails', '~> 1.1.2'
+  gem 'capistrano-rvm', '~> 0.1.2'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
