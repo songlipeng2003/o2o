@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20141205043945) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
     t.text     "body"
@@ -27,9 +24,9 @@ ActiveRecord::Schema.define(version: 20141205043945) do
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -46,8 +43,8 @@ ActiveRecord::Schema.define(version: 20141205043945) do
     t.datetime "updated_at"
   end
 
-  add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
-  add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "announcements", force: true do |t|
     t.string   "title"
@@ -64,8 +61,8 @@ ActiveRecord::Schema.define(version: 20141205043945) do
     t.string   "ancestry"
   end
 
-  add_index "areas", ["ancestry"], :name => "index_areas_on_ancestry"
-  add_index "areas", ["parent_id"], :name => "index_areas_on_parent_id"
+  add_index "areas", ["ancestry"], name: "index_areas_on_ancestry", using: :btree
+  add_index "areas", ["parent_id"], name: "index_areas_on_parent_id", using: :btree
 
   create_table "banners", force: true do |t|
     t.string   "image"
@@ -116,7 +113,7 @@ ActiveRecord::Schema.define(version: 20141205043945) do
     t.datetime "updated_at"
   end
 
-  add_index "communities", ["area_id"], :name => "index_communities_on_area_id"
+  add_index "communities", ["area_id"], name: "index_communities_on_area_id", using: :btree
 
   create_table "docs", force: true do |t|
     t.string   "title"
@@ -131,9 +128,9 @@ ActiveRecord::Schema.define(version: 20141205043945) do
     t.string   "phone"
     t.string   "address"
     t.string   "description"
-    t.float    "good_rate",     default: 0.0
-    t.integer  "collect_count", default: 0
-    t.float    "score",         default: 0.0
+    t.float    "good_rate",     limit: 24, default: 0.0
+    t.integer  "collect_count",            default: 0
+    t.float    "score",         limit: 24, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -153,7 +150,7 @@ ActiveRecord::Schema.define(version: 20141205043945) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

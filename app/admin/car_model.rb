@@ -12,7 +12,7 @@ ActiveAdmin.register CarModel do
   end
 
   filter :name
-  filter :car_brand_id, :as => :select, :collection => CarBrand.all.map{|c| [c.name, c.id]}
+  # filter :car_brand_id, :as => :select, :collection => CarBrand.all.map{|c| [c.name, c.id]}
 
   form do |f|
     f.inputs do
