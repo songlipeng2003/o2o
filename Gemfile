@@ -92,3 +92,6 @@ gem 'grape-swagger-rails', '~> 0.0.10'
 # upload
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
+
+# thin server
+gem 'thin', '~> 1.6.3'
