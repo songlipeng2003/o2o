@@ -74,6 +74,8 @@ zh-CN:
         name: '名称'
         address: '地址'
         phone: '电话'
+        lon: '经度'
+        lat: '纬度'
         description: '描述'
         good_rate: '好评率'
         collect_count: '收藏数'

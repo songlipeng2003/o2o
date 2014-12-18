@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218164903) do
+ActiveRecord::Schema.define(version: 20141218170256) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 20141218164903) do
     t.float    "score",         limit: 24, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "lat",           limit: 24
+    t.float    "lon",           limit: 24
   end
 
   create_table "users", force: true do |t|

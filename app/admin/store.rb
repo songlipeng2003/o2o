@@ -1,5 +1,5 @@
 ActiveAdmin.register Store do
-  permit_params :name, :address, :phone, :description
+  permit_params :name, :address, :phone, :description, :lon, :lat
 
   index do
     selectable_column
@@ -20,6 +20,8 @@ ActiveAdmin.register Store do
       f.input :address
       f.input :phone
       f.input :description
+      f.input :lon
+      f.input :lat
     end
     f.actions
   end
