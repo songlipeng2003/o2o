@@ -1,5 +1,5 @@
 ActiveAdmin.register Community do
-  permit_params :name, :address, :area_id
+  permit_params :name, :address, :area_id, :lon, :lat
 
 
   index do
@@ -18,6 +18,8 @@ ActiveAdmin.register Community do
       f.input :name
       f.input :address
       f.input :area_id, :as => :select, :collection => Area.all.map{|c| [c.name, c.id]}
+      f.input :lon
+      f.input :lat
     end
     f.actions
   end

@@ -93,6 +93,8 @@ zh-CN:
         address: '地址'
         area_id: '区域'
         area: '区域'
+        lon: '经度'
+        lat: '纬度'
         created_at: '创建时间'
         updated_at: '更新时间'
       doc:
