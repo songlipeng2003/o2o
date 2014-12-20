@@ -19,7 +19,7 @@ module Didi
 
       desc "文档详情接口"
       params do
-        requires :key, type: 'String', desc: "Key"
+        requires :key, type: String, desc: "Key"
       end
       route_param :key do
         get do
@@ -43,12 +43,22 @@ module Didi
 
       desc "公告详情"
       params do
-        requires :id, type: 'Integer', desc: "ID"
+        requires :id, type: Integer, desc: "ID"
       end
       route_param :id do
         get do
           Announcement.find(params[:id])
         end
+      end
+    end
+
+    resource :communities do
+      desc "社区接口"
+      params do
+        optional :keyword, type: String, desc: "关键词"
+      end
+      get do
+        @communities = Community.search params[:keyword]
       end
     end
 

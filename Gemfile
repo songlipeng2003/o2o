@@ -52,6 +52,7 @@ group :development, :test do
   gem 'did_you_mean', '~> 0.9.4'
 
   gem 'api_taster', '~> 0.8.4'
+  gem 'binding_of_caller', '~> 0.7.2'
   gem 'better_errors', '~> 2.0.0'
 end
 
@@ -89,10 +90,13 @@ gem 'grape-entity', '~> 0.4.4'
 # gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
 gem 'grape-swagger-rails', '~> 0.0.10'
 
-
 # upload
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
 
 # thin server
 gem 'thin', '~> 1.6.3'
+
+# fulltext
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
