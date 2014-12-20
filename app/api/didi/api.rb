@@ -11,6 +11,12 @@ module Didi
       header['Access-Control-Request-Method'] = '*'
     end
 
+    helpers do
+      def logger
+        API.logger
+      end
+    end
+
     resource :docs do
       desc "文档接口"
       get do
@@ -58,7 +64,41 @@ module Didi
         optional :keyword, type: String, desc: "关键词"
       end
       get do
-        @communities = Community.search params[:keyword]
+        query = {
+           query:
+            {
+              bool: {
+              should: [
+                {
+                  multi_match:{
+                    query: params[:keyword],
+                    fields: [:name, :address],
+                    operator: 'and',
+                  }
+                }
+              ]
+            }
+          },
+          filter: {
+            # location: {
+            #   distance: "20000km",
+            #   'pin.location' => "40, 70"
+            # }
+          },
+          facets: {},
+          # sort: {
+          #   "_geo_distance"=>{
+          #     'pin.location' => "40, 70",
+          #     order: "asc",
+          #     unit: "km"
+          #   }
+          # }
+        }
+
+        logger.debug query.to_yaml
+
+        @communities = Community.__elasticsearch__.search(query)
+        # @communities = Community.search(params[:keyword])
       end
     end
 

@@ -105,7 +105,7 @@ module ElasticsearchSearchable
       end
 
       # execute Elasticsearch search
-      puts YAML::dump(@search_definition)
+      logger.debug @search_definition.to_yaml
       __elasticsearch__.search(@search_definition)
 
     end
