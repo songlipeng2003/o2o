@@ -100,3 +100,6 @@ gem 'thin', '~> 1.6.3'
 # fulltext
 gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+
+# SMS
+gem 'china_sms', '~> 0.0.7'
