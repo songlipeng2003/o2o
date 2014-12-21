@@ -17,6 +17,13 @@ module Didi
       end
     end
 
+    resource :areas do
+      desc "区域接口"
+      get do
+        present Area.arrange_serializable({ order: 'id' })
+      end
+    end
+
     resource :docs do
       desc "文档接口"
       get do
