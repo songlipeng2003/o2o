@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218170256) do
+ActiveRecord::Schema.define(version: 20141221144601) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20141218170256) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ancestry"
+    t.integer  "ancestry_depth", default: 0
   end
 
   add_index "areas", ["ancestry"], name: "index_areas_on_ancestry", using: :btree

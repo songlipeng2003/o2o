@@ -14,7 +14,7 @@ ActiveAdmin.register Area do
   form do |f|
     f.inputs do
       f.input :name
-      f.input :parent_id, :as => :select, :collection => Area.all.map{|c| [c.name, c.id]}
+      f.input :parent_id, :as => :select, :collection => Area.ancestry_options(Area.arrange)
     end
     f.actions
   end

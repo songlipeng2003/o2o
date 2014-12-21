@@ -1,5 +1,7 @@
 class Area < ActiveRecord::Base
-  belongs_to :parent
+  include Tree
 
-  has_ancestry
+  # belongs_to :parent
+
+  validates :name, presence: :true
 end
