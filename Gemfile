@@ -39,6 +39,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.2'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-thin'
+  gem 'capistrano-sidekiq'
 end
 
 # Use debugger
@@ -103,3 +104,8 @@ gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-ra
 
 # SMS
 gem 'china_sms', '~> 0.0.7'
+
+# asynchronous task
+gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sidekiq', '~> 3.3.0'
+
