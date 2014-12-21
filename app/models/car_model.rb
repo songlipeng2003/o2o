@@ -4,4 +4,8 @@ class CarModel < ActiveRecord::Base
     validates :name, uniqueness: { scope: :car_brand_id }
 
     belongs_to :car_brand
+
+    def car_brand_name
+      car_brand.name
+    end
 end

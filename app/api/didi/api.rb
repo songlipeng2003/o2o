@@ -27,7 +27,7 @@ module Didi
     resource :car_brands do
       desc "汽车品牌接口"
       get do
-        present CarBrand::order(:first_letter).all
+        present CarBrand.order(:first_letter).all
       end
 
       desc "汽车品牌详情"
@@ -41,6 +41,23 @@ module Didi
       end
     end
 
+    resource :car_models do
+      desc "汽车型号接口"
+      get do
+        present CarModel.all, with: Didi::Entities::CarModelList
+      end
+
+      desc "汽车型号详情"
+      params do
+        requires :id, type: Integer, desc: "编号"
+      end
+      route_param :id do
+        get do
+          CarModel.find(params[:id])
+        end
+      end
+    end
+
     resource :docs do
       desc "文档接口"
       get do
@@ -49,7 +66,7 @@ module Didi
 
       desc "文档详情接口"
       params do
-        requires :key, type: String, desc: "Key"
+        requires :key, type: String, desc: "编号"
       end
       route_param :key do
         get do
@@ -73,7 +90,7 @@ module Didi
 
       desc "公告详情"
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "编号"
       end
       route_param :id do
         get do
