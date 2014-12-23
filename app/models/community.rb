@@ -18,9 +18,16 @@ class Community < ActiveRecord::Base
 
   # elasticsearch settings
   settings index: { number_of_shards: 1 } do
-    mappings dynamic: 'false' do
-      indexes :name, index: '', analyzer: 'chinese'
-      indexes :location, 'type'=>'geo_point'
+    mappings dynamic: 'strict' do
+      indexes :name
+      indexes :address
+      indexes :location, type: 'geo_point'
     end
   end
+
+  def as_indexed_json(options={})
+    self.as_json(only: [:name, :address, :location])
+  end
 end
+
+Community.import force: true

@@ -10,7 +10,7 @@ module ElasticsearchSearchable
     require 'elasticsearch/model'
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
-    include Elasticsearch::Model::Indexing
+    # include Elasticsearch::Model::Indexing
 
     # Customize the index name
     index_name [Rails.application.engine_name, Rails.env].join('_')
@@ -20,16 +20,16 @@ module ElasticsearchSearchable
     after_touch() { __elasticsearch__.index_document }
 
     # Customize the JSON serialization for Elasticsearch
-    def as_indexed_json(options={})
+    # def as_indexed_json(options={})
 
-      # define JSON structure (including nested model associations)
-      _include = self.class.reflect_on_all_associations.each_with_object({}) {|a,hsh|
-        hsh[a.name] = {}
-        hsh[a.name][:only] = a.klass.attribute_names
-      }
+    #   # define JSON structure (including nested model associations)
+    #   # _include = self.class.reflect_on_all_associations.each_with_object({}) {|a,hsh|
+    #   #   hsh[a.name] = {}
+    #   #   hsh[a.name][:only] = a.klass.attribute_names
+    #   # }
 
-      self.as_json(include: _include)
-    end
+    #   self.as_json(include: _include)
+    # end
 
   end
 
