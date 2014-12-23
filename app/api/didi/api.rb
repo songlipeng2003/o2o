@@ -143,6 +143,19 @@ module Didi
       end
     end
 
+    resource :auth_code do
+      desc '发送邮件验证码'
+      params do
+        requires :phone, type: String, desc: "手机号"
+      end
+      post do
+        phone = params[:phone]
+        code = AuthCode.generate phone
+        tpl_params = { code: code, company: '嘀嘀去哪儿' }
+        ChinaSMS.to phone, tpl_params, tpl_id: 1
+      end
+    end
+
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
       api_version: 'v1'

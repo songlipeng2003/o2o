@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221144601) do
+ActiveRecord::Schema.define(version: 20141221165901) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20141221144601) do
 
   add_index "areas", ["ancestry"], name: "index_areas_on_ancestry", using: :btree
   add_index "areas", ["parent_id"], name: "index_areas_on_parent_id", using: :btree
+
+  create_table "auth_codes", force: true do |t|
+    t.string   "phone"
+    t.string   "code"
+    t.datetime "expired_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "banners", force: true do |t|
     t.string   "image"
@@ -153,6 +161,7 @@ ActiveRecord::Schema.define(version: 20141221144601) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
