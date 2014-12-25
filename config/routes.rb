@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   # api
-  mount Didi::API => '/api'
+  mount API => '/api'
 
   mount GrapeSwaggerRails::Engine => '/swagger'
 
