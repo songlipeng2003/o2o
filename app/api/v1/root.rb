@@ -10,5 +10,6 @@ module V1
     mount V1::CarModels
     mount V1::Communities
     mount V1::Docs
+    mount V1::Orders
   end
 end
