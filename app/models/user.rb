@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
+  has_many :cars
+
   def self.random_email
     name = (0..10).map { ('a'..'z').to_a[rand(8)] }.join
 
