@@ -52,7 +52,6 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.2.0'
   gem 'did_you_mean', '~> 0.9.4'
 
-  gem 'api_taster', '~> 0.8.4'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'better_errors', '~> 2.0.0'
 end

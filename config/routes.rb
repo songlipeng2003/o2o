@@ -9,9 +9,6 @@ Rails.application.routes.draw do
 
   mount GrapeSwaggerRails::Engine => '/swagger'
 
-  # api test
-  mount ApiTaster::Engine => "/api_taster" if Rails.env.development?
-
   require 'sidekiq/web'
   authenticate :admin_user do
     mount Sidekiq::Web => '/sidekiq'
