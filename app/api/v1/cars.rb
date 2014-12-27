@@ -1,5 +1,9 @@
 module V1
   class Cars < Grape::API
+    before do
+      error!("401 Unauthorized", 401) unless authenticated
+    end
+
     resource :cars do
       desc "汽车"
       get do

@@ -17,13 +17,24 @@ class AuthCode < ActiveRecord::Base
   end
 
   def self.validate_code(phone, code)
+    self.clear_expired_codes
+
     auth_code = self.where("phone=? AND code=?", phone, code).first
 
-    return !auth_code.blank? && auth_code.expired_at > Time.now
+    if !auth_code.blank? && auth_code.expired_at > Time.now
+      auth_code.delete
+      true
+    else
+      false
+    end
   end
 
   private
   def self.gen_code
     (0..5).map { (1..9).to_a[rand(8)] }.join
+  end
+
+  def self.clear_expired_codes
+    self.delete_all(["expired_at<?", 10.minutes.ago])
   end
 end

@@ -17,10 +17,6 @@ module V1
       end
     end
 
-    before do
-      error!("401 Unauthorized", 401) unless authenticated
-    end
-
     helpers do
       def warden
         env['warden']

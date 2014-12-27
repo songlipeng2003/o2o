@@ -1,7 +1,7 @@
 module V1
   class AuthCodes < Grape::API
     resource :auth_code do
-      desc '发送邮件验证码'
+      desc '发送短信验证码'
       params do
         requires :phone, type: String, desc: "手机号"
       end

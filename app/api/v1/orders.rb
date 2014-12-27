@@ -1,5 +1,9 @@
 module V1
   class Orders < Grape::API
+    before do
+      error!("401 Unauthorized", 401) unless authenticated
+    end
+
     resource :orders do
       desc "订单"
       params do
