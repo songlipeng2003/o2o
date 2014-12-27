@@ -31,6 +31,16 @@ module V1
           }
         end
       end
+
+      desc "登陆"
+      params do
+        requires :username, type: String, desc: "手机号"
+        requires :password, type: String, desc: "密码"
+      end
+      post 'login' do
+        user = User.find_for_database_authentication(login: params[:phone])
+        return user.valid_password?(params[:password]) ? user : false
+      end
     end
   end
 end
