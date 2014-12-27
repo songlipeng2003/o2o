@@ -36,6 +36,7 @@ module V1
       end
     end
 
+    mount V1::Accounts
     mount V1::Announcements
     mount V1::Areas
     mount V1::AuthCodes
@@ -46,6 +47,7 @@ module V1
     mount V1::Communities
     mount V1::Docs
     mount V1::Orders
+    mount V1::Users
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',

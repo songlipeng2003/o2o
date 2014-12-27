@@ -1,34 +1,13 @@
 module V1
-  class Users
+  class Users < Grape::API
     resource :users do
-      desc "注册"
+      desc "用户详情"
       params do
-        requires :phone, type: String, desc: "手机号"
-        requires :code, type: String, desc: "验证码"
-        requires :password, type: String, desc: "密码"
+        requires :id, type: Integer, desc: "ID"
       end
-      post 'register' do
-        is_valid = AuthCode.validate_code(params[:phone], params[:code])
-
-        if is_valid
-          user = User.new({
-            email: User.random_email,
-            phone: params[:phone],
-            password: params[:password],
-            password_confirmation: params[:password]
-          })
-
-          if user.save
-            user
-          else
-            {
-              message: user.errors
-            }
-          end
-        else
-          {
-            message: '验证码失败'
-          }
+      route_param :id do
+        get do
+          User.find(params[:id])
         end
       end
     end
