@@ -34,7 +34,7 @@ module V1
         requires :buy_date, type: String, desc: "购买日期"
       end
       route_param :id do
-        post do
+        put do
           car = current_user.cars.find(params[:id])
           present car.update(params)
         end
