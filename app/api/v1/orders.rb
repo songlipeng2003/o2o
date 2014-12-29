@@ -27,7 +27,7 @@ module V1
         requires :id, type: Integer, desc: "ID"
       end
       route_param ':id/re_send_sms' do
-        get do
+        patch do
         end
       end
 
@@ -43,6 +43,18 @@ module V1
       end
       post do
 
+      end
+
+      desc "评价"
+      params do
+        requires :id, type: Integer, desc: "ID"
+        requires :evaluate, type: Integer, desc: '评价，1-5'
+        optional :note, type: String, desc: '备注'
+        optional :images, type: Array, desc: '图片'
+      end
+      route_param ':id/evaluate' do
+        patch do
+        end
       end
     end
   end
