@@ -23,8 +23,9 @@ module V1
       desc "添加汽车"
       params do
         requires :car_model_id, type: Integer, desc: "车型id"
-        requires :license_tag, type: String, desc: "拍照"
-        requires :buy_date, type: String, desc: "购买日期"
+        requires :license_tag, type: String, desc: "牌照"
+        requires :buy_date, type: String, desc: "购买日期, 格式： 2014-01-01"
+        requires :color, type: String, desc: "颜色"
       end
       post do
         present current_user.cars.create(params)
@@ -36,6 +37,7 @@ module V1
         requires :car_model_id, type: Integer, desc: "车型id"
         requires :license_tag, type: String, desc: "拍照"
         requires :buy_date, type: String, desc: "购买日期"
+        requires :color, type: String, desc: "颜色"
       end
       route_param :id do
         put do
