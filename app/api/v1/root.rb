@@ -47,6 +47,11 @@ module V1
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
-      api_version: 'v1'
+      api_version: 'v1',
+      info: {
+        title: '嘀嘀去哪儿接口文档',
+        desription: 'info_desc',
+        contact: 'songlipeng2003@gmail.com'
+      }
   end
 end
