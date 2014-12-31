@@ -3,7 +3,7 @@ module V1
     resource :announcements do
       desc "公告接口"
       get do
-        present Announcement.order('id DESC').all(), with: Entities::AnnouncementList
+        present Announcement.order('id DESC').all(), with: V1::Entities::AnnouncementList
       end
 
       desc "公告详情"

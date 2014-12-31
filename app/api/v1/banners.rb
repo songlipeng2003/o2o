@@ -3,7 +3,7 @@ module V1
     resource :banners do
       desc "Banner接口"
       get do
-        present Banner.all(), with: Entities::Banner
+        present Banner.all(), with: V1::Entities::Banner
       end
     end
   end
