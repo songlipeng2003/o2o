@@ -8,6 +8,8 @@ ActiveAdmin.register CarModel do
     id_column
     column :name
     column :car_brand
+    column :first_letter
+    column :auto_type
     actions
   end
 
@@ -18,6 +20,8 @@ ActiveAdmin.register CarModel do
     f.inputs do
       f.input :name
       f.input :car_brand_id, :as => :select, :collection => CarBrand.all.map{|c| [c.name, c.id]}
+      f.input :first_letter, :collection => ('A'..'Z')
+      f.input :auto_type
     end
     f.actions
   end

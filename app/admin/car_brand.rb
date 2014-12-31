@@ -20,4 +20,14 @@ ActiveAdmin.register CarBrand do
     end
     f.actions
   end
+
+  action_item :only => :index do
+    link_to('导入', import_admin_car_brands_path, method: :post)
+  end
+
+  collection_action :import, :method => :post do
+    CarBrand.import
+
+    redirect_to action: :index, :notice => "导入成功"
+  end
 end
