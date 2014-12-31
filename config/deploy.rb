@@ -2,7 +2,7 @@
 lock '3.3.3'
 
 set :application, 'didi'
-set :repo_url, 'git@bitbucket.org:didicar/didi.git'
+set :repo_url, 'git@coding.net:songlipeng2003/didi.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -42,7 +42,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute 'thin restart'
+      execute '/etc/init.d/thin restart'
     end
   end
 
