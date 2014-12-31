@@ -3,7 +3,7 @@ module V1
     resource :car_brands do
       desc "汽车品牌接口"
       get do
-        present CarBrand.order(:first_letter).all
+        present CarBrand.order(:first_letter).all, with: V1::Entities::CarBrand
       end
 
       desc "汽车品牌详情"
@@ -12,7 +12,7 @@ module V1
       end
       route_param :id do
         get do
-          CarBrand.find(params[:id])
+          present CarBrand.find(params[:id]), with: V1::Entities::CarBrand
         end
       end
     end
