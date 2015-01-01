@@ -8,9 +8,11 @@ module V1
       desc "订单"
       params do
         optional :page, type: Integer, desc: "页码"
+        optional :per_page, type: Integer, desc: '每页数量'
       end
+      paginate per_page: 10
       get do
-
+        paginate current_user.orders
       end
 
       desc "订单详情"
@@ -19,6 +21,7 @@ module V1
       end
       route_param :id do
         get do
+          present current_user.orders.find(params[:id])
         end
       end
 
@@ -42,7 +45,7 @@ module V1
         requires :lat, type: Float, desc: "纬度"
       end
       post do
-
+        present current_user.orders.create(params)
       end
 
       desc "评价"

@@ -88,6 +88,7 @@ gem "active_admin-sortable_tree"
 gem 'grape', '~> 0.9.0'
 gem 'grape-entity', '~> 0.4.4'
 gem 'grape-swagger', '~> 0.9.0'
+gem 'api-pagination'
 gem 'kramdown'
 gem 'grape-swagger-rails', github: 'fabn/grape-swagger-rails', branch: 'grape-swagger-0.8'
 
@@ -108,4 +109,3 @@ gem 'china_sms', '~> 0.0.7'
 # asynchronous task
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq', '~> 3.3.0'
-
