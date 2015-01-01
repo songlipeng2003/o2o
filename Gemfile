@@ -109,3 +109,6 @@ gem 'china_sms', '~> 0.0.7'
 # asynchronous task
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq', '~> 3.3.0'
+
+# 地理坐标系转化
+gem 'evil_transform'
