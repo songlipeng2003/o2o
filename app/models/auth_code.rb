@@ -3,13 +3,30 @@ class AuthCode < ActiveRecord::Base
   validates :code, presence: true
   validates :expired_at, presence: true
 
-  def self.generate(phone)
-    code = self.gen_code
+  def is_can_resend
+    created_at <  (Time.now - 1.minutes)
+  end
 
-    auth_code = AuthCode.new
-    auth_code.phone = phone
+  def is_expired
+    expired_at < (Time.now - 10.minutes)
+  end
+
+  def self.generate(phone)
+    self.clear_expired_codes
+
+    auth_code = self.where("phone=?", phone).first
+
+    if auth_code
+      code = auth_code.is_expired ? self.gen_code : auth_code.code
+    else
+      code = self.gen_code
+
+      auth_code = AuthCode.new
+      auth_code.phone = phone
+    end
+
     auth_code.code = code
-    auth_code.expired_at = Time.now + 30.minutes
+    auth_code.expired_at = Time.now + 10.minutes
 
     auth_code.save
 
