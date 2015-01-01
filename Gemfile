@@ -87,8 +87,9 @@ gem "active_admin-sortable_tree"
 # api
 gem 'grape', '~> 0.9.0'
 gem 'grape-entity', '~> 0.4.4'
-# gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
-gem 'grape-swagger-rails', '~> 0.0.10'
+gem 'grape-swagger', '~> 0.9.0'
+gem 'kramdown'
+gem 'grape-swagger-rails', github: 'fabn/grape-swagger-rails', branch: 'grape-swagger-0.8'
 
 # upload
 gem 'carrierwave', '~> 0.10.0'
