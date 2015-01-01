@@ -1,7 +1,7 @@
 module V1
   class Accounts < Grape::API
     resource :accounts do
-      desc "注册"
+      desc "注册", hidden: true
       params do
         requires :phone, type: String, desc: "手机号"
         requires :code, type: String, desc: "验证码"
