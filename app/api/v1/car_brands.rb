@@ -6,7 +6,7 @@ module V1
         present CarBrand.order(:first_letter).all, with: V1::Entities::CarBrand
       end
 
-      desc "汽车品牌详情"
+      desc "汽车品牌详情", hidden: true
       params do
         requires :id, type: Integer, desc: "ID"
       end
