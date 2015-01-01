@@ -50,8 +50,14 @@ module V1
       api_version: 'v1',
       info: {
         title: '嘀嘀去哪儿接口文档',
-        desription: 'info_desc',
-        contact: 'songlipeng2003@gmail.com'
-      }
+        contact: 'songlipeng2003@gmail.com',
+        description: <<-NOTE
+          本接口完全按照REST设计规范进行设计
+
+          [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
+        NOTE
+      },
+      models: [V1::Entities::CarBrand],
+      markdown: GrapeSwagger::Markdown::KramdownAdapter
   end
 end
