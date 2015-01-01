@@ -34,12 +34,36 @@ module V1
 
       desc "登陆"
       params do
-        requires :username, type: String, desc: "手机号"
-        requires :password, type: String, desc: "密码"
+        requires :phone, type: String, desc: "手机号"
+        requires :code, type: String, desc: "验证码"
       end
       post 'login' do
-        user = User.find_for_database_authentication(login: params[:phone])
-        return user.valid_password?(params[:password]) ? user : false
+        is_valid = AuthCode.validate_code(params[:phone], params[:code])
+
+        unless is_valid
+          return {
+            code: 1,
+            msg: '验证码错误'
+          }
+        end
+
+        phone = params[:phone]
+        user = User.where('phone=?', phone)
+        unless user
+          password = User.random_password
+          user = User.new({
+            email: User.random_email,
+            phone: phone,
+            password: password,
+            password_confirmation: password
+          })
+        end
+
+        {
+          code: 0,
+          msg: '登录成功',
+          data: user
+        }
       end
     end
   end
