@@ -39,12 +39,5 @@ set :rvm_ruby_version, 'default'      # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute '/etc/init.d/thin restart'
-    end
-  end
-
   after :publishing, :restart
 end
