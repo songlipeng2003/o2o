@@ -15,6 +15,7 @@ zh-CN:
       doc: '文档'
       banner: 'Banner'
       order: '订单'
+      application: '应用'
     attributes:
       admin_user:
         id: '编号'
@@ -140,5 +141,11 @@ zh-CN:
         lon: '经度'
         lat: '纬度'
         note: '备注'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      application:
+        id: '编号'
+        name: '名称'
+        token: 'Token'
         created_at: '创建时间'
         updated_at: '更新时间'
