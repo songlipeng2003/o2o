@@ -112,3 +112,6 @@ gem 'sidekiq', '~> 3.3.0'
 
 # 地理坐标系转化
 gem 'evil_transform'
+
+# defualt value for model
+gem "default_value_for", "~> 3.0.0"

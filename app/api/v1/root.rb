@@ -2,7 +2,7 @@ module V1
   class Root < Grape::API
     default_format :json
     format :json
-    error_formatter :json, V1::ErrorFormatter
+    # error_formatter :json, V1::ErrorFormatter
 
     version 'v1', using: :path
 
@@ -33,6 +33,7 @@ module V1
     end
 
     mount V1::Accounts
+    mount V1::Addresses
     mount V1::Announcements
     mount V1::Areas
     mount V1::AuthCodes

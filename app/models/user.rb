@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :cars
   has_many :orders
+  has_many :addresses
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token

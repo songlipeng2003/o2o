@@ -142,6 +142,8 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
+    default_value_for (3.0.1)
+      activerecord (>= 3.2.0, < 5.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (3.2.4)
@@ -384,6 +386,7 @@ DEPENDENCIES
   china_sms (~> 0.0.7)
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
+  default_value_for (~> 3.0.0)
   devise (~> 3.2.2)
   did_you_mean (~> 0.9.4)
   elasticsearch-model!
