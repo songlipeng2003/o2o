@@ -16,4 +16,6 @@ class Order < ActiveRecord::Base
   validates_associated :user
   validates_associated :store
   validates_associated :car
+
+  has_paper_trail
 end

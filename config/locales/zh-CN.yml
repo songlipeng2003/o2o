@@ -16,6 +16,7 @@ zh-CN:
       banner: 'Banner'
       order: '订单'
       application: '应用'
+      paper_trail/version: '操作历史'
     attributes:
       admin_user:
         id: '编号'
@@ -149,3 +150,10 @@ zh-CN:
         token: 'Token'
         created_at: '创建时间'
         updated_at: '更新时间'
+      paper_trail/version:
+        id: '编号'
+        item: '操作对象'
+        event: '操作'
+        whodunit: '操作人'
+        object: '操作历史'
+        created_at: '创建时间'

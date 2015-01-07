@@ -238,6 +238,9 @@ GEM
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
+    paper_trail (3.0.6)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     quiet_assets (1.0.3)
@@ -402,6 +405,7 @@ DEPENDENCIES
   kramdown
   mini_magick (~> 3.7.0)
   mysql2
+  paper_trail (~> 3.0.6)
   quiet_assets (~> 1.0.3)
   rails (= 4.1.6)
   rails-i18n (~> 4.0.0)

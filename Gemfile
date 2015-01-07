@@ -115,3 +115,6 @@ gem 'evil_transform'
 
 # defualt value for model
 gem "default_value_for", "~> 3.0.0"
+
+# model version
+gem 'paper_trail', '~> 3.0.6'
