@@ -68,6 +68,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    alipay (0.3.0)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
     angularjs-rails (1.2.18)
@@ -373,6 +374,7 @@ PLATFORMS
 DEPENDENCIES
   active_admin-sortable_tree
   activeadmin!
+  alipay (~> 0.3.0)
   ancestry (~> 2.1.0)
   angularjs-rails (~> 1.2.5)
   api-pagination
