@@ -17,6 +17,7 @@ zh-CN:
       order: '订单'
       application: '应用'
       paper_trail/version: '操作历史'
+      recharge: '充值'
     attributes:
       admin_user:
         id: '编号'
@@ -156,4 +157,14 @@ zh-CN:
         event: '操作'
         whodunit: '操作人'
         object: '操作历史'
+        created_at: '创建时间'
+      recharge:
+        id: '编号'
+        user: '用户'
+        user_id: '用户'
+        amount: '金额'
+        state: '状态'
+        state/unpayed: '未付款'
+        state/payed: '已付款'
+        state/failed: '支付失败'
         created_at: '创建时间'

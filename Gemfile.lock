@@ -38,6 +38,7 @@ GIT
 GEM
   remote: https://ruby.taobao.org/
   specs:
+    aasm (4.0.8)
     actionmailer (4.1.6)
       actionpack (= 4.1.6)
       actionview (= 4.1.6)
@@ -372,6 +373,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm (~> 4.0.8)
   active_admin-sortable_tree
   activeadmin!
   alipay (~> 0.3.0)

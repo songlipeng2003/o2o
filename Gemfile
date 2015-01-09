@@ -121,3 +121,6 @@ gem 'paper_trail', '~> 3.0.6'
 
 # alipay
 gem 'alipay', '~> 0.3.0'
+
+# status
+gem 'aasm', '~> 4.0.8'
