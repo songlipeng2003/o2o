@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108151227) do
+ActiveRecord::Schema.define(version: 20150109013706) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 20150108151227) do
     t.integer  "amount"
     t.string   "state"
     t.datetime "created_at"
+    t.datetime "payed_at"
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
@@ -202,6 +203,18 @@ ActiveRecord::Schema.define(version: 20150108151227) do
     t.float    "lat",           limit: 24
     t.float    "lon",           limit: 24
   end
+
+  create_table "trading_records", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "type"
+    t.integer  "amount"
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.string   "remark"
+    t.datetime "created_at"
+  end
+
+  add_index "trading_records", ["user_id"], name: "index_trading_records_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
