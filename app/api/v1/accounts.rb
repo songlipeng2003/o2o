@@ -57,6 +57,7 @@ module V1
             password: password,
             password_confirmation: password
           })
+          user.save()
         end
 
         {
