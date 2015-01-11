@@ -1,6 +1,6 @@
 class Address < ActiveRecord::Base
-  validates :address, presence: true
-  validates :type, presence: true, inclusion: { in: %w(home company other) }
+  validates :place, presence: true
+  validates :address_type, presence: true, inclusion: { in: %w(home company other) }
   validates :lat, presence: true
   validates :lon, presence: true
 

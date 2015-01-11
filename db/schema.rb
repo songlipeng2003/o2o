@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111111949) do
+ActiveRecord::Schema.define(version: 20150111114421) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150111111949) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "addresses", force: true do |t|
-    t.string   "address"
+    t.string   "place"
     t.string   "address_type"
     t.float    "lat",          limit: 24
     t.float    "lon",          limit: 24
