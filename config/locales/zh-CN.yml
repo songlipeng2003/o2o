@@ -59,6 +59,7 @@ zh-CN:
         car_model_id: '车型'
         license_tag: '牌照'
         buy_date: '购买日期'
+        color: '颜色'
         created_at: '创建时间'
         updated_at: '更新时间'
       announcement:
@@ -144,6 +145,11 @@ zh-CN:
         lon: '经度'
         lat: '纬度'
         note: '备注'
+        state: '状态'
+        state/unpayed: '未付款'
+        state/payed: '已付款'
+        state/closed: '已关闭'
+        state/finished: '已完成'
         created_at: '创建时间'
         updated_at: '更新时间'
       application:

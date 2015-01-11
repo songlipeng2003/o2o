@@ -10,6 +10,9 @@ ActiveAdmin.register Order do
     column :phone
     column :address
     column :book_at
+    column :state do |order|
+      order.aasm.human_state
+    end
     column :created_at
     actions
   end

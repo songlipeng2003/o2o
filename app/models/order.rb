@@ -1,4 +1,6 @@
 class Order < ActiveRecord::Base
+  include AASM
+
   belongs_to :user
   belongs_to :store
   belongs_to :car
@@ -18,4 +20,23 @@ class Order < ActiveRecord::Base
   validates_associated :car
 
   has_paper_trail
+
+  aasm column: :state do
+    state :unpayed, :initial => true
+    state :payed
+    state :finished
+    state :closed
+
+    event :pay do
+      transitions :from => :unpayed, :to => :payed
+    end
+
+    event :close do
+      transitions :from => :unpayed, :to => :closed
+    end
+
+    event :finish do
+      transitions :from => :payed, :to => :finished
+    end
+  end
 end
