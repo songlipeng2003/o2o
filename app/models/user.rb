@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :addresses
   has_many :recharges
+  has_many :trading_records
 
   has_paper_trail
 
