@@ -5,7 +5,14 @@ module V1
     end
 
     resource :orders do
-      desc "订单"
+      desc "订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
       params do
         optional :page, type: Integer, desc: "页码"
         optional :per_page, type: Integer, desc: '每页数量'
@@ -15,7 +22,14 @@ module V1
         paginate current_user.orders
       end
 
-      desc "订单详情"
+      desc "订单详情", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
       params do
         requires :id, type: Integer, desc: "ID"
       end
@@ -25,7 +39,14 @@ module V1
         end
       end
 
-      desc "重发短信接口"
+      desc "重发短信接口", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
       params do
         requires :id, type: Integer, desc: "ID"
       end
@@ -34,26 +55,41 @@ module V1
         end
       end
 
-      desc "生成订单"
+      desc "生成订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
       params do
         requires :phone, type: String, desc: "手机"
+        requires :store_id, type: Integer, desc: "商户编号"
         requires :car_id, type: Integer, desc: "汽车编号"
         requires :address, type: String, desc: "地址"
         requires :book_at, type: String, desc: "预约时间"
-        requires :note, type: String, desc: "订单备注"
-        requires :lon, type: Float, desc: "经度"
-        requires :lat, type: Float, desc: "纬度"
+        optional :note, type: String, desc: "订单备注"
+        requires :lon, type: String, desc: "经度"
+        requires :lat, type: String, desc: "纬度"
       end
       post do
-        present current_user.orders.create(params)
+        present current_user.orders.create(permitted_params)
       end
 
-      desc "评价"
+      desc "评价", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
       params do
         requires :id, type: Integer, desc: "ID"
         requires :evaluate, type: Integer, desc: '评价，1-5'
         optional :note, type: String, desc: '备注'
-        optional :images, type: Array, desc: '图片'
+        optional :images, type: String, desc: '图片'
       end
       route_param ':id/evaluate' do
         patch do
