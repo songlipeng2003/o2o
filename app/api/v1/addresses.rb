@@ -87,7 +87,9 @@ module V1
       route_param :id do
         delete do
           address = current_user.addresses.find(params[:id])
-          present address.delete
+          address.destroy
+          # status 204
+          { code: 0 }
         end
       end
     end

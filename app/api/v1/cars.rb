@@ -88,7 +88,9 @@ module V1
       route_param :id do
         delete do
           car = current_user.cars.find(params[:id])
-          present car.delete
+          car.destroy
+          # status 204
+          { code: 0 }
         end
       end
     end
