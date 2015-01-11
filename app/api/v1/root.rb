@@ -15,6 +15,10 @@ module V1
       def logger
         API.logger
       end
+
+      def permitted_params
+        @permitted_params ||= declared(params, include_missing: false)
+      end
     end
 
     helpers do
@@ -24,11 +28,13 @@ module V1
 
       def authenticated
         return true if warden.authenticated? :scope => :user
-        params[:access_token] && @user = User.find_by_authentication_token(params[:access_token])
+        $access_token = params[:access_token] || request.headers['X-Access-Token'];
+        $access_token && @user = User.find_by_authentication_token($access_token)
       end
 
       def current_user
-        warden.user :scope => :user || @user
+        # warden.user :scope => :user || @user
+        @user
       end
     end
 
