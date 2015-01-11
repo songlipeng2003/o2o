@@ -6,5 +6,5 @@ class Address < ActiveRecord::Base
 
   belongs_to :user
 
-  default_value_for :type, 'other'
+  default_value_for :address_type, 'other'
 end

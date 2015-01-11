@@ -5,34 +5,34 @@ module V1
     end
 
     resource :addresses do
-      # desc "地址", {
-      #   headers: {
-      #     "X-Access-Token" => {
-      #       description: "Token",
-      #       required: true
-      #     },
-      #   }
-      # }
-      # get do
-      #   present current_user.addresses.all
-      # end
+      desc "地址", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      get do
+        present current_user.addresses.all
+      end
 
-      # desc "地址详情", {
-      #   headers: {
-      #     "X-Access-Token" => {
-      #       description: "Token",
-      #       required: true
-      #     },
-      #   }
-      # }
-      # params do
-      #   requires :id, type: Integer, desc: "ID"
-      # end
-      # route_param :id do
-      #   get do
-      #     present current_user.addresses.find(params[:id])
-      #   end
-      # end
+      desc "地址详情", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "ID"
+      end
+      route_param :id do
+        get do
+          present current_user.addresses.find(params[:id])
+        end
+      end
 
       desc "添加地址", {
         headers: {
@@ -43,12 +43,12 @@ module V1
         }
       }
       params do
-        requires :place, type: 'string', desc: "地址"
-        optional :address_type, type: 'string', desc: "类型：home,company,other，可不填，默认other"
-        requires :lat, type: 'string', desc: "纬度"
-        requires :lon, type: 'string', desc: "经度"
+        requires :place, type: String, desc: "地址"
+        optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
+        requires :lat, type: String, desc: "纬度"
+        requires :lon, type: String, desc: "经度"
       end
-      get do
+      post do
         present current_user.addresses.create(permitted_params)
       end
 
@@ -61,10 +61,10 @@ module V1
         }
       }
       params do
-        requires :id, type: 'integer', desc: "ID"
-        optional :plat, type: 'string', desc: "地址"
-        requires :lat, type: 'float', desc: "纬度"
-        requires :lon, type: 'float', desc: "经度"
+        requires :id, type: Integer, desc: "ID"
+        requires :place, type: String, desc: "地址"
+        requires :lat, type: String, desc: "纬度"
+        requires :lon, type: String, desc: "经度"
       end
       route_param :id do
         put do
