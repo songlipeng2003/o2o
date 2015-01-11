@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109013706) do
+ActiveRecord::Schema.define(version: 20150111111949) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 20150109013706) do
 
   create_table "addresses", force: true do |t|
     t.string   "address"
-    t.string   "type"
-    t.float    "lat",        limit: 24
-    t.float    "lon",        limit: 24
+    t.string   "address_type"
+    t.float    "lat",          limit: 24
+    t.float    "lon",          limit: 24
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20150109013706) do
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "recharges", force: true do |t|
