@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :cars
   has_many :orders
   has_many :addresses
+  has_many :recharges
 
   has_paper_trail
 

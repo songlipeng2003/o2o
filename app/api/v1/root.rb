@@ -50,6 +50,7 @@ module V1
     # mount V1::Communities
     mount V1::Docs
     mount V1::Orders
+    mount V1::Recharges
     mount V1::Users
 
     add_swagger_documentation hide_documentation_path: true,
