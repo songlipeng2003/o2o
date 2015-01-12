@@ -16,7 +16,7 @@ zh-CN:
       banner: 'Banner'
       order: '订单'
       application: '应用'
-      paper_trail/version: '操作历史'
+      version: '操作历史'
       recharge: '充值'
       trading_record: '交易记录'
     attributes:
@@ -158,7 +158,7 @@ zh-CN:
         token: 'Token'
         created_at: '创建时间'
         updated_at: '更新时间'
-      paper_trail/version:
+      version:
         id: '编号'
         item: '操作对象'
         event: '操作'
