@@ -175,6 +175,7 @@ zh-CN:
         state/payed: '已付款'
         state/failed: '支付失败'
         created_at: '创建时间'
+        payed_at: '支付时间'
       trading_record:
         id: '编号'
         user: '用户'
