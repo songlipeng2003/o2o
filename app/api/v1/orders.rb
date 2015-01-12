@@ -39,6 +39,26 @@ module V1
         end
       end
 
+      desc "检查交易时间", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :booked_at, type: String, desc: "预定时间"
+        requires :store_ids, type: String, desc: "商户id，使用英文，分隔"
+      end
+      route_param ':id/re_send_sms' do
+        patch do
+          {
+            code: 0
+          }
+        end
+      end
+
       desc "重发短信接口", {
         headers: {
           "X-Access-Token" => {
