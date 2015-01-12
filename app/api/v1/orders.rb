@@ -19,7 +19,8 @@ module V1
       end
       paginate per_page: 10
       get do
-        paginate current_user.orders
+        orders = paginate current_user.orders
+        present orders, with: V1::Entities::Order
       end
 
       desc "订单详情", {
