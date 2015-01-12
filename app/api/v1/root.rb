@@ -66,17 +66,28 @@ module V1
 
           [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
 
-          登录权限验证
+          ## 登录权限验证
+
           /accounts/login登录成功后返回用户信息，用户信息中的authentication_token是授权Token
           当访问需要授权的接口时，需要添加token
 
           token有两种使用方式
 
-          1.使用header X-Access-Token
-          2.使用url参数 access_token
+          1. 使用header X-Access-Token
+          2. 使用url参数 access_token
 
           当访问需要授权接口时，没有使用授权Tokexn，返回401 Unauthorized
           API测试工具中所有需要授权接口，使用header方式访问
+
+          ## 分页返回header头说明
+
+          ~~~~~~~
+          Link: <http://localhost:3000/orders?page=1>; rel="first",
+            <http://localhost:3000/orders?page=173>; rel="last",
+            <http://localhost:3000/orders?page=6>; rel="next",
+            <http://localhost:3000/orders?page=4>; rel="prev"
+          Total: 4321
+          ~~~~~~~
         NOTE
       },
       models: [V1::Entities::CarBrand],
