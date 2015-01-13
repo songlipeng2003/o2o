@@ -3,8 +3,10 @@ class Recharge < ActiveRecord::Base
 
   validate :user_id, presence: true
   validate :amount, presence: true
+  validates_associated :recharge_policy
 
   belongs_to :user
+  belongs_to :recharge_policy
 
   aasm column: :state do
     state :unpayed, :initial => true

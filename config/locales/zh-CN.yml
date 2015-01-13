@@ -18,6 +18,7 @@ zh-CN:
       application: '应用'
       version: '操作历史'
       recharge: '充值'
+      recharge_policy: '充值策略'
       trading_record: '交易记录'
     attributes:
       admin_user:
@@ -171,11 +172,20 @@ zh-CN:
         user_id: '用户'
         amount: '金额'
         state: '状态'
+        recharge_policy: '充值策略'
+        recharge_policy_id: '充值策略'
         state/unpayed: '未付款'
         state/payed: '已付款'
         state/failed: '支付失败'
         created_at: '创建时间'
         payed_at: '支付时间'
+      recharge_policy:
+        id: '编号'
+        amount: '金额'
+        present_amount: '赠送金额'
+        note: '备注'
+        created_at: '创建时间'
+        updated_at: '更新时间'
       trading_record:
         id: '编号'
         user: '用户'

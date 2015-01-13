@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112094932) do
+ActiveRecord::Schema.define(version: 20150113034422) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -181,12 +181,21 @@ ActiveRecord::Schema.define(version: 20150112094932) do
     t.string   "state"
   end
 
+  create_table "recharge_policies", force: true do |t|
+    t.integer  "amount"
+    t.integer  "present_amount"
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "recharges", force: true do |t|
     t.integer  "user_id"
     t.integer  "amount"
     t.string   "state"
     t.datetime "created_at"
     t.datetime "payed_at"
+    t.integer  "recharge_policy_id"
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree

@@ -1,4 +1,6 @@
 ActiveAdmin.register Recharge do
+  menu parent: '财务'
+
   actions :index, :show
 
   index do
@@ -6,6 +8,7 @@ ActiveAdmin.register Recharge do
     id_column
     column :user
     column :amount
+    column :recharge_policy
     column :state do |recharge|
       recharge.aasm.human_state
     end
@@ -24,6 +27,7 @@ ActiveAdmin.register Recharge do
       row :id
       row :user
       row :amount
+      row :recharge_policy
       row :state do |recharge|
         recharge.aasm.human_state
       end
