@@ -8,17 +8,21 @@ class User < ActiveRecord::Base
   has_many :recharges
   has_many :trading_records
 
+  before_save :ensure_authentication_token
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  before_save :ensure_authentication_token
-
   has_paper_trail
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token
+  end
+
+  def pay_password
+    self.encrypted_pay_password = password_digest(@pay_password)
   end
 
   def self.find_for_database_authentication(warden_conditions)
