@@ -23,6 +23,25 @@ module V1
         present orders, with: V1::Entities::Order
       end
 
+      desc "计算订单价格接口", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :car_model_id, type: Integer, desc: "车型ID"
+        requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
+      end
+      get :price do
+        price = 15
+        {
+          price: price
+        }
+      end
+
       desc "订单详情", {
         headers: {
           "X-Access-Token" => {
@@ -36,7 +55,7 @@ module V1
       end
       route_param :id do
         get do
-          present current_user.orders.find(params[:id])
+          present current_user.orders.find(params[:id]), with: V1::Entities::Order
         end
       end
 
