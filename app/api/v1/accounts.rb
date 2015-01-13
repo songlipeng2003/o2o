@@ -48,16 +48,20 @@ module V1
         end
 
         phone = params[:phone]
-        user = User.where('phone=?', phone)
+        user = User.where('phone=?', phone).first
         unless user
           password = User.random_password
           user = User.new({
             email: User.random_email,
             phone: phone,
-            password: password,
-            password_confirmation: password
+            password: password
           })
-          user.save()
+          unless user.save
+            return {
+              code: 2,
+              msg: user.errors
+            }
+          end
         end
 
         {
