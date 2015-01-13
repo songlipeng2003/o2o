@@ -28,10 +28,14 @@ module V1
         }
       }
       params do
-        requires :amount, type: Integer, desc: "金额"
+        optional :amount, type: Integer, desc: "金额,和充值策略只能选择一个"
+        optional :recharge_policy_id, type: Integer, desc: "充值策略"
+        mutually_exclusive :amount, :recharge_policy_id
       end
       post do
-        present current_user.recharges.create(permitted_params), with: V1::Entities::Recharge
+        recharge = current_user.recharges.new(permitted_params)
+        recharge.save
+        present recharge, with: V1::Entities::Recharge
       end
     end
   end

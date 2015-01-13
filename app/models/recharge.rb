@@ -1,12 +1,18 @@
 class Recharge < ActiveRecord::Base
   include AASM
 
-  validate :user_id, presence: true
-  validate :amount, presence: true
+  validates :user_id, presence: true
+  validates :amount, presence: true
   validates_associated :recharge_policy
 
   belongs_to :user
   belongs_to :recharge_policy
+
+  before_validation :ensure_amount
+
+  def ensure_amount
+    self.amount ||= recharge_policy.amount
+  end
 
   aasm column: :state do
     state :unpayed, :initial => true

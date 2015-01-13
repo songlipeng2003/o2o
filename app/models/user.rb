@@ -2,18 +2,18 @@ class User < ActiveRecord::Base
 
   validates :phone, presence: true, uniqueness: true
 
+  has_many :cars
+  has_many :orders
+  has_many :addresses
+  has_many :recharges
+  has_many :trading_records
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   before_save :ensure_authentication_token
-
-  has_many :cars
-  has_many :orders
-  has_many :addresses
-  has_many :recharges
-  has_many :trading_records
 
   has_paper_trail
 
