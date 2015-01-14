@@ -43,8 +43,30 @@ module V1
       route_param :id do
         get :is_set_pay_password do
           authenticate!
-          error!("Forbidden", 403) unless current_user.id==params[:id]
+          error!("403 Forbidden", 403) unless current_user.id==params[:id]
           !current_user.encrypted_pay_password.blank?
+        end
+      end
+
+      desc "设置支付密码（仅能访问登录用户自己,设置密码接口仅在未设置支付密码时，设置一次）", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "ID"
+        requires :pay_password, type: String, desc: "支付密码,至少六位"
+      end
+      route_param :id do
+        patch :set_pay_password do
+          authenticate!
+          error!("403 Forbidden", 403) unless current_user.id==params[:id]
+          error!("422 Unprocesable entity", 422) unless current_user.encrypted_pay_password.blank?
+          current_user.pay_password = params[:pay_password]
+          current_user.save
         end
       end
     end

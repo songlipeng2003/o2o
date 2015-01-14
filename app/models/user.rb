@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
     self.authentication_token ||= generate_authentication_token
   end
 
-  def pay_password
-    self.encrypted_pay_password = password_digest(@pay_password)
+  def pay_password=(pay_password)
+    self.encrypted_pay_password = password_digest(pay_password)
   end
 
   def self.find_for_database_authentication(warden_conditions)
