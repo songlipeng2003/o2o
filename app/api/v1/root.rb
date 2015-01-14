@@ -19,9 +19,7 @@ module V1
       def permitted_params
         @permitted_params ||= declared(params, include_missing: false)
       end
-    end
 
-    helpers do
       def warden
         env['warden']
       end
@@ -30,6 +28,10 @@ module V1
         return true if warden.authenticated? :scope => :user
         $access_token = params[:access_token] || request.headers['X-Access-Token'];
         $access_token && @user = User.find_by_authentication_token($access_token)
+      end
+
+      def authenticate!
+        error!("401 Unauthorized", 401) unless authenticated
       end
 
       def current_user
