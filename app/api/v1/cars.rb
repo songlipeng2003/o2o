@@ -89,8 +89,8 @@ module V1
         delete do
           car = current_user.cars.find(params[:id])
           car.destroy
-          # status 204
-          { code: 0 }
+          status 204
+          # { code: 0 }
         end
       end
     end

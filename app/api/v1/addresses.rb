@@ -88,8 +88,8 @@ module V1
         delete do
           address = current_user.addresses.find(params[:id])
           address.destroy
-          # status 204
-          { code: 0 }
+          status 204
+          # { code: 0 }
         end
       end
     end
