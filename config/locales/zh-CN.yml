@@ -100,6 +100,7 @@ zh-CN:
         good_rate: '好评率'
         collect_count: '收藏数'
         score: '分数'
+        service_area: '服务区域'
         created_at: '创建时间'
         updated_at: '更新时间'
       area:

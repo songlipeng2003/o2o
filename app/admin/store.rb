@@ -1,5 +1,5 @@
 ActiveAdmin.register Store do
-  permit_params :name, :address, :phone, :description, :lon, :lat
+  permit_params :name, :address, :phone, :description, :lon, :lat, :service_area
 
   index do
     selectable_column
@@ -14,17 +14,17 @@ ActiveAdmin.register Store do
   filter :address
   filter :phone
 
-  form do |f|
-    f.inputs do
-      f.input :name
-      f.input :address
-      f.input :phone
-      f.input :description
-      f.input :lon
-      f.input :lat
-    end
-    f.actions
-  end
+  form :partial => "form"
 
-
+  # form do |f|
+  #   f.inputs do
+  #     f.input :name
+  #     f.input :address
+  #     f.input :phone
+  #     f.input :description
+  #     f.input :lon
+  #     f.input :lat
+  #   end
+  #   f.actions
+  # end
 end
