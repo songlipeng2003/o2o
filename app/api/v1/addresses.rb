@@ -44,9 +44,10 @@ module V1
       }
       params do
         requires :place, type: String, desc: "地址"
-        optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
         requires :lat, type: String, desc: "纬度"
         requires :lon, type: String, desc: "经度"
+        optional :name, type: String, desc: "名字"
+        optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
       end
       post do
         present current_user.addresses.create(permitted_params)
@@ -65,6 +66,7 @@ module V1
         requires :place, type: String, desc: "地址"
         requires :lat, type: String, desc: "纬度"
         requires :lon, type: String, desc: "经度"
+        optional :name, type: String, desc: "名字"
       end
       route_param :id do
         put do
