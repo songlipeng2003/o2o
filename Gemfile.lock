@@ -254,6 +254,8 @@ GEM
       rack (>= 1.0.0)
     rack-protection (1.5.3)
       rack
+    rack-raw-upload (1.1.1)
+      multi_json
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.6)
@@ -411,6 +413,7 @@ DEPENDENCIES
   mysql2
   paper_trail (~> 3.0.6)
   quiet_assets (~> 1.0.3)
+  rack-raw-upload (~> 1.1.1)
   rails (= 4.1.6)
   rails-i18n (~> 4.0.0)
   rspec-rails (~> 3.0.0)

@@ -25,5 +25,7 @@ module Didi
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+
+    config.middleware.use 'Rack::RawUpload'
   end
 end

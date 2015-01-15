@@ -124,3 +124,5 @@ gem 'alipay', '~> 0.3.0'
 
 # status
 gem 'aasm', '~> 4.0.8'
+
+gem 'rack-raw-upload', '~> 1.1.1'

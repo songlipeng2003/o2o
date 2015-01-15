@@ -7,10 +7,14 @@ module V1
             description: "Token",
             required: true
           },
+          "X-File-Name" => {
+            description: "二进制上传时的文件名",
+            required: false
+          }
         }
       }
       params do
-        optional :file, type: Rack::Multipart::UploadedFile, desc: "文件"
+        optional :file, type: Rack::Multipart::UploadedFile, desc: "文件,也可以直接使用二进制流上传,在header中添加X-File-Name作为文件名"
       end
       post do
         authenticate!
