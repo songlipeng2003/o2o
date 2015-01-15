@@ -51,6 +51,7 @@ module V1
     mount V1::Cars
     # mount V1::Communities
     mount V1::Docs
+    mount V1::Files
     mount V1::Orders
     mount V1::RechargePolicies
     mount V1::Recharges
