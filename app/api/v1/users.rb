@@ -69,6 +69,30 @@ module V1
           current_user.save
         end
       end
+
+      desc "获取个人信息,APP我的界面所需要的相关信息", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "ID"
+        requires :last_time, type: Integer, desc: "时间戳"
+      end
+      route_param :id do
+        patch :info do
+          authenticate!
+          error!("403 Forbidden", 403) unless current_user.id==params[:id]
+          {
+            balance: current_user.balance,
+            unreaded_msg_count: Announcement.count_of(params[:last_time])
+          }
+        end
+      end
+
     end
   end
 end
