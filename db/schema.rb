@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113155650) do
+ActiveRecord::Schema.define(version: 20150115090806) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -172,13 +172,15 @@ ActiveRecord::Schema.define(version: 20150113155650) do
     t.integer  "car_id"
     t.string   "phone"
     t.string   "address"
-    t.float    "lat",        limit: 24
-    t.float    "lon",        limit: 24
+    t.float    "lat",                 limit: 24
+    t.float    "lon",                 limit: 24
     t.datetime "book_at"
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
+    t.boolean  "is_underground_park",            default: false
+    t.string   "carport"
   end
 
   create_table "recharge_policies", force: true do |t|
@@ -225,6 +227,13 @@ ActiveRecord::Schema.define(version: 20150113155650) do
   end
 
   add_index "trading_records", ["user_id"], name: "index_trading_records_on_user_id", using: :btree
+
+  create_table "upload_files", force: true do |t|
+    t.string   "filename"
+    t.integer  "filesize"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                             default: "",  null: false

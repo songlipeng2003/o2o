@@ -109,9 +109,11 @@ module V1
         requires :car_id, type: Integer, desc: "汽车编号"
         requires :address, type: String, desc: "地址"
         requires :book_at, type: String, desc: "预约时间"
-        optional :note, type: String, desc: "订单备注"
         requires :lon, type: String, desc: "经度"
         requires :lat, type: String, desc: "纬度"
+        optional :is_underground_park, type: Boolean, desc: "是否在低下停车库"
+        optional :carport, type: String, desc: "车位号"
+        optional :note, type: String, desc: "订单备注"
       end
       post do
         present current_user.orders.create(permitted_params)
