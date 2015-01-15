@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115135445) do
+ActiveRecord::Schema.define(version: 20150115140415) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20150115135445) do
     t.integer  "store_id"
     t.integer  "car_id"
     t.string   "phone"
-    t.string   "address"
+    t.string   "place"
     t.float    "lat",                 limit: 24
     t.float    "lon",                 limit: 24
     t.datetime "book_at"
@@ -182,6 +182,11 @@ ActiveRecord::Schema.define(version: 20150115135445) do
     t.string   "state"
     t.boolean  "is_underground_park",            default: false
     t.string   "carport"
+    t.string   "license_tag"
+    t.integer  "car_model_id"
+    t.string   "car_color"
+    t.integer  "address_id"
+    t.integer  "product_id"
   end
 
   create_table "recharge_policies", force: true do |t|

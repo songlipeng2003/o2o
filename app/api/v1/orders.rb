@@ -106,12 +106,23 @@ module V1
       params do
         requires :phone, type: String, desc: "手机"
         requires :store_id, type: Integer, desc: "商户编号"
-        requires :car_id, type: Integer, desc: "汽车编号"
-        requires :address, type: String, desc: "地址"
+        optional :car_id, type: Integer, desc: "汽车编号,汽车编号和汽车详情仅需填写一个"
+        optional :car, type: Hash do
+          optional :car_model_id, type: Integer, desc: "汽车型号编号"
+          optional :color, type: String, desc: "汽车颜色"
+          optional :license_tag, type: String, desc: "车牌号"
+        end
+        mutually_exclusive :car_id, :car
+        optional :address_id, type: Integer, desc: "地址编号,地址编号喝地址信息仅需填写一个"
+        optional :address, type: Hash do
+          optional :place, type: String, desc: "地址"
+          optional :lon, type: String, desc: "经度"
+          optional :lat, type: String, desc: "纬度"
+        end
+        mutually_exclusive :address, :address_id
         requires :book_at, type: String, desc: "预约时间"
-        requires :lon, type: String, desc: "经度"
-        requires :lat, type: String, desc: "纬度"
-        optional :is_underground_park, type: Boolean, desc: "是否在低下停车库"
+        optional :product_id, type: Integer, desc: "商品编号，默认为1标准洗车"
+        optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :carport, type: String, desc: "车位号"
         optional :note, type: String, desc: "订单备注"
       end
