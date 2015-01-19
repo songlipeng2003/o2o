@@ -21,7 +21,17 @@
 var map, mouse_tool, editor_tool;
 //初始化地图对象，加载地图
 function map_init(){
-  map = new AMap.Map("map");
+  map = new AMap.Map("map",{
+    //二维地图显示视口
+    view: new AMap.View2D({
+      // center:new AMap.LngLat(116.397428,39.90923),//地图中心点
+      zoom:13 //地图显示的缩放级别
+    })
+  });
+  map.plugin(["AMap.ToolBar"],function(){
+    tool = new AMap.ToolBar();
+    map.addControl(tool);
+  });
 
   $(function(){
     var area = $('#store_service_area').val();
