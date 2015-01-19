@@ -120,7 +120,7 @@ module V1
           optional :lat, type: String, desc: "纬度"
         end
         mutually_exclusive :address, :address_id
-        requires :book_at, type: String, desc: "预约时间"
+        requires :booked_at, type: String, desc: "预约时间"
         optional :product_id, type: Integer, desc: "商品编号，默认为1标准洗车"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :carport, type: String, desc: "车位号"

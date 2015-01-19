@@ -8,7 +8,7 @@ module V1
       expose :address
       expose :lat
       expose :lon
-      expose :book_at
+      expose :booked_at
       expose :note
       expose :created_at
       expose :state

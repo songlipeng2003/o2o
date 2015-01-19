@@ -6,6 +6,7 @@ class Store < ActiveRecord::Base
   validates :lon, presence: true, numericality: true
   validates :lat, presence: true, numericality: true
 
+  # 是否在服务范围内
   def self.in_service_scope(lon, lat)
     query = {
       query:{
@@ -30,8 +31,19 @@ class Store < ActiveRecord::Base
 
     logger.debug query.to_yaml
 
-    result = Store.__elasticsearch__.search(query)
-    return result.count>0
+    __elasticsearch__.search(query)
+  end
+
+  def self.can_serviced(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    ids = stores.map { |store| store._id }
+    if ids.count>0
+      count = Order.where({ store_id: ids, booked_at:booked_at }).count
+      logger.info(count)
+      count<ids.count
+    else
+      false
+    end
   end
 
   include ElasticsearchSearchable

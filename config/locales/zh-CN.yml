@@ -143,7 +143,7 @@ zh-CN:
         car_id: '汽车'
         phone: '电话'
         address: '地址'
-        book_at: '预约时间'
+        booked_at: '预约时间'
         lon: '经度'
         lat: '纬度'
         note: '备注'

@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   validates :lat, presence: true
   validates :lon, presence: true
   validates :product_id, presence: true
-  validates :book_at, presence: true
+  validates :booked_at, presence: true
   validates :note, length: { maximum: 255 }
 
   validates_associated :user

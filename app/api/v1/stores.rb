@@ -8,7 +8,8 @@ module V1
         requires :lat, type: Float, desc: "纬度"
       end
       get 'in_service_scope' do
-        Store.in_service_scope(params[:lon], params[:lat])
+        result = Store.in_service_scope(params[:lon], params[:lat])
+        result.count>0
       end
 
       desc "根据经纬度和服务时间获取是否提供服务器，未实现，暂时返回可以"
@@ -17,8 +18,8 @@ module V1
         requires :lat, type: Float, desc: "纬度"
         requires :booked_at, type: String, desc: "服务时间"
       end
-      get 'can_service' do
-        # { code: 0 }
+      get 'can_serviced' do
+        Store.can_serviced(params[:lon], params[:lat], params[:booked_at])
       end
     end
   end

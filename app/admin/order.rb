@@ -9,7 +9,7 @@ ActiveAdmin.register Order do
     column :car
     column :phone
     column :address
-    column :book_at
+    column :booked_at
     column :state do |order|
       order.aasm.human_state
     end
@@ -19,6 +19,6 @@ ActiveAdmin.register Order do
 
   filter :phone
   filter :address
-  filter :book_at
+  filter :booked_at
   filter :created_at
 end
