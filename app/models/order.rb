@@ -25,6 +25,8 @@ class Order < ActiveRecord::Base
   validates_associated :car
   # validates_associated :product
 
+  before_create :cal_total_amount
+
   has_paper_trail
 
   aasm column: :state do
@@ -36,12 +38,14 @@ class Order < ActiveRecord::Base
     event :pay do
       transitions :from => :unpayed, :to => :payed
 
-      trading_record = TradingRecord.new
-      trading_record.user_id = self.user_id
-      trading_record.type = TradingRecord::TYPE_EXPENSE
-      trading_record.object = self
-      trading_record.amount = this.total_amount
-      trading_record.save
+      after do
+        trading_record = TradingRecord.new
+        trading_record.user_id = self.user_id
+        trading_record.type = TradingRecord::TYPE_EXPENSE
+        trading_record.object = self
+        trading_record.amount = this.total_amount
+        trading_record.save
+      end
     end
 
     event :close do
@@ -51,5 +55,9 @@ class Order < ActiveRecord::Base
     event :finish do
       transitions :from => :payed, :to => :finished
     end
+  end
+
+  def cal_total_amount
+    self.total_amount ||= 15;
   end
 end
