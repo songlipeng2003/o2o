@@ -45,7 +45,7 @@ module V1
       params do
         requires :car_model_id, type: Integer, desc: "车型id"
         requires :license_tag, type: String, desc: "牌照"
-        requires :buy_date, type: String, desc: "购买日期, 格式： 2014-01-01"
+        # requires :buy_date, type: String, desc: "购买日期, 格式： 2014-01-01"
         requires :color, type: String, desc: "颜色,直接使用中文名称"
       end
       post do
@@ -64,7 +64,7 @@ module V1
         requires :id, type: Integer, desc: "ID"
         requires :car_model_id, type: Integer, desc: "车型id"
         requires :license_tag, type: String, desc: "牌照"
-        requires :buy_date, type: Date, desc: "购买日期, 格式： 2014-01-01"
+        # requires :buy_date, type: Date, desc: "购买日期, 格式： 2014-01-01"
         requires :color, type: String, desc: "颜色"
       end
       route_param :id do
