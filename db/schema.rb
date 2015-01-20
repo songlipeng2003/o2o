@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119141929) do
+ActiveRecord::Schema.define(version: 20150120151602) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150119141929) do
     t.string   "car_color"
     t.integer  "address_id"
     t.integer  "product_id"
+    t.float    "total_amount",        limit: 24
   end
 
   create_table "recharge_policies", force: true do |t|

@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
   belongs_to :car
+  belongs_to :address
 
   validates :user_id, presence: true
   validates :store_id, presence: true
@@ -26,6 +27,16 @@ class Order < ActiveRecord::Base
   # validates_associated :product
 
   before_create :cal_total_amount
+
+  before_validation(on: :create) do
+    self.car_model_id = self.car.car_model_id
+    self.car_color = self.car.color
+    self.license_tag = self.car.license_tag
+
+    self.place = self.address.place
+    self.lon = self.address.lon
+    self.lat = self.address.lat
+  end
 
   has_paper_trail
 

@@ -17,7 +17,11 @@ module V1
       end
 
       def permitted_params
-        @permitted_params ||= declared(params, include_missing: false)
+        @permitted_params ||= declared(params, include_missing: false, include_parent_namespaces: false)
+      end
+
+      def clean_params(params)
+        ActionController::Parameters.new(params)
       end
 
       def warden
