@@ -21,6 +21,27 @@ class Recharge < ActiveRecord::Base
 
     event :pay do
       transitions :from => :unpayed, :to => :payed
+
+      after do
+        trading_record = TradingRecord.new
+        trading_record.user_id = self.user_id
+        trading_record.type = TradingRecord::TYPE_RECHARGE
+        trading_record.object = self
+        trading_record.amount = self.amount
+        trading_record.save
+
+        if self.recharge_policy_id
+          trading_record = TradingRecord.new
+          trading_record.user_id = self.user_id
+          trading_record.type = TradingRecord::TYPE_PRESENT
+          trading_record.object = self
+          trading_record.amount = self.recharge_policy.present_amount
+          trading_record.save
+        end
+
+        self.payed_at = Time.now
+        self.save
+      end
     end
 
     event :fail do

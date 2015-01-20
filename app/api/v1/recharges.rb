@@ -37,6 +37,23 @@ module V1
         recharge.save
         present recharge, with: V1::Entities::Recharge
       end
+
+      desc "充值成功，仅为测试，后面删除", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "ID"
+      end
+      route_param :id do
+        get do
+          present current_user.recharges.find(params[:id]).pay
+        end
+      end
     end
   end
 end
