@@ -127,7 +127,20 @@ module V1
         optional :note, type: String, desc: "订单备注"
       end
       post do
-        present current_user.orders.create(permitted_params)
+        order current_user.orders.new(permitted_params)
+        unless permitted_params[:car].blank?
+          car = Car.new(permitted_params[:car])
+          car.save
+          order.car_id = car.id
+        end
+
+        unless permitted_params[:address].blank?
+          address = Address.new(permitted_params[:address])
+          address.save
+          order.address_id = address.id
+        end
+
+        present order.save
       end
 
       desc "评价", {
