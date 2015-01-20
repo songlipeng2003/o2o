@@ -98,7 +98,7 @@ module V1
           ~~~~~~~
         NOTE
       },
-      models: [V1::Entities::CarBrand],
+      models: [V1::Entities::CarBrand, V1::Entities::Car],
       markdown: GrapeSwagger::Markdown::KramdownAdapter
   end
 end

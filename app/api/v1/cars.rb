@@ -14,7 +14,7 @@ module V1
         }
       }
       get do
-        present current_user.cars.all
+        present current_user.cars.all, with: V1::Entities::Car
       end
 
       desc "汽车详情", {
@@ -30,7 +30,7 @@ module V1
       end
       route_param :id do
         get do
-          present current_user.cars.find(params[:id])
+          present current_user.cars.find(params[:id]), with: V1::Entities::Car
         end
       end
 
