@@ -35,6 +35,13 @@ class Order < ActiveRecord::Base
 
     event :pay do
       transitions :from => :unpayed, :to => :payed
+
+      trading_record = TradingRecord.new
+      trading_record.user_id = self.user_id
+      trading_record.type = TradingRecord::TYPE_EXPENSE
+      trading_record.object = self
+      trading_record.amount = this.total_amount
+      trading_record.save
     end
 
     event :close do
