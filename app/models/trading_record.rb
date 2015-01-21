@@ -17,7 +17,14 @@ class TradingRecord < ActiveRecord::Base
   validates :object, presence: true
   validates :trading_type, presence: true
 
+  after_save :change_balance
+
   def trading_type_name
     TRADING_TYPES[self.trading_type]
+  end
+
+  def change_balance
+    user.balance += amount
+    user.save
   end
 end
