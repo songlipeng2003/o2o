@@ -69,7 +69,6 @@ module V1
       }
       params do
         requires :phone, type: String, desc: "手机"
-        requires :store_id, type: Integer, desc: "商户编号"
         optional :car_id, type: Integer, desc: "汽车编号,汽车编号和汽车详情仅需填写一个"
         optional :car, type: Hash do
           optional :car_model_id, type: Integer, desc: "汽车型号编号"
@@ -101,16 +100,44 @@ module V1
           order.car_id = car.id
         end
 
-        unless params[:address].blank?
+        if params[:address].blank?
+          address = current_user.addresses.find(params[:address_id])
+        else
           address = current_user.addresses.new(clean_params(params).require(:address).permit(:place, :lon, :lat))
           address.save
           order.address_id = address.id
         end
 
+        result = Store.in_service_scope(address.lon, address.lat)
+        if result.count==0
+          return {
+            code: 1,
+            msg: '不在服务范围内'
+          }
+        end
+
+        store_id = Store.can_serviced_store(address.lon, address.lat, params[:booked_at])
+
+        unless store_id
+          return {
+            code: 1,
+            msg: '已经被预约，请预约其他时间'
+          }
+        end
+
+        order.store_id = store_id
+
         if order.save
-          present order
+          return {
+            code: 0,
+            data: order
+          }
          else
-          present order.errors
+          return {
+            code: 2,
+            msg: '下单错误，请稍后重试',
+            error: order.errors
+          }
         end
       end
 

@@ -39,11 +39,23 @@ class Store < ActiveRecord::Base
     ids = stores.map { |store| store._id }
     if ids.count>0
       count = Order.where({ store_id: ids, booked_at:booked_at }).count
-      logger.info(count)
       count<ids.count
     else
       false
     end
+  end
+
+  def self.can_serviced_store(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    ids = stores.map { |store| store._id }
+    if ids.count>0
+      for i in 0...ids.count
+        if Order.where({ store_id: ids[i], booked_at:booked_at }).blank?
+          return ids[i]
+        end
+      end
+    end
+    false
   end
 
   include ElasticsearchSearchable
