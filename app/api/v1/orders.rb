@@ -59,42 +59,6 @@ module V1
         end
       end
 
-      desc "检查交易时间", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
-      params do
-        requires :booked_at, type: String, desc: "预定时间"
-        requires :store_ids, type: String, desc: "商户id，使用英文，分隔"
-      end
-      route_param ':id/re_send_sms' do
-        patch do
-          {
-            code: 0
-          }
-        end
-      end
-
-      desc "重发短信接口", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
-      params do
-        requires :id, type: Integer, desc: "ID"
-      end
-      route_param ':id/re_send_sms' do
-        patch do
-        end
-      end
-
       desc "生成订单", {
         headers: {
           "X-Access-Token" => {
@@ -166,6 +130,25 @@ module V1
       end
       route_param ':id/evaluate' do
         patch do
+        end
+      end
+
+      desc "订单支付成功，仅为测试，后面删除", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "ID"
+      end
+      route_param :id do
+        get 'pay' do
+          order = current_user.orders.find(params[:id])
+          order.pay
+          present order.save
         end
       end
     end

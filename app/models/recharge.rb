@@ -40,7 +40,6 @@ class Recharge < ActiveRecord::Base
         end
 
         self.payed_at = Time.now
-        self.save
       end
     end
 

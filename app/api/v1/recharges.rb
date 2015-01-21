@@ -50,8 +50,10 @@ module V1
         requires :id, type: Integer, desc: "ID"
       end
       route_param :id do
-        get do
-          present current_user.recharges.find(params[:id]).pay
+        get 'pay' do
+          recharge = current_user.recharges.find(params[:id])
+          recharge.pay
+          present recharge.save
         end
       end
     end
