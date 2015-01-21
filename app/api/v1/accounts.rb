@@ -19,15 +19,20 @@ module V1
           })
 
           if user.save
-            user
+            {
+              code: 0,
+              data: user
+            }
           else
             {
-              message: user.errors
+              code: 1
+              msg: user.errors
             }
           end
         else
           {
-            message: '验证码失败'
+            code: 2;
+            msg: '验证码失败'
           }
         end
       end

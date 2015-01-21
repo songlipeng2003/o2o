@@ -28,7 +28,7 @@ module V1
 
         if result['code'] == 0
           {
-            code: true,
+            code: 0,
             msg: '发送成功'
           }
         else
