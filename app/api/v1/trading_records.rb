@@ -15,7 +15,8 @@ module V1
       }
       paginate per_page: 10
       get do
-        paginate current_user.trading_records
+        trading_records = paginate current_user.trading_records
+        present trading_records, with: V1::Entities::TradingRecord
       end
     end
   end

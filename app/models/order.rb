@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
       after do
         trading_record = TradingRecord.new
         trading_record.user_id = self.user_id
-        trading_record.type = TradingRecord::TYPE_EXPENSE
+        trading_record.trading_type = TradingRecord::TRADING_TYPE_EXPENSE
         trading_record.object = self
         trading_record.amount = self.total_amount
         trading_record.save

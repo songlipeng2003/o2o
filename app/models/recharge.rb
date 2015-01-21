@@ -25,7 +25,7 @@ class Recharge < ActiveRecord::Base
       after do
         trading_record = TradingRecord.new
         trading_record.user_id = self.user_id
-        trading_record.type = TradingRecord::TYPE_RECHARGE
+        trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
         trading_record.object = self
         trading_record.amount = self.amount
         trading_record.save
@@ -33,7 +33,7 @@ class Recharge < ActiveRecord::Base
         if self.recharge_policy_id
           trading_record = TradingRecord.new
           trading_record.user_id = self.user_id
-          trading_record.type = TradingRecord::TYPE_PRESENT
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT
           trading_record.object = self
           trading_record.amount = self.recharge_policy.present_amount
           trading_record.save
