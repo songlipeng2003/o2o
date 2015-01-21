@@ -133,7 +133,7 @@ module V1
         end
       end
 
-      desc "订单支付成功，仅为测试，后面删除", {
+      desc "余额支付", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
@@ -143,12 +143,45 @@ module V1
       }
       params do
         requires :id, type: Integer, desc: "ID"
+        requires :pay_password, type: String, desc: "支付密码"
       end
       route_param :id do
-        get 'pay' do
+        patch 'pay' do
+          if current_user.encrypted_pay_password.blank?
+            return {
+              code: -1,
+              msg: '未设置支付密码'
+            }
+          end
+
+          if password_digest(params[:password])!=current_user.encrypted_pay_password
+            return {
+              code: -2,
+              msg: '支付密码错误'
+            }
+          end
+
           order = current_user.orders.find(params[:id])
+
+          if current_user.balance<order.total_amount
+            return {
+              code: -3,
+              msg: '余额不足'
+            }
+          end
+
           order.pay
-          present order.save
+          if order.save
+            {
+              code: 0
+            }
+          else
+            {
+              code: -1,
+              msg: '支付失败',
+              error: order.errors
+            }
+          end
         end
       end
     end
