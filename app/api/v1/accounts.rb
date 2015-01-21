@@ -25,13 +25,13 @@ module V1
             }
           else
             {
-              code: 1
+              code: 1,
               msg: user.errors
             }
           end
         else
           {
-            code: 2;
+            code: 2,
             msg: '验证码失败'
           }
         end
