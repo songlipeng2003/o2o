@@ -192,7 +192,7 @@ zh-CN:
         user: '用户'
         user_id: '用户'
         amount: '金额'
-        type: '类型'
+        trading_type: '类型'
         object: '交易对象'
         remark: '备注'
         created_at: '创建时间'
