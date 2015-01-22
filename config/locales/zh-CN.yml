@@ -101,6 +101,12 @@ zh-CN:
         collect_count: '收藏数'
         score: '分数'
         service_area: '服务区域'
+        province: '省'
+        province_id: '省'
+        city: '市'
+        city_id: '市'
+        area: '区'
+        area_id: '区'
         created_at: '创建时间'
         updated_at: '更新时间'
       area:

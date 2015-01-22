@@ -1,6 +1,11 @@
 <%= semantic_form_for [:admin, @store] do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :province, :collection => Area.provinces,
+      :input_html => { :class => :cascade_select, 'data-cascade-target' => 'store_city_id' } %>
+    <%= f.input :city, :collection => (f.object.city ? f.object.city.parent.children : ''),
+      :input_html => { :class => :cascade_select, 'data-cascade-target' => 'store_area_id' } %>
+    <%= f.input :area, :collection => (f.object.area ? f.object.area.parent.children : '') %>
     <%= f.input :address %>
     <%= f.input :phone %>
     <%= f.input :description %>
@@ -195,4 +200,5 @@ function end_edit()
 $(function(){
   map_init();
 });
+</script>
 </script>

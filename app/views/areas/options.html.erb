@@ -1,0 +1,4 @@
+<option value=""></option>
+<% @area.children.each do |child| %>
+<option value="<%= child.id %>"><%= child.name %></option>
+<% end %>

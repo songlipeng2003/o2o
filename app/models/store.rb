@@ -5,6 +5,21 @@ class Store < ActiveRecord::Base
   validates :description, presence: true
   validates :lon, presence: true, numericality: true
   validates :lat, presence: true, numericality: true
+  validates :province, presence: true
+  validates :city, presence: true
+  validates :area, presence: true
+
+  validates_associated :province
+  validates_associated :city
+  validates_associated :area
+
+  belongs_to :province, class_name: 'Area'
+  belongs_to :city, class_name: 'Area'
+  belongs_to :area, class_name: 'Area'
+
+  def before_save
+    update_area_info
+  end
 
   # 是否在服务范围内
   def self.in_service_scope(lon, lat)
@@ -85,6 +100,15 @@ class Store < ActiveRecord::Base
 
   def as_indexed_json(options={})
     self.as_json(only: [:name, :address, :phone, :description], methods: :service_area_location)
+  end
+
+  private
+  def update_area_info
+    if self.area_id
+      area = Area.find(self.area_id)
+      self.city_id = area.parent.id
+      self.province_id = area.parent.parent.id
+    end
   end
 end
 
