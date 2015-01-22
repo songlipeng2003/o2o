@@ -1,6 +1,10 @@
 class Order < ActiveRecord::Base
   include AASM
 
+  belongs_to :province, class_name: 'Area'
+  belongs_to :city, class_name: 'Area'
+  belongs_to :area, class_name: 'Area'
+
   belongs_to :user
   belongs_to :store
   belongs_to :car
@@ -20,13 +24,22 @@ class Order < ActiveRecord::Base
   validates :product_id, presence: true
   validates :booked_at, presence: true
   validates :note, length: { maximum: 255 }
+  # validates :province, presence: true
+  # validates :city, presence: true
+  # validates :area, presence: true
 
+  validates_associated :province
+  validates_associated :city
+  validates_associated :area
   validates_associated :user
   validates_associated :store
   validates_associated :car
   # validates_associated :product
 
-  before_create :cal_total_amount
+  before_create do
+    cal_total_amount
+    update_area_info
+  end
 
   before_validation(on: :create) do
     self.car_model_id = self.car.car_model_id
@@ -70,5 +83,15 @@ class Order < ActiveRecord::Base
 
   def cal_total_amount
     self.total_amount ||= 15;
+  end
+
+  private
+  def update_area_info
+    logger.info(store)
+    if store
+      self.area = store.area
+      self.city_id = area.parent.id
+      self.province_id = area.parent.parent.id
+    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122051208) do
+ActiveRecord::Schema.define(version: 20150122155122) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -188,6 +188,9 @@ ActiveRecord::Schema.define(version: 20150122051208) do
     t.integer  "address_id"
     t.integer  "product_id"
     t.float    "total_amount",        limit: 24
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "area_id"
   end
 
   create_table "recharge_policies", force: true do |t|

@@ -17,7 +17,7 @@ class Store < ActiveRecord::Base
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
 
-  def before_save
+  before_create do
     update_area_info
   end
 
