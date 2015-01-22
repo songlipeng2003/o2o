@@ -48,7 +48,7 @@ class AuthCode < ActiveRecord::Base
 
   private
   def self.gen_code
-    (0..5).map { (1..9).to_a[rand(8)] }.join
+    (0..3).map { (1..9).to_a[rand(8)] }.join
   end
 
   def self.clear_expired_codes
