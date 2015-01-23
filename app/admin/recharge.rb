@@ -3,6 +3,20 @@ ActiveAdmin.register Recharge do
 
   actions :index, :show
 
+  scope :all, :default => true
+
+  scope :unpayed do
+    Recharge.where(state: :unpayed)
+  end
+
+  scope :payed do
+    Recharge.where(state: :payed)
+  end
+
+  scope :failed do
+    Recharge.where(state: :finished)
+  end
+
   index do
     selectable_column
     id_column
