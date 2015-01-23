@@ -242,3 +242,10 @@ ActiveAdmin.setup do |config|
 
   config.before_filter :user_for_paper_trail
 end
+
+require 'active_admin/controller_ext'
+
+ActiveAdmin.before_load do |app|
+  # Add our Extensions
+  ActiveAdmin::BaseController.send(:include, ActiveAdmin::ControllerExt)
+end

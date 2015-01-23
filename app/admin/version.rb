@@ -6,7 +6,7 @@ ActiveAdmin.register Version do
     id_column
     column :item
     column :event
-    column :whodunit
+    column :whodunnit
     column :created_at
     actions
   end

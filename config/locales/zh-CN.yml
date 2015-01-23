@@ -175,8 +175,9 @@ zh-CN:
       version:
         id: '编号'
         item: '操作对象'
+        item_id: '操作对象'
         event: '操作'
-        whodunit: '操作人'
+        whodunnit: '操作人'
         object: '操作历史'
         created_at: '创建时间'
       recharge:
