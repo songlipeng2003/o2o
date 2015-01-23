@@ -36,10 +36,10 @@ module V1
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
       end
       get :price do
-        price = 15
-        {
-          price: price
-        }
+        order = current_user.orders.new
+        order.car_model_id = params[:car_model_id]
+        # order.is_include_interior = params[:is_include_interior]
+        order.cal_total_amount
       end
 
       desc "订单详情", {
@@ -141,7 +141,7 @@ module V1
         end
       end
 
-      desc "评价", {
+      desc "评价,还没有实现", {
         headers: {
           "X-Access-Token" => {
             description: "Token",

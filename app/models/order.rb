@@ -9,6 +9,7 @@ class Order < ActiveRecord::Base
   belongs_to :store
   belongs_to :car
   belongs_to :address
+  belongs_to :car_model
 
   validates :user_id, presence: true
   validates :store_id, presence: true
@@ -82,7 +83,9 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total_amount
-    self.total_amount ||= 15;
+    price = user.orders.count==0 ? 10 : (car_model.auto_type=='SUV' ? 20 : 15)
+
+    self.total_amount ||= price;
   end
 
   private
