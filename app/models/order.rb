@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
 
+  belongs_to :product
   belongs_to :user
   belongs_to :store
   belongs_to :car
@@ -25,9 +26,9 @@ class Order < ActiveRecord::Base
   validates :product_id, presence: true
   validates :booked_at, presence: true
   validates :note, length: { maximum: 255 }
-  # validates :province, presence: true
-  # validates :city, presence: true
-  # validates :area, presence: true
+  validates :province, presence: true
+  validates :city, presence: true
+  validates :area, presence: true
 
   validates_associated :province
   validates_associated :city
@@ -35,11 +36,10 @@ class Order < ActiveRecord::Base
   validates_associated :user
   validates_associated :store
   validates_associated :car
-  # validates_associated :product
+  validates_associated :product
 
   before_create do
     cal_total_amount
-    update_area_info
   end
 
   before_validation(on: :create) do
@@ -50,6 +50,8 @@ class Order < ActiveRecord::Base
     self.place = self.address.place
     self.lon = self.address.lon
     self.lat = self.address.lat
+
+    update_area_info
   end
 
   has_paper_trail
@@ -92,9 +94,9 @@ class Order < ActiveRecord::Base
   def update_area_info
     logger.info(store)
     if store
-      self.area = store.area
-      self.city_id = area.parent.id
-      self.province_id = area.parent.parent.id
+      self.area = self.store.area
+      self.city_id = self.area.parent.id
+      self.province_id = self.area.parent.parent.id
     end
   end
 end
