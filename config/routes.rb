@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :docs
+
   resources :areas do
     member do
       get :options
