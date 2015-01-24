@@ -38,6 +38,8 @@ set :rvm_type, :auto                     # Defaults to: :auto
 set :rvm_ruby_version, 'default'      # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 namespace :deploy do
   after :publishing, :restart
 end

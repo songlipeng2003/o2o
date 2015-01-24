@@ -126,3 +126,6 @@ gem 'alipay', '~> 0.3.0'
 gem 'aasm', '~> 4.0.8'
 
 gem 'rack-raw-upload', '~> 1.1.1'
+
+# crontab
+gem 'whenever', :require => false
