@@ -141,7 +141,7 @@ module V1
         end
       end
 
-      desc "评价,还没有实现", {
+      desc "评价", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
