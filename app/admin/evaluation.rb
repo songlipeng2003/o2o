@@ -12,7 +12,7 @@ ActiveAdmin.register Evaluation do
     column :store
     column :score
     column :note
-    column :color
+    column :created_at
     actions
   end
 
