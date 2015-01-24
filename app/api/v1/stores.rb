@@ -2,7 +2,7 @@ module V1
   class Stores < Grape::API
 
     resource :stores do
-      desc "根据经纬度获取是否提供服务器，未实现，暂时返回可以"
+      desc "根据经纬度获取是否提供服务器"
       params do
         requires :lon, type: Float, desc: "经度"
         requires :lat, type: Float, desc: "纬度"
@@ -12,7 +12,7 @@ module V1
         result.count>0
       end
 
-      desc "根据经纬度和服务时间获取是否提供服务器，未实现，暂时返回可以"
+      desc "根据经纬度和服务时间获取是否提供服务器"
       params do
         requires :lon, type: Float, desc: "经度"
         requires :lat, type: Float, desc: "纬度"
