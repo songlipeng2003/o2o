@@ -1,4 +1,6 @@
 ActiveAdmin.register Order do
+  menu parent: '订单'
+
   actions :index, :show
 
   scope :all, :default => true

@@ -21,6 +21,7 @@ zh-CN:
       recharge_policy: '充值策略'
       trading_record: '交易记录'
       product: '商品'
+      evaluation: '评价'
     attributes:
       admin_user:
         id: '编号'
@@ -217,3 +218,19 @@ zh-CN:
         price: '价格'
         created_at: '创建时间'
         updated_at: '更新时间'
+      evaluation:
+        id: '评价'
+        order: '订单'
+        order_id: '订单'
+        user: '用户'
+        user_id: '用户'
+        store: '店铺'
+        store_id: '店铺'
+        score: '分数'
+        note: '备注'
+        images: '图片'
+        created_at: '创建时间'
+      image:
+        file: '文件'
+        filesize: '文件大小'
+        created_at: '创建时间'

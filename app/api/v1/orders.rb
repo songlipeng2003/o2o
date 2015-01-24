@@ -151,12 +151,19 @@ module V1
       }
       params do
         requires :id, type: Integer, desc: "ID"
-        requires :evaluate, type: Integer, desc: '评价，1-5'
+        requires :score, type: Integer, desc: '评价，1-5'
         optional :note, type: String, desc: '备注'
         optional :images, type: String, desc: '图片'
       end
       route_param ':id/evaluate' do
         patch do
+          order = current_user.orders.find(params[:id])
+          error!("404 Not Found", 404) if order.finished?
+          evaluation = order.create_evaluation({
+            score: params[:score],
+            note: params[:note]
+          })
+          present evaluation
         end
       end
 

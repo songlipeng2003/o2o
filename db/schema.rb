@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124090613) do
+ActiveRecord::Schema.define(version: 20150124105433) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -166,6 +166,27 @@ ActiveRecord::Schema.define(version: 20150124090613) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "evaluations", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "score"
+    t.string   "note"
+    t.datetime "created_at"
+    t.integer  "user_id"
+    t.integer  "store_id"
+  end
+
+  add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
+
+  create_table "images", force: true do |t|
+    t.string   "file"
+    t.integer  "filesize"
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.datetime "created_at"
+  end
+
+  add_index "images", ["object_id", "object_type"], name: "index_images_on_object_id_and_object_type", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"

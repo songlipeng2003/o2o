@@ -12,6 +12,8 @@ class Order < ActiveRecord::Base
   belongs_to :address
   belongs_to :car_model
 
+  has_one :evaluation
+
   validates :user_id, presence: true
   validates :store_id, presence: true
   validates :car_id, presence: true
