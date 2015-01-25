@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :recharges
   has_many :trading_records
   has_many :images
+  has_many :login_histories
 
   validates :phone, presence: true, uniqueness: true
 
