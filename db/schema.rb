@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125133032) do
+ActiveRecord::Schema.define(version: 20150125144924) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -308,6 +308,9 @@ ActiveRecord::Schema.define(version: 20150125133032) do
     t.float    "balance",                limit: 24, default: 0.0
     t.float    "score",                  limit: 24, default: 0.0
     t.string   "encrypted_pay_password"
+    t.string   "avatar"
+    t.string   "gender"
+    t.string   "nickname"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

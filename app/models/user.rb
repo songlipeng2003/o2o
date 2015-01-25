@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
+  mount_uploader :avatar, AvatarUploader
+
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token
   end
@@ -44,6 +46,10 @@ class User < ActiveRecord::Base
 
   def self.random_password
     (0..10).map { ('a'..'z').to_a[rand(8)] }.join
+  end
+
+  def display_name
+    phone
   end
 
   private

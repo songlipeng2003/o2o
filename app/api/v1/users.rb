@@ -20,13 +20,20 @@ module V1
         }
       }
       params do
-        requires :avatar, type: String, desc: '头像'
+        optional :avatar, type: String, desc: '头像'
         requires :nickname, type: String, desc: '昵称'
-        requires :sex, type: String, desc: '性别'
+        requires :gender, type: String, desc: '性别, male, female'
       end
       put do
         authenticate!
 
+        if !params[:avatar].blank?
+          current_user.avatar = File.open(Rails.root.join('public', 'uploads', 'tmp') + params[:avatar])
+        end
+        current_user.nickname = params[:nickname]
+        current_user.gender = params[:gender]
+
+        current_user.save
       end
 
       desc "是否设置支付密码（仅能访问登录用户自己）", {

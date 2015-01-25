@@ -84,6 +84,11 @@ zh-CN:
         current_sign_in_ip: '当前登陆ip'
         last_sign_in_ip: '上次登陆ip'
         authentication_token: 'token'
+        avatar: '头像'
+        balance: '余额'
+        score: '积分'
+        gender: '性别'
+        nickname: '昵称'
         created_at: '创建时间'
         updated_at: '更新时间'
       category:
