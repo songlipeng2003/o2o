@@ -1,12 +1,13 @@
 class User < ActiveRecord::Base
 
-  validates :phone, presence: true, uniqueness: true
-
   has_many :cars
   has_many :orders
   has_many :addresses
   has_many :recharges
   has_many :trading_records
+  has_many :images
+
+  validates :phone, presence: true, uniqueness: true
 
   before_save :ensure_authentication_token
 
