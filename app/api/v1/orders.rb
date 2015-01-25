@@ -20,7 +20,7 @@ module V1
       paginate per_page: 10
       get do
         orders = paginate current_user.orders
-        present orders, with: V1::Entities::Order
+        present orders, with: V1::Entities::OrderList
       end
 
       desc "计算订单价格接口", {

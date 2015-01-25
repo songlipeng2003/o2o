@@ -110,6 +110,10 @@ module V1
           * 410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。
           * 422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。
           * 500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。
+
+          ## URL说明
+
+          所有返回url全部使用全路径
         NOTE
       },
       models: [V1::Entities::CarBrand, V1::Entities::Car],
