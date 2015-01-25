@@ -13,7 +13,7 @@ module ElasticsearchSearchable
     # include Elasticsearch::Model::Indexing
 
     # Customize the index name
-    # index_name [Rails.application.engine_name, Rails.env].join('_')
+    index_name [Rails.application.engine_name, Rails.env].join('_')
 
     # index document on model touch
     # @see: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
