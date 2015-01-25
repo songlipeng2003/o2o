@@ -83,7 +83,7 @@ module V1
         requires :last_time, type: Integer, desc: "时间戳"
       end
       route_param :id do
-        patch :info do
+        get :info do
           authenticate!
           error!("403 Forbidden", 403) unless current_user.id==params[:id]
           {
