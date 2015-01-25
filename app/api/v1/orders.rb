@@ -153,7 +153,7 @@ module V1
         requires :id, type: Integer, desc: "ID"
         requires :score, type: Integer, desc: '评价，1-5'
         optional :note, type: String, desc: '备注'
-        optional :images, type: String, desc: '图片'
+        optional :images, type: Array
       end
       route_param ':id/evaluate' do
         patch do
@@ -163,6 +163,16 @@ module V1
             score: params[:score],
             note: params[:note]
           })
+
+          if !params[:images].blank?
+            params[:images].each do |image|
+              img = current_user.images.new
+              img.file = File.open(Rails.root.join('public', 'uploads', 'tmp') + image)
+              img.object = evaluation
+              img.save
+            end
+          end
+
           present evaluation
         end
       end
