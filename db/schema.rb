@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124154805) do
+ActiveRecord::Schema.define(version: 20150125125156) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -181,13 +181,13 @@ ActiveRecord::Schema.define(version: 20150124154805) do
   create_table "images", force: true do |t|
     t.string   "file"
     t.integer  "filesize"
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "item_id"
+    t.string   "item_type"
     t.datetime "created_at"
     t.integer  "user_id"
   end
 
-  add_index "images", ["object_id", "object_type"], name: "index_images_on_object_id_and_object_type", using: :btree
+  add_index "images", ["item_id", "item_type"], name: "index_images_on_item_id_and_item_type", using: :btree
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
 
   create_table "orders", force: true do |t|

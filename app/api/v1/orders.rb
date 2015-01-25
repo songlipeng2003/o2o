@@ -168,7 +168,7 @@ module V1
             params[:images].each do |image|
               img = current_user.images.new
               img.file = File.open(Rails.root.join('public', 'uploads', 'tmp') + image)
-              img.object = evaluation
+              img.item = evaluation
               img.save
             end
           end

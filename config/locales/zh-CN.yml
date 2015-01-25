@@ -180,7 +180,7 @@ zh-CN:
         item_id: '操作对象'
         event: '操作'
         whodunnit: '操作人'
-        object: '操作历史'
+        object: '操作对象'
         created_at: '创建时间'
       recharge:
         id: '编号'
@@ -233,4 +233,6 @@ zh-CN:
       image:
         file: '文件'
         filesize: '文件大小'
+        item: '对象'
+        item: '对象'
         created_at: '创建时间'
