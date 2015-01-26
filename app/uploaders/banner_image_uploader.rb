@@ -25,7 +25,7 @@ class BannerImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :scale => [400, 200]
+  process :scale => [639, 245]
   #
   def scale(width, height)
     resize_to_fit width, height
