@@ -15,6 +15,13 @@ module V1
       expose :state_text do |order|
         order.aasm.human_state
       end
+
+      expose :links do |order|
+        links = []
+        links << { rel: 'pay', link: "v1/orders/#{order.id}/pay" } if order.unpayed?
+        links << { rel: 'evaluate', link: "v1/orders/#{order.id}/evaluate" } if order.finished?
+        links
+      end
     end
   end
 end
