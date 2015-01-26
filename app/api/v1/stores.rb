@@ -9,7 +9,9 @@ module V1
       end
       get 'in_service_scope' do
         result = Store.in_service_scope(params[:lon], params[:lat])
-        result.count>0
+        {
+          result: result.count>0
+        }
       end
 
       desc "根据经纬度和服务时间获取是否提供服务"
@@ -19,7 +21,10 @@ module V1
         requires :booked_at, type: String, desc: "服务时间"
       end
       get 'can_serviced' do
-        Store.can_serviced(params[:lon], params[:lat], params[:booked_at])
+        result = Store.can_serviced(params[:lon], params[:lat], params[:booked_at])
+        {
+          result: result
+        }
       end
     end
   end

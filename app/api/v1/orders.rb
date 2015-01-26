@@ -90,7 +90,7 @@ module V1
         mutually_exclusive :address, :address_id
         requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
         optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
-        optional :product_type type: Integer, desc: "商品类型，默认为1标准洗车，2为标准打蜡"
+        optional :product_type, type: Integer, desc: "商品类型，默认为1标准洗车，2为标准打蜡"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :carport, type: String, desc: "车位号"
         optional :note, type: String, desc: "订单备注"
