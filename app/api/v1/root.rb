@@ -114,6 +114,11 @@ module V1
           ## URL说明
 
           所有返回url全部使用全路径
+
+
+          ## 返回数据中code说明
+
+          code为0表示争取，其他表示失败
         NOTE
       },
       models: [V1::Entities::CarBrand, V1::Entities::Car],
