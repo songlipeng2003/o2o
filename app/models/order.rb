@@ -87,7 +87,8 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total_amount
-    price = user.orders.count==0 ? 10 : (car_model.auto_type=='SUV' ? 20 : 15)
+    self.original_price = car_model.auto_type=='SUV' ? 20 : 15;
+    price = user.orders.count==0 ? 10 : self.original_price
 
     self.total_amount ||= price;
   end

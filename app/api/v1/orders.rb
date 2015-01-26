@@ -38,8 +38,12 @@ module V1
       get :price do
         order = current_user.orders.new
         order.car_model_id = params[:car_model_id]
-        # order.is_include_interior = params[:is_include_interior]
         order.cal_total_amount
+        # order.is_include_interior = params[:is_include_interior]
+        {
+          original_price: order.original_price,
+          total_amount: order.total_amount
+        }
       end
 
       desc "订单详情", {
