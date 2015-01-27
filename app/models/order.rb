@@ -93,6 +93,14 @@ class Order < ActiveRecord::Base
     self.total_amount ||= price;
   end
 
+  def car_model_name
+    car_model.name
+  end
+
+  def product_type_text
+    Product::PRODUCT_TYPES[product_type]
+  end
+
   private
   def update_area_info
     logger.info(store)
