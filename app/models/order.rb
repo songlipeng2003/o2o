@@ -87,8 +87,26 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total_amount
-    self.original_price = car_model.auto_type=='SUV' ? 20 : 15;
-    price = user.orders.count==0 ? 10 : self.original_price
+    if self.product_type==Product::PRODUCT_TYPE_WASH
+      unless self.car_model.auto_type=='SUV'
+        product_id = 1
+      else
+        product_id = 2
+      end
+    else
+      unless self.car_model.auto_type=='SUV'
+        product_id = 3
+      else
+        product_id = 4
+      end
+    end
+    self.product_id = product_id
+    self.original_price = self.product.price
+    if self.product_type==Product::PRODUCT_TYPE_WASH
+      price = user.orders.count==0 ? 10 : self.original_price
+    else
+      price = user.orders.count==0 ? 20 : self.original_price
+    end
 
     self.total_amount ||= price;
   end
@@ -103,7 +121,6 @@ class Order < ActiveRecord::Base
 
   private
   def update_area_info
-    logger.info(store)
     if store
       self.area = self.store.area
       self.city_id = self.area.parent.id

@@ -39,8 +39,9 @@ module V1
       get :price do
         order = current_user.orders.new
         order.car_model_id = params[:car_model_id]
-        order.cal_total_amount
+        order.product_type = params[:product_type]
         order.is_include_interior = params[:is_include_interior]
+        order.cal_total_amount
         {
           original_price: order.original_price,
           total_amount: order.total_amount
@@ -164,7 +165,7 @@ module V1
       route_param ':id/evaluate' do
         patch do
           order = current_user.orders.find(params[:id])
-          error!("404 Not Found", 404) if order.finished?
+          error!("404 Not Found", 404) unless order.finished?
           evaluation = order.create_evaluation({
             score: params[:score],
             note: params[:note]
@@ -232,6 +233,27 @@ module V1
               error: order.errors
             }
           end
+        end
+      end
+
+      desc "关闭订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "ID"
+      end
+      route_param ':id/close' do
+        patch do
+          order = current_user.orders.find(params[:id])
+          error!("404 Not Found", 404) unless order.unpayed?
+          order.close
+
+          present order, with: V1::Entities::OrderList
         end
       end
     end
