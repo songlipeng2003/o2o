@@ -94,18 +94,14 @@ class Order < ActiveRecord::Base
         product_id = 2
       end
     else
-      unless self.car_model.auto_type=='SUV'
-        product_id = 3
-      else
-        product_id = 4
-      end
+      product_id = 3
     end
     self.product_id = product_id
     self.original_price = self.product.price
     if self.product_type==Product::PRODUCT_TYPE_WASH
       price = user.orders.count==0 ? 10 : self.original_price
     else
-      price = user.orders.count==0 ? 20 : self.original_price
+      price = self.original_price
     end
 
     self.total_amount ||= price;
