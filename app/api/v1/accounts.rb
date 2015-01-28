@@ -41,8 +41,9 @@ module V1
       params do
         requires :phone, type: String, desc: "手机号"
         requires :code, type: String, desc: "验证码"
-        optional :devise, type: String, desc: "设备编号"
-        optional :devise_type, type: String, desc: "设备类型，android或者ios"
+        optional :device, type: String, desc: "设备唯一编号"
+        optional :device_model, type: String, desc: "设备型号，例如：小米Note"
+        optional :device_type, type: String, desc: "设备类型，android或者ios"
       end
       post 'login' do
         is_valid = AuthCode.validate_code(params[:phone], params[:code])
@@ -73,8 +74,9 @@ module V1
 
         user.login_histories.create({
           ip: env['REMOTE_ADDR'],
-          devise: params[:devise],
-          devise_type: params[:deivse_type]
+          device: params[:device],
+          device_model: params[:device_model],
+          device_type: params[:device_type]
         })
 
         {

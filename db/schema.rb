@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128142844) do
+ActiveRecord::Schema.define(version: 20150128151622) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -192,11 +192,12 @@ ActiveRecord::Schema.define(version: 20150128142844) do
 
   create_table "login_histories", force: true do |t|
     t.integer  "user_id"
-    t.string   "devise"
-    t.string   "devise_type"
+    t.string   "device"
+    t.string   "device_type"
     t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "device_model"
   end
 
   add_index "login_histories", ["user_id"], name: "index_login_histories_on_user_id", using: :btree
