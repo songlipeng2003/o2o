@@ -23,21 +23,13 @@ module V1
         end
 
         code = AuthCode.generate phone
-        tpl_params = { code: code, company: '嘀嘀去哪儿' }
-        result = ChinaSMS.to phone, tpl_params, tpl_id: 1
+        tpl_params = { code: code}
+        SMSWorker.perform_async(phone, 671255, tpl_params)
 
-        if result['code'] == 0
-          {
-            code: 0,
-            msg: '发送成功'
-          }
-        else
-          {
-            code: 1,
-            msg: result['msg'],
-            detail: result['detail']
-          }
-        end
+        {
+          code: 0,
+          msg: '发送成功'
+        }
       end
     end
   end
