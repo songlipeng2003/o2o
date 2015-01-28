@@ -198,6 +198,8 @@ module V1
       end
       route_param :id do
         patch 'pay' do
+          order = current_user.orders.find(params[:id])
+          error!("404 Not Found", 404) unless order.unpayed?
           if current_user.encrypted_pay_password.blank?
             return {
               code: -1,
@@ -205,14 +207,12 @@ module V1
             }
           end
 
-          if password_digest(params[:password])!=current_user.encrypted_pay_password
+          if current_user.validate_pay_password(params[:password])
             return {
               code: -2,
               msg: '支付密码错误'
             }
           end
-
-          order = current_user.orders.find(params[:id])
 
           if current_user.balance<order.total_amount
             return {

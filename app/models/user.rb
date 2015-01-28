@@ -29,6 +29,14 @@ class User < ActiveRecord::Base
     self.encrypted_pay_password = password_digest(pay_password)
   end
 
+  def display_name
+    phone
+  end
+
+  def validate_pay_password(pay_password)
+    return self.encrypted_pay_password==password_digest(pay_password)
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -46,10 +54,6 @@ class User < ActiveRecord::Base
 
   def self.random_password
     (0..10).map { ('a'..'z').to_a[rand(8)] }.join
-  end
-
-  def display_name
-    phone
   end
 
   private
