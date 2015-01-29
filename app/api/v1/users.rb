@@ -22,7 +22,7 @@ module V1
       params do
         optional :avatar, type: String, desc: '头像'
         requires :nickname, type: String, desc: '昵称'
-        requires :gender, type: String, desc: '性别, male, female'
+        requires :gender, type: String, desc: '性别, 男, 女'
       end
       put do
         authenticate!
