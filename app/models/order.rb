@@ -125,6 +125,12 @@ class Order < ActiveRecord::Base
     Product::PRODUCT_TYPES[product_type]
   end
 
+  def self.auto_close_expired_order
+    self.where(status: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |order|
+      order.close
+    end
+  end
+
   private
   def update_area_info
     if store
