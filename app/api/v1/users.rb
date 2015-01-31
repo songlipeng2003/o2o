@@ -34,6 +34,8 @@ module V1
         current_user.gender = params[:gender]
 
         current_user.save
+
+        present current_user, with: V1::Entities::User
       end
 
       desc "是否设置支付密码（仅能访问登录用户自己）", {
