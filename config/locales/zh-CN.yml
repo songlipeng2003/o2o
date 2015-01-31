@@ -192,6 +192,8 @@ zh-CN:
         id: '编号'
         name: '名称'
         token: 'Token'
+        umeng_app_key: '友盟AppKey'
+        app_type: '应用类型'
         created_at: '创建时间'
         updated_at: '更新时间'
       version:
