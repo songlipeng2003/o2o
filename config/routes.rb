@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :docs
 
+  resources :pay do
+    collection do
+      get :alipay_notify
+    end
+  end
+
   resources :areas do
     member do
       get :options
