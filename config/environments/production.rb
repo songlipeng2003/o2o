@@ -76,5 +76,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.asset_host = 'http://119.254.102.102'
+  config.asset_host = 'http://24didi.com'
 end
