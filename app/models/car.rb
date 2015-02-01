@@ -8,6 +8,6 @@ class Car < ActiveRecord::Base
   belongs_to :car_model
 
   def car_model_name
-    self.car_model.name
+    self.car_model_id ? self.car_model.name : ''
   end
 end
