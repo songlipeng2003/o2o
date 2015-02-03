@@ -31,7 +31,7 @@ module V1
         upload_file.file = file
         upload_file.save
         {
-          file:  upload_file.file.filename
+          file:  upload_file.file.filename,
           filesize: upload_file.filesize
         }
       end
