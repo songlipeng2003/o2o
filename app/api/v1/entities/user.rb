@@ -11,6 +11,7 @@ module V1
       end
       expose :gender
       expose :nickname
+      expose :authentication_token
     end
   end
 end
