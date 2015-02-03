@@ -30,7 +30,10 @@ module V1
         upload_file = UploadFile.new
         upload_file.file = file
         upload_file.save
-        upload_file.file.filename
+        {
+          file:  upload_file.file.filename
+          filesize: upload_file.filesize
+        }
       end
     end
   end
