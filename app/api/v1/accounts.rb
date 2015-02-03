@@ -79,11 +79,9 @@ module V1
           device_type: params[:device_type]
         })
 
-        {
-          code: 0,
-          msg: '登录成功',
-          data: present(user, with: V1::Entities::User)
-        }
+        present :code, 0
+        present :msg, '登录成功'
+        present :data, user, with: V1::Entities::User
       end
     end
   end
