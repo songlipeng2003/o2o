@@ -82,7 +82,7 @@ module V1
         {
           code: 0,
           msg: '登录成功',
-          data: user
+          data: present(user, with: V1::Entities::User)
         }
       end
     end
