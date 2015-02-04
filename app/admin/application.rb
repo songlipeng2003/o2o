@@ -17,6 +17,7 @@ ActiveAdmin.register Application do
       f.input :name
       f.input :app_type, collection: Application::APPT_TYPES
       f.input :umeng_app_key
+      f.input :app_master_secret
     end
     f.actions
   end
