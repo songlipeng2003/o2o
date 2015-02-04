@@ -7,6 +7,7 @@ class Recharge < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :recharge_policy
+  belongs_to :application
 
   before_validation :ensure_amount
 

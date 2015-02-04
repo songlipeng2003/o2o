@@ -6,6 +6,7 @@ class Car < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :car_model
+  belongs_to :application
 
   def car_model_name
     self.car_model_id ? self.car_model.name : ''

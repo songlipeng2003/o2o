@@ -11,6 +11,7 @@ class Order < ActiveRecord::Base
   belongs_to :car
   belongs_to :address
   belongs_to :car_model
+  belongs_to :application
 
   has_one :evaluation
 

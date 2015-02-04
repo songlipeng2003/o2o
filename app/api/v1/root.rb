@@ -30,8 +30,8 @@ module V1
 
       def authenticated
         return true if warden.authenticated? :scope => :user
-        $access_token = params[:access_token] || request.headers['X-Access-Token'];
-        $access_token && @user = User.find_by_authentication_token($access_token)
+        access_token = params[:access_token] || request.headers['X-Access-Token'];
+        access_token && @user = User.find_by_authentication_token($access_token)
       end
 
       def authenticate!
@@ -41,6 +41,12 @@ module V1
       def current_user
         # warden.user :scope => :user || @user
         @user
+      end
+
+      def current_application
+        api_key = params[:api_key] || request.headers['X-Api-Key']
+        @application ||= Application.where(token: api_key).first
+        @application ||= Application.first
       end
     end
 
@@ -73,6 +79,16 @@ module V1
           本接口完全按照REST设计规范进行设计
 
           [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
+
+          ## 应用key说明
+          所有接口调用必须添加api_key,但暂时为了兼容性可以不传，但以后必须所有的接口都传。
+
+          api_key是一个应用的标示，用来统计接口访问情况和添加数据来源等
+
+          api_key 使用方式
+
+          1. 使用header X-Api-Key
+          2. 使用url参数 api_key
 
           ## 登录权限验证
 

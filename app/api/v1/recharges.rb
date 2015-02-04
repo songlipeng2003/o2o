@@ -34,6 +34,7 @@ module V1
       end
       post do
         recharge = current_user.recharges.new(permitted_params)
+        recharge.application = current_application
         recharge.save
         present recharge, with: V1::Entities::Recharge
       end

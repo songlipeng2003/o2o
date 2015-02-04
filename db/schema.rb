@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201143643) do
+ActiveRecord::Schema.define(version: 20150203150847) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20150201143643) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "color"
+    t.integer  "application_id"
   end
 
   create_table "categories", force: true do |t|
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(version: 20150201143643) do
     t.datetime "created_at"
     t.integer  "user_id"
     t.integer  "store_id"
+    t.integer  "application_id"
   end
 
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
@@ -232,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150201143643) do
     t.float    "original_price",      limit: 24
     t.integer  "product_type",                   default: 1
     t.boolean  "is_include_interior",            default: false
+    t.integer  "application_id"
   end
 
   create_table "products", force: true do |t|
@@ -258,6 +261,7 @@ ActiveRecord::Schema.define(version: 20150201143643) do
     t.datetime "created_at"
     t.datetime "payed_at"
     t.integer  "recharge_policy_id"
+    t.integer  "application_id"
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
@@ -296,6 +300,7 @@ ActiveRecord::Schema.define(version: 20150201143643) do
     t.string   "file"
     t.integer  "filesize"
     t.datetime "created_at"
+    t.integer  "application_id"
   end
 
   create_table "users", force: true do |t|

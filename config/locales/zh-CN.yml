@@ -63,6 +63,8 @@ zh-CN:
         license_tag: '牌照'
         buy_date: '购买日期'
         color: '颜色'
+        application: '应用'
+        application_id: '应用'
         created_at: '创建时间'
         updated_at: '更新时间'
       announcement:
@@ -186,6 +188,8 @@ zh-CN:
         is_include_interior: '是否清理内饰'
         original_price: '原价'
         total_amount: '总价'
+        application: '应用'
+        application_id: '应用'
         created_at: '创建时间'
         updated_at: '更新时间'
       application:
@@ -215,6 +219,8 @@ zh-CN:
         state/unpayed: '未付款'
         state/payed: '已付款'
         state/failed: '支付失败'
+        application: '应用'
+        application_id: '应用'
         created_at: '创建时间'
         payed_at: '支付时间'
       recharge_policy:
@@ -252,6 +258,8 @@ zh-CN:
         score: '分数'
         note: '备注'
         images: '图片'
+        application: '应用'
+        application_id: '应用'
         created_at: '创建时间'
       image:
         file: '文件'

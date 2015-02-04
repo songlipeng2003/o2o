@@ -101,6 +101,7 @@ module V1
         address_params = permitted_params.delete(:address)
         order = current_user.orders.new(permitted_params)
         order.product_id = 1;
+        order.application = current_application
         unless params[:car].blank?
           car = current_user.cars.new(clean_params(params).require(:car).permit(:car_model_id, :color, :license_tag))
           car.save
@@ -166,10 +167,13 @@ module V1
         patch do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.finished?
-          evaluation = order.create_evaluation({
+          evaluation = order.new_evaluation({
             score: params[:score],
             note: params[:note]
           })
+
+        evaluation.application = current_application
+        evaluation.save
 
           if !params[:images].blank?
             params[:images].each do |image|

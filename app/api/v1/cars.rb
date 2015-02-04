@@ -49,7 +49,10 @@ module V1
         requires :color, type: String, desc: "颜色,直接使用中文名称"
       end
       post do
-        present current_user.cars.create(permitted_params)
+        car = current_user.cars.new(permitted_params)
+        car.application = current_application
+        car.save
+        present car, with: V1::Entities::Car
       end
 
       desc "编辑汽车", {
@@ -70,7 +73,8 @@ module V1
       route_param :id do
         put do
           car = current_user.cars.find(params[:id])
-          present car.update(permitted_params)
+          car.update(permitted_params)
+          present car, with: V1::Entities::Car
         end
       end
 
