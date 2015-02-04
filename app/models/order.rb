@@ -127,7 +127,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.auto_close_expired_order
-    self.where(status: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |order|
+    self.where(state: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |order|
       order.close
     end
   end
