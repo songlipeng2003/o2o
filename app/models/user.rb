@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     return self.encrypted_pay_password==password_digest(pay_password)
   end
 
+  def is_set_pay_password
+    !self.encrypted_pay_password.blank?
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

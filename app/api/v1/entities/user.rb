@@ -12,6 +12,7 @@ module V1
       expose :gender
       expose :nickname
       expose :authentication_token
+      expose :is_set_pay_password
     end
   end
 end
