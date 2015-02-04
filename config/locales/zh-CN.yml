@@ -22,6 +22,7 @@ zh-CN:
       trading_record: '交易记录'
       product: '商品'
       evaluation: '评价'
+      system_coupon: '系统优惠券'
     attributes:
       admin_user:
         id: '编号'
@@ -268,3 +269,11 @@ zh-CN:
         item: '对象'
         item: '对象'
         created_at: '创建时间'
+      system_coupon:
+        name: '名称'
+        product_id: '商品'
+        product: '商品'
+        amount: '金额'
+        description: '描述'
+        created_at: '创建时间'
+        updated_at: '更新时间'
