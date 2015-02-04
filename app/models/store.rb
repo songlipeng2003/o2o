@@ -78,7 +78,7 @@ class Store < ActiveRecord::Base
   def service_area_location
     coordinates = self.service_area.split(',')
     coordinates = (0..coordinates.length-1).step(2).map do |i|
-      [coordinates[i], coordinates[i+1]]
+      [coordinates[i].to_f, coordinates[i+1].to_f]
     end
 
     {
