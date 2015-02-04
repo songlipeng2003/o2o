@@ -57,7 +57,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "订单编号"
       end
       route_param :id do
         get do
@@ -158,7 +158,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "订单编号"
         requires :score, type: Integer, desc: '评价，1-5'
         optional :note, type: String, desc: '备注'
         optional :images, type: Array
@@ -197,7 +197,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "订单编号"
         requires :pay_password, type: String, desc: "支付密码"
       end
       route_param :id do
@@ -249,7 +249,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "订单编号"
       end
       route_param ':id/close' do
         put do

@@ -26,7 +26,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "编号"
       end
       route_param :id do
         get do
@@ -62,7 +62,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "汽车编号"
         requires :place, type: String, desc: "地址"
         requires :lat, type: String, desc: "纬度"
         requires :lon, type: String, desc: "经度"
@@ -84,7 +84,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "汽车编号"
       end
       route_param :id do
         delete do

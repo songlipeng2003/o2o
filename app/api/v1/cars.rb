@@ -26,7 +26,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "编号"
       end
       route_param :id do
         get do
@@ -64,7 +64,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "汽车编号"
         requires :car_model_id, type: Integer, desc: "车型id"
         requires :license_tag, type: String, desc: "牌照"
         # requires :buy_date, type: Date, desc: "购买日期, 格式： 2014-01-01"
@@ -87,7 +87,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "汽车编号"
       end
       route_param :id do
         delete do

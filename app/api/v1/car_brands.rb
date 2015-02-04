@@ -8,7 +8,7 @@ module V1
 
       desc "汽车品牌详情", hidden: true
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "汽车品牌编号"
       end
       route_param :id do
         get do

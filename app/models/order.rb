@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
   validates_associated :user
   validates_associated :store
   validates_associated :car
-  validates_associated :product
+  # validates_associated :product
 
   before_create do
     cal_total_amount

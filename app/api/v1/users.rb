@@ -3,7 +3,7 @@ module V1
     resource :users do
       desc "用户详情", hidden: true
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "用户编号"
       end
       route_param :id do
         get do
@@ -47,7 +47,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "用户编号"
       end
       route_param :id do
         get :is_set_pay_password do
@@ -91,7 +91,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "ID"
+        requires :id, type: Integer, desc: "用户编号"
         requires :last_time, type: Integer, desc: "时间戳"
       end
       route_param :id do

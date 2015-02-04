@@ -8,7 +8,7 @@ module V1
 
       desc "文档详情接口"
       params do
-        requires :key, type: String, desc: "编号"
+        requires :key, type: String, desc: "Key"
       end
       route_param :key do
         get do
