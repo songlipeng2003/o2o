@@ -29,7 +29,7 @@ ActiveAdmin.register Banner do
     attributes_table do
       row :id
       row :image do
-          image_tag(banner.image.url)
+        image_tag(banner.image.url)
       end
       row :link
       row :created_at
