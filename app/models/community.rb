@@ -30,4 +30,4 @@ class Community < ActiveRecord::Base
   end
 end
 
-Community.import
+Community.import force: true

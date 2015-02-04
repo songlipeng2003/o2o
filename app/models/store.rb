@@ -112,4 +112,4 @@ class Store < ActiveRecord::Base
   end
 end
 
-Store.import
+Store.import force: true
