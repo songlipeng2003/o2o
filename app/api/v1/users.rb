@@ -53,7 +53,9 @@ module V1
         get :is_set_pay_password do
           authenticate!
           error!("403 Forbidden", 403) unless current_user.id==params[:id]
-          !current_user.encrypted_pay_password.blank?
+          {
+            result: current_user.encrypted_pay_password.blank?
+          }
         end
       end
 
@@ -76,6 +78,7 @@ module V1
           error!("422 Unprocesable entity", 422) unless current_user.encrypted_pay_password.blank?
           current_user.pay_password = params[:pay_password]
           current_user.save
+          present current_user, with: V1::Entities::User
         end
       end
 
