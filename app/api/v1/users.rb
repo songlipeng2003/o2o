@@ -54,7 +54,7 @@ module V1
           authenticate!
           error!("403 Forbidden", 403) unless current_user.id==params[:id]
           {
-            result: current_user.encrypted_pay_password.blank?
+            result: !current_user.encrypted_pay_password.blank?
           }
         end
       end
