@@ -23,6 +23,7 @@ zh-CN:
       product: '商品'
       evaluation: '评价'
       system_coupon: '系统优惠券'
+      coupon: '优惠券'
     attributes:
       admin_user:
         id: '编号'
@@ -276,5 +277,15 @@ zh-CN:
         product: '商品'
         amount: '金额'
         description: '描述'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      coupon:
+        user: '用户'
+        user_id: '用户'
+        system_coupon: '系统优惠券'
+        system_coupon_id: '系统优惠券'
+        amount: '金额'
+        state: '状态'
+        expired_at: '过期时间'
         created_at: '创建时间'
         updated_at: '更新时间'

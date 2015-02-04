@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204152720) do
+ActiveRecord::Schema.define(version: 20150204162709) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -153,6 +153,19 @@ ActiveRecord::Schema.define(version: 20150204152720) do
   end
 
   add_index "communities", ["area_id"], name: "index_communities_on_area_id", using: :btree
+
+  create_table "coupons", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "system_coupon_id"
+    t.float    "amount",           limit: 24
+    t.string   "state"
+    t.string   "expired_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "coupons", ["system_coupon_id"], name: "index_coupons_on_system_coupon_id", using: :btree
+  add_index "coupons", ["user_id"], name: "index_coupons_on_user_id", using: :btree
 
   create_table "devices", force: true do |t|
     t.string   "code"

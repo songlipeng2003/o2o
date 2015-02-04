@@ -32,12 +32,26 @@ class Recharge < ActiveRecord::Base
         trading_record.save
 
         if self.recharge_policy_id
-          trading_record = TradingRecord.new
-          trading_record.user_id = self.user_id
-          trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT
-          trading_record.object = self
-          trading_record.amount = self.recharge_policy.present_amount
-          trading_record.save
+          if self.recharge_policy.present_amount>0
+            trading_record = TradingRecord.new
+            trading_record.user_id = self.user_id
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT
+            trading_record.object = self
+            trading_record.amount = self.recharge_policy.present_amount
+            trading_record.save
+          end
+
+          if self.recharge_policy.system_coupons.length>0
+            self.recharge_policy.system_coupons.each do |system_coupon|
+              coupon = Coupon.new
+              coupon.user_id = self.user_id
+              coupon.system_coupon_id = system_coupon.id
+              coupon.amount = system_coupon.amount
+
+              coupon.save
+            end
+          end
+
         end
 
         self.payed_at = Time.now
