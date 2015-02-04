@@ -31,7 +31,7 @@ module V1
       def authenticated
         return true if warden.authenticated? :scope => :user
         access_token = params[:access_token] || request.headers['X-Access-Token'];
-        access_token && @user = User.find_by_authentication_token($access_token)
+        access_token && @user = User.find_by_authentication_token(access_token)
       end
 
       def authenticate!
