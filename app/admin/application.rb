@@ -1,5 +1,5 @@
 ActiveAdmin.register Application do
-  permit_params :name, :umeng_app_key, :app_type
+  permit_params :name, :umeng_app_key, :app_type, :app_master_secret
 
   index do
     selectable_column
