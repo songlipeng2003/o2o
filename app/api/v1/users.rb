@@ -72,7 +72,7 @@ module V1
         requires :pay_password, type: String, desc: "支付密码,至少六位"
       end
       route_param :id do
-        patch :set_pay_password do
+        put :set_pay_password do
           authenticate!
           error!("403 Forbidden", 403) unless current_user.id==params[:id]
           error!("422 Unprocesable entity", 422) unless current_user.encrypted_pay_password.blank?

@@ -164,7 +164,7 @@ module V1
         optional :images, type: Array
       end
       route_param ':id/evaluate' do
-        patch do
+        put do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.finished?
           evaluation = order.new_evaluation({
@@ -201,7 +201,7 @@ module V1
         requires :pay_password, type: String, desc: "支付密码"
       end
       route_param :id do
-        patch 'pay' do
+        put 'pay' do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed?
           if current_user.encrypted_pay_password.blank?
@@ -252,7 +252,7 @@ module V1
         requires :id, type: Integer, desc: "ID"
       end
       route_param ':id/close' do
-        patch do
+        put do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed?
           order.close
