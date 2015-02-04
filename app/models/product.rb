@@ -11,4 +11,5 @@ class Product < ActiveRecord::Base
   validates :price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
   validates :description, presence: true
   validates :product_type, presence: true
+  validates :market_price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
 end
