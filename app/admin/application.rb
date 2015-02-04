@@ -1,4 +1,6 @@
 ActiveAdmin.register Application do
+  menu parent: '基础数据'
+
   permit_params :name, :umeng_app_key, :app_type, :app_master_secret
 
   index do

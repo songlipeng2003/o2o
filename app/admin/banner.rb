@@ -1,4 +1,6 @@
 ActiveAdmin.register Banner do
+  menu parent: '系统'
+
   permit_params :image, :link
 
   index do

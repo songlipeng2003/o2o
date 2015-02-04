@@ -1,4 +1,6 @@
 ActiveAdmin.register Announcement do
+  menu parent: '系统'
+
   permit_params :title, :content
 
   index do

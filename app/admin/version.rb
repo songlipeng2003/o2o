@@ -1,4 +1,6 @@
 ActiveAdmin.register Version do
+  menu parent: '系统'
+
   actions :index, :show
 
   index do
