@@ -81,6 +81,8 @@ class Store < ActiveRecord::Base
       [coordinates[i].to_f, coordinates[i+1].to_f]
     end
 
+    coordinates << coordinates[0]
+
     {
       type: 'polygon',
       coordinates: [coordinates]
