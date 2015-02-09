@@ -8,6 +8,8 @@ class Coupon < ActiveRecord::Base
   validates :system_coupon_id, presence: true
   validates :amount, presence: true
 
+  scope :unused, -> { where(state: 'unused') }
+
   aasm column: :state do
     state :unused, :initial => true
     state :used
