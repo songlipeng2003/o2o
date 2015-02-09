@@ -12,6 +12,7 @@ class Order < ActiveRecord::Base
   belongs_to :address
   belongs_to :car_model
   belongs_to :application
+  belongs_to :coupon
 
   has_one :evaluation
 
@@ -32,6 +33,8 @@ class Order < ActiveRecord::Base
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
+
+  validate :check_coupon
 
   validates_associated :province
   validates_associated :city
@@ -56,6 +59,8 @@ class Order < ActiveRecord::Base
 
     update_area_info
   end
+
+  after_create :use_coupon
 
   has_paper_trail
 
@@ -115,6 +120,10 @@ class Order < ActiveRecord::Base
       price = self.original_price
     end
 
+    if self.coupon
+      price = self.original_price - self.coupon.amount
+    end
+
     self.total_amount ||= price;
   end
 
@@ -124,6 +133,10 @@ class Order < ActiveRecord::Base
 
   def product_type_text
     Product::PRODUCT_TYPES[product_type]
+  end
+
+  def check_coupon
+    return !self.coupon.blank? && self.coupon.unused? && self.coupon.user_id==self.user_id
   end
 
   def self.auto_close_expired_order
@@ -139,5 +152,10 @@ class Order < ActiveRecord::Base
       self.city_id = self.area.parent.id
       self.province_id = self.area.parent.parent.id
     end
+  end
+
+  def use_coupon
+    self.coupon.use
+    self.coupon.save
   end
 end

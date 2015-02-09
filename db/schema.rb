@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204162709) do
+ActiveRecord::Schema.define(version: 20150209144603) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -248,7 +248,10 @@ ActiveRecord::Schema.define(version: 20150204162709) do
     t.integer  "product_type",                   default: 1
     t.boolean  "is_include_interior",            default: false
     t.integer  "application_id"
+    t.integer  "coupon_id"
   end
+
+  add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"

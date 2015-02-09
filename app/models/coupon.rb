@@ -14,5 +14,9 @@ class Coupon < ActiveRecord::Base
     state :unused, :initial => true
     state :used
     state :expired
+
+    event :use do
+      transitions :from => :unused, :to => :used
+    end
   end
 end
