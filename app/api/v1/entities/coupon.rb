@@ -5,6 +5,9 @@ module V1
       expose :amount
       expose :state
       expose :expired_at
+      expose :image do |coupon|
+        coupon.system_coupon.image.thumb.url
+      end
       expose :name do |coupon|
         coupon.system_coupon.name
       end
