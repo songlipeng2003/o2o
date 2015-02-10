@@ -114,11 +114,7 @@ class Order < ActiveRecord::Base
     end
     self.product_id = product_id
     self.original_price = self.product.price
-    if self.product_type==Product::PRODUCT_TYPE_WASH
-      price = user.orders.count==0 ? 10 : self.original_price
-    else
-      price = self.original_price
-    end
+    price = self.original_price
 
     if self.coupon
       price = self.original_price - self.coupon.amount
