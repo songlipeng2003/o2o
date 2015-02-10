@@ -44,6 +44,7 @@ module V1
         optional :device, type: String, desc: "设备唯一编号"
         optional :device_model, type: String, desc: "设备型号，例如：小米Note"
         optional :device_type, type: String, desc: "设备类型，android或者ios"
+        optional :umeng, type: String, desc: "友盟用户编号"
       end
       post 'login' do
         is_valid = AuthCode.validate_code(params[:phone], params[:code])
@@ -57,12 +58,16 @@ module V1
 
         phone = params[:phone]
         user = User.where('phone=?', phone).first
-        unless user
+        if user
+          user.umeng = params[:umeng]
+          user.save
+        else
           password = User.random_password
           user = User.new({
             email: User.random_email,
             phone: phone,
-            password: password
+            password: password,
+            umeng: params[:umeng]
           })
           unless user.save
             return {
