@@ -94,7 +94,11 @@ class Order < ActiveRecord::Base
     end
 
     event :close do
-      transitions :from => :unpayed, :to => :closed
+      transitions :from => [:unpayed, :payed], :to => :closed
+    end
+
+    event :admin_close do
+      transitions :from => [:payed], :to => :closed
     end
 
     event :finish do

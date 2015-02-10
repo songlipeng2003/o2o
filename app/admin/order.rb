@@ -34,11 +34,27 @@ ActiveAdmin.register Order do
       order.aasm.human_state
     end
     column :created_at
-    actions
+    actions defaults: true do |order|
+      link_to '关闭', close_admin_order_path(order),
+        method: :put,
+        data: { confirm: '你确认要关闭吗？' } if order.payed?
+    end
   end
 
   filter :phone
   filter :address
   filter :booked_at
   filter :created_at
+
+  member_action :close, method: :put do
+    resource.admin_close
+    resource.save
+    redirect_to :back, notice: "关闭成功"
+  end
+
+  action_item :close, only: :show do
+    link_to '关闭', close_admin_order_path(order),
+      method: :put,
+      data: { confirm: '你确认要关闭吗？' } if order.payed?
+  end
 end

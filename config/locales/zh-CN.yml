@@ -192,6 +192,8 @@ zh-CN:
         total_amount: '总价'
         application: '应用'
         application_id: '应用'
+        coupon: '代金券'
+        coupon_id: '代金券'
         created_at: '创建时间'
         updated_at: '更新时间'
       application:
