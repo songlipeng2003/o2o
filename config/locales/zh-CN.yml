@@ -22,8 +22,8 @@ zh-CN:
       trading_record: '交易记录'
       product: '商品'
       evaluation: '评价'
-      system_coupon: '系统优惠券'
-      coupon: '优惠券'
+      system_coupon: '系统代金券'
+      coupon: '代金券'
     attributes:
       admin_user:
         id: '编号'
@@ -230,7 +230,7 @@ zh-CN:
         amount: '金额'
         present_amount: '赠送金额'
         note: '备注'
-        system_coupons: '赠送优惠券'
+        system_coupons: '赠送代金券'
         created_at: '创建时间'
         updated_at: '更新时间'
       trading_record:
@@ -284,8 +284,8 @@ zh-CN:
       coupon:
         user: '用户'
         user_id: '用户'
-        system_coupon: '系统优惠券'
-        system_coupon_id: '系统优惠券'
+        system_coupon: '系统代金券'
+        system_coupon_id: '系统代金券'
         amount: '金额'
         state: '状态'
         expired_at: '过期时间'

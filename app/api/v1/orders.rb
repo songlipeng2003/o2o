@@ -35,7 +35,7 @@ module V1
         requires :car_model_id, type: Integer, desc: "车型编号"
         requires :product_type, type: Integer, desc: "商品类型，1为标准洗车， 2为标准打蜡"
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
-        optional :coupon_id, type: Integer, desc: "优惠券编号"
+        optional :coupon_id, type: Integer, desc: "代金券编号"
       end
       get :price do
         order = current_user.orders.new
@@ -95,7 +95,7 @@ module V1
         optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
         optional :product_type, type: Integer, desc: "商品类型，默认为1标准洗车，2为标准打蜡"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
-        optional :coupon_id, type: Integer, desc: "优惠券编号"
+        optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
         optional :note, type: String, desc: "订单备注"
       end
@@ -141,7 +141,7 @@ module V1
           unless coupon.unused?
             return {
               code: 1,
-              msg: '当前优惠券不可用'
+              msg: '当前代金券不可用'
             }
           end
         end

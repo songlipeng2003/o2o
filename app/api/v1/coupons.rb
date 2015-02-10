@@ -5,7 +5,7 @@ module V1
     end
 
     resource :coupons do
-      desc "优惠券接口", {
+      desc "代金券接口", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
@@ -19,7 +19,7 @@ module V1
         present coupons, with: V1::Entities::Coupon
       end
 
-      desc "下单前，查询可用优惠券接口", {
+      desc "下单前，查询可用代金券接口", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
