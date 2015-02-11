@@ -117,8 +117,12 @@ class Order < ActiveRecord::Base
       else
         product_id = 2
       end
-    else
+    elsif self.product_type==Product::PRODUCT_TYPE_WAX
       product_id = 3
+    elsif self.product_type==Product::PRODUCT_TYPE_POLISHING
+      product_id = 4
+    elsif self.product_type==Product::PRODUCT_TYPE_DEEP_CLEAN
+      product_id = 5
     end
     self.product_id = product_id
     self.original_price = self.product.price
