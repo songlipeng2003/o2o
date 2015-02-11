@@ -60,7 +60,11 @@ class Order < ActiveRecord::Base
     update_area_info
   end
 
-  after_create :use_coupon
+  after_create do
+    if self.coupon
+      use_coupon
+    end
+  end
 
   has_paper_trail
 
