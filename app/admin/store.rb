@@ -7,7 +7,9 @@ ActiveAdmin.register Store do
     column :name
     column :address
     column :phone
-    actions
+    actions defaults: true do |store|
+      link_to '用户管理', admin_store_store_users_path(store)
+    end
   end
 
   filter :name

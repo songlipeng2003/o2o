@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210144601) do
+ActiveRecord::Schema.define(version: 20150211152544) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -288,6 +288,26 @@ ActiveRecord::Schema.define(version: 20150210144601) do
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
+
+  create_table "store_users", force: true do |t|
+    t.integer  "store_id"
+    t.string   "username"
+    t.string   "phone"
+    t.string   "email",                default: "", null: false
+    t.string   "encrypted_password",   default: "", null: false
+    t.integer  "sign_in_count",        default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.string   "gender"
+    t.string   "nickname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "store_users", ["store_id"], name: "index_store_users_on_store_id", using: :btree
 
   create_table "stores", force: true do |t|
     t.string   "name"
