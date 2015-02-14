@@ -43,11 +43,13 @@ set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 namespace :deploy do
   after :publishing, :restart
 
-  task :install do
+  task :bower_install do
     on roles(:all) do
       within release_path do
         execute :rake, 'bower:install'
       end
     end
   end
+
+  before 'deploy:compile_assets', 'deploy:bower_install'
 end
