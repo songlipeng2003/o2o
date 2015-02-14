@@ -40,13 +40,16 @@ set :rvm_ruby_version, 'default'      # Defaults to: 'default'
 
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
+set :node_path, '/root/.nvm/v0.10.36'
+
+set :bower_bin, '{#node_path}/bin/bower'
+
 namespace :deploy do
   after :publishing, :restart
 
   task :bower_install do
     on roles(:all) do
       within release_path do
-        invoke_command "bash -c '. /root/.nvm/nvm.sh"
         execute :rake, 'bower:install'
       end
     end
