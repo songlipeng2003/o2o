@@ -40,9 +40,9 @@ set :rvm_ruby_version, 'default'      # Defaults to: 'default'
 
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
-set :node_path, '/root/.nvm/v0.10.36'
-
-set :bower_bin, '{#node_path}/bin/bower'
+set :nvm_type, :user # or :system, depends on your nvm setup
+set :nvm_node, 'v0.10.36'
+set :nvm_map_bins, %w{node npm bower}
 
 namespace :deploy do
   after :publishing, :restart
