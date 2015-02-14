@@ -46,6 +46,7 @@ namespace :deploy do
   task :bower_install do
     on roles(:all) do
       within release_path do
+        invoke_command "bash -c '. /root/.nvm/nvm.sh"
         execute :rake, 'bower:install'
       end
     end
