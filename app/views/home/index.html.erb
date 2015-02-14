@@ -27,7 +27,9 @@
 
   <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right text-center" role="navigation">
     <ul class="list-unstyled menu-links">
-      <li class="nav-item active"><a href="index.html">Home</a></li>
+      <li class="nav-item active">
+        <a href="/">首页</a>
+      </li>
       <li class="nav-item"><a href="about.html">About</a></li>
       <li class="nav-item"><a href="press.html">Press</a></li>
       <li class="nav-item"><a href="pricing.html">Pricing</a></li>
@@ -45,10 +47,16 @@
       </li><!--//dropdown-->
     </ul>
     <ul class="social-icons list-inline">
-      <li><a href="https://twitter.com/3rdwave_themes"><i class="fa fa-twitter"></i></a></li>
-      <li><a href="https://www.facebook.com/3rdwavethemes"><i class="fa fa-facebook"></i></a></li>
-      <li><a href="https://www.facebook.com/3rdwavethemes"><i class="fa fa-instagram"></i></a></li>
-      <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+      <li>
+        <a href="https://weibo.com/">
+          <i class="fa fa-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-weixin"></i>
+        </a>
+      </li>
     </ul>
 
     <ul class="list-unstyled download-buttons">
@@ -63,7 +71,6 @@
         </a>
       </li>
     </ul><!--//list-unstyled-->
-
   </nav>
 
   <div class="canvas-wrapper">
@@ -71,24 +78,30 @@
     <header id="header" class="header navbar-fixed-top">
       <div class="container">
         <h1 class="logo">
-          <a href="index.html">ATOM</a>
+          <a href="/">嘀嘀去哪儿</a>
         </h1><!--//logo-->
         <div class="social-container text-center">
           <ul class="social-icons list-inline">
-            <li><a href="https://twitter.com/3rdwave_themes"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://www.facebook.com/3rdwavethemes"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="https://www.facebook.com/3rdwavethemes"><i class="fa fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li>
+              <a href="https://weibo.com/">
+                <i class="fa fa-weibo"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-weixin"></i>
+              </a>
+            </li>
           </ul>
         </div>
 
-        <div class="navbar-wrapper">
-         <span class="navbar-label">MENU</span>
-         <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-recalc="false" data-canvas="body">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-         </button>
+        <div class="navbar-wrapper hidden">
+          <span class="navbar-label">MENU</span>
+            <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-recalc="false" data-canvas="body">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div><!--//navbar -->
       </div><!--//container-->
     </header><!--//header-->
@@ -319,13 +332,22 @@
           <div class="container">
             <h3 class="title">Download Atom now <br />and start marketing your app to your audience</h3>
             <ul class="list-inline download-list">
-              <li><a class="btn btn-cta btn-cta-primary" href="#"><i class="fa fa-apple"></i><span class="text">Download for iOS</span> </a></li>
-              <li><a class="btn btn-cta btn-cta-primary" href="#"><i class="fa fa-android"></i><span class="text">Download for Android</span></a></li>
-              <li><a class="btn btn-cta btn-cta-primary" href="#"><i class="fa fa-windows"></i><span class="text">Download for Windows</span></a></li>
+              <li>
+                <a class="btn btn-cta btn-cta-primary" href="#">
+                  <i class="fa fa-apple"></i>
+                  <span class="text">Download for iOS</span>
+                </a>
+              </li>
+              <li>
+                <a class="btn btn-cta btn-cta-primary" href="#">
+                  <i class="fa fa-android"></i>
+                  <span class="text">Download for Android</span>
+                </a>
+              </li>
             </ul>
             <figure class="qr-holder">
-              <%= image_tag "buttons/QR-code.png", class: 'img-responsive' %>
-              <figcaption class="caption">Scan the QR code to download</figcaption>
+              <%= image_tag "buttons/QR-code.png" %>
+              <figcaption class="caption">扫描二维码下载</figcaption>
             </figure>
           </div><!--//container-->
         </div><!--//download-->
@@ -349,36 +371,22 @@
           </ul>
         </nav>
         <ul class="social-icons list-inline">
-          <li><a href="https://twitter.com/3rdwave_themes"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="https://www.facebook.com/3rdwavethemes"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="https://www.facebook.com/3rdwavethemes"><i class="fa fa-instagram"></i></a></li>
-          <li class="last"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+          <li>
+            <a href="https://weibo.com/">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
         </ul>
-        <ul class="links legal-links list-inline">
-          <li><a href="#">Privacy</a></li>
-          <li class="last"><a href="#">Terms</a></li>
-        </ul><!--//legal-links-->
-        <small class="copyright">Copyright &copy; 2015 <a href="http://themes.3rdwavemedia.com/">3rd wave Media</a></small>
+        <small class="copyright">Copyright &copy; 2015 河南赢道网络有限公司</small>
 
       </div><!--//container-->
     </footer><!--//footer-->
   </div><!--//canvas-wrapper-->
-
-  <!-- *****Video Modal***** -->
-  <div class="modal modal-video" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 id="videoModalLabel" class="modal-title sr-only">Video Tour</h4>
-        </div>
-        <div class="modal-body">
-          <div class="video-container text-center">
-          </div><!--//video-container-->
-        </div><!--//modal-body-->
-      </div><!--//modal-content-->
-    </div><!--//modal-dialog-->
-  </div><!--//modal-->
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
