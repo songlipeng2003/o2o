@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   # api
   mount API => '/api'
 
+  mount StoreAPI => '/store_api'
+
   mount GrapeSwaggerRails::Engine => '/swagger'
 
   require 'sidekiq/web'
