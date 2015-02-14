@@ -43,6 +43,7 @@ set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v0.10.36'
 set :nvm_map_bins, %w{node npm bower}
+set :npm_roles, :web
 
 namespace :deploy do
   after :publishing, :restart

@@ -41,6 +41,7 @@ group :development do
   gem 'capistrano-thin'
   gem 'capistrano-sidekiq'
   gem 'capistrano-nvm', require: false
+  gem 'capistrano-npm'
 end
 
 # Use debugger
