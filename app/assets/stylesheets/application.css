@@ -12,5 +12,14 @@
  *
  *= require bootstrap-generators
  *= require bootstrap-variables
+ *= require jasny-bootstrap/dist/css/jasny-bootstrap
+ *= require font-awesome/css/font-awesome
+ *= require fullpage.js/jquery.fullPage.css
+ *= require owl.carousel
+ *= require owl.theme
+ *= require pe-icon-7-stroke/pe-icon-7-stroke
+ *= require pe-icon-7-stroke/helper
+
+ *= require styles
  *= require_self
  */

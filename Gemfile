@@ -58,8 +58,7 @@ end
 
 # assets
 gem 'bootstrap-generators', '~> 3.2.0'
-gem 'select2-rails', '~> 3.5.2'
-gem 'angularjs-rails', '~> 1.2.5'
+gem "bower-rails", "~> 0.9.2"
 
 # disable assets log
 gem 'quiet_assets', '~> 1.0.3', group: :development

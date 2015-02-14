@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   resources :docs
 
   resources :pay do
