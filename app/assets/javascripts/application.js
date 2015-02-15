@@ -20,7 +20,6 @@
 //= require owl.carousel
 //= require isMobile/isMobile
 //= require jquery-migrate/jquery-migrate
-
 //= require fullpage-custom
 //= require owl-custom
 //= require form-mobile-fix
