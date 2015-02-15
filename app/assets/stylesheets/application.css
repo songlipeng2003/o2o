@@ -13,7 +13,7 @@
  *= require bootstrap-generators
  *= require bootstrap-variables
  *= require jasny-bootstrap/dist/css/jasny-bootstrap
- *= require font-awesome/css/font-awesome
+ *= require font-awesome
  *= require fullpage.js/jquery.fullPage.css
  *= require owl.carousel
  *= require owl.theme
