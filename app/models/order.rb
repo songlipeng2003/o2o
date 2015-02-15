@@ -68,6 +68,8 @@ class Order < ActiveRecord::Base
 
   has_paper_trail
 
+  default_scope -> { order('id DESC') }
+
   aasm column: :state do
     state :unpayed, :initial => true
     state :payed
