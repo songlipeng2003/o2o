@@ -1,0 +1,43 @@
+{
+  "name": "fullpage.js",
+  "version": "2.5.6",
+  "homepage": "http://alvarotrigo.com/fullPage/",
+  "authors": [
+    "Alvaro Trigo https://github.com/alvarotrigo"
+  ],
+  "description": "Create  beautiful fullscreen scrolling websites",
+  "main": [
+    "jquery.fullPage.js",
+    "jquery.fullPage.css",
+    "vendors/jquery.easings.min.js",
+    "vendors/jquery.slimscroll.min.js"
+  ],
+  "keywords": [
+    "jquery",
+    "scrolling",
+    "single_page",
+    "one_page",
+    "sliding"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "examples"
+  ],
+  "dependencies": {
+    "jquery": "1.x"
+  },
+  "_release": "2.5.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.5.6",
+    "commit": "164f09c17fb941f52f20226f9dd40e3ee49f53ad"
+  },
+  "_source": "git://github.com/alvarotrigo/fullPage.js.git",
+  "_target": "2.5.6",
+  "_originalSource": "fullpage.js"
+}
