@@ -224,7 +224,7 @@ module V1
             }
           end
 
-          if current_user.validate_pay_password(params[:password])
+          if !current_user.validate_pay_password(params[:pay_password])
             return {
               code: -2,
               msg: '支付密码错误'

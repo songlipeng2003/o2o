@@ -35,7 +35,13 @@ class User < ActiveRecord::Base
   end
 
   def validate_pay_password(pay_password)
-    return self.encrypted_pay_password==password_digest(pay_password)
+    return false if encrypted_pay_password.blank?
+    bcrypt   = ::BCrypt::Password.new(encrypted_pay_password)
+    if self.class.pepper.present?
+      pay_password = "#{pay_password}#{self.class.pepper}"
+    end
+    pay_password = ::BCrypt::Engine.hash_secret(pay_password, bcrypt.salt)
+    Devise.secure_compare(pay_password, encrypted_pay_password)
   end
 
   def is_set_pay_password
