@@ -4,6 +4,9 @@ module V1
       expose :id
       expose :amount
       expose :state
+      expose :state_text do |coupon|
+        coupon.aasm.human_state
+      end
       expose :expired_at
       expose :image do |coupon|
         coupon.system_coupon.image.thumb.url
