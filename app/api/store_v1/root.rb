@@ -50,10 +50,10 @@ module StoreV1
       end
     end
 
-    mount V1::Accounts
+    mount StoreV1::Accounts
 
     add_swagger_documentation hide_documentation_path: true,
-      base_path: '/api',
+      base_path: '/store_api',
       api_version: 'v1',
       info: {
         title: '嘀嘀去哪儿商户接口文档',
