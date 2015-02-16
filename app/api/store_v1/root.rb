@@ -29,9 +29,9 @@ module StoreV1
       end
 
       def authenticated
-        return true if warden.authenticated? :scope => :user
+        return true if warden.authenticated? :scope => :store_user
         access_token = params[:access_token] || request.headers['X-Access-Token'];
-        access_token && @user = User.find_by_authentication_token(access_token)
+        access_token && @user = StoreUser.find_by_authentication_token(access_token)
       end
 
       def authenticate!
@@ -43,14 +43,13 @@ module StoreV1
         @user
       end
 
-      def current_application
-        api_key = params[:api_key] || request.headers['X-Api-Key']
-        @application ||= Application.where(token: api_key).first
-        @application ||= Application.first
+      def current_store
+        @user.store
       end
     end
 
     mount StoreV1::Accounts
+    mount StoreV1::Orders
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/store_api',

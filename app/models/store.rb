@@ -18,6 +18,7 @@ class Store < ActiveRecord::Base
   belongs_to :area, class_name: 'Area'
 
   has_many :store_users
+  has_many :orders
 
   before_create do
     update_area_info
