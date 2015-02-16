@@ -19,4 +19,6 @@ class Product < ActiveRecord::Base
   validates :market_price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
 
   mount_uploader :image, ProductImageUploader
+
+  default_scope -> { order('id DESC') }
 end

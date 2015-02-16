@@ -64,6 +64,7 @@ module V1
     mount V1::Docs
     mount V1::Files
     mount V1::Orders
+    mount V1::Products
     mount V1::RechargePolicies
     mount V1::Recharges
     mount V1::Stores
