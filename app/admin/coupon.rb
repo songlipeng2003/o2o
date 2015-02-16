@@ -8,7 +8,9 @@ ActiveAdmin.register Coupon do
     column :user
     column :system_coupon
     column :amount
-    column :state
+    column :state do |coupon|
+      coupon.aasm.human_state
+    end
     column :created_at
     actions
   end
