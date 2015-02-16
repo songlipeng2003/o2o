@@ -1,6 +1,5 @@
 ActiveAdmin.register Car do
   menu parent: '汽车'
-  actions :index, :show
 
   index do
     selectable_column
