@@ -22,6 +22,26 @@ module StoreV1
         orders = paginate current_store.orders.where.not(state: 'unpayed')
         present orders, with: V1::Entities::OrderList
       end
+
+      desc "订单完成", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "订单编号"
+      end
+      route_param :id do
+        post :finish do
+          order = current_store.orders.find(params[:id])
+          order.finish
+          order.save
+          present order, with: V1::Entities::OrderList
+        end
+      end
     end
   end
 end
