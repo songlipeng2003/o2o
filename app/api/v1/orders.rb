@@ -106,7 +106,11 @@ module V1
         order.product_id = 1;
         order.application = current_application
         unless params[:car].blank?
-          car = current_user.cars.new(clean_params(params).require(:car).permit(:car_model_id, :color, :license_tag))
+          car_params = clean_params(params).require(:car).permit(:car_model_id, :color, :license_tag)
+          car = current_user.cars.where(car_params).first
+          unless car
+            car = current_user.cars.new(car_params)
+          end
           car.save
           order.car_id = car.id
         end
@@ -114,7 +118,11 @@ module V1
         if params[:address].blank?
           address = current_user.addresses.find(params[:address_id])
         else
-          address = current_user.addresses.new(clean_params(params).require(:address).permit(:place, :lon, :lat))
+          address_params = clean_params(params).require(:address).permit(:place, :lon, :lat)
+          address = current_user.addresses.where(address_params).first
+          unless address
+            address = current_user.addresses.new(address_params)
+          end
           address.save
           order.address_id = address.id
         end

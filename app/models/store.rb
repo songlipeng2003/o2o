@@ -38,7 +38,7 @@ class Store < ActiveRecord::Base
                 relation: "intersects",
                 shape: {
                   type: 'point',
-                  coordinates: [lon, lat]
+                  coordinates: [lon.to_f, lat.to_f]
                 }
               }
             }

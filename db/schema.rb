@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211152544) do
+ActiveRecord::Schema.define(version: 20150224093444) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20150211152544) do
   create_table "addresses", force: true do |t|
     t.string   "place"
     t.string   "address_type"
-    t.float    "lat",          limit: 24
-    t.float    "lon",          limit: 24
+    t.decimal  "lat",          precision: 11, scale: 8
+    t.decimal  "lon",          precision: 11, scale: 8
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -226,14 +226,14 @@ ActiveRecord::Schema.define(version: 20150211152544) do
     t.integer  "car_id"
     t.string   "phone"
     t.string   "place"
-    t.float    "lat",                 limit: 24
-    t.float    "lon",                 limit: 24
+    t.decimal  "lat",                            precision: 11, scale: 8
+    t.decimal  "lon",                            precision: 11, scale: 8
     t.datetime "booked_at"
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
-    t.boolean  "is_underground_park",            default: false
+    t.boolean  "is_underground_park",                                     default: false
     t.string   "carport"
     t.string   "license_tag"
     t.integer  "car_model_id"
@@ -245,8 +245,8 @@ ActiveRecord::Schema.define(version: 20150211152544) do
     t.integer  "city_id"
     t.integer  "area_id"
     t.float    "original_price",      limit: 24
-    t.integer  "product_type",                   default: 1
-    t.boolean  "is_include_interior",            default: false
+    t.integer  "product_type",                                            default: 1
+    t.boolean  "is_include_interior",                                     default: false
     t.integer  "application_id"
     t.integer  "coupon_id"
   end
