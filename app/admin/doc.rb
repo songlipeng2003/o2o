@@ -19,7 +19,7 @@ ActiveAdmin.register Doc do
     f.inputs do
       f.input :title
       f.input :key
-      f.input :content
+      f.input :content, :as => :ckeditor
     end
     f.actions
   end

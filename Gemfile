@@ -131,3 +131,6 @@ gem 'rack-raw-upload', '~> 1.1.1'
 
 # crontab
 gem 'whenever', :require => false
+
+# ckeditor
+gem 'ckeditor'

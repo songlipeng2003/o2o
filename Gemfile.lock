@@ -134,6 +134,13 @@ GEM
       timers (~> 4.0.0)
     china_sms (0.0.7)
     chronic (0.10.2)
+    ckeditor (4.1.1)
+      cocaine
+      orm_adapter (~> 0.5.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.5)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -407,6 +414,7 @@ DEPENDENCIES
   capybara (~> 2.2.0)
   carrierwave (~> 0.10.0)
   china_sms (~> 0.0.7)
+  ckeditor
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
   default_value_for (~> 3.0.0)
