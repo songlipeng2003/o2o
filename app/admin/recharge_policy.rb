@@ -1,5 +1,5 @@
 ActiveAdmin.register RechargePolicy do
-  menu parent: '财务'
+  menu parent: '促销'
 
   permit_params :amount, :present_amount, :note, { system_coupon_ids: [] }
 

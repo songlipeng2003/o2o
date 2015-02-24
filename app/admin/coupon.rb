@@ -1,5 +1,5 @@
 ActiveAdmin.register Coupon do
-  menu parent: '代金券'
+  menu parent: '促销'
 
   actions :index, :show
 

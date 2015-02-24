@@ -1,5 +1,5 @@
 ActiveAdmin.register SystemCoupon do
-  menu parent: '代金券'
+  menu parent: '促销'
 
   permit_params :name, :product_id, :amount, :description, :image
 
