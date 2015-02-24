@@ -25,8 +25,8 @@ require 'capistrano/rails/migrations'
 require 'capistrano/sidekiq'
 require 'capistrano/thin'
 require "whenever/capistrano"
-require 'capistrano/nvm'
-require 'capistrano/npm'
+# require 'capistrano/nvm'
+# require 'capistrano/npm'
 
 # Load custom tasks from `lib/capistrano/tasks' if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
