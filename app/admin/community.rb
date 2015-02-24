@@ -1,6 +1,7 @@
 ActiveAdmin.register Community do
-  permit_params :name, :address, :area_id, :lon, :lat
+  menu false
 
+  permit_params :name, :address, :area_id, :lon, :lat
 
   index do
     selectable_column
