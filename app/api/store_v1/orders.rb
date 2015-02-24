@@ -4,7 +4,7 @@ module StoreV1
       error!("401 Unauthorized", 401) unless authenticated
     end
 
-    resource :Orders do
+    resource :orders do
       desc "订单", {
         headers: {
           "X-Access-Token" => {
