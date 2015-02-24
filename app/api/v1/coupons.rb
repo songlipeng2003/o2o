@@ -13,9 +13,8 @@ module V1
           },
         }
       }
-      paginate per_page: 10
       get do
-        coupons = paginate current_user.coupons
+        coupons = current_user.coupons.unused.select('*, COUNT(*) AS count').group(:system_coupon_id)
         present coupons, with: V1::Entities::Coupon
       end
 

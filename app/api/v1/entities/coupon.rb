@@ -4,6 +4,7 @@ module V1
       expose :id
       expose :amount
       expose :state
+      expose :count
       expose :state_text do |coupon|
         coupon.aasm.human_state
       end
