@@ -19,6 +19,7 @@ class PayController < ApplicationController
         else trade_status == 'TRADE_CLOSED'
           @order.close
         end
+      end
       render :text => 'success'
     else
       render :text => 'error'
