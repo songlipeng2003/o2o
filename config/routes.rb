@@ -3,6 +3,12 @@ Rails.application.routes.draw do
 
   resources :docs
 
+  resources :pages do
+    collection do
+      get :download
+    end
+  end
+
   resources :pay do
     collection do
       get :alipay_notify
