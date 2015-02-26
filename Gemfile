@@ -134,3 +134,6 @@ gem 'whenever', :require => false
 
 # ckeditor
 gem 'ckeditor'
+
+# nested forms
+gem "cocoon"

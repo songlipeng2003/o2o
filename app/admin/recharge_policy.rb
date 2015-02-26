@@ -1,7 +1,7 @@
 ActiveAdmin.register RechargePolicy do
   menu parent: '促销'
 
-  permit_params :amount, :present_amount, :note, { system_coupon_ids: [] }
+  permit_params :amount, :present_amount, :note, { recharge_policies_system_coupons_attributes: [:system_coupon_id, :number, :_destroy] }
 
   index do
     selectable_column
@@ -17,15 +17,7 @@ ActiveAdmin.register RechargePolicy do
   filter :note
   filter :created_at
 
-  form do |f|
-    f.inputs do
-      f.input :amount
-      f.input :present_amount
-      f.input :system_coupons, as: :check_boxes
-      f.input :note
-    end
-    f.actions
-  end
+  form :partial => "form"
 
   show do
     attributes_table do

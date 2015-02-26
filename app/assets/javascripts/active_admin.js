@@ -1,5 +1,6 @@
 //= require active_admin/base
 //= require ckeditor/init
+//= require cocoon
 
 $(function(){
   $('.cascade_select').change(function(){

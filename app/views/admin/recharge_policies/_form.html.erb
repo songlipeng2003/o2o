@@ -1,0 +1,16 @@
+<%= semantic_form_for [:admin, @recharge_policy] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :amount %>
+    <%= f.input :present_amount %>
+    <%= f.input :note %>
+  <% end %>
+  <%= f.inputs '优惠券' do %>
+    <%= f.semantic_fields_for :recharge_policies_system_coupons do |recharge_policies_system_coupon| %>
+        <% render 'recharge_policies_system_coupon_fields', f: recharge_policies_system_coupon %>
+    <% end %>
+    <span class="action_item">
+      <%= link_to_add_association '增加', f, :recharge_policies_system_coupons %>
+    </span>
+  <% end %>
+  <%= f.actions %>
+<% end %>

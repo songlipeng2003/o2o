@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224223941) do
+ActiveRecord::Schema.define(version: 20150226151339) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -288,9 +288,10 @@ ActiveRecord::Schema.define(version: 20150224223941) do
     t.datetime "updated_at"
   end
 
-  create_table "recharge_policies_system_coupons", id: false, force: true do |t|
-    t.integer "recharge_policy_id", null: false
-    t.integer "system_coupon_id",   null: false
+  create_table "recharge_policies_system_coupons", force: true do |t|
+    t.integer "recharge_policy_id",             null: false
+    t.integer "system_coupon_id",               null: false
+    t.integer "number",             default: 1
   end
 
   create_table "recharges", force: true do |t|

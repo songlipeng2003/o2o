@@ -4,7 +4,10 @@ class RechargePolicy < ActiveRecord::Base
 
   validates :note, presence: true
 
-  has_and_belongs_to_many :system_coupons
+  has_many :recharge_policies_system_coupons, dependent: :destroy
+  has_many :system_coupons, through: :recharge_policies_system_coupons
+
+  accepts_nested_attributes_for :recharge_policies_system_coupons, reject_if: :all_blank, allow_destroy: true
 
   has_paper_trail
 end
