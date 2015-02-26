@@ -41,14 +41,15 @@ class Recharge < ActiveRecord::Base
             trading_record.save
           end
 
-          if self.recharge_policy.system_coupons.length>0
-            self.recharge_policy.system_coupons.each do |system_coupon|
-              coupon = Coupon.new
-              coupon.user_id = self.user_id
-              coupon.system_coupon_id = system_coupon.id
-              coupon.amount = system_coupon.amount
-
-              coupon.save
+          if self.recharge_policy.recharge_policies_system_coupons.length>0
+            self.recharge_policy.recharge_policies_system_coupons.each do |recharge_policies_system_coupon|
+              recharge_policies_system_coupon.number.times do
+                coupon = Coupon.new
+                coupon.user_id = self.user_id
+                coupon.system_coupon_id = recharge_policies_system_coupon.system_coupon_id
+                coupon.amount = recharge_policies_system_coupon.system_coupon.amount
+                coupon.save
+              end
             end
           end
 
