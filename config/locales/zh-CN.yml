@@ -236,6 +236,7 @@ zh-CN:
         present_amount: '赠送金额'
         note: '备注'
         system_coupons: '赠送代金券'
+        sort: '排序'
         created_at: '创建时间'
         updated_at: '更新时间'
       trading_record:

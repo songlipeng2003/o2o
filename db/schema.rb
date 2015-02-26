@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226151339) do
+ActiveRecord::Schema.define(version: 20150226151434) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -286,6 +286,7 @@ ActiveRecord::Schema.define(version: 20150226151339) do
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sort",           default: 0
   end
 
   create_table "recharge_policies_system_coupons", force: true do |t|
