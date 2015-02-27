@@ -42,7 +42,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    "#{secure_token}.#{file.extension}" if original_filename
+    if original_filename
+      "#{secure_token}.#{file.extension}"
+    else
+      model['file']
+    end
   end
 
   protected

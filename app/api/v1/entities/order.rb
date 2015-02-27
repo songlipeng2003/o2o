@@ -26,7 +26,7 @@ module V1
         order.aasm.human_state
       end
 
-      expose :evaluation
+      expose :evaluation, using: V1::Entities::Evaluation
 
       expose :links do |order|
         links = []

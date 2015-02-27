@@ -14,6 +14,8 @@ class Evaluation < ActiveRecord::Base
   validates_associated :user
   validates_associated :store
 
+  has_many :images, as: :item
+
   before_validation do
     self.user_id = order.user_id
     self.store_id = order.store_id
