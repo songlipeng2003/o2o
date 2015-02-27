@@ -27,6 +27,7 @@ zh-CN:
       store_user: '店铺用户'
       login_history: '登录历史'
       recharge_policies_system_coupon: '充值系统优惠券关系'
+      product_type: '商品类型'
     attributes:
       admin_user:
         id: '编号'
@@ -254,6 +255,7 @@ zh-CN:
         description: '描述'
         price: '价格'
         product_type: '商品类型'
+        product_type_id: '商品类型'
         market_price: '市场价'
         image: '图片'
         created_at: '创建时间'
@@ -285,6 +287,8 @@ zh-CN:
         amount: '金额'
         description: '描述'
         image: '图片'
+        product_type: '商品类型'
+        product_type_id: '商品类型'
         created_at: '创建时间'
         updated_at: '更新时间'
       coupon:
@@ -336,3 +340,9 @@ zh-CN:
         system_coupon: '系统优惠券'
         system_coupon_id: '系统优惠券'
         number: '数量'
+      product_type:
+        id: '编号'
+        name: '名称'
+        description: '描述'
+        created_at: '创建时间'
+        updated_at: '更新时间'

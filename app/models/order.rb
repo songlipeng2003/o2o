@@ -113,20 +113,14 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total_amount
-    if self.product_type==Product::PRODUCT_TYPE_WASH
+    if [1, 2].include? self.product_id
       unless self.car_model.auto_type=='SUV'
-        product_id = 1
+        self.product_id = 1
       else
-        product_id = 2
+        self.product_id = 2
       end
-    elsif self.product_type==Product::PRODUCT_TYPE_WAX
-      product_id = 3
-    elsif self.product_type==Product::PRODUCT_TYPE_POLISHING
-      product_id = 4
-    elsif self.product_type==Product::PRODUCT_TYPE_DEEP_CLEAN
-      product_id = 5
     end
-    self.product_id = product_id
+
     self.original_price = self.product.price
     price = self.original_price
 
@@ -142,7 +136,7 @@ class Order < ActiveRecord::Base
   end
 
   def product_type_text
-    Product::PRODUCT_TYPES[product_type]
+    product.name
   end
 
   def check_coupon

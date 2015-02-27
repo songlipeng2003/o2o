@@ -27,7 +27,7 @@ module V1
         }
       }
       params do
-        requires :product_id, type: Integer, desc: "商品编号"
+        requires :product_id, type: Integer, desc: "商品编号，1、2为标准洗车,其他请使用商品列表返回的商品编号"
       end
       get :order do
         coupons = current_user.coupons.includes(:system_coupon)

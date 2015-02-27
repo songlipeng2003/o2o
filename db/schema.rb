@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226151434) do
+ActiveRecord::Schema.define(version: 20150227035047) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -269,16 +269,25 @@ ActiveRecord::Schema.define(version: 20150226151434) do
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
 
+  create_table "product_types", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.float    "price",        limit: 24
+    t.float    "price",           limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "product_type",            default: 1
-    t.float    "market_price", limit: 24
+    t.float    "market_price",    limit: 24
     t.string   "image"
+    t.integer  "product_type_id"
   end
+
+  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
 
   create_table "recharge_policies", force: true do |t|
     t.integer  "amount"
@@ -348,14 +357,16 @@ ActiveRecord::Schema.define(version: 20150226151434) do
   create_table "system_coupons", force: true do |t|
     t.string   "name"
     t.integer  "product_id"
-    t.float    "amount",      limit: 24
+    t.float    "amount",          limit: 24
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+    t.integer  "product_type_id"
   end
 
   add_index "system_coupons", ["product_id"], name: "index_system_coupons_on_product_id", using: :btree
+  add_index "system_coupons", ["product_type_id"], name: "index_system_coupons_on_product_type_id", using: :btree
 
   create_table "trading_records", force: true do |t|
     t.integer  "user_id"

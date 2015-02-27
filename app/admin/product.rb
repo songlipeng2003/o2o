@@ -1,9 +1,12 @@
 ActiveAdmin.register Product do
-  permit_params :name, :price, :market_price, :description, :image
+  menu parent: '商品'
+
+  permit_params :name, :price, :market_price, :description, :image, :product_type_id
 
   index do
     id_column
     column :name
+    column :product_type
     column :image, sortable: false do |product|
       image_tag(product.image.thumb.url)
     end
@@ -20,6 +23,7 @@ ActiveAdmin.register Product do
   form html: { multipart: true } do |f|
     f.inputs do
       f.input :name
+      f.input :product_type
       f.input :image, :image_preview => true
       f.input :price
       f.input :market_price
@@ -32,6 +36,7 @@ ActiveAdmin.register Product do
     attributes_table do
       row :id
       row :name
+      row :product_type
       row :image do
         image_tag(product.image.url)
       end
