@@ -30,9 +30,10 @@ module V1
         requires :product_id, type: Integer, desc: "商品编号，1、2为标准洗车,其他请使用商品列表返回的商品编号"
       end
       get :order do
-        coupons = current_user.coupons.select('*, COUNT(*) AS count').includes(:system_coupon)
-          .where(system_coupons: {product_id: params[:product_id]}).unused.group(:system_coupon_id)
-        present coupons, with: V1::Entities::CouponList
+        coupons = current_user.coupons.joins(:system_coupon).unused.select('coupons.*, COUNT(coupons.id) AS count')
+          .where(system_coupons: {product_id: params[:product_id]})
+          .group(:system_coupon_id)
+        present coupons, with: V1::Entities::Coupon
       end
     end
   end
