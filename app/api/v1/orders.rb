@@ -188,13 +188,13 @@ module V1
         put do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.finished?
-          evaluation = order.new_evaluation({
+          evaluation = order.build_evaluation({
             score: params[:score],
             note: params[:note]
           })
 
-        evaluation.application = current_application
-        evaluation.save
+          evaluation.application = current_application
+          evaluation.save
 
           if !params[:images].blank?
             params[:images].each do |image|
