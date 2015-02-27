@@ -277,6 +277,7 @@ module V1
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed?
           order.close
+          order.save
 
           present order, with: V1::Entities::OrderList
         end
