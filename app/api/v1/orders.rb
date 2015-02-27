@@ -33,14 +33,14 @@ module V1
       }
       params do
         requires :car_model_id, type: Integer, desc: "车型编号"
-        requires :product_type, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
+        requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
         optional :coupon_id, type: Integer, desc: "代金券编号"
       end
       get :price do
         order = current_user.orders.new
         order.car_model_id = params[:car_model_id]
-        order.product_type = params[:product_type]
+        order.product_id = params[:product_id]
         order.is_include_interior = params[:is_include_interior]
         order.coupon_id = params[:coupon_id]
         order.cal_total_amount
