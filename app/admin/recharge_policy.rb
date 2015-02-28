@@ -4,7 +4,7 @@ ActiveAdmin.register RechargePolicy do
   config.sort_order = 'sort_desc, id_desc'
   config.batch_actions = false
 
-  permit_params :amount, :present_amount, :note, :sort, { recharge_policies_system_coupons_attributes: [:system_coupon_id, :number, :_destroy] }
+  permit_params :amount, :present_amount, :note, :sort, { recharge_policies_system_coupons_attributes: [:id, :system_coupon_id, :number, :_destroy] }
 
   index do
     id_column
