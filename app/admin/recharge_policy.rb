@@ -31,7 +31,9 @@ ActiveAdmin.register RechargePolicy do
       row :system_coupons do
         content = ''
         recharge_policy.recharge_policies_system_coupons.each do |recharge_policies_system_coupon|
-          content << link_to("#{recharge_policies_system_coupon.system_coupon.name} #{recharge_policies_system_coupon.number}张" , admin_system_coupon_path(recharge_policies_system_coupon.system_coupon))
+          content << link_to("#{recharge_policies_system_coupon.system_coupon.name} #{recharge_policies_system_coupon.number}张",
+              admin_system_coupon_path(recharge_policies_system_coupon.system_coupon))
+          content << '<br/>'
         end
         raw(content)
       end
