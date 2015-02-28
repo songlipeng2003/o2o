@@ -28,6 +28,7 @@ zh-CN:
       login_history: '登录历史'
       recharge_policies_system_coupon: '充值系统优惠券关系'
       product_type: '商品类型'
+      address: '地址'
     attributes:
       admin_user:
         id: '编号'
@@ -344,5 +345,16 @@ zh-CN:
         id: '编号'
         name: '名称'
         description: '描述'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      address:
+        id: '编号'
+        user: '用户'
+        user_id: '用户'
+        name: '名称'
+        lat: '纬度'
+        lon: '经度'
+        place: '地址'
+        address_type: '地址类型'
         created_at: '创建时间'
         updated_at: '更新时间'
