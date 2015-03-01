@@ -84,7 +84,7 @@ module V1
           optional :license_tag, type: String, desc: "车牌号"
         end
         mutually_exclusive :car_id, :car
-        optional :address_id, type: Integer, desc: "地址编号,地址编号喝地址信息仅需填写一个"
+        optional :address_id, type: Integer, desc: "地址编号,地址编号和地址信息仅需填写一个"
         optional :address, type: Hash do
           optional :place, type: String, desc: "地址"
           optional :lon, type: String, desc: "经度"
@@ -275,7 +275,7 @@ module V1
       route_param ':id/close' do
         put do
           order = current_user.orders.find(params[:id])
-          error!("404 Not Found", 404) unless order.unpayed?
+          error!("404 Not Found", 404) unless order.unpayed? || order.payed?
           order.close
           order.save
 

@@ -100,6 +100,19 @@ class Order < ActiveRecord::Base
     end
 
     event :close do
+      before do
+        if self.payed?
+          if Time.now.beginning_of_day != self.booked_at.beginning_of_day
+            trading_record = TradingRecord.new
+            trading_record.user_id = self.user_id
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
+            trading_record.object = self
+            trading_record.amount = self.total_amount
+            trading_record.save
+          end
+        end
+      end
+
       transitions :from => [:unpayed, :payed], :to => :closed
     end
 
