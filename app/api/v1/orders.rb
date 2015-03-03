@@ -272,8 +272,8 @@ module V1
       params do
         requires :id, type: Integer, desc: "订单编号"
       end
-      route_param ':id/close' do
-        put do
+      route_param :id do
+        put :close do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed? || order.payed?
           order.close
