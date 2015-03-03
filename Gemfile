@@ -137,3 +137,5 @@ gem 'ckeditor'
 
 # nested forms
 gem "cocoon"
+
+gem "rack-cors"

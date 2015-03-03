@@ -32,5 +32,14 @@ module Didi
 
     # ckeditor
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
+
+    config.middleware.use Rack::Cors do
+        allow do
+          origins '*'
+          # location of your API
+          resource '/api/*', :headers => :any, :methods => [:get, :post, :options, :put, :delete]
+          resource '/store_api/*', :headers => :any, :methods => [:get, :post, :options, :put, :delete]
+        end
+    end
   end
 end

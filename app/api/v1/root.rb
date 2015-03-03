@@ -6,11 +6,6 @@ module V1
 
     version 'v1', using: :path
 
-    before do
-      header['Access-Control-Allow-Origin'] = '*'
-      header['Access-Control-Request-Method'] = '*'
-    end
-
     helpers do
       def logger
         API.logger

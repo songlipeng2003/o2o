@@ -262,6 +262,7 @@ GEM
     rack (1.5.2)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-cors (0.3.1)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
     rack-protection (1.5.3)
@@ -432,6 +433,7 @@ DEPENDENCIES
   mysql2
   paper_trail (~> 3.0.6)
   quiet_assets (~> 1.0.3)
+  rack-cors
   rack-raw-upload (~> 1.1.1)
   rails (= 4.1.6)
   rails-i18n (~> 4.0.0)
