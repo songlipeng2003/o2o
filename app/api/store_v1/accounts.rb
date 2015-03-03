@@ -11,6 +11,12 @@ module StoreV1
       end
       post 'login' do
         store_user = StoreUser.where(username: params[:username]).first();
+        unless store_user
+          return {
+            code: 1,
+            msg: '账号或密码错误'
+          }
+        end
         if store_user.valid_password?(params[:password])
           present :code, 0
           present :msg, '登录成功'
