@@ -16,10 +16,16 @@ module StoreV1
       params do
         optional :page, type: Integer, desc: "页码"
         optional :per_page, type: Integer, desc: '每页数量'
+        optional :state, type: String, desc: '订单状态'
       end
       paginate per_page: 10
       get do
-        orders = paginate current_store.orders.where.not(state: 'unpayed')
+        orders = paginate current_store.orders
+        if params[:state].blank?
+          orders = orders.where.not(state: 'unpayed')
+        else
+          orders = orders.where(state: params[:state])
+        end
         present orders, with: StoreV1::Entities::OrderList
       end
 
