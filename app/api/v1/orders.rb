@@ -184,8 +184,8 @@ module V1
         optional :note, type: String, desc: '备注'
         optional :images, type: Array
       end
-      route_param ':id/evaluate' do
-        put do
+      route_param :id do
+        put 'evaluate' do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.finished?
           evaluation = order.build_evaluation({
