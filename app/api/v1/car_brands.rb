@@ -2,7 +2,9 @@ module V1
   class CarBrands < Grape::API
     resource :car_brands do
       desc "汽车品牌接口"
-      get do
+      get '/', http_codes: [
+        [200, 'Ok', V1::Entities::CarBrand]
+      ] do
         present CarBrand.order(:first_letter).all, with: V1::Entities::CarBrand
       end
 
