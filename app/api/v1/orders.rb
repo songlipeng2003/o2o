@@ -144,7 +144,7 @@ module V1
           }
         end
 
-        unless params[:coupon_id].empty?
+        if params[:coupon_id]
           coupon = current_user.coupons.find(params[:coupon_id])
           unless coupon.unused?
             return {
