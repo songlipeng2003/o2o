@@ -20,7 +20,7 @@ module StoreV1
         if store_user.valid_password?(params[:password])
           present :code, 0
           present :msg, '登录成功'
-          present :data, store_user
+          present :data, store_user, with: StoreV1::Entities::StoreUser
         else
           {
             code: 1,
