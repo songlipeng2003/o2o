@@ -21,9 +21,7 @@ module StoreV1
       paginate per_page: 10
       get do
         orders = paginate current_store.orders
-        if params[:state].blank?
-          orders = orders.where.not(state: 'unpayed')
-        else
+        unless params[:state].blank?
           orders = orders.where(state: params[:state])
         end
         present orders, with: StoreV1::Entities::OrderList
