@@ -5,7 +5,7 @@ class Evaluation < ActiveRecord::Base
   belongs_to :application
 
   validates :order_id, presence: true
-  validates :score, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1,
+  validates :score, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0,
     less_than_or_equal_to: 5 }
   validates :note, length: { maximum: 255 }
   validates :user_id, presence: true

@@ -180,7 +180,7 @@ module V1
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
-        requires :score, type: Integer, desc: '评价，1-5'
+        requires :score, type: Integer, desc: '评价，0-5分'
         optional :note, type: String, desc: '备注'
         optional :images, type: Array
       end
