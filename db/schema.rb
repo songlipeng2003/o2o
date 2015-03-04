@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227035047) do
+ActiveRecord::Schema.define(version: 20150304153918) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -212,6 +212,15 @@ ActiveRecord::Schema.define(version: 20150227035047) do
 
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
 
+  create_table "finances", force: true do |t|
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.float    "balance",    limit: 24
+    t.float    "freeze",     limit: 24
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", force: true do |t|
     t.string   "file"
     t.integer  "filesize"
@@ -372,10 +381,13 @@ ActiveRecord::Schema.define(version: 20150227035047) do
     t.integer  "user_id"
     t.integer  "trading_type"
     t.integer  "amount"
+    t.string   "name"
     t.integer  "object_id"
     t.string   "object_type"
     t.string   "remark"
     t.datetime "created_at"
+    t.float    "start_amount", limit: 24
+    t.float    "end_amount",   limit: 24
   end
 
   add_index "trading_records", ["user_id"], name: "index_trading_records_on_user_id", using: :btree
