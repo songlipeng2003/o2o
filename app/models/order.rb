@@ -49,7 +49,7 @@ class Order < ActiveRecord::Base
   end
 
   before_validation(on: :create) do
-    self.car_model_id = self.car.car_model_id
+    self.car_model_id = self.car.id
     self.car_color = self.car.color
     self.license_tag = self.car.license_tag
 
