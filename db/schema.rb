@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304153918) do
+ActiveRecord::Schema.define(version: 20150304161455) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -274,9 +274,28 @@ ActiveRecord::Schema.define(version: 20150304153918) do
     t.boolean  "is_include_interior",                                     default: false
     t.integer  "application_id"
     t.integer  "coupon_id"
+    t.integer  "payment_id"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
+
+  create_table "payment_log", force: true do |t|
+    t.integer  "item_id"
+    t.string   "item_type"
+    t.integer  "payment_id"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "code"
+    t.float    "pay_fee",     limit: 24
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "product_types", force: true do |t|
     t.string   "name"
@@ -321,6 +340,7 @@ ActiveRecord::Schema.define(version: 20150304153918) do
     t.datetime "payed_at"
     t.integer  "recharge_policy_id"
     t.integer  "application_id"
+    t.integer  "payment_id"
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
