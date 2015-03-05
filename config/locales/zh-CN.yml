@@ -30,6 +30,7 @@ zh-CN:
       product_type: '商品类型'
       address: '地址'
       payment: '支付方式'
+      app_payment: '应用支付方式'
     attributes:
       admin_user:
         id: '编号'
@@ -208,6 +209,7 @@ zh-CN:
         token: 'Token'
         umeng_app_key: '友盟AppKey'
         app_type: '应用类型'
+        app_payments: '支付方式'
         created_at: '创建时间'
         updated_at: '更新时间'
       version:
@@ -366,5 +368,14 @@ zh-CN:
         code: '代码'
         pay_fee: '手续费'
         is_show: '是否显示'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      app_payment:
+        id: '编号'
+        application: '应用'
+        application_id: '应用'
+        payment: '支付方式'
+        payment_id: '支付方式'
+        sort: '排序'
         created_at: '创建时间'
         updated_at: '更新时间'

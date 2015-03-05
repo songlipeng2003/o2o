@@ -1,5 +1,5 @@
 ActiveAdmin.register Payment do
-  menu parent: '财务'
+  menu parent: '基础数据'
 
   actions :index, :show, :edit, :update
 

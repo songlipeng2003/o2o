@@ -1,0 +1,17 @@
+<%= semantic_form_for [:admin, @application] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :app_type, collection: Application::APPT_TYPES %>
+    <%= f.input :umeng_app_key %>
+    <%= f.input :app_master_secret %>
+  <% end %>
+  <%= f.inputs '支付方式' do %>
+    <%= f.semantic_fields_for :app_payments do |app_payment| %>
+        <% render 'app_payment_fields', f: app_payment %>
+    <% end %>
+    <span class="action_item">
+      <%= link_to_add_association '增加', f, :app_payments %>
+    </span>
+  <% end %>
+  <%= f.actions %>
+<% end %>

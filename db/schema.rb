@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305050722) do
+ActiveRecord::Schema.define(version: 20150305053035) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -65,6 +65,17 @@ ActiveRecord::Schema.define(version: 20150305050722) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "app_payments", force: true do |t|
+    t.integer  "application_id"
+    t.integer  "payment_id"
+    t.integer  "sort",           default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "app_payments", ["application_id"], name: "index_app_payments_on_application_id", using: :btree
+  add_index "app_payments", ["payment_id"], name: "index_app_payments_on_payment_id", using: :btree
 
   create_table "applications", force: true do |t|
     t.string   "name"
