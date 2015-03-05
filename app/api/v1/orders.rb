@@ -105,6 +105,17 @@ module V1
         order = current_user.orders.new(permitted_params)
         order.product_id = permitted_params[:product_id];
         order.application = current_application
+
+        booked_at = params[:booked_at]
+        booked_at = DateTime.strptime(booked_at, '%Y-%m-%d %H:%M:%S')
+        logger.info((booked_at <=> Time.now))
+        if !booked_at ||  (booked_at <=> Time.now)<=0
+          return {
+            code: 1,
+            msg: '预定时间错误'
+          }
+        end
+
         unless params[:car].blank?
           car_params = clean_params(params).require(:car).permit(:car_model_id, :color, :license_tag)
           car = current_user.cars.where(car_params).first
