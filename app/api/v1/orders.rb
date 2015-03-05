@@ -282,6 +282,26 @@ module V1
           present order, with: V1::Entities::OrderList
         end
       end
+
+      desc "删除订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "订单编号"
+      end
+      route_param :id do
+        delete do
+          order = current_user.orders.find(params[:id])
+          order.destroy
+          status 204
+          # { code: 0 }
+        end
+      end
     end
   end
 end

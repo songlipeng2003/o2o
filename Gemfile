@@ -139,3 +139,6 @@ gem 'ckeditor'
 gem "cocoon"
 
 gem "rack-cors"
+
+# soft delete
+gem "paranoia", "~> 2.0"

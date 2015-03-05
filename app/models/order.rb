@@ -68,6 +68,8 @@ class Order < ActiveRecord::Base
 
   has_paper_trail
 
+  acts_as_paranoid
+
   default_scope -> { order('id DESC') }
 
   aasm column: :state do
