@@ -6,8 +6,8 @@ class Application < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :token, presence: true, uniqueness: true
-  validates :umeng_app_key, presence: true, uniqueness: true
-  validates :app_master_secret, presence: true, uniqueness: true
+  validates :umeng_app_key, uniqueness: true
+  validates :app_master_secret, uniqueness: true
   validates :app_type, presence: true
 
   has_many :app_payments, dependent: :destroy
