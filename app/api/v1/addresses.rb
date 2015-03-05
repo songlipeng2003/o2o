@@ -14,7 +14,7 @@ module V1
         }
       }
       get do
-        present current_user.addresses.all
+        present current_user.addresses.order('name DESC, id DESC').all, with: V1::Entities::Address
       end
 
       desc "地址详情", {
@@ -30,7 +30,7 @@ module V1
       end
       route_param :id do
         get do
-          present current_user.addresses.find(params[:id])
+          present current_user.addresses.find(params[:id]), with: V1::Entities::Address
         end
       end
 
@@ -50,7 +50,7 @@ module V1
         optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
       end
       post do
-        present current_user.addresses.create(permitted_params)
+        present current_user.addresses.create(permitted_params), with: V1::Entities::Address
       end
 
       desc "编辑地址", {
@@ -71,7 +71,7 @@ module V1
       route_param :id do
         put do
           address = current_user.addresses.find(params[:id])
-          present address.update(permitted_params)
+          present address.update(permitted_params), with: V1::Entities::Address
         end
       end
 

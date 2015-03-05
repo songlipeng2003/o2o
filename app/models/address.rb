@@ -7,6 +7,4 @@ class Address < ActiveRecord::Base
   belongs_to :user
 
   default_value_for :address_type, 'other'
-
-  default_scope -> { order('id DESC') }
 end
