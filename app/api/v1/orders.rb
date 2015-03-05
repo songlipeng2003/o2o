@@ -103,7 +103,7 @@ module V1
         car_params = permitted_params.delete(:car)
         address_params = permitted_params.delete(:address)
         order = current_user.orders.new(permitted_params)
-        order.product_id = 1;
+        order.product_id = permitted_params[:product_id];
         order.application = current_application
         unless params[:car].blank?
           car_params = clean_params(params).require(:car).permit(:car_model_id, :color, :license_tag)
