@@ -96,6 +96,7 @@ class Order < ActiveRecord::Base
           color: self.car_color,
           car_model: self.car_model_name,
           phone: self.phone
+          product: self.product.name
         }
         SMSWorker.perform_async(self.store.phone, 671257, params)
       end
