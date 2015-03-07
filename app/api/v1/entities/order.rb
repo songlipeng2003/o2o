@@ -31,7 +31,7 @@ module V1
       expose :links do |order|
         links = []
         links << { rel: 'pay', link: "v1/orders/#{order.id}/pay" } if order.unpayed?
-        links << { rel: 'close', link: "v1/orders/#{order.id}/close" } if order.unpayed?
+        links << { rel: 'close', link: "v1/orders/#{order.id}/close" } if order.unpayed? || order.payed?
         links << { rel: 'evaluate', link: "v1/orders/#{order.id}/evaluate" } if order.finished?
         links
       end

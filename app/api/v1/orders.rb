@@ -313,6 +313,36 @@ module V1
           # { code: 0 }
         end
       end
+
+      desc "选择支付方式", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "订单编号"
+        requires :payment_id, type: Integer, desc: "支付编号"
+      end
+      route_param :id do
+        put :payment do
+          order = current_user.orders.find(params[:id])
+          error!("404 Not Found", 404) unless order.unpayed?
+          payment = Payment.find(params[:payment_id])
+          payment_log = order.payment_logs.where(payment_id: params[:payment_id]).order('id DESC').first
+          unless payment_log && payment_log.unpayed?
+            payment_log = order.payment_logs.build({
+              payment: payment
+            })
+            payment_log.application = current_application
+            payment_log.save
+          end
+
+          present payment_log
+        end
+      end
     end
   end
 end

@@ -16,6 +16,9 @@ class Order < ActiveRecord::Base
 
   has_one :evaluation
 
+  has_many :payment_logs, as: :item
+  has_one :payment_log, -> { order 'id DESC' }, as: :item
+
   validates :user_id, presence: true
   validates :store_id, presence: true
   validates :car_id, presence: true
