@@ -57,6 +57,36 @@ module V1
           present recharge.save
         end
       end
+
+      desc "选择支付方式", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "充值编号"
+        requires :payment_id, type: Integer, desc: "支付编号"
+      end
+      route_param :id do
+        put :payment do
+          recharge = current_user.recharges.find(params[:id])
+          error!("404 Not Found", 404) unless recharge.unpayed?
+          payment = Payment.find(params[:payment_id])
+          payment_log = recharge.payment_logs.where(payment_id: params[:payment_id]).order('id DESC').first
+          unless payment_log && payment_log.unpayed?
+            payment_log = recharge.payment_logs.build({
+              payment: payment
+            })
+            payment_log.application = current_application
+            payment_log.save
+          end
+
+          present payment_log
+        end
+      end
     end
   end
 end

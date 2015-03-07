@@ -9,6 +9,9 @@ class Recharge < ActiveRecord::Base
   belongs_to :recharge_policy
   belongs_to :application
 
+  has_many :payment_logs, as: :item
+  has_one :payment_log, -> { order 'id DESC' }, as: :item
+
   before_validation :ensure_amount
 
   def ensure_amount
@@ -52,7 +55,6 @@ class Recharge < ActiveRecord::Base
               end
             end
           end
-
         end
 
         self.payed_at = Time.now
