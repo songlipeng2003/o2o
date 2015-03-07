@@ -257,7 +257,7 @@ module V1
             }
           end
 
-          order.pay
+          order.pay(current_user)
           if order.save
             {
               code: 0
@@ -287,7 +287,7 @@ module V1
         put :close do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed? || order.payed?
-          order.close
+          order.close(current_user)
           order.save
 
           present order, with: V1::Entities::OrderList

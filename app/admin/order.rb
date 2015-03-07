@@ -47,7 +47,7 @@ ActiveAdmin.register Order do
   filter :created_at
 
   member_action :close, method: :put do
-    resource.admin_close
+    resource.admin_close current_admin_user
     resource.save
     redirect_to :back, notice: "关闭成功"
   end

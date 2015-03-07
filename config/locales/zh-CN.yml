@@ -32,6 +32,7 @@ zh-CN:
       payment: '支付方式'
       app_payment: '应用支付方式'
       payment_log: '支付历史'
+      order_log: '订单历史'
     attributes:
       admin_user:
         id: '编号'
@@ -399,3 +400,14 @@ zh-CN:
         notify_params: '通知参数'
         created_at: '创建时间'
         updated_at: '更新时间'
+      order_log:
+        id: '编号'
+        user: '用户'
+        user_id: '用户'
+        order: '订单'
+        order_id: '订单'
+        state: '初始状态'
+        changed_state: '改变状态'
+        remark: '备注'
+        created_at: '创建时间'
+

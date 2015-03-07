@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307074443) do
+ActiveRecord::Schema.define(version: 20150307120153) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -255,6 +255,16 @@ ActiveRecord::Schema.define(version: 20150307074443) do
   end
 
   add_index "login_histories", ["user_id"], name: "index_login_histories_on_user_id", using: :btree
+
+  create_table "order_logs", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "state"
+    t.string   "changed_state"
+    t.string   "remark"
+    t.datetime "created_at"
+  end
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"

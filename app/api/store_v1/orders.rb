@@ -58,7 +58,7 @@ module StoreV1
       route_param :id do
         put :finish do
           order = current_store.orders.find(params[:id])
-          order.finish
+          order.finish(current_user)
           order.save
           present order, with: StoreV1::Entities::OrderList
         end

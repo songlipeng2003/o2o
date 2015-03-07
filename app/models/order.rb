@@ -81,7 +81,7 @@ class Order < ActiveRecord::Base
     state :finished
     state :closed
 
-    event :pay do
+    event :pay, after: :log_state_change do
       transitions :from => :unpayed, :to => :payed
 
       after do
@@ -105,7 +105,7 @@ class Order < ActiveRecord::Base
       end
     end
 
-    event :close do
+    event :close, after: :log_state_change do
       before do
         if self.payed?
           if Time.now.beginning_of_day != self.booked_at.beginning_of_day
@@ -129,11 +129,11 @@ class Order < ActiveRecord::Base
       end
     end
 
-    event :admin_close do
+    event :admin_close, after: :log_state_change do
       transitions :from => [:payed], :to => :closed
     end
 
-    event :finish do
+    event :finish, after: :log_state_change do
       transitions :from => :payed, :to => :finished
     end
   end
@@ -173,6 +173,15 @@ class Order < ActiveRecord::Base
     self.where(state: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |order|
       order.close
     end
+  end
+
+  def log_state_change(user)
+    order_log = OrderLog.new
+    order_log.order = self
+    order_log.user = user
+    order_log.state = aasm.from_state
+    order_log.changed_state = aasm.to_state
+    order_log.save
   end
 
   private
