@@ -2,8 +2,16 @@ module V1
   class Payments < Grape::API
     resource :payments do
       desc "支付方式列表"
-      get do
+      params do
+        requires :type, type: String, desc: "支付对象，目前可以传 product,recharge"
+      end
+      get '/', http_codes: [
+        [200, 'Ok', V1::Entities::Payment]
+      ]  do
         payemnts = current_application.payments
+        if params[:type]=='recharge'
+          payemnts = payemnts.where.not(code: 'balance')
+        end
         present payemnts, with: V1::Entities::Payment
       end
     end
