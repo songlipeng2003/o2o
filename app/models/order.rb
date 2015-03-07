@@ -120,6 +120,13 @@ class Order < ActiveRecord::Base
       end
 
       transitions :from => [:unpayed, :payed], :to => :closed
+
+      after do
+        if self.payment_log && self.payment_log.unpayed?
+          self.payment_log.close
+          self.payment_log.save
+        end
+      end
     end
 
     event :admin_close do

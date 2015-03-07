@@ -2,7 +2,7 @@ module V1
   module Entities
     class OrderList < Grape::Entity
       expose :id
-      expose :store, using: V1::Entities::Store
+      # expose :store, using: V1::Entities::Store
       expose :car_model_id
       expose :car_model_name
       expose :car_color
