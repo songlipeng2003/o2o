@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307120153) do
+ActiveRecord::Schema.define(version: 20150307141908) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -255,6 +255,16 @@ ActiveRecord::Schema.define(version: 20150307120153) do
   end
 
   add_index "login_histories", ["user_id"], name: "index_login_histories_on_user_id", using: :btree
+
+  create_table "notify_logs", force: true do |t|
+    t.integer  "payment_id"
+    t.string   "type"
+    t.text     "params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notify_logs", ["payment_id"], name: "index_notify_logs_on_payment_id", using: :btree
 
   create_table "order_logs", force: true do |t|
     t.integer  "order_id"

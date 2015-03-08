@@ -5,7 +5,7 @@ module V1
       expose :trading_type
       expose :trading_type_name
       expose :amount
-      expose :object
+      # expose :object
       expose :remark
       expose :created_at
     end
