@@ -136,6 +136,14 @@ class Order < ActiveRecord::Base
     event :finish, after: :log_state_change do
       transitions :from => :payed, :to => :finished
     end
+
+    event :admin_close, after: :log_state_change do
+      transitions :from => [:payed], :to => :closed
+    end
+
+    event :system_close, after: :log_state_change do
+      transitions :from => [:unpayed], :to => :closed
+    end
   end
 
   def cal_total_amount
@@ -171,16 +179,18 @@ class Order < ActiveRecord::Base
 
   def self.auto_close_expired_order
     self.where(state: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |order|
-      order.close
+      order.system_close nil, remark: '超时未付款，系统自动关闭'
+      order.save
     end
   end
 
-  def log_state_change(user)
+  def log_state_change(user, params={})
     order_log = OrderLog.new
     order_log.order = self
     order_log.user = user
     order_log.state = aasm.from_state
     order_log.changed_state = aasm.to_state
+    order_log.remark = params[:remark]
     order_log.save
   end
 
