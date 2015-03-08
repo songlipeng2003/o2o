@@ -21,7 +21,8 @@ module V1
         requires :booked_at, type: String, desc: "服务时间,时间格式2015-02-11 00:00:00，为服务开始时间"
       end
       get 'can_serviced' do
-        result = Store.can_serviced(params[:lon], params[:lat], params[:booked_at])
+        booked_at = params[:booked_at].to_time
+        result = Store.can_serviced(params[:lon], params[:lat], booked_at)
         {
           result: result
         }

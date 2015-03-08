@@ -55,22 +55,19 @@ class Store < ActiveRecord::Base
   def self.can_serviced(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
     ids = stores.map { |store| store._id }
-    if ids.count>0
-      count = Order.where({ store_id: ids, booked_at:booked_at }).count
-      count<ids.count
-    else
-      false
+    stores.each do |store|
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
+        return true
+      end
     end
+    false
   end
 
   def self.can_serviced_store(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
-    ids = stores.map { |store| store._id }
-    if ids.count>0
-      for i in 0...ids.count
-        if Order.where({ store_id: ids[i], booked_at:booked_at }).blank?
-          return ids[i]
-        end
+    stores.each do |store|
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
+        return store.id
       end
     end
     false
