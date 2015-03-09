@@ -3,6 +3,8 @@ class StoreUser < ActiveRecord::Base
 
   belongs_to :store
 
+  has_many :login_histories, as: :user
+
   before_save :ensure_authentication_token
 
   devise :database_authenticatable, :trackable, :validatable

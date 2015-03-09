@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :recharges
   has_many :trading_records
   has_many :images
-  has_many :login_histories
+  has_many :login_histories, as: :user
   has_many :coupons
 
   validates :phone, presence: true, uniqueness: true
