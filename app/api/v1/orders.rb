@@ -332,7 +332,8 @@ module V1
           payment_log = order.payment_logs.where(payment_id: params[:payment_id]).order('id DESC').first
           unless payment_log && payment_log.unpayed?
             payment_log = order.payment_logs.build({
-              payment: payment
+              payment: payment,
+              name: order.product.name
             })
             payment_log.application = current_application
             payment_log.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309010558) do
+ActiveRecord::Schema.define(version: 20150309133710) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 20150309010558) do
     t.string   "out_trade_no"
     t.text     "notify_params"
     t.integer  "application_id"
+    t.string   "name"
   end
 
   create_table "payments", force: true do |t|
