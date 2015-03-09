@@ -7,14 +7,21 @@ class PayController < ApplicationController
       trade_no = params[:trade_no]
       trade_status = params[:trade_status]
 
-      @payment = Payment.find(out_trade_no)
+      @payment_log = PaymentLog.find(out_trade_no)
+
+      notify_log = NotifyLog.new
+      notify_log.payment = @payment_log.payment
+      notify_log.type = 'pay'
+      notify_log.params = YAML::dump(params)
+      notify_log.save
+
       if ['TRADE_SUCCESS', 'TRADE_FINISHED'].include?(trade_status)
-        @payment.pay
-        @payment.out_trade_no = trade_no
-        @payment.save
+        @payment_log.pay
+        @payment_log.out_trade_no = trade_no
+        @payment_log.save
       else trade_status == 'TRADE_CLOSED'
-        @payment.close
-        @payment.save
+        @payment_log.close
+        @payment_log.save
       end
 
       render :text => 'success'
@@ -32,14 +39,21 @@ class PayController < ApplicationController
       trade_no = notify_data['notify']['trade_no']
       trade_status = notify_data['notify']['trade_status']
 
-      @payment = Payment.find(out_trade_no)
+      @payment_log = PaymentLog.find(out_trade_no)
+
+      notify_log = NotifyLog.new
+      notify_log.payment = @payment_log.payment
+      notify_log.type = 'pay'
+      notify_log.params = YAML::dump(params)
+      notify_log.save
+
       if ['TRADE_SUCCESS', 'TRADE_FINISHED'].include?(trade_status)
-        @payment.pay
-        @payment.out_trade_no = trade_no
-        @payment.save
+        @payment_log.pay
+        @payment_log.out_trade_no = trade_no
+        @payment_log.save
       else trade_status == 'TRADE_CLOSED'
-        @payment.close
-        @payment.save
+        @payment_log.close
+        @payment_log.save
       end
 
       render :text => 'success'
