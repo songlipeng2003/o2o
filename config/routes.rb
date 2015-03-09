@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 
   resources :pay do
     collection do
-      get :alipay_notify
+      get :alipay_app_notify
+      get :alipay_wap_notify
     end
   end
 
