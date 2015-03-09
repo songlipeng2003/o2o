@@ -194,7 +194,7 @@ module V1
         optional :images, type: Array
       end
       route_param :id do
-        put 'evaluate' do
+        post 'evaluate' do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.finished?
           evaluation = order.build_evaluation({
