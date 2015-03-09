@@ -333,7 +333,8 @@ module V1
           unless payment_log && payment_log.unpayed?
             payment_log = order.payment_logs.build({
               payment: payment,
-              name: order.product.name
+              name: order.product.name,
+              amount: order.total_amount
             })
             payment_log.application = current_application
             payment_log.save

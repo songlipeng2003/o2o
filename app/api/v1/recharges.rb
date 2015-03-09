@@ -79,7 +79,8 @@ module V1
           unless payment_log && payment_log.unpayed?
             payment_log = recharge.payment_logs.build({
               payment: payment,
-              name: '充值#{recharge.amount}'
+              name: '充值#{recharge.amount}',
+              amount: recharge.amount
             })
             payment_log.application = current_application
             payment_log.save
