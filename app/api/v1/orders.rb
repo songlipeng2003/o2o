@@ -325,7 +325,7 @@ module V1
         requires :payment_id, type: Integer, desc: "支付编号"
       end
       route_param :id do
-        put :payment do
+        post :payment do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed?
           payment = Payment.find(params[:payment_id])

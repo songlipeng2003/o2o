@@ -71,7 +71,7 @@ module V1
         requires :payment_id, type: Integer, desc: "支付编号"
       end
       route_param :id do
-        put :payment do
+        post :payment do
           recharge = current_user.recharges.find(params[:id])
           error!("404 Not Found", 404) unless recharge.unpayed?
           payment = Payment.find(params[:payment_id])
