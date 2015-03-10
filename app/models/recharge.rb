@@ -32,6 +32,7 @@ class Recharge < ActiveRecord::Base
         trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
         trading_record.object = self
         trading_record.amount = self.amount
+        trading_record.name = "充值#{self.amount}元"
         trading_record.save
 
         if self.recharge_policy_id
@@ -40,6 +41,7 @@ class Recharge < ActiveRecord::Base
             trading_record.user_id = self.user_id
             trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT
             trading_record.object = self
+            trading_record.name = "充值#{self.amount}元赠送#{self.present_amount}元"
             trading_record.amount = self.recharge_policy.present_amount
             trading_record.save
           end
