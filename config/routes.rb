@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :docs
 
+  resources :contact
+
   resources :pages do
     collection do
       get :download
