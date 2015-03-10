@@ -1,5 +1,3 @@
-require 'JPush'
-
 class Announcement < ActiveRecord::Base
   include UmengPush
 
