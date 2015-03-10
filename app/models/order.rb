@@ -163,6 +163,7 @@ class Order < ActiveRecord::Base
     end
 
     self.total_amount ||= price;
+    self.total_amount = 0.01;
   end
 
   def car_model_name
