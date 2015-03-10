@@ -13,7 +13,7 @@ module V1
       end
       expose :created_at
       expose :redirect_url do |payment_log|
-        if payment_log.payment.code=='alipay_wap'
+        if payment_log.payment.code == 'alipay_wap'
           options = {
             :req_data => {
               :out_trade_no  => payment_log.id,
@@ -29,7 +29,7 @@ module V1
         end
       end
       expose :pay_params do |payment_log|
-        if payment_log.payment.code = 'alipay_app'
+        if payment_log.payment.code == 'alipay_app'
           params = {}
           params['partner'] = Alipay.pid
           params['seller_id'] = Alipay.seller_email
