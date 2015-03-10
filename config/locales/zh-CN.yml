@@ -183,7 +183,7 @@ zh-CN:
         product: '商品'
         product_id: '商品'
         product_type: '商品类型'
-        license_tag: '拍照'
+        license_tag: '牌照'
         carport: '车库'
         is_underground_park: '是否在地下停车场'
         booked_at: '预约时间'

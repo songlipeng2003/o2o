@@ -26,9 +26,12 @@ ActiveAdmin.register Order do
     id_column
     column :user
     column :store
-    column :car
+    column :car do |order|
+      order.car_model.name + '-' + order.license_tag + '-' + order.car_color
+    end
     column :phone
-    column :address
+    column :total_amount
+    column :product
     column :booked_at
     column :state do |order|
       order.aasm.human_state
@@ -42,7 +45,10 @@ ActiveAdmin.register Order do
   end
 
   filter :phone
-  filter :address
+  filter :license_tag
+  filter :place
+  filter :product
+  filter :state
   filter :booked_at
   filter :created_at
 
