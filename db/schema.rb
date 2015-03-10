@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309154636) do
+ActiveRecord::Schema.define(version: 20150310114152) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -375,7 +375,7 @@ ActiveRecord::Schema.define(version: 20150309154636) do
 
   create_table "recharges", force: true do |t|
     t.integer  "user_id"
-    t.integer  "amount"
+    t.float    "amount",             limit: 24
     t.string   "state"
     t.datetime "created_at"
     t.datetime "payed_at"
@@ -441,7 +441,7 @@ ActiveRecord::Schema.define(version: 20150309154636) do
   create_table "trading_records", force: true do |t|
     t.integer  "user_id"
     t.integer  "trading_type"
-    t.integer  "amount"
+    t.float    "amount",       limit: 24
     t.string   "name"
     t.integer  "object_id"
     t.string   "object_type"
