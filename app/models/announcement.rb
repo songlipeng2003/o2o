@@ -21,7 +21,6 @@ class Announcement < ActiveRecord::Base
     )
     begin
       result = client.sendPush(payload)
-      logger.debug("jpush result  " + result)
     rescue JPush::ApiConnectionException => e
       logger.error(e)
     end
