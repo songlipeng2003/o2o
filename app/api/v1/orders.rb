@@ -128,7 +128,7 @@ module V1
           address = current_user.addresses.find(params[:address_id])
         else
           address_params = clean_params(params).require(:address).permit(:place, :lon, :lat)
-          address = current_user.addresses.where(address_params).first
+          address = current_user.addresses.where(place: address_params[:place]).first
           unless address
             address = current_user.addresses.new(address_params)
           end
