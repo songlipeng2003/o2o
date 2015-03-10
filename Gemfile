@@ -142,3 +142,7 @@ gem "rack-cors"
 
 # soft delete
 gem "paranoia", "~> 2.0"
+
+gem 'jpush', :git => 'git://github.com/jpush/jpush-api-ruby-client.git'
+
+gem "rails_config"

@@ -35,6 +35,12 @@ GIT
       grape-swagger (>= 0.7.2)
       railties (>= 3.2.12)
 
+GIT
+  remote: git://github.com/jpush/jpush-api-ruby-client.git
+  revision: 87459b7cf9a5ade3d439f4911196e4fb3e158cd1
+  specs:
+    jpush (3.2.1)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -286,6 +292,8 @@ GEM
     rails-i18n (4.0.3)
       i18n (~> 0.6)
       railties (~> 4.0)
+    rails_config (0.4.2)
+      activesupport (>= 3.0)
     railties (4.1.6)
       actionpack (= 4.1.6)
       activesupport (= 4.1.6)
@@ -429,6 +437,7 @@ DEPENDENCIES
   grape-swagger (~> 0.9.0)
   grape-swagger-rails!
   jbuilder (~> 2.0)
+  jpush!
   jquery-rails
   kramdown
   mini_magick (~> 3.7.0)
@@ -440,6 +449,7 @@ DEPENDENCIES
   rack-raw-upload (~> 1.1.1)
   rails (= 4.1.6)
   rails-i18n (~> 4.0.0)
+  rails_config
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

@@ -1,3 +1,5 @@
+require 'JPush'
+
 class Announcement < ActiveRecord::Base
   include UmengPush
 
@@ -5,12 +7,19 @@ class Announcement < ActiveRecord::Base
   validates :content, presence: true
 
   after_create do
-    Announcement.delay.umeng_broadcast_push(
-      ticker: self.title,
-      title: self.title,
-      text: self.content.truncate(30),
-      alert: self.title
+    client = JPush::JPushClient.new(Settings.jpush.app_key, Settings.jpush.master_secret)
+    payload = JPush::PushPayload.new(
+      platform: JPush::Platform.all,
+      audience: JPush::Audience.all,
+      notification: JPush::Notification.new(alert: self.title)
     )
+    begin
+     result = client.sendPush(payload)
+    rescue JPush::ApiConnectionException => e
+      logger.error(e)
+    end
+
+    logger.debug("jpush result  " + result)
   end
 
   def self.count_of(last_time)
