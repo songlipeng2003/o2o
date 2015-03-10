@@ -13,6 +13,7 @@ ActiveAdmin.register Address do
     actions
   end
 
+  filter :user_phone, :as => :string
   filter :name
   filter :place
 

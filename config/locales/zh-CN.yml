@@ -360,6 +360,7 @@ zh-CN:
         lat: '纬度'
         lon: '经度'
         place: '地址'
+        user_phone: '电话号码'
         address_type: '地址类型'
         created_at: '创建时间'
         updated_at: '更新时间'
