@@ -86,7 +86,7 @@ module V1
             payment_log.save
           end
 
-          present payment_log
+          present payment_log, with: V1::Entities::PaymentLog
         end
       end
     end
