@@ -31,7 +31,7 @@ module Didi
     config.middleware.use 'Rack::RawUpload'
 
     # ckeditor
-    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
+    config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
 
     config.middleware.use Rack::Cors do
         allow do
