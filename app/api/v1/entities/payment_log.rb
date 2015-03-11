@@ -42,16 +42,17 @@ module V1
           params['payment_type'] = 1
           params['_input_charset'] = 'utf-8'
           params['it_b_pay'] = '30m'
-          # params['return_url'] = ''
+          # params['paymethod'] = 'expressGateway'
+          # params['return_url'] = 'm.alipay.com'
 
           params = Alipay::Utils.stringify_keys(params)
 
           to_sign = params.map { |item| "#{item[0]}=\"#{item[1]}\"" }.join('&')
 
-          keypair = OpenSSL::PKey::RSA.new File.read File.join('config', 'rsa_private_key.pem')
-          digest = OpenSSL::Digest::SHA1.new
-          signature = keypair.sign(digest, to_sign)
-          signature = Base64.encode64(signature)
+          keypair = OpenSSL::PKey::RSA.new File.read Rails.root.join( 'config', 'rsa_private_key.pem')
+          signature = keypair.sign('sha1', to_sign.force_encoding("utf-8"))
+          signature = Base64.strict_encode64(signature)
+          signature = CGI.escape(signature)
 
           "#{to_sign}&sign=\"#{signature}\"&sign_type=\"RSA\""
         end
