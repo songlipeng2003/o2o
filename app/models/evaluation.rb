@@ -4,6 +4,8 @@ class Evaluation < ActiveRecord::Base
   belongs_to :store
   belongs_to :application
 
+  has_many :images, as: :item
+
   validates :order_id, presence: true
   validates :score, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0,
     less_than_or_equal_to: 5 }
@@ -13,8 +15,6 @@ class Evaluation < ActiveRecord::Base
   # validates_associated :order
   validates_associated :user
   validates_associated :store
-
-  has_many :images, as: :item
 
   before_validation do
     self.user_id = order.user_id

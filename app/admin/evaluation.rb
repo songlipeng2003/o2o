@@ -17,4 +17,25 @@ ActiveAdmin.register Evaluation do
   end
 
   filter :score
+
+  show do
+    attributes_table do
+      row :id
+      row :user
+      row :store
+      row :order
+      row :score
+      row :note
+      row :images do
+        content = ''
+        evaluation.images.each do |image|
+          content << image_tag(image.file.url)
+          content << '<br/>'
+        end
+        raw content
+      end
+      row :application
+      row :created_at
+    end
+  end
 end
