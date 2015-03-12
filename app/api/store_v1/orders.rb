@@ -20,7 +20,7 @@ module StoreV1
       end
       paginate per_page: 10
       get do
-        orders = paginate current_store.orders
+        orders = paginate current_store.orders.unscoped
         if params[:state].blank?
           orders = orders.where.not(state: 'unpayed')
         else
@@ -42,7 +42,7 @@ module StoreV1
       end
       route_param :id do
         get do
-          present current_store.orders.find(params[:id]), with: V1::Entities::Order
+          present current_store.orders.unscoped.find(params[:id]), with: V1::Entities::Order
         end
       end
 
@@ -59,7 +59,7 @@ module StoreV1
       end
       route_param :id do
         put :finish do
-          order = current_store.orders.find(params[:id])
+          order = current_store.orders.unscoped.find(params[:id])
           order.finish(current_user)
           order.save
           present order, with: StoreV1::Entities::OrderList
