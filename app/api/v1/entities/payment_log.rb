@@ -6,6 +6,7 @@ module V1
     class PaymentLog < Grape::Entity
       expose :id, documentation: { type: Integer, desc: '编号' }
       expose :name, documentation: { type: String, desc: '名称' }
+      expose :sn, documentation: { type: String, desc: "交易流水号"}
       expose :amount
       expose :state
       expose :state_text do |payment_log|
@@ -16,7 +17,7 @@ module V1
         if payment_log.payment.code == 'alipay_wap'
           options = {
             :req_data => {
-              :out_trade_no  => payment_log.id,
+              :out_trade_no  => payment_log.sn,
               :subject       => payment_log.name,
               :total_fee     => payment_log.amount,
               :notify_url    => 'http://24didi.com/pay/alipay_wap_notify',
@@ -33,7 +34,7 @@ module V1
           params = {}
           params['partner'] = Alipay.pid
           params['seller_id'] = Alipay.seller_email
-          params['out_trade_no'] = payment_log.id
+          params['out_trade_no'] = payment_log.sn
           params['subject'] = payment_log.name
           params['body'] = payment_log.name
           # params['total_fee'] = payment_log.amount

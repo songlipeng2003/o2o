@@ -8,6 +8,10 @@ class PaymentLog < ActiveRecord::Base
   validates :item, presence: true
   validates :payment, presence: true
 
+  before_create do
+    self.sn = gen_sn
+  end
+
   aasm column: :state do
     state :unpayed, :initial => true
     state :payed
@@ -55,5 +59,11 @@ class PaymentLog < ActiveRecord::Base
       payment_log.close
       payment_log.save
     end
+  end
+
+  def gen_sn
+    sn = Time.now.strftime('%Y%m%d') + rand(100000...999999).to_s
+    sn = gen_sn if Order.unscoped.where(sn: sn).first
+    sn
   end
 end

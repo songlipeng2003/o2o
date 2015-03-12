@@ -7,6 +7,7 @@ ActiveAdmin.register PaymentLog do
 
   index do
     id_column
+    column :sn
     column :item
     column :payment
     column :state do |order|

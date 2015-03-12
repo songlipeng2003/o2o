@@ -385,6 +385,7 @@ zh-CN:
         updated_at: '更新时间'
       payment_log:
         id: '编号'
+        sn: '交易流水号'
         item: '交易对象'
         item_id: '交易对象'
         application: '应用'

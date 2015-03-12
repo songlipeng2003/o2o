@@ -9,7 +9,7 @@ class PayController < ApplicationController
       trade_no = params[:trade_no]
       trade_status = params[:trade_status]
 
-      @payment_log = PaymentLog.find(out_trade_no)
+      @payment_log = PaymentLog.where(sn: out_trade_no).first
 
       notify_log = NotifyLog.new
       notify_log.payment = @payment_log.payment
@@ -41,7 +41,7 @@ class PayController < ApplicationController
       trade_no = notify_data['notify']['trade_no']
       trade_status = notify_data['notify']['trade_status']
 
-      @payment_log = PaymentLog.find(out_trade_no)
+      @payment_log = PaymentLog.where(sn: out_trade_no).first
 
       notify_log = NotifyLog.new
       notify_log.payment = @payment_log.payment
