@@ -21,7 +21,7 @@ class PayController < ApplicationController
         @payment_log.pay
         @payment_log.out_trade_no = trade_no
         @payment_log.save
-      else trade_status == 'TRADE_CLOSED'
+      elsif trade_status == 'TRADE_CLOSED'
         @payment_log.close
         @payment_log.save
       end
@@ -53,7 +53,7 @@ class PayController < ApplicationController
         @payment_log.pay
         @payment_log.out_trade_no = trade_no
         @payment_log.save
-      else trade_status == 'TRADE_CLOSED'
+      elsif trade_status == 'TRADE_CLOSED'
         @payment_log.close
         @payment_log.save
       end
