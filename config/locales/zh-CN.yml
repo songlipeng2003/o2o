@@ -192,7 +192,7 @@ zh-CN:
         note: '备注'
         state: '状态'
         state/unpayed: '未付款'
-        state/payed: '已付款'
+        state/payed: '待服务'
         state/closed: '已关闭'
         state/finished: '已完成'
         product_type: '商品类型'
