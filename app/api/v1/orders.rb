@@ -255,16 +255,28 @@ module V1
             }
           end
 
-          order.pay(current_user)
-          if order.save
+          payment = Payment.where(code: :balance).first
+          payment_log = order.payment_logs.where(payment_id: payment.id).order('id DESC').first
+          unless payment_log && payment_log.unpayed?
+            payment_log = order.payment_logs.build({
+              payment: payment,
+              name: order.product.name,
+              amount: order.total_amount
+            })
+            payment_log.application = current_application
+            payment_log.save
+          end
+
+          payment_log.pay
+
+          if payment_log.save
             {
               code: 0
             }
           else
             {
               code: -1,
-              msg: '支付失败',
-              error: order.errors
+              msg: '支付失败'
             }
           end
         end
