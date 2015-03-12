@@ -49,6 +49,8 @@ class Order < ActiveRecord::Base
 
   before_create do
     cal_total_amount
+
+    self.sn = gen_sn
   end
 
   before_validation(on: :create) do
@@ -208,5 +210,13 @@ class Order < ActiveRecord::Base
   def use_coupon
     self.coupon.use
     self.coupon.save
+  end
+
+  def gen_sn
+    sn = Time.now.strftime('%y%m%d') + rand(100000...999999).to_s
+
+    sn = gen_sn if Order.unscoped.where(sn: sn).first
+
+    sn
   end
 end

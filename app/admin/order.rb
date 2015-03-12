@@ -24,12 +24,12 @@ ActiveAdmin.register Order do
   index do
     selectable_column
     id_column
+    column :sn
     column :user
     column :store
     column :car do |order|
       order.car_model.name + '-' + order.license_tag + '-' + order.car_color
     end
-    column :phone
     column :total_amount
     column :product
     column :booked_at

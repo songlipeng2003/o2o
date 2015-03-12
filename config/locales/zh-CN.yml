@@ -161,6 +161,7 @@ zh-CN:
         updated_at: '更新时间'
       order:
         id: '编号'
+        sn: '订单号'
         user: '用户'
         user_id: '用户'
         store: '商户'
