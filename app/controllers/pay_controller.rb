@@ -1,4 +1,6 @@
 class PayController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def alipay_app_notify
     notify_params = params.except(*request.path_parameters.keys)
 
