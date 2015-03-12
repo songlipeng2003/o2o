@@ -21,7 +21,7 @@ class PaymentLog < ActiveRecord::Base
         self.payed_at = Time.now
 
         item = self.item
-        item.pay
+        item.pay(item.user)
         item.save
       end
     end

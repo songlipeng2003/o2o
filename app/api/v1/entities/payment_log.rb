@@ -36,7 +36,8 @@ module V1
           params['out_trade_no'] = payment_log.id
           params['subject'] = payment_log.name
           params['body'] = payment_log.name
-          params['total_fee'] = payment_log.amount
+          # params['total_fee'] = payment_log.amount
+          params['total_fee'] = 0.01
           params['notify_url'] = 'http://24didi.com/pay/alipay_app_notify'
           params['service'] = 'mobile.securitypay.pay'
           params['payment_type'] = 1
