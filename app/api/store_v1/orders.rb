@@ -26,6 +26,7 @@ module StoreV1
         else
           orders = orders.where(state: params[:state])
         end
+        orders = orders.order('booked_at DESC')
         present orders, with: StoreV1::Entities::OrderList
       end
 
