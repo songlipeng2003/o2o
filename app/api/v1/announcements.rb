@@ -2,8 +2,10 @@ module V1
   class Announcements < Grape::API
     resource :announcements do
       desc "公告接口"
+      paginate per_page: 10
       get do
-        present Announcement.order('id DESC').all(), with: V1::Entities::AnnouncementList
+        announcements = paginate Announcement.order('id DESC')
+        present announcements, with: V1::Entities::AnnouncementList
       end
 
       desc "公告详情"
