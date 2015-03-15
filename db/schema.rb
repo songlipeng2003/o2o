@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315074627) do
+ActiveRecord::Schema.define(version: 20150315084654) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20150315074627) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "refund_batch_id"
+    t.string   "out_trade_no"
   end
 
   add_index "payment_refund_logs", ["payment_id"], name: "index_payment_refund_logs_on_payment_id", using: :btree
