@@ -257,7 +257,11 @@ zh-CN:
         amount: '金额'
         trading_type: '类型'
         object: '交易对象'
+        object_id: '交易对象'
         remark: '备注'
+        name: '名称'
+        start_amount: '起始金额'
+        end_amount: '结束金额'
         created_at: '创建时间'
       product:
         id: '编号'

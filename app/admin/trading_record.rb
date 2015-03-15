@@ -7,6 +7,7 @@ ActiveAdmin.register TradingRecord do
     selectable_column
     id_column
     column :user
+    column :name
     column :trading_type do |trading_record|
       trading_record.trading_type_name
     end
