@@ -6,14 +6,14 @@ module V1
     class PaymentLog < Grape::Entity
       expose :id, documentation: { type: Integer, desc: '编号' }
       expose :name, documentation: { type: String, desc: '名称' }
-      expose :sn, documentation: { type: String, desc: "交易流水号"}
-      expose :amount
-      expose :state
-      expose :state_text do |payment_log|
+      expose :sn, documentation: { type: String, desc: "交易流水号" }
+      expose :amount, documentation: { type: Float, desc: "支付金额" }
+      expose :state, documentation: { type: String, desc: "状态" }
+      expose :state_text, documentation: { type: String, desc: "状态名称" } do |payment_log|
         payment_log.aasm.human_state
       end
-      expose :created_at
-      expose :redirect_url do |payment_log|
+      expose :created_at, documentation: { type: Time, desc: "创建时间" }
+      expose :redirect_url, documentation: { type: String, desc: "支付跳转URL" } do |payment_log|
         if payment_log.payment.code == 'alipay_wap'
           options = {
             :req_data => {
@@ -30,7 +30,7 @@ module V1
           Alipay::Service::Wap.auth_and_execute(request_token: token)
         end
       end
-      expose :pay_params do |payment_log|
+      expose :pay_params, documentation: { type: String, desc: "支付参数" } do |payment_log|
         if payment_log.payment.code == 'alipay_app'
           params = {}
           params['partner'] = Alipay.pid

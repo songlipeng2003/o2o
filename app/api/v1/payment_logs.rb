@@ -11,7 +11,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::PaymentLog]
+        ]
       params do
         requires :id, type: Integer, desc: "支付记录编号"
       end
@@ -29,7 +32,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [201, '成功', V1::Entities::PaymentLog]
+        ]
       params do
         requires :id, type: Integer, desc: "支付流水编号"
         requires :pay_password, type: String, desc: "支付密码"
