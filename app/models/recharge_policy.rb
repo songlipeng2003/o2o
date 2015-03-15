@@ -3,7 +3,7 @@ class RechargePolicy < ActiveRecord::Base
   validates :present_amount, presence: true, :numericality => { :only_integer => true, greater_than_or_equal_to: 0 }
   validates :sort, presence: true, :numericality => { :only_integer => true, greater_than_or_equal_to: 0 }
 
-  validates :note, presence: true
+  # validates :note, presence: true
 
   has_many :recharge_policies_system_coupons, dependent: :destroy
   has_many :system_coupons, through: :recharge_policies_system_coupons
