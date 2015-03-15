@@ -233,7 +233,7 @@ zh-CN:
         recharge_policy_id: '充值策略'
         state/unpayed: '未付款'
         state/payed: '已付款'
-        state/failed: '支付失败'
+        state/closed: '已关闭'
         application: '应用'
         application_id: '应用'
         created_at: '创建时间'
