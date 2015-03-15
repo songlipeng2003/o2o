@@ -28,7 +28,7 @@ module V1
         }
       }
       params do
-        optional :amount, type: Integer, desc: "金额,和充值策略只能选择一个"
+        optional :amount, type: Integer, desc: "金额,金额和充值策略只能选择一个，选择金额充值不会有任何优惠活动，只有选择充值策略的时候，才会有返现和赠送代金券"
         optional :recharge_policy_id, type: Integer, desc: "充值策略"
         mutually_exclusive :amount, :recharge_policy_id
       end
