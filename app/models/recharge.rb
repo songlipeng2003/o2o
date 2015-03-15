@@ -21,7 +21,7 @@ class Recharge < ActiveRecord::Base
   aasm column: :state do
     state :unpayed, :initial => true
     state :payed
-    state :failed
+    state :closed
 
     event :pay do
       transitions :from => :unpayed, :to => :payed
@@ -63,8 +63,24 @@ class Recharge < ActiveRecord::Base
       end
     end
 
-    event :fail do
-      transitions :from => :unpayed, :to => :failed
+    event :close do
+      transitions :from => :unpayed, :to => :closed
+
+      after do
+        self.closed_at = Time.now
+
+        if self.payment_log && self.payment_log.unpayed?
+          self.payment_log.close
+          self.payment_log.save
+        end
+      end
+    end
+  end
+
+  def self.auto_close_expired_recharge
+    self.where(state: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |recharge|
+      recharge.close
+      recharge.save
     end
   end
 end
