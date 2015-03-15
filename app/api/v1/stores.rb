@@ -22,6 +22,11 @@ module V1
       end
       get 'can_serviced' do
         booked_at = params[:booked_at].to_time
+        if !booked_at ||  (booked_at <=> Time.now)<=0
+          return {
+            result: false
+          }
+        end
         result = Store.can_serviced(params[:lon], params[:lat], booked_at)
         {
           result: result
