@@ -36,10 +36,10 @@ class PaymentLog < ActiveRecord::Base
       after do
         self.closed_at = Time.now
 
-        if self.payment.payment_type=='alipay'
+        if self.payment.payment_type=='alipay' && self.out_trade_no
           Alipay::Service.close_trade(
             :trade_no     => self.out_trade_no,
-            :out_order_no => self.id
+            :out_order_no => self.sn
           )
         end
       end
