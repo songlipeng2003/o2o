@@ -44,7 +44,7 @@ class PaymentLog < ActiveRecord::Base
     end
 
     event :refund do
-      transitions :from => :unpayed, :to => :refunded
+      transitions :from => :payed, :to => :refunded
 
       after do
         trading_record = TradingRecord.new
