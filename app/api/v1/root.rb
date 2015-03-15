@@ -6,6 +6,10 @@ module V1
 
     version 'v1', using: :path
 
+    before do
+      error!("401 Unauthorized", 401) unless current_application
+    end
+
     helpers do
       def logger
         API.logger
