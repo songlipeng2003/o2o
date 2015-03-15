@@ -27,7 +27,7 @@ class RefundBatch < ActiveRecord::Base
     }
     self.payment_refund_logs.each do |payment_refund_log|
       options[:data] << {
-        trade_no: payment_refund_log.payment_log.sn,
+        trade_no: payment_refund_log.payment_log.out_trade_no,
         amount:   payment_refund_log.amount,
         reason:   '退款'
       }
