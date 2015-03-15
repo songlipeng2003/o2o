@@ -65,4 +65,26 @@ class PayController < ApplicationController
       render :text => 'error'
     end
   end
+
+  def alipay_refund_notify
+    notify_params = params.except(*request.path_parameters.keys)
+    if Alipay::Notify.verify?(notify_params)
+      RefundBatch.transaction do
+        refund_batch = RefundBatch.where(sn: params[:batch_no]).first
+        refund_batch.finish! if params['success_num'].to_i == refund_batch.payment_refund_logs.size
+        params['result_details'].split('#').each do |item|
+          # 交易号^退款金额^处理结果$退费账号^退费账户 ID^退费金额^处理结果
+          # 2010031906272929^80^SUCCESS$jax_chuanhang@alipay.com^2088101003147483^0.01^SUCCESS
+          trade_no, amount, result = item.split(/\^|\$/)
+          if result.downcase == 'success'
+            payment_refund_log = PaymentRefundLog.where(out_trade_no: trade_no).first
+            payment_refund_log.finish!
+          end
+        end
+      end
+      render text: 'success'
+    else
+      render text: 'fail'
+    end
+  end
 end

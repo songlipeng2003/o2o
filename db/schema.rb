@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315031812) do
+ActiveRecord::Schema.define(version: 20150315074627) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -329,6 +329,25 @@ ActiveRecord::Schema.define(version: 20150315031812) do
     t.float    "amount",         limit: 24
   end
 
+  create_table "payment_refund_logs", force: true do |t|
+    t.string   "sn"
+    t.integer  "payment_id"
+    t.integer  "payment_log_id"
+    t.float    "amount",          limit: 24
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "refund_batch_id"
+  end
+
+  add_index "payment_refund_logs", ["payment_id"], name: "index_payment_refund_logs_on_payment_id", using: :btree
+  add_index "payment_refund_logs", ["payment_log_id"], name: "index_payment_refund_logs_on_payment_log_id", using: :btree
+
+  create_table "payment_refund_logs_refund_batches", id: false, force: true do |t|
+    t.integer "payment_refund_log_id", null: false
+    t.integer "refund_batch_id",       null: false
+  end
+
   create_table "payments", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -388,6 +407,16 @@ ActiveRecord::Schema.define(version: 20150315031812) do
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
+
+  create_table "refund_batches", force: true do |t|
+    t.integer  "payment_id"
+    t.string   "sn"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
 
   create_table "store_users", force: true do |t|
     t.integer  "store_id"

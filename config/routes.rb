@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     collection do
       post :alipay_app_notify
       post :alipay_wap_notify
+      post :alipay_refund_notify
     end
   end
 

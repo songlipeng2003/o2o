@@ -8,9 +8,7 @@ class PaymentLog < ActiveRecord::Base
   validates :item, presence: true
   validates :payment, presence: true
 
-  before_create do
-    self.sn = gen_sn
-  end
+  before_create :gen_sn
 
   aasm column: :state do
     state :unpayed, :initial => true
@@ -47,6 +45,23 @@ class PaymentLog < ActiveRecord::Base
 
     event :refund do
       transitions :from => :unpayed, :to => :refunded
+
+      after do
+        trading_record = TradingRecord.new
+        trading_record.user_id = self.user_id
+        trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
+        trading_record.object = self.item
+        trading_record.name = self.name
+        trading_record.amount = self.amount
+        trading_record.save
+
+        payment_refund_log = PaymentRefundLog.new
+        payment_refund_log.payment_log = self
+        payment_refund_log.payment = payment
+        payment_refund_log.amount = self.amount
+        payment_refund_log.out_trade_no = self.out_trade_no
+        payment_refund_log.save
+      end
     end
   end
 
@@ -56,14 +71,13 @@ class PaymentLog < ActiveRecord::Base
 
   def close_order_other_payments
     self.item.payment_logs.where(state: :unpayed).where.not(id: self.id).each do |payment_log|
-      payment_log.close
-      payment_log.save
+      payment_log.close!
     end
   end
 
   def gen_sn
     sn = Time.now.strftime('%Y%m%d') + rand(100000...999999).to_s
     sn = gen_sn if Order.unscoped.where(sn: sn).first
-    sn
+    self.sn = sn
   end
 end

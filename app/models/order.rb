@@ -112,13 +112,9 @@ class Order < ActiveRecord::Base
       before do
         if self.payed?
           if Time.now.beginning_of_day != self.booked_at.beginning_of_day
-            trading_record = TradingRecord.new
-            trading_record.user_id = self.user_id
-            trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
-            trading_record.object = self
-            trading_record.name = self.product.name
-            trading_record.amount = self.total_amount
-            trading_record.save
+            payment_log = self.payment_log.
+            payment_log.refund
+            payment_log.save
           end
         end
       end
@@ -136,12 +132,7 @@ class Order < ActiveRecord::Base
     event :admin_close, after: :log_state_change do
       transitions :from => [:payed], :to => :closed
 
-      after do
-        if self.payment_log && self.payment_log.unpayed?
-          self.payment_log.close
-          self.payment_log.save
-        end
-      end
+      # TODO 退款
     end
 
     event :finish, after: :log_state_change do
