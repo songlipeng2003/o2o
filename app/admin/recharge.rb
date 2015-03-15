@@ -13,8 +13,8 @@ ActiveAdmin.register Recharge do
     Recharge.where(state: :payed)
   end
 
-  scope :failed do
-    Recharge.where(state: :finished)
+  scope :closed do
+    Recharge.where(state: :closed)
   end
 
   index do
@@ -47,6 +47,7 @@ ActiveAdmin.register Recharge do
       end
       row :created_at
       row :payed_at
+      row :closed_at
     end
   end
 end

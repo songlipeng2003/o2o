@@ -238,6 +238,7 @@ zh-CN:
         application_id: '应用'
         created_at: '创建时间'
         payed_at: '支付时间'
+        closed_at: '关闭时间'
       recharge_policy:
         id: '编号'
         amount: '金额'
