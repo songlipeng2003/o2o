@@ -10,11 +10,12 @@ class PayController < ApplicationController
       trade_status = params[:trade_status]
 
       @payment_log = PaymentLog.where(sn: out_trade_no).first
+      @payment_log.notify_params = params.to_json
 
       notify_log = NotifyLog.new
       notify_log.payment = @payment_log.payment
       notify_log.type = 'pay'
-      notify_log.params = YAML::dump(params)
+      notify_log.params = params.to_json
       notify_log.save
 
       if ['TRADE_SUCCESS', 'TRADE_FINISHED'].include?(trade_status)
@@ -42,11 +43,12 @@ class PayController < ApplicationController
       trade_status = notify_data['notify']['trade_status']
 
       @payment_log = PaymentLog.where(sn: out_trade_no).first
+      @payment_log.notify_params = params.to_json
 
       notify_log = NotifyLog.new
       notify_log.payment = @payment_log.payment
       notify_log.type = 'pay'
-      notify_log.params = YAML::dump(params)
+      notify_log.params = params.to_json
       notify_log.save
 
       if ['TRADE_SUCCESS', 'TRADE_FINISHED'].include?(trade_status)
