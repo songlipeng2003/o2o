@@ -112,9 +112,7 @@ class Order < ActiveRecord::Base
       before do
         if self.payed?
           if Time.now.beginning_of_day != self.booked_at.beginning_of_day
-            payment_log = self.payment_log.
-            payment_log.refund
-            payment_log.save
+            self.payment_log.refund!
           end
         end
       end
@@ -123,8 +121,7 @@ class Order < ActiveRecord::Base
 
       after do
         if self.payment_log && self.payment_log.unpayed?
-          self.payment_log.close
-          self.payment_log.save
+          self.payment_log.close!
         end
       end
     end
