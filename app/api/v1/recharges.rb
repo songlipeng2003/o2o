@@ -56,6 +56,9 @@ module V1
           recharge = current_user.recharges.find(params[:id])
           error!("404 Not Found", 404) unless recharge.unpayed?
           payment = Payment.find(params[:payment_id])
+          if payment.payment_type == 'balance'
+            error!("404 Not Found", 404)
+          end
           payment_log = recharge.payment_logs.where(payment_id: params[:payment_id]).order('id DESC').first
           unless payment_log && payment_log.unpayed?
             payment_log = recharge.payment_logs.build({
