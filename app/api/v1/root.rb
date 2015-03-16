@@ -45,7 +45,6 @@ module V1
       def current_application
         api_key = params[:api_key] || request.headers['X-Api-Key']
         @application ||= Application.where(token: api_key).first
-        @application ||= Application.first
       end
     end
 
