@@ -3,22 +3,24 @@ ActiveAdmin.register Order do
 
   actions :index, :show
 
-  scope :all, :default => true
+  scope :all, :default => true do
+    Order.unscoped
+  end
 
   scope :unpayed do
-    Order.where(state: :unpayed)
+    Order.unscoped.where(state: :unpayed)
   end
 
   scope :payed do
-    Order.where(state: :payed)
+    Order.unscoped.where(state: :payed)
   end
 
   scope :finished do
-    Order.where(state: :finished)
+    Order.unscoped.where(state: :finished)
   end
 
   scope :closed do
-    Order.where(state: :closed)
+    Order.unscoped.where(state: :closed)
   end
 
   index do
