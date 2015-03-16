@@ -15,6 +15,7 @@ ActiveAdmin.register Coupon do
     actions
   end
 
+  filter :user_phone, :as => :string
   filter :system_coupon
   filter :amount
   filter :state

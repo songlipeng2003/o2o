@@ -308,6 +308,7 @@ zh-CN:
       coupon:
         user: '用户'
         user_id: '用户'
+        user_phone: '用户电话'
         system_coupon: '系统代金券'
         system_coupon_id: '系统代金券'
         amount: '金额'
