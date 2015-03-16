@@ -150,8 +150,8 @@ class Order < ActiveRecord::Base
       end
     end
 
-    self.original_price = self.product.price
-    price = self.original_price
+    self.original_price = self.product.market_price
+    price = self.product.price
 
     if self.coupon
       price = self.original_price - self.coupon.amount
