@@ -29,6 +29,7 @@ module V1
         file = ActionDispatch::Http::UploadedFile.new(filedata_hash)
         upload_file = UploadFile.new
         upload_file.file = file
+        upload_file.application = current_application
         upload_file.save
         {
           file:  upload_file.file.filename,
