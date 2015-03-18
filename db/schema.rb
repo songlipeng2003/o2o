@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315084654) do
+ActiveRecord::Schema.define(version: 20150318164048) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -224,10 +224,10 @@ ActiveRecord::Schema.define(version: 20150315084654) do
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
 
   create_table "finances", force: true do |t|
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.float    "balance",    limit: 24
-    t.float    "freeze",     limit: 24
+    t.integer  "financeable_id"
+    t.string   "financeable_type"
+    t.float    "balance",          limit: 24, default: 0.0
+    t.float    "freeze_balance",   limit: 24, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -470,6 +470,13 @@ ActiveRecord::Schema.define(version: 20150315084654) do
 
   add_index "system_coupons", ["product_id"], name: "index_system_coupons_on_product_id", using: :btree
   add_index "system_coupons", ["product_type_id"], name: "index_system_coupons_on_product_type_id", using: :btree
+
+  create_table "system_users", force: true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "trading_records", force: true do |t|
     t.integer  "user_id"

@@ -99,7 +99,7 @@ module V1
           authenticate!
           error!("403 Forbidden", 403) unless current_user.id==params[:id]
           {
-            balance: current_user.balance,
+            balance: current_user.finance.balance,
             unreaded_msg_count: Announcement.count_of(params[:last_time])
           }
         end

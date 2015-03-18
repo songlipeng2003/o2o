@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Financeable
 
   has_many :cars
   has_many :orders
