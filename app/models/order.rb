@@ -88,7 +88,7 @@ class Order < ActiveRecord::Base
 
       after do
         trading_record = TradingRecord.new
-        trading_record.user_id = self.user_id
+        trading_record.user = self.user
         trading_record.trading_type = TradingRecord::TRADING_TYPE_EXPENSE
         trading_record.object = self
         trading_record.name = self.product.name

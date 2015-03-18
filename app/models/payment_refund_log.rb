@@ -29,7 +29,7 @@ class PaymentRefundLog < ActiveRecord::Base
       after do
         unless self.payment.code == 'balance'
           trading_record = TradingRecord.new
-          trading_record.user_id = self.user_id
+          trading_record.user = self.user
           trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN_BANK
           trading_record.object = self.item
           trading_record.name = self.name

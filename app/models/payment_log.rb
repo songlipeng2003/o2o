@@ -47,7 +47,7 @@ class PaymentLog < ActiveRecord::Base
 
       after do
         trading_record = TradingRecord.new
-        trading_record.user_id = self.item.user_id
+        trading_record.user = self.item.user
         trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
         trading_record.object = self.item
         trading_record.name = self.name

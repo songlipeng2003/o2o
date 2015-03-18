@@ -27,6 +27,10 @@ class TradingRecord < ActiveRecord::Base
     finance.user if finance
   end
 
+  def user=(user)
+    finance = user.finance
+  end
+
   def trading_type_name
     TRADING_TYPES[self.trading_type]
   end
