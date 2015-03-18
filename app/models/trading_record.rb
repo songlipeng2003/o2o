@@ -21,6 +21,8 @@ class TradingRecord < ActiveRecord::Base
   validates :object, presence: true
   validates :trading_type, presence: true
 
+  before_save :set_start_and_end
+
   after_save :change_balance
 
   def user
@@ -35,8 +37,14 @@ class TradingRecord < ActiveRecord::Base
     TRADING_TYPES[self.trading_type]
   end
 
+  private
   def change_balance
     user.balance += amount
     user.save
+  end
+
+  def set_start_and_end
+    start_amount = user.total_balance
+    end_amount = user.total_balance + self.amount
   end
 end

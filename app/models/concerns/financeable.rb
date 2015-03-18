@@ -31,6 +31,10 @@ module Financeable
     def freeze_balance=(freeze_balance)
       finance.freeze_balance = freeze_balance
     end
+
+    def total_balance
+      finance.total_balance
+    end
   end
 
   module ClassMethods
