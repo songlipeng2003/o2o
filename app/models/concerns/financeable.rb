@@ -20,8 +20,16 @@ module Financeable
       finance.balance
     end
 
+    def balance=(balance)
+      finance.balance = balance
+    end
+
     def freeze_balance
       finance.freeze_balance
+    end
+
+    def freeze_balance=(freeze_balance)
+      finance.freeze_balance = freeze_balance
     end
   end
 
