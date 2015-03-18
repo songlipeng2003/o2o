@@ -13,7 +13,7 @@ class TradingRecord < ActiveRecord::Base
     TRADING_TYPE_RETURN_BANK => '退款到银行'
   }
 
-  belongs_to :user
+  belongs_to :finance
   belongs_to :object, polymorphic: true
 
   validates :user_id, presence: true
@@ -22,6 +22,10 @@ class TradingRecord < ActiveRecord::Base
   validates :trading_type, presence: true
 
   after_save :change_balance
+
+  def user
+    finance.user if finance
+  end
 
   def trading_type_name
     TRADING_TYPES[self.trading_type]

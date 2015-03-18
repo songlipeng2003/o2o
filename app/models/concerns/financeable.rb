@@ -11,6 +11,18 @@ module Financeable
       end
       super
     end
+
+    def trading_records
+      finance.trading_records
+    end
+
+    def balance
+      finance.balance
+    end
+
+    def freeze_balance
+      finance.freeze_balance
+    end
   end
 
   module ClassMethods

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318164048) do
+ActiveRecord::Schema.define(version: 20150318165354) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -479,7 +479,6 @@ ActiveRecord::Schema.define(version: 20150318164048) do
   end
 
   create_table "trading_records", force: true do |t|
-    t.integer  "user_id"
     t.integer  "trading_type"
     t.float    "amount",       limit: 24
     t.string   "name"
@@ -489,9 +488,10 @@ ActiveRecord::Schema.define(version: 20150318164048) do
     t.datetime "created_at"
     t.float    "start_amount", limit: 24
     t.float    "end_amount",   limit: 24
+    t.integer  "finance_id"
   end
 
-  add_index "trading_records", ["user_id"], name: "index_trading_records_on_user_id", using: :btree
+  add_index "trading_records", ["finance_id"], name: "index_trading_records_on_finance_id", using: :btree
 
   create_table "upload_files", force: true do |t|
     t.string   "file"
@@ -515,7 +515,6 @@ ActiveRecord::Schema.define(version: 20150318164048) do
     t.datetime "updated_at"
     t.string   "phone"
     t.string   "authentication_token"
-    t.float    "balance",                limit: 24, default: 0.0
     t.float    "score",                  limit: 24, default: 0.0
     t.string   "encrypted_pay_password"
     t.string   "avatar"
