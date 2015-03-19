@@ -78,6 +78,8 @@ zh-CN:
         color: '颜色'
         application: '应用'
         application_id: '应用'
+        car_model_name: '车型'
+        user_phone: '用户手机号'
         created_at: '创建时间'
         updated_at: '更新时间'
       announcement:

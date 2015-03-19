@@ -11,5 +11,8 @@ ActiveAdmin.register Car do
     actions
   end
 
+  filter :user_phone, as: :string
   filter :license_tag
+  filter :color
+  filter :car_model_name, as: :string
 end
