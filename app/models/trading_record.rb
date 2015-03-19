@@ -16,7 +16,7 @@ class TradingRecord < ActiveRecord::Base
   belongs_to :finance
   belongs_to :object, polymorphic: true
 
-  validates :user_id, presence: true
+  validates :finance, presence: true
   validates :amount, presence: true
   validates :object, presence: true
   validates :trading_type, presence: true
