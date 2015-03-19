@@ -17,4 +17,52 @@ ActiveAdmin.register Store do
   filter :phone
 
   form :partial => "form"
+
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row :phone
+      row :address
+      row :description
+      row :province
+      row :city
+      row :area
+      row :created_at
+      row :created_at
+      row :updated_at
+    end
+
+    panel "订单历史" do
+      paginated_collection(store.orders.page(params[:page]).per(10), entry_name: 'Order') do
+        table_for(collection) do |order|
+          column(I18n.t('activerecord.attributes.order.id')) { |order| order.id }
+          column(I18n.t('activerecord.attributes.order.sn')) { |order| order.sn }
+          column(I18n.t('activerecord.attributes.order.user')) do |order|
+            link_to order.user.phone, admin_user_path(order.user)
+          end
+          column(I18n.t('activerecord.attributes.order.car')) do |order|
+            order.car_model.name + '-' + order.license_tag + '-' + order.car_color
+          end
+          column(I18n.t('activerecord.attributes.order.product')) do |order|
+            link_to order.product.name, admin_product_path(order.product)
+          end
+          column(I18n.t('activerecord.attributes.order.total_amount')) { |order| order.total_amount }
+          column(I18n.t('activerecord.attributes.order.booked_at')) { |order| I18n.l order.booked_at, :format => :long }
+          column(I18n.t('activerecord.attributes.order.state')) { |order| order.aasm.human_state }
+        end
+      end
+    end
+
+    # div do
+    #   paginate @orders
+    # end
+  end
+
+  # controller do
+  #   def show
+  #     @store = Store.find(params[:id])
+  #     @orders = @store.orders.page(params[:page]);
+  #   end
+  # end
 end
