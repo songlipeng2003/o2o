@@ -92,6 +92,14 @@ class Order < ActiveRecord::Base
         trading_record.amount = -self.total_amount
         trading_record.save
 
+        trading_record = TradingRecord.new
+        trading_record.user = SystemUser.platform
+        trading_record.trading_type = TradingRecord::TRADING_TYPE_IN
+        trading_record.object = self
+        trading_record.name = self.product.name
+        trading_record.amount = self.total_amount
+        trading_record.save
+
         params = {
           booked_at: self.booked_at,
           address: self.place,

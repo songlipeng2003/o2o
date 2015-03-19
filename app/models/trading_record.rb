@@ -4,13 +4,17 @@ class TradingRecord < ActiveRecord::Base
   TRADING_TYPE_PRESENT = 3
   TRADING_TYPE_RETURN = 4
   TRADING_TYPE_RETURN_BANK = 5
+  TRADING_TYPE_IN = 6
+  TRADING_TYPE_OUT = 7
 
   TRADING_TYPES = {
     TRADING_TYPE_RECHARGE => '充值',
     TRADING_TYPE_EXPENSE => '消费',
     TRADING_TYPE_PRESENT => '赠送',
     TRADING_TYPE_RETURN => '退款',
-    TRADING_TYPE_RETURN_BANK => '退款到银行'
+    TRADING_TYPE_RETURN_BANK => '退款到银行',
+    TRADING_TYPE_IN => '转入',
+    TRADING_TYPE_OUT => '转出'
   }
 
   belongs_to :finance
