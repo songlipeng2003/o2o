@@ -26,11 +26,11 @@ class TradingRecord < ActiveRecord::Base
   after_save :change_balance
 
   def user
-    finance.user if finance
+    finance.financeable if finance
   end
 
   def user=(user)
-    finance = user.finance
+    self.finance = user.finance
   end
 
   def trading_type_name
