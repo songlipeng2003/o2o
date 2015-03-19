@@ -17,7 +17,7 @@ ActiveAdmin.register TradingRecord do
     actions
   end
 
-  filter :type
+  filter :trading_type, as: :select, collection: TradingRecord::TRADING_TYPES
   filter :amount
   filter :created_at
 end
