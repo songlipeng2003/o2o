@@ -1,10 +1,9 @@
 class PaymentRefundLog < ActiveRecord::Base
   include AASM
+  include Snable
 
   belongs_to :payment
   belongs_to :payment_log
-
-  before_create :gen_sn
 
   after_create do
     if self.payment.code == 'balance'
@@ -38,12 +37,5 @@ class PaymentRefundLog < ActiveRecord::Base
         end
       end
     end
-  end
-
-  private
-  def gen_sn
-    sn = Time.now.strftime('%y%m%d') + rand(100000...999999).to_s
-    sn = gen_sn if Order.unscoped.where(sn: sn).first
-    self.sn = sn
   end
 end

@@ -1,5 +1,6 @@
 class PaymentLog < ActiveRecord::Base
   include AASM
+  include Snable
 
   belongs_to :item, polymorphic: true
   belongs_to :payment
@@ -7,8 +8,6 @@ class PaymentLog < ActiveRecord::Base
 
   validates :item, presence: true
   validates :payment, presence: true
-
-  before_create :gen_sn
 
   aasm column: :state do
     state :unpayed, :initial => true
@@ -72,11 +71,5 @@ class PaymentLog < ActiveRecord::Base
     self.item.payment_logs.where(state: :unpayed).where.not(id: self.id).each do |payment_log|
       payment_log.close!
     end
-  end
-
-  def gen_sn
-    sn = Time.now.strftime('%Y%m%d') + rand(100000...999999).to_s
-    sn = gen_sn if Order.unscoped.where(sn: sn).first
-    self.sn = sn
   end
 end

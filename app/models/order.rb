@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   include AASM
+  include Snable
 
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
@@ -47,11 +48,7 @@ class Order < ActiveRecord::Base
   validates_associated :car
   # validates_associated :product
 
-  before_create do
-    cal_total_amount
-
-    self.sn = gen_sn
-  end
+  before_create :cal_total_amount
 
   before_validation(on: :create) do
     self.car_model_id = self.car.car_model_id
@@ -202,13 +199,5 @@ class Order < ActiveRecord::Base
   def use_coupon
     self.coupon.use
     self.coupon.save
-  end
-
-  def gen_sn
-    sn = Time.now.strftime('%y%m%d') + rand(100000...999999).to_s
-
-    sn = gen_sn if Order.unscoped.where(sn: sn).first
-
-    sn
   end
 end

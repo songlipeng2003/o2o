@@ -1,9 +1,8 @@
 class RefundBatch < ActiveRecord::Base
   include AASM
+  include Snable
 
   belongs_to :payment
-
-  before_create :gen_sn
 
   before_create do
     self.payment_refund_logs.each do |payment_refund_log|
@@ -33,12 +32,5 @@ class RefundBatch < ActiveRecord::Base
       }
     end
     Alipay::Service.create_refund_url(options)
-  end
-
-  private
-  def gen_sn
-    sn = Alipay::Utils.generate_batch_no
-    sn = gen_sn if Order.unscoped.where(sn: sn).first
-    self.sn = sn
   end
 end
