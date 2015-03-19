@@ -44,7 +44,7 @@ class TradingRecord < ActiveRecord::Base
   end
 
   def set_start_and_end
-    start_amount = user.total_balance
-    end_amount = user.total_balance + self.amount
+    self.start_amount = user.total_balance
+    self.end_amount = user.total_balance + self.amount
   end
 end
