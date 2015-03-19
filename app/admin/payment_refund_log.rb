@@ -5,20 +5,20 @@ ActiveAdmin.register PaymentRefundLog do
 
   scope :all, :default => true
 
-  scope :applyed do
-    PaymentRefundLog.where(state: :applyed)
+  scope :applyed do |scope|
+    scope.where(state: :applyed)
   end
 
-  scope :operated do
-    PaymentRefundLog.where(state: :operated)
+  scope :operated do |scope|
+    scope.where(state: :operated)
   end
 
-  scope :finished do
-    PaymentRefundLog.where(state: :finished)
+  scope :finished do |scope|
+    scope.where(state: :finished)
   end
 
-  scope :closed do
-    PaymentRefundLog.where(state: :closed)
+  scope :closed do |scope|
+    scope.where(state: :closed)
   end
 
   index do

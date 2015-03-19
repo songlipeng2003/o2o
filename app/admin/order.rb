@@ -3,24 +3,22 @@ ActiveAdmin.register Order do
 
   actions :index, :show
 
-  scope :all, :default => true do
-    Order.unscoped
+  scope '所有', :all, default: true
+
+  scope :unpayed do |scope|
+    scope.where(state: :unpayed)
   end
 
-  scope :unpayed do
-    Order.unscoped.where(state: :unpayed)
+  scope :payed do |scope|
+    scope.where(state: :payed)
   end
 
-  scope :payed do
-    Order.unscoped.where(state: :payed)
+  scope :finished do |scope|
+    scope.where(state: :finished)
   end
 
-  scope :finished do
-    Order.unscoped.where(state: :finished)
-  end
-
-  scope :closed do
-    Order.unscoped.where(state: :closed)
+  scope :closed do |scope|
+    scope.where(state: :closed)
   end
 
   index do
@@ -64,5 +62,11 @@ ActiveAdmin.register Order do
     link_to '关闭', close_admin_order_path(order),
       method: :put,
       data: { confirm: '你确认要关闭吗？' } if order.payed?
+  end
+
+  controller do
+    def scoped_collection
+      Order.unscoped
+    end
   end
 end

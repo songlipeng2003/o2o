@@ -5,16 +5,16 @@ ActiveAdmin.register Recharge do
 
   scope :all, :default => true
 
-  scope :unpayed do
-    Recharge.where(state: :unpayed)
+  scope :unpayed do |scope|
+    scope.where(state: :unpayed)
   end
 
-  scope :payed do
-    Recharge.where(state: :payed)
+  scope :payed do |scope|
+    scope.where(state: :payed)
   end
 
-  scope :closed do
-    Recharge.where(state: :closed)
+  scope :closed do |scope|
+    scope.where(state: :closed)
   end
 
   index do

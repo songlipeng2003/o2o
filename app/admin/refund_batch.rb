@@ -5,12 +5,12 @@ ActiveAdmin.register RefundBatch do
 
   scope :all, :default => true
 
-  scope :applyed do
-    RefundBatch.where(state: :applyed)
+  scope :applyed do |scope|
+    scope.where(state: :applyed)
   end
 
-  scope :finished do
-    RefundBatch.where(state: :finished)
+  scope :finished do |scope|
+    scope.where(state: :finished)
   end
 
   index do
