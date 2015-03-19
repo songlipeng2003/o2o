@@ -18,7 +18,7 @@ class TradingRecord < ActiveRecord::Base
 
   validates :finance, presence: true
   validates :amount, presence: true
-  validates :object, presence: true
+  # validates :object, presence: true
   validates :trading_type, presence: true
 
   before_save :set_start_and_end
