@@ -184,9 +184,6 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     evil_transform (0.0.1)
-    exception_notification (4.0.1)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
     execjs (2.2.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
@@ -433,7 +430,6 @@ DEPENDENCIES
   elasticsearch-model!
   elasticsearch-rails!
   evil_transform
-  exception_notification
   factory_girl_rails (~> 4.3.0)
   font-awesome-rails (~> 4.3.0)
   grape (~> 0.9.0)

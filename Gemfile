@@ -148,4 +148,4 @@ gem 'jpush', :git => 'git://github.com/jpush/jpush-api-ruby-client.git'
 gem "rails_config"
 
 # exception notification
-gem 'exception_notification'
+# gem 'exception_notification'
