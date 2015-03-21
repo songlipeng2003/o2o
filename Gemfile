@@ -35,7 +35,7 @@ gem 'spring',        group: :development
 
 # Use Capistrano for deployment
 group :development do
-  gem 'capistrano', '~> 3.3.3'
+  gem 'capistrano', '~> 3.3.5'
   gem 'capistrano-rails', '~> 1.1.2'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-thin'
