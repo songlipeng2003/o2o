@@ -108,7 +108,7 @@ class Order < ActiveRecord::Base
           car_model: self.car_model_name,
           phone: self.phone,
           product: self.product.name,
-          is_include_interior: self.is_include_interior ? '是' : '否'
+          is_include_interior: self.is_include_interior ? '是' : '不'
         }
         SMSWorker.perform_async(self.store.phone, 671257, params)
       end
