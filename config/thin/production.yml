@@ -11,5 +11,5 @@ max_persistent_conns: 100
 require: []
 wait: 30
 threadpool_size: 20
-servers: 1
+servers: 2
 daemonize: true
