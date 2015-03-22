@@ -6,6 +6,7 @@ ActiveAdmin.register Product do
   index do
     id_column
     column :name
+    column :category
     column :product_type
     column :image, sortable: false do |product|
       image_tag(product.image.thumb.url)
@@ -23,6 +24,7 @@ ActiveAdmin.register Product do
   form html: { multipart: true } do |f|
     f.inputs do
       f.input :name
+      f.input :category
       f.input :product_type
       f.input :image, :image_preview => true
       f.input :price
@@ -36,6 +38,7 @@ ActiveAdmin.register Product do
     attributes_table do
       row :id
       row :name
+      row :category
       row :product_type
       row :image do
         image_tag(product.image.url)

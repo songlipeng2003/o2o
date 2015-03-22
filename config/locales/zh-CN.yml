@@ -274,6 +274,8 @@ zh-CN:
         product_type_id: '商品类型'
         market_price: '市场价'
         image: '图片'
+        category: '分类'
+        category_id: '分类'
         created_at: '创建时间'
         updated_at: '更新时间'
       evaluation:

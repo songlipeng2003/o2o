@@ -1,5 +1,5 @@
 ActiveAdmin.register Category do
-  menu parent: '基础数据'
+  menu parent: '商品'
 
   permit_params :name
 

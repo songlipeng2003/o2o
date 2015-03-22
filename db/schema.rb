@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322084706) do
+ActiveRecord::Schema.define(version: 20150322125751) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -376,6 +376,7 @@ ActiveRecord::Schema.define(version: 20150322084706) do
     t.float    "market_price",    limit: 24
     t.string   "image"
     t.integer  "product_type_id"
+    t.integer  "category_id"
   end
 
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree

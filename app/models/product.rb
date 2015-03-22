@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :product_type
+  belongs_to :category
 
   validates :name, presence: true
   validates :image, presence: true
