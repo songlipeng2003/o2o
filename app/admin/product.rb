@@ -7,6 +7,9 @@ ActiveAdmin.register Product do
     id_column
     column :name
     column :category
+    column :product_type do |product|
+      product.product_type_name
+    end
     column :image, sortable: false do |product|
       image_tag(product.image.thumb.url)
     end
@@ -16,6 +19,7 @@ ActiveAdmin.register Product do
     actions
   end
 
+  filter :product_type, as: 'select', collection: Product::PRODUCT_TYPES
   filter :name
   filter :price
   filter :created_at
@@ -24,6 +28,7 @@ ActiveAdmin.register Product do
     f.inputs do
       f.input :system_product
       f.input :name
+      f.input :product_type, as: 'select', collection: Product::PRODUCT_TYPES.invert
       f.input :category
       f.input :image, :image_preview => true
       f.input :price
@@ -38,6 +43,9 @@ ActiveAdmin.register Product do
       row :id
       row :system_product
       row :name
+      row :product_type do
+        product.product_type_name
+      end
       row :category
       row :image do
         image_tag(product.image.url)

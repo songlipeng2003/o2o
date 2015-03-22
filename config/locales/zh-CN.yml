@@ -267,6 +267,7 @@ zh-CN:
       product:
         id: '编号'
         name: '名称'
+        product_type: '商品类型'
         description: '描述'
         price: '价格'
         system_product: '系统商品'
