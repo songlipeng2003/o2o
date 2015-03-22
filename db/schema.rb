@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318165354) do
+ActiveRecord::Schema.define(version: 20150322084706) do
 
   create_table "active_admin_comments", force: true do |t|
-    t.string   "namespace"
+    t.string   "namespace",     limit: 191
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",               null: false
+    t.string   "resource_type", limit: 191, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 191
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", length: {"resource_type"=>nil, "resource_id"=>191}, using: :btree
 
   create_table "addresses", force: true do |t|
     t.string   "place"
@@ -42,12 +42,12 @@ ActiveRecord::Schema.define(version: 20150318165354) do
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
   create_table "admin_users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 191, default: "", null: false
+    t.string   "encrypted_password",                 default: "", null: false
+    t.string   "reset_password_token",   limit: 191
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(version: 20150318165354) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ancestry"
-    t.integer  "ancestry_depth", default: 0
+    t.string   "ancestry",       limit: 191
+    t.integer  "ancestry_depth",             default: 0
   end
 
   add_index "areas", ["ancestry"], name: "index_areas_on_ancestry", using: :btree
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 20150318165354) do
     t.string   "file"
     t.integer  "filesize"
     t.integer  "item_id"
-    t.string   "item_type"
+    t.string   "item_type",  limit: 191
     t.datetime "created_at"
     t.integer  "user_id"
   end
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 20150318165354) do
     t.datetime "updated_at"
   end
 
-  add_index "notify_logs", ["payment_id"], name: "index_notify_logs_on_payment_id", using: :btree
+  add_index "notify_logs", ["payment_id"], name: "utf8mb4notify_logs_on_payment_id", using: :btree
 
   create_table "order_logs", force: true do |t|
     t.integer  "order_id"
@@ -501,12 +501,12 @@ ActiveRecord::Schema.define(version: 20150318165354) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                             default: "",  null: false
-    t.string   "encrypted_password",                default: "",  null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 191, default: "",  null: false
+    t.string   "encrypted_password",                 default: "",  null: false
+    t.string   "reset_password_token",   limit: 191
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                     default: 0,   null: false
+    t.integer  "sign_in_count",                      default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -514,8 +514,8 @@ ActiveRecord::Schema.define(version: 20150318165354) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone"
-    t.string   "authentication_token"
-    t.float    "score",                  limit: 24, default: 0.0
+    t.string   "authentication_token",   limit: 191
+    t.float    "score",                  limit: 24,  default: 0.0
     t.string   "encrypted_pay_password"
     t.string   "avatar"
     t.string   "gender"
@@ -528,9 +528,9 @@ ActiveRecord::Schema.define(version: 20150318165354) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
+    t.string   "item_type",  limit: 191, null: false
+    t.integer  "item_id",                null: false
+    t.string   "event",                  null: false
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
