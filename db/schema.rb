@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322143302) do
+ActiveRecord::Schema.define(version: 20150322152750) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -455,7 +455,7 @@ ActiveRecord::Schema.define(version: 20150322143302) do
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
-    t.string   "store_type"
+    t.integer  "store_type",               default: 1
   end
 
   create_table "system_coupons", force: true do |t|
@@ -471,6 +471,17 @@ ActiveRecord::Schema.define(version: 20150322143302) do
 
   add_index "system_coupons", ["product_id"], name: "index_system_coupons_on_product_id", using: :btree
   add_index "system_coupons", ["product_type_id"], name: "index_system_coupons_on_product_type_id", using: :btree
+
+  create_table "system_products", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "category_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_products", ["category_id"], name: "index_system_products_on_category_id", using: :btree
 
   create_table "system_users", force: true do |t|
     t.string   "code"
