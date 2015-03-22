@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322152750) do
+ActiveRecord::Schema.define(version: 20150322153909) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -370,16 +370,18 @@ ActiveRecord::Schema.define(version: 20150322152750) do
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.float    "price",           limit: 24
+    t.float    "price",             limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "market_price",    limit: 24
+    t.float    "market_price",      limit: 24
     t.string   "image"
     t.integer  "product_type_id"
     t.integer  "category_id"
+    t.integer  "system_product_id"
   end
 
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+  add_index "products", ["system_product_id"], name: "index_products_on_system_product_id", using: :btree
 
   create_table "recharge_policies", force: true do |t|
     t.integer  "amount"
