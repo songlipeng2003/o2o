@@ -15,7 +15,6 @@ module V1
       expose :carport
       expose :is_underground_park
       expose :is_include_interior
-      expose :product_type
       expose :product_type_text
       expose :note
       expose :original_price

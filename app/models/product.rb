@@ -1,5 +1,4 @@
 class Product < ActiveRecord::Base
-  belongs_to :product_type
   belongs_to :category
   belongs_to :system_product
 
@@ -7,10 +6,9 @@ class Product < ActiveRecord::Base
   validates :image, presence: true
   validates :price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
   validates :description, presence: true
-  validates :product_type, presence: true
   validates :market_price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
 
-  validates_associated :product_type
+  validates_associated :category
 
   mount_uploader :image, ProductImageUploader
 

@@ -7,7 +7,6 @@ ActiveAdmin.register Product do
     id_column
     column :name
     column :category
-    column :product_type
     column :image, sortable: false do |product|
       image_tag(product.image.thumb.url)
     end
@@ -26,7 +25,6 @@ ActiveAdmin.register Product do
       f.input :system_product
       f.input :name
       f.input :category
-      f.input :product_type
       f.input :image, :image_preview => true
       f.input :price
       f.input :market_price
@@ -41,7 +39,6 @@ ActiveAdmin.register Product do
       row :system_product
       row :name
       row :category
-      row :product_type
       row :image do
         image_tag(product.image.url)
       end
