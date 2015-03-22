@@ -1,6 +1,14 @@
 class Store < ActiveRecord::Base
   include Financeable
 
+  STORE_TYPE_SELF = 1
+  STORE_TYPE_JOIN = 2
+
+  STORE_TYPES ={
+    STORE_TYPE_SELF => '自营',
+    STORE_TYPE_JOIN => '加盟'
+  }
+
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
@@ -14,6 +22,7 @@ class Store < ActiveRecord::Base
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
+  validates :store_type, presence: true
 
   validates_associated :province
   validates_associated :city
@@ -26,84 +35,8 @@ class Store < ActiveRecord::Base
     update_area_info
   end
 
-  # 是否在服务范围内
-  def self.in_service_scope(lon, lat)
-    query = {
-      query:{
-        filtered: {
-          query: {
-            match_all: {}
-          },
-          filter: {
-            geo_shape: {
-              service_area_location: {
-                relation: "intersects",
-                shape: {
-                  type: 'point',
-                  coordinates: [lon.to_f, lat.to_f]
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    logger.debug query.to_yaml
-
-    __elasticsearch__.search(query)
-  end
-
-  def self.can_serviced(lon, lat, booked_at)
-    stores = in_service_scope(lon, lat)
-    ids = stores.map { |store| store._id }
-    stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
-        return true
-      end
-    end
-    false
-  end
-
-  def self.can_serviced_store(lon, lat, booked_at)
-    stores = in_service_scope(lon, lat)
-    stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
-        return store.id
-      end
-    end
-    false
-  end
-
-  include ElasticsearchSearchable
-
-  def service_area_location
-    coordinates = self.service_area.split(',')
-    coordinates = (0..coordinates.length-1).step(2).map do |i|
-      [coordinates[i].to_f, coordinates[i+1].to_f]
-    end
-
-    coordinates << coordinates[0]
-
-    {
-      type: 'polygon',
-      coordinates: [coordinates]
-    }
-  end
-
-  # elasticsearch settings
-  settings index: { number_of_shards: 1 } do
-    mappings dynamic: 'strict' do
-      indexes :name
-      indexes :address
-      indexes :phone
-      indexes :description
-      indexes :service_area_location, type: 'geo_shape', tree: 'geohash', precision: '1m'
-    end
-  end
-
-  def as_indexed_json(options={})
-    self.as_json(only: [:name, :address, :phone, :description], methods: :service_area_location)
+  def store_type_name
+    STORE_TYPES[store_type]
   end
 
   private
@@ -115,5 +48,3 @@ class Store < ActiveRecord::Base
     end
   end
 end
-
-Store.import force: true

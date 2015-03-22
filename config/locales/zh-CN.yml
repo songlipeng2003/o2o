@@ -116,6 +116,8 @@ zh-CN:
       store:
         id: '编号'
         name: '名称'
+        store_type: '店铺类型'
+        store_type_name: '店铺类型'
         address: '地址'
         phone: '电话'
         lon: '经度'
@@ -124,7 +126,6 @@ zh-CN:
         good_rate: '好评率'
         collect_count: '收藏数'
         score: '分数'
-        service_area: '服务区域'
         province: '省'
         province_id: '省'
         city: '市'

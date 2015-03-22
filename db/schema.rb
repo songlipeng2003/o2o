@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322125751) do
+ActiveRecord::Schema.define(version: 20150322143302) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -452,10 +452,10 @@ ActiveRecord::Schema.define(version: 20150322125751) do
     t.datetime "updated_at"
     t.float    "lat",           limit: 24
     t.float    "lon",           limit: 24
-    t.text     "service_area"
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
+    t.string   "store_type"
   end
 
   create_table "system_coupons", force: true do |t|
