@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323145302) do
+ActiveRecord::Schema.define(version: 20150323152535) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -414,6 +414,16 @@ ActiveRecord::Schema.define(version: 20150323145302) do
   end
 
   add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
+
+  create_table "service_areas", force: true do |t|
+    t.integer  "product_id"
+    t.string   "name"
+    t.string   "areas"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "service_areas", ["product_id"], name: "index_service_areas_on_product_id", using: :btree
 
   create_table "store_users", force: true do |t|
     t.integer  "store_id"

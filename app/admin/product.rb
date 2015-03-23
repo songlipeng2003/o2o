@@ -15,7 +15,9 @@ ActiveAdmin.register Product do
     column :price
     column :market_price
     column :created_at
-    actions
+    actions defaults: true do |product|
+      link_to '服务区域管理', admin_product_service_areas_path(product)
+    end
   end
 
   filter :product_type, as: 'select', collection: Product::PRODUCT_TYPES

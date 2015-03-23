@@ -11,6 +11,8 @@ class Product < ActiveRecord::Base
   belongs_to :system_product
   belongs_to :store
 
+  has_many :service_areas
+
   validates :name, presence: true
   validates :image, presence: true
   validates :product_type, presence: true, inclusion: { in:  PRODUCT_TYPES.keys }
