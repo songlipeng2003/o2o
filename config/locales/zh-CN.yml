@@ -272,6 +272,8 @@ zh-CN:
         price: '价格'
         system_product: '系统商品'
         system_product_id: '系统商品'
+        store_id: '店铺'
+        store: '店铺'
         market_price: '市场价'
         image: '图片'
         category: '分类'

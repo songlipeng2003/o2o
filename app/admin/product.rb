@@ -1,17 +1,16 @@
 ActiveAdmin.register Product do
-  menu parent: '商品'
+  belongs_to :store
+  navigation_menu :store
 
   permit_params :name, :price, :market_price, :description, :image, :product_type_id, :system_product_id
 
   index do
     id_column
     column :name
+    column :store
     column :category
     column :product_type do |product|
       product.product_type_name
-    end
-    column :image, sortable: false do |product|
-      image_tag(product.image.thumb.url)
     end
     column :price
     column :market_price
@@ -26,6 +25,7 @@ ActiveAdmin.register Product do
 
   form html: { multipart: true } do |f|
     f.inputs do
+      # f.input :store
       f.input :system_product
       f.input :name
       f.input :product_type, as: 'select', collection: Product::PRODUCT_TYPES.invert
@@ -41,6 +41,7 @@ ActiveAdmin.register Product do
   show do
     attributes_table do
       row :id
+      # row :store
       row :system_product
       row :name
       row :product_type do

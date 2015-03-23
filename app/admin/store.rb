@@ -12,6 +12,7 @@ ActiveAdmin.register Store do
     column :phone
     actions defaults: true do |store|
       link_to '用户管理', admin_store_store_users_path(store)
+      link_to '商品管理', admin_store_products_path(store)
     end
   end
 

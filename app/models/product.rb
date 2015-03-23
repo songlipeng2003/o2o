@@ -9,6 +9,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :category
   belongs_to :system_product
+  belongs_to :store
 
   validates :name, presence: true
   validates :image, presence: true
@@ -18,6 +19,7 @@ class Product < ActiveRecord::Base
   validates :market_price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
 
   validates_associated :category
+  validates_associated :store
 
   mount_uploader :image, ProductImageUploader
 

@@ -30,6 +30,7 @@ class Store < ActiveRecord::Base
 
   has_many :store_users
   has_many :orders
+  has_many :products
 
   before_create do
     update_area_info
