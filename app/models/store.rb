@@ -1,5 +1,6 @@
 class Store < ActiveRecord::Base
   include Financeable
+  include ElasticsearchSearchable
 
   STORE_TYPE_SELF = 1
   STORE_TYPE_JOIN = 2
@@ -41,6 +42,20 @@ class Store < ActiveRecord::Base
     STORE_TYPES[store_type]
   end
 
+  # elasticsearch settings
+  settings index: { number_of_shards: 1 } do
+    mappings dynamic: 'strict' do
+      indexes :name
+      indexes :address
+      indexes :phone
+      indexes :description
+    end
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(only: [:name, :address, :phone, :description])
+  end
+
   private
   def update_area_info
     if self.area_id
@@ -50,3 +65,5 @@ class Store < ActiveRecord::Base
     end
   end
 end
+
+Store.import force: true

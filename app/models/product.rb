@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  include ElasticsearchSearchable
+
   PRODUCT_TYPE_OUT_DOOR = 1;
   PRODUCT_TYPE_IN_DOOR = 2;
 
@@ -27,7 +29,26 @@ class Product < ActiveRecord::Base
 
   default_scope -> { order('id DESC') }
 
+
+  # elasticsearch settings
+  settings index: { number_of_shards: 1 } do
+    mappings dynamic: 'strict' do
+      indexes :name
+      indexes :store_id
+      indexes :product_type
+      indexes :price
+      indexes :market_price
+      indexes :description
+    end
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(only: [:name, :store_id, :product_type, :price, :market_price, :description])
+  end
+
   def product_type_name
     PRODUCT_TYPES[product_type]
   end
 end
+
+Product.import force: true

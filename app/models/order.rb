@@ -9,6 +9,7 @@ class Order < ActiveRecord::Base
   belongs_to :product
   belongs_to :user
   belongs_to :store
+  belongs_to :store_user
   belongs_to :car
   belongs_to :address
   belongs_to :car_model
@@ -58,6 +59,8 @@ class Order < ActiveRecord::Base
     self.place = self.address.place
     self.lon = self.address.lon
     self.lat = self.address.lat
+
+    self.store_id = self.store_user.store_id
 
     update_area_info
   end
