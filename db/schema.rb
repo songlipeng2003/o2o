@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323152535) do
+ActiveRecord::Schema.define(version: 20150324000737) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -424,6 +424,15 @@ ActiveRecord::Schema.define(version: 20150323152535) do
   end
 
   add_index "service_areas", ["product_id"], name: "index_service_areas_on_product_id", using: :btree
+
+  create_table "store_user_service_areas", force: true do |t|
+    t.integer  "store_user_id"
+    t.integer  "service_area_id"
+    t.datetime "created_at"
+  end
+
+  add_index "store_user_service_areas", ["service_area_id"], name: "index_store_user_service_areas_on_service_area_id", using: :btree
+  add_index "store_user_service_areas", ["store_user_id"], name: "index_store_user_service_areas_on_store_user_id", using: :btree
 
   create_table "store_users", force: true do |t|
     t.integer  "store_id"

@@ -31,6 +31,7 @@ class Store < ActiveRecord::Base
   has_many :store_users
   has_many :orders
   has_many :products
+  has_many :service_areas, through: :products
 
   before_create do
     update_area_info

@@ -4,6 +4,8 @@ class StoreUser < ActiveRecord::Base
   belongs_to :store
 
   has_many :login_histories, as: :user
+  has_many :store_user_service_areas, dependent: :destroy
+  has_many :service_areas, through: :store_user_service_areas
 
   before_save :ensure_authentication_token
 
