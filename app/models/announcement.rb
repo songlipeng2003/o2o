@@ -1,6 +1,4 @@
 class Announcement < ActiveRecord::Base
-  include UmengPush
-
   validates :title, presence: true
   validates :content, presence: true
 
