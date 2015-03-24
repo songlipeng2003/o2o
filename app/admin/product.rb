@@ -1,6 +1,5 @@
 ActiveAdmin.register Product do
-  belongs_to :store
-  navigation_menu :store
+  belongs_to :store, :optional => true
 
   permit_params :name, :price, :market_price, :description, :image, :product_type_id, :system_product_id
 
