@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326134851) do
+ActiveRecord::Schema.define(version: 20150326135502) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20150326134851) do
 
   add_index "app_payments", ["application_id"], name: "index_app_payments_on_application_id", using: :btree
   add_index "app_payments", ["payment_id"], name: "index_app_payments_on_payment_id", using: :btree
+
+  create_table "app_versions", force: true do |t|
+    t.string   "file"
+    t.string   "version"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "applications", force: true do |t|
     t.string   "name"

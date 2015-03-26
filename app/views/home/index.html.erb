@@ -17,9 +17,7 @@
               </a>
             </li>
             <li class="google-play">
-              <a href="#">
-                <%= image_tag "buttons/btn-google-play.png", alt: 'Download from Google Play', class: 'img-responsive' %>
-              </a>
+                <%= link_to image_tag("buttons/btn-google-play.png", alt: 'Download from Google Play', class: 'img-responsive'), android_download_index_path %>
             </li>
           </ul><!--//list-unstyled-->
           <ul class="list-unstyled summary">
@@ -119,7 +117,7 @@
             </a>
           </li>
           <li>
-            <a class="btn btn-cta btn-cta-primary" href="#">
+            <a class="btn btn-cta btn-cta-primary" href="<%= android_download_index_path %>">
               <i class="fa fa-android"></i>
               <span class="text">Download for Android</span>
             </a>

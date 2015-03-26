@@ -35,6 +35,7 @@ zh-CN:
       order_log: '订单历史'
       payment_refund_log: '退款历史'
       refund_batch: '退款批次'
+      app_version: 'App版本'
     attributes:
       admin_user:
         id: '编号'
@@ -449,4 +450,10 @@ zh-CN:
         state/finished: '已完成'
         created_at: '创建时间'
         updated_at: '更新时间'
-
+      app_version:
+        id: '编号'
+        file: '文件'
+        version: '版本'
+        description: '描述'
+        created_at: '创建时间'
+        updated_at: '更新时间'

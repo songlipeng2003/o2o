@@ -26,6 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :download do
+    collection do
+      get :android
+    end
+  end
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
