@@ -5,7 +5,7 @@ class StoreUser < ActiveRecord::Base
 
   has_many :login_histories, as: :user
 
-  validates :phone, presence: true, phone: true
+  validates :phone, presence: true, phone: true, uniqueness: true
   validates :username, key: true, length: { minimum: 6 }, allow_blank: true
 
   before_save :ensure_authentication_token
