@@ -12,7 +12,6 @@ module V1
 
         if is_valid
           user = User.new({
-            email: User.random_email,
             phone: params[:phone],
             password: params[:password],
             password_confirmation: params[:password]
@@ -64,7 +63,6 @@ module V1
         else
           password = User.random_password
           user = User.new({
-            email: User.random_email,
             phone: phone,
             password: password,
             umeng: params[:umeng]

@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     Devise.secure_compare(pay_password, encrypted_pay_password)
   end
 
+  def email_required?
+    false
+  end
+
   def is_set_pay_password
     !self.encrypted_pay_password.blank?
   end
@@ -56,12 +60,6 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
-  end
-
-  def self.random_email
-    name = (0..10).map { ('a'..'z').to_a[rand(8)] }.join
-
-    name + '@24didi.com'
   end
 
   def self.random_password
