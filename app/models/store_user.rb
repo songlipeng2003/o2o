@@ -5,6 +5,9 @@ class StoreUser < ActiveRecord::Base
 
   has_many :login_histories, as: :user
 
+  validates :phone, presence: true, phone: true
+  validates :username, key: true, length: { minimum: 6 }, allow_blank: true
+
   before_save :ensure_authentication_token
 
   devise :database_authenticatable, :trackable, :validatable
@@ -15,20 +18,12 @@ class StoreUser < ActiveRecord::Base
     self.authentication_token ||= generate_authentication_token
   end
 
-  def pay_password=(pay_password)
-    self.encrypted_pay_password = password_digest(pay_password)
+  def email_required?
+    false
   end
 
   def to_s
     phone
-  end
-
-  def validate_pay_password(pay_password)
-    return self.encrypted_pay_password==password_digest(pay_password)
-  end
-
-  def is_set_pay_password
-    !self.encrypted_pay_password.blank?
   end
 
   def self.find_for_database_authentication(warden_conditions)
