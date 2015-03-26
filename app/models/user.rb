@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :login_histories, as: :user
   has_many :coupons
 
-  validates :phone, presence: true, uniqueness: true
+  validates :phone, presence: true, uniqueness: true, phone: true
 
   before_save :ensure_authentication_token
 
