@@ -23,6 +23,7 @@
 </head>
 
 <body class="homepage">
+  <div id="weixin-qrcode" class="hide"><%= image_tag "buttons/weixin.png", width: 200 %></div>
 
   <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right text-center" role="navigation">
     <ul class="list-unstyled menu-links">
@@ -87,7 +88,7 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="#" class="weixin" role="button" title="微信扫一扫" data-placement="bottom">
                 <i class="fa fa-weixin"></i>
               </a>
             </li>
@@ -123,7 +124,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="#" class="weixin" role="button" title="微信扫一扫" data-placement="top">
               <i class="fa fa-weixin"></i>
             </a>
           </li>
