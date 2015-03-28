@@ -92,7 +92,7 @@ class Store < ActiveRecord::Base
   end
 
   # elasticsearch settings
-  settings index: { number_of_shards: 1 } do
+  settings index: { number_of_shards: 5 } do
     mappings dynamic: 'strict' do
       indexes :name
       indexes :address
@@ -116,4 +116,4 @@ class Store < ActiveRecord::Base
   end
 end
 
-Store.import force: true
+Store.import
