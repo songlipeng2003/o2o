@@ -20,14 +20,15 @@
   <p class="title">车主去那里，我们的服务就到哪里</p>
 
   <p>
-    <%= link_to image_tag('buttons/down_iphone.png'), android_download_index_path, id: :android %>
+    <a id="ios" href="https://itunes.apple.com/us/app/di-di-qu-na-er/id967901027?l=zh&ls=1&mt=8">
+      <%= image_tag 'buttons/down_iphone.png' %>
+    </a>
   </p>
 
   <p>
-    <a id="ios" href="https://itunes.apple.com/us/app/di-di-qu-na-er/id967901027?l=zh&ls=1&mt=8">
-      <%= image_tag 'buttons/down_android.png' %>
-    </a>
+    <%= link_to image_tag('buttons/down_android.png'), android_download_index_path, id: :android %>
   </p>
+
   <%= javascript_include_tag 'download', 'data-turbolinks-track' => true %>
 </body>
 </html>
