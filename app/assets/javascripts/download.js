@@ -32,7 +32,8 @@ function isWeiXin(){
 $(function(){
   if (isMobile.Android()) {
     if (isWeiXin()) {
-      location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.didi361.didi";
+      alert('请在右上角点击在浏览器中打开下载');
+      // location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.didi361.didi";
     }else{
       location.href = $('#android').attr('href');
     }
