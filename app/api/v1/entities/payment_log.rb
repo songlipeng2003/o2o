@@ -19,8 +19,8 @@ module V1
             :req_data => {
               :out_trade_no  => payment_log.sn,
               :subject       => payment_log.name,
-              # :total_fee     => payment_log.amount,
-              :total_fee     => 0.01,
+              :total_fee     => payment_log.amount,
+              # :total_fee     => 0.01,
               :notify_url    => 'http://24didi.com/pay/alipay_wap_notify',
               :call_back_url => 'http://m.24didi.com' # TODO 跳转URL
             }
@@ -38,8 +38,8 @@ module V1
           params['out_trade_no'] = payment_log.sn
           params['subject'] = payment_log.name
           params['body'] = payment_log.name
-          # params['total_fee'] = payment_log.amount
-          params['total_fee'] = 0.01
+          params['total_fee'] = payment_log.amount
+          # params['total_fee'] = 0.01
           params['notify_url'] = 'http://24didi.com/pay/alipay_app_notify'
           params['service'] = 'mobile.securitypay.pay'
           params['payment_type'] = 1
