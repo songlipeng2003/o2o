@@ -158,9 +158,25 @@ module V1
           unless coupon.unused?
             return {
               code: 1,
-              msg: '当前代金券不可用'
+              msg: '当前代金券已经使用'
             }
           end
+        end
+
+        if coupon.system_coupon.product_id && order.coupon_id &&
+          coupon.system_coupon.product_id != order.product_id
+          return {
+            code: 1,
+            msg: '当前代金券不满足当前商品'
+          }
+        end
+
+        if coupon.system_coupon.product_id && order.coupon_id &&
+          coupon.system_coupon.product_type_id != order.product.product_type_id
+          return {
+            code: 1,
+            msg: '当前代金券不满足当前商品类型'
+          }
         end
 
         order.store_id = store_id
