@@ -163,7 +163,7 @@ module V1
           end
         end
 
-        if coupon.system_coupon.product_id && order.coupon_id &&
+        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
           coupon.system_coupon.product_id != order.product_id
           return {
             code: 1,
@@ -171,7 +171,7 @@ module V1
           }
         end
 
-        if coupon.system_coupon.product_id && order.coupon_id &&
+        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
           coupon.system_coupon.product_type_id != order.product.product_type_id
           return {
             code: 1,
