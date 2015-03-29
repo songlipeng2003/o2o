@@ -101,7 +101,7 @@ class Order < ActiveRecord::Base
         trading_record.save
 
         params = {
-          booked_at: self.booked_at,
+          booked_at: self.booked_at.strftime('%F %T'),
           address: self.place,
           license_tag: self.license_tag,
           color: self.car_color,
