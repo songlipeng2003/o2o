@@ -89,8 +89,8 @@ class Order < ActiveRecord::Base
           trading_record.user = self.user
           trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
           trading_record.object = self
-          trading_record.name = self.product.name
           trading_record.amount = self.total_amount
+          trading_record.name = "充值#{trading_record.amount}"
           trading_record.save
         end
 
