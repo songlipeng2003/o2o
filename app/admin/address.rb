@@ -10,12 +10,16 @@ ActiveAdmin.register Address do
     column :user
     column :name
     column :place
+    column :created_at
+    column :updated_at
     actions
   end
 
   filter :user_phone, :as => :string
   filter :name
   filter :place
+  filter :created_at
+  filter :updated_at
 
   form do |f|
     f.inputs do

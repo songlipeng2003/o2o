@@ -8,6 +8,8 @@ ActiveAdmin.register Car do
     column :car_model
     column :license_tag
     column :color
+    column :created_at
+    column :updated_at
     actions
   end
 
@@ -15,4 +17,6 @@ ActiveAdmin.register Car do
   filter :license_tag
   filter :color
   filter :car_model_name, as: :string
+  filter :created_at
+  filter :updated_at
 end

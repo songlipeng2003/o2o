@@ -41,5 +41,43 @@ ActiveAdmin.register User do
       row :created_at
       row :updated_at
     end
+
+    panel "订单历史" do
+      paginated_collection(user.orders.page(params[:page]).per(10), entry_name: 'Order') do
+        table_for(collection) do |order|
+          column(I18n.t('activerecord.attributes.order.id')) { |order| order.id }
+          column(I18n.t('activerecord.attributes.order.sn')) { |order| order.sn }
+          column(I18n.t('activerecord.attributes.order.car')) do |order|
+            order.car_model.name + '-' + order.license_tag + '-' + order.car_color
+          end
+          column(I18n.t('activerecord.attributes.order.product')) do |order|
+            link_to order.product.name, admin_product_path(order.product)
+          end
+          column(I18n.t('activerecord.attributes.order.total_amount')) { |order| order.total_amount }
+          column(I18n.t('activerecord.attributes.order.booked_at')) { |order| I18n.l order.booked_at, :format => :long }
+          column(I18n.t('activerecord.attributes.order.state')) { |order| order.aasm.human_state }
+        end
+      end
+    end
+
+    panel "汽车列表" do
+      table_for user.addresses.order('id DESC') do |address|
+        column(I18n.t('activerecord.attributes.address.id')) { |address| address.id }
+        column(I18n.t('activerecord.attributes.address.name')) { |address| address.name }
+        column(I18n.t('activerecord.attributes.address.place')) { |address| address.place }
+        column(I18n.t('activerecord.attributes.address.place')) { |address| address.place }
+        column('操作') { |address| link_to '查看', admin_address_path(address) }
+      end
+    end
+
+    panel "地址列表" do
+      table_for user.cars.order('id DESC') do |car|
+        column(I18n.t('activerecord.attributes.car.id')) { |car| car.id }
+        column(I18n.t('activerecord.attributes.car.car_model')) { |car| car.car_model.name }
+        column(I18n.t('activerecord.attributes.car.license_tag')) { |car| car.license_tag }
+        column(I18n.t('activerecord.attributes.car.color')) { |car| car.color }
+        column('操作') { |car| link_to '查看', admin_car_path(car) }
+      end
+    end
   end
 end
