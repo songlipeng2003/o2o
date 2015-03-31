@@ -84,6 +84,16 @@ class Order < ActiveRecord::Base
       transitions :from => :unpayed, :to => :payed
 
       after do
+        if payment_log.payment.code != 'balance'
+          trading_record = TradingRecord.new
+          trading_record.user = self.user
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
+          trading_record.object = self
+          trading_record.name = self.product.name
+          trading_record.amount = self.total_amount
+          trading_record.save
+        end
+
         trading_record = TradingRecord.new
         trading_record.user = self.user
         trading_record.trading_type = TradingRecord::TRADING_TYPE_EXPENSE
