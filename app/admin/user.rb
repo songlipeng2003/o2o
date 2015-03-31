@@ -4,7 +4,6 @@ ActiveAdmin.register User do
   actions :index, :show
 
   index do
-    selectable_column
     id_column
     column :phone
     column :nickname
@@ -14,7 +13,6 @@ ActiveAdmin.register User do
       user.coupons.count
     end
     column :current_sign_in_at
-    column :sign_in_count
     column :created_at
     actions
   end
@@ -23,4 +21,25 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
+
+  show do
+    attributes_table do
+      row :id
+      row :email
+      row :sign_in_count
+      row :current_sign_in_at
+      row :last_sign_in_at
+      row :current_sign_in_ip
+      row :last_sign_in_ip
+      row :phone
+      row :score
+      row :gender
+      row :nickname
+      row :avatar do |user|
+        image_tag user.avatar.url if user.avatar.url
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
 end
