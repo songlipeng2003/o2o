@@ -8,7 +8,7 @@ class StoreUser < ActiveRecord::Base
   has_many :login_histories, as: :user
 
   validates :phone, presence: true, phone: true, uniqueness: true
-  validates :username, key: true, length: { minimum: 6 }, allow_blank: true
+  validates :username, length: { minimum: 6 }, allow_blank: true
 
   devise :database_authenticatable, :trackable, :validatable
 
