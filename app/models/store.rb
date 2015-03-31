@@ -58,7 +58,7 @@ class Store < ActiveRecord::Base
     stores = in_service_scope(lon, lat)
     ids = stores.map { |store| store._id }
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count==0
         return true
       end
     end
@@ -68,7 +68,7 @@ class Store < ActiveRecord::Base
   def self.can_serviced_store(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count==0
         return store.id
       end
     end
@@ -116,4 +116,4 @@ class Store < ActiveRecord::Base
   end
 end
 
-Store.import
+Store.import force: true
