@@ -10,7 +10,7 @@ module StoreV1
         optional :device_type, type: String, desc: "设备类型，android或者ios"
       end
       post 'login' do
-        store_user = StoreUser.where(username: params[:username]).first();
+        store_user = StoreUser.where("username=:username OR phone=:username", username: params[:username]).first();
         unless store_user
           return {
             code: 1,
