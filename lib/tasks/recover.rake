@@ -15,8 +15,8 @@ namespace :recover do
           recharge_trading_record.finance = trading_record.finance
           recharge_trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
           recharge_trading_record.object = trading_record.object
-          recharge_trading_record.amount = trading_record.amount
-          recharge_trading_record.name = "充值#{trading_record.amount}"
+          recharge_trading_record.amount = trading_record.amount.abs
+          recharge_trading_record.name = "充值#{recharge_trading_record.amount}"
           recharge_trading_record.save
 
           puts "为#{trading_record.id}生成充值流水"
