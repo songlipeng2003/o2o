@@ -145,7 +145,11 @@ class Order < ActiveRecord::Base
     event :admin_close, after: :log_state_change do
       transitions :from => [:payed], :to => :closed
 
-      # TODO 退款
+      after do
+        if self.payment_log && self.payment_log.unpayed?
+          self.payment_log.close!
+        end
+      end
     end
 
     event :finish, after: :log_state_change do
@@ -154,6 +158,12 @@ class Order < ActiveRecord::Base
 
     event :system_close, after: :log_state_change do
       transitions :from => [:unpayed], :to => :closed
+
+      after do
+        if self.payment_log && self.payment_log.unpayed?
+          self.payment_log.close!
+        end
+      end
     end
   end
 
@@ -190,8 +200,7 @@ class Order < ActiveRecord::Base
 
   def self.auto_close_expired_order
     self.where(state: 'unpayed').where("created_at<?", 30.minutes.ago).find_each do |order|
-      order.system_close nil, remark: '超时未付款，系统自动关闭'
-      order.save
+      order.system_close! nil, remark: '超时未付款，系统自动关闭'
     end
   end
 
