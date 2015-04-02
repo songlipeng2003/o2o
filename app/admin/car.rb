@@ -8,6 +8,7 @@ ActiveAdmin.register Car do
     column :car_model
     column :license_tag
     column :color
+    column :application
     column :created_at
     column :updated_at
     actions

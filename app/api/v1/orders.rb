@@ -119,6 +119,7 @@ module V1
           car = current_user.cars.where(car_params).first
           unless car
             car = current_user.cars.new(car_params)
+            car.application = current_application
           end
           car.save
           order.car_id = car.id
@@ -131,6 +132,7 @@ module V1
           address = current_user.addresses.where(place: address_params[:place]).first
           unless address
             address = current_user.addresses.new(address_params)
+            address.application = current_application
           end
           address.save
           order.address_id = address.id

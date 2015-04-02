@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326135502) do
+ActiveRecord::Schema.define(version: 20150402023444) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -31,12 +31,13 @@ ActiveRecord::Schema.define(version: 20150326135502) do
   create_table "addresses", force: true do |t|
     t.string   "place"
     t.string   "address_type"
-    t.decimal  "lat",          precision: 11, scale: 8
-    t.decimal  "lon",          precision: 11, scale: 8
+    t.decimal  "lat",            precision: 11, scale: 8
+    t.decimal  "lon",            precision: 11, scale: 8
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "application_id"
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree

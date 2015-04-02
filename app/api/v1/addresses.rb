@@ -55,7 +55,10 @@ module V1
         optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
       end
       post do
-        present current_user.addresses.create(permitted_params), with: V1::Entities::Address
+        address = current_user.addresses.new(permitted_params)
+        address.application = current_application
+        address.save
+        present address, with: V1::Entities::Address
       end
 
       desc "编辑地址",
