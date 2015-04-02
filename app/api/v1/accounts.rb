@@ -17,6 +17,8 @@ module V1
             password_confirmation: params[:password]
           })
 
+          user.application = current_application
+
           if user.save
             {
               code: 0,
@@ -67,6 +69,7 @@ module V1
             password: password,
             umeng: params[:umeng]
           })
+          user.application = current_application
           unless user.save
             return {
               code: 2,

@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   include Financeable
   include Tokenable
 
+  belongs_to :application
+
   has_many :cars
   has_many :orders
   has_many :addresses

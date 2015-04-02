@@ -12,6 +12,7 @@ ActiveAdmin.register User do
     column "代金券数量", :coupons do |user|
       user.coupons.count
     end
+    column :application
     column :current_sign_in_at
     column :created_at
     actions
@@ -38,6 +39,7 @@ ActiveAdmin.register User do
       row :avatar do |user|
         image_tag user.avatar.url if user.avatar.url
       end
+      row :application
       row :created_at
       row :updated_at
     end
