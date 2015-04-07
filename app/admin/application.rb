@@ -1,7 +1,7 @@
 ActiveAdmin.register Application do
   menu parent: '基础数据'
 
-  permit_params :name, :umeng_app_key, :app_type, :app_master_secret, { app_payments_attributes: [:id, :payment_id, :sort, :_destroy] }
+  permit_params :name, :app_type, { app_payments_attributes: [:id, :payment_id, :sort, :_destroy] }
 
   index do
     selectable_column
@@ -21,8 +21,6 @@ ActiveAdmin.register Application do
       row :id
       row :name
       row :app_type
-      row :umeng_app_key
-      row :app_master_secret
       row :token
       row :app_payments do
         content = ''
