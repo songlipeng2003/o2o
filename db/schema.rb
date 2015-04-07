@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402025223) do
+ActiveRecord::Schema.define(version: 20150407161238) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -499,6 +499,7 @@ ActiveRecord::Schema.define(version: 20150402025223) do
     t.float    "start_amount", limit: 24
     t.float    "end_amount",   limit: 24
     t.integer  "finance_id"
+    t.integer  "fund_type",               default: 1, null: false
   end
 
   add_index "trading_records", ["finance_id"], name: "index_trading_records_on_finance_id", using: :btree
