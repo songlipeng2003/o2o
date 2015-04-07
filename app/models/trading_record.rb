@@ -7,6 +7,12 @@ class TradingRecord < ActiveRecord::Base
   TRADING_TYPE_IN = 6
   TRADING_TYPE_OUT = 7
 
+  # 余额
+  FUND_TYPE_BALANCE = 1
+
+  # 冻结资金
+  FUND_TYPE_FREEZE_BALANCE = 2
+
   TRADING_TYPES = {
     TRADING_TYPE_RECHARGE => '充值',
     TRADING_TYPE_EXPENSE => '消费',
@@ -15,6 +21,11 @@ class TradingRecord < ActiveRecord::Base
     TRADING_TYPE_RETURN_BANK => '退款到银行',
     TRADING_TYPE_IN => '转入',
     TRADING_TYPE_OUT => '转出'
+  }
+
+  FUND_TYPES = {
+    FUND_TYPE_BALANCE => '余额',
+    FUND_TYPE_FREEZE_BALANCE => '冻结资金'
   }
 
   belongs_to :finance
@@ -43,7 +54,12 @@ class TradingRecord < ActiveRecord::Base
 
   private
   def change_balance
-    user.balance += amount
+    if fund_type==FUND_TYPE_BALANCE
+      user.balance += amount
+    else
+      user.freeze_balance += amount
+    end
+
     user.save
   end
 
