@@ -17,10 +17,6 @@ class RefundBatch < ActiveRecord::Base
     state :applyed, :initial => true
     state :finished
 
-    event :operate do
-      transitions :from => :applyed, :to => :operated
-    end
-
     event :finish do
       transitions :from => :applyed, :to => :finished
     end
