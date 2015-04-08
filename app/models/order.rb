@@ -146,8 +146,8 @@ class Order < ActiveRecord::Base
       transitions :from => [:payed], :to => :closed
 
       after do
-        if self.payment_log && self.payment_log.unpayed?
-          self.payment_log.close!
+        if self.payment_log && self.payment_log.payed?
+          self.payment_log.refund!
         end
       end
     end
