@@ -16,6 +16,14 @@ class RefundBatch < ActiveRecord::Base
   aasm column: :state do
     state :applyed, :initial => true
     state :finished
+
+    event :operate do
+      transitions :from => :applyed, :to => :operated
+    end
+
+    event :finish do
+      transitions :from => :applyed, :to => :finished
+    end
   end
 
   def refund_link
