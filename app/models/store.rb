@@ -116,4 +116,4 @@ class Store < ActiveRecord::Base
   end
 end
 
-Store.import force: true
+# Store.import force: true
