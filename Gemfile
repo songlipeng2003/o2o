@@ -149,3 +149,5 @@ gem "rails_config"
 
 # exception notification
 # gem 'exception_notification'
+
+gem 'newrelic_rpm'
