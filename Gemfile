@@ -151,3 +151,5 @@ gem "rails_config"
 # gem 'exception_notification'
 
 gem 'newrelic_rpm'
+
+gem "skylight"
