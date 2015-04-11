@@ -5,7 +5,7 @@ module V1
       desc "获取店铺列表"
       params do
         optional :store_type, type: Integer, desc: "店铺类型"
-        optional :system_product_id, type: Integer, desc: "系统商品Id"
+        optional :system_product_id, type: Integer, desc: "系统商品编号"
         optional :range, type: String, desc: "范围"
       end
       paginate per_page: 10
