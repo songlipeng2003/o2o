@@ -2,6 +2,20 @@ module V1
   class Stores < Grape::API
 
     resource :stores do
+      desc "获取店铺列表"
+      params do
+        optional :store_type, type: Integer, desc: "店铺类型"
+        optional :system_product_id, type: Integer, desc: "系统商品Id"
+        optional :range, type: String, desc: "范围"
+      end
+      paginate per_page: 10
+      get do
+        stores = Store.all
+        stores = paginate stores
+        present stores, with: V1::Entities::Store
+      end
+
+
       desc "根据经纬度获取是否提供服务"
       params do
         requires :lon, type: Float, desc: "经度"
