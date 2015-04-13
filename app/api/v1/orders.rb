@@ -84,17 +84,17 @@ module V1
           optional :license_tag, type: String, desc: "车牌号"
         end
         mutually_exclusive :car_id, :car
-        optional :address_id, type: Integer, desc: "地址编号,地址编号和地址信息仅需填写一个"
+        optional :address_id, type: Integer, desc: "地址编号,地址编号和地址信息仅需填写一个, 如果是到店洗车，地址可以不填写"
         optional :address, type: Hash do
           optional :place, type: String, desc: "地址"
           optional :lon, type: String, desc: "经度"
           optional :lat, type: String, desc: "纬度"
         end
-        mutually_exclusive :address, :address_id
-        requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
-        optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
+        requires :booked_at, type: String, desc: "预约时间，时间格式2015-01-01 01:01:00, 为预约的起始时间"
+        optional :store_id, type: Integer, desc: "店铺编号，上门服务不用填写，到店服务必须填写"
         requires :product_id, type: Integer, desc: "商品编号，1、2为标准洗车,其他请使用商品列表返回的商品编号"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
+        optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
         optional :note, type: String, desc: "订单备注"
@@ -124,33 +124,38 @@ module V1
           order.car_id = car.id
         end
 
-        if params[:address].blank?
-          address = current_user.addresses.find(params[:address_id])
-        else
-          address_params = clean_params(params).require(:address).permit(:place, :lon, :lat)
-          address = current_user.addresses.where(place: address_params[:place]).first
-          unless address
-            address = current_user.addresses.new(address_params)
+        # 上门服务
+        unless params[:store_id]
+          if params[:address].blank?
+            address = current_user.addresses.find(params[:address_id])
+          else
+            address_params = clean_params(params).require(:address).permit(:place, :lon, :lat)
+            address = current_user.addresses.where(place: address_params[:place]).first
+            unless address
+              address = current_user.addresses.new(address_params)
+            end
+            address.save
+            order.address_id = address.id
           end
-          address.save
-          order.address_id = address.id
-        end
 
-        result = StoreUserServiceArea.in_service_scope(address.lon, address.lat)
-        if result.count==0
-          return {
-            code: 1,
-            msg: '不在服务范围内'
-          }
-        end
+          result = StoreUserServiceArea.in_service_scope(address.lon, address.lat)
+          if result.count==0
+            return {
+              code: 1,
+              msg: '不在服务范围内'
+            }
+          end
 
-        store_user_id = StoreUserServiceArea.can_serviced_store(address.lon, address.lat, booked_at)
+          store_user_id = StoreUserServiceArea.can_serviced_store(address.lon, address.lat, booked_at)
 
-        unless store_user_id
-          return {
-            code: 1,
-            msg: '已经被预约，请预约其他时间'
-          }
+          unless store_user_id
+            return {
+              code: 1,
+              msg: '已经被预约，请预约其他时间'
+            }
+          end
+
+          order.store_user_id = store_user_id
         end
 
         if params[:coupon_id]
@@ -162,8 +167,6 @@ module V1
             }
           end
         end
-
-        order.store_user_id = store_user_id
 
         if order.save
           return {

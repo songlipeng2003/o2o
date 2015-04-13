@@ -49,6 +49,14 @@ class Product < ActiveRecord::Base
   def product_type_name
     PRODUCT_TYPES[product_type]
   end
+
+  def out_door?
+    product_type == PRODUCT_TYPE_OUT_DOOR
+  end
+
+  def in_door?
+    product_type == PRODUCT_TYPE_IN_DOOR
+  end
 end
 
 Product.import force: true

@@ -28,10 +28,10 @@ class Order < ActiveRecord::Base
   validates :car_color, presence: true
   validates :license_tag, presence: true
   validates :phone, presence: true
-  validates :address_id, presence: true
-  validates :place, presence: true
-  validates :lat, presence: true
-  validates :lon, presence: true
+  validates :address_id, presence: true, if: "product.out_door?"
+  validates :place, presence: true, if: "product.out_door?"
+  validates :lat, presence: true, if: "product.out_door?"
+  validates :lon, presence: true, if: "product.out_door?"
   validates :product_id, presence: true
   validates :booked_at, presence: true
   validates :note, length: { maximum: 255 }
