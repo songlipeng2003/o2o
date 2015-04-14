@@ -80,6 +80,16 @@ module V1
           result: result
         }
       end
+
+      desc "店铺详情"
+      params do
+        requires :id, type: String, desc: "店铺编号"
+      end
+      route_param :id do
+        get do
+          Store.find(params[:id])
+        end
+      end
     end
   end
 end
