@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324151909) do
+ActiveRecord::Schema.define(version: 20150414142807) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20150324151909) do
 
   add_index "app_payments", ["application_id"], name: "index_app_payments_on_application_id", using: :btree
   add_index "app_payments", ["payment_id"], name: "index_app_payments_on_payment_id", using: :btree
+
+  create_table "app_versions", force: true do |t|
+    t.string   "file"
+    t.string   "version"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "applications", force: true do |t|
     t.string   "name"
@@ -525,6 +533,16 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "application_id"
   end
 
+  create_table "user_stores", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_stores", ["store_id"], name: "index_user_stores_on_store_id", using: :btree
+  add_index "user_stores", ["user_id"], name: "index_user_stores_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                  limit: 191, default: "",  null: false
     t.string   "encrypted_password",                 default: "",  null: false
@@ -549,7 +567,6 @@ ActiveRecord::Schema.define(version: 20150324151909) do
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: true do |t|

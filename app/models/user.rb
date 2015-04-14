@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :images
   has_many :login_histories, as: :user
   has_many :coupons
+  has_many :user_stores
+  has_many :stores, through: :user_stores
 
   validates :phone, presence: true, uniqueness: true
 
