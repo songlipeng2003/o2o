@@ -1,7 +1,10 @@
 class Product < ActiveRecord::Base
   include ElasticsearchSearchable
 
+  # 上门服务
   PRODUCT_TYPE_OUT_DOOR = 1;
+
+  # 到店服务
   PRODUCT_TYPE_IN_DOOR = 2;
 
   PRODUCT_TYPES = {
@@ -33,17 +36,33 @@ class Product < ActiveRecord::Base
   # elasticsearch settings
   settings index: { number_of_shards: 1 } do
     mappings dynamic: 'strict' do
+      indexes :id
       indexes :name
+      indexes :price
+      indexes :market_price
+      indexes :category_id
       indexes :store_id
+      indexes :system_product_id
       indexes :product_type
+      indexes :store_type
       indexes :price
       indexes :market_price
       indexes :description
+      indexes :location, type: 'geo_point', geohash_precision: '1m'
     end
   end
 
   def as_indexed_json(options={})
-    self.as_json(only: [:name, :store_id, :product_type, :price, :market_price, :description])
+    self.as_json(only: [:id, :name, :price, :market_price, :category_id, :store_id,
+      :system_product_id, :product_type, :price, :market_price, :description], method: [:location, :store_type])
+  end
+
+  def location
+    [store.lat, store.lon]
+  end
+
+  def store_type
+    store.store_type
   end
 
   def product_type_name
