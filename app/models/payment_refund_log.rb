@@ -31,7 +31,7 @@ class PaymentRefundLog < ActiveRecord::Base
           trading_record.user = self.payment_log.item.user
           trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN_BANK
           trading_record.object = self.payment_log.item
-          trading_record.name = self.name
+          trading_record.name = self.payment_log.name
           trading_record.amount = -self.amount
           trading_record.save
         end
