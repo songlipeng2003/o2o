@@ -26,6 +26,7 @@ ActiveAdmin.register Recharge do
     column :state do |recharge|
       recharge.aasm.human_state
     end
+    column :application
     column :created_at
     column :payed_at
     actions
@@ -45,6 +46,7 @@ ActiveAdmin.register Recharge do
       row :state do |recharge|
         recharge.aasm.human_state
       end
+      row :application
       row :created_at
       row :payed_at
       row :closed_at
