@@ -44,6 +44,7 @@ ActiveAdmin.register Order do
     end
   end
 
+  filter :sn
   filter :phone
   filter :license_tag
   filter :place
