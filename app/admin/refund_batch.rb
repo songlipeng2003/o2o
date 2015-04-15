@@ -22,8 +22,8 @@ ActiveAdmin.register RefundBatch do
       refund_batch.aasm.human_state
     end
     column :created_at
-    actions defaults: true do |order|
-      link_to '处理', order.refund_link, target: '_blank'
+    actions defaults: true do |refund_batch|
+      link_to '处理', refund_batch.refund_link, target: '_blank' if refund_batch.applyed?
     end
   end
 
