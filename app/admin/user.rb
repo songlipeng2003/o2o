@@ -62,7 +62,7 @@ ActiveAdmin.register User do
       end
     end
 
-    panel "汽车列表" do
+    panel "地址列表" do
       table_for user.addresses.order('id DESC') do |address|
         column(I18n.t('activerecord.attributes.address.id')) { |address| address.id }
         column(I18n.t('activerecord.attributes.address.name')) { |address| address.name }
@@ -72,7 +72,7 @@ ActiveAdmin.register User do
       end
     end
 
-    panel "地址列表" do
+    panel "汽车列表" do
       table_for user.cars.order('id DESC') do |car|
         column(I18n.t('activerecord.attributes.car.id')) { |car| car.id }
         column(I18n.t('activerecord.attributes.car.car_model')) { |car| car.car_model.name }
