@@ -51,7 +51,7 @@ class PaymentLog < ActiveRecord::Base
         trading_record.object = self.item
         trading_record.name = self.name
         trading_record.amount = self.amount
-        trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE
+        trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE if balance?
         trading_record.save
 
         payment_refund_log = PaymentRefundLog.new
@@ -60,6 +60,7 @@ class PaymentLog < ActiveRecord::Base
         payment_refund_log.amount = self.amount
         payment_refund_log.out_trade_no = self.out_trade_no
         payment_refund_log.save
+        payment_refund_log.finish!
       end
     end
   end
