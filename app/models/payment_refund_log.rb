@@ -33,6 +33,7 @@ class PaymentRefundLog < ActiveRecord::Base
           trading_record.object = self.payment_log.item
           trading_record.name = self.payment_log.name
           trading_record.amount = -self.amount
+          trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE
           trading_record.save
         end
       end
