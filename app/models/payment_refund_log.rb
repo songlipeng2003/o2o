@@ -7,8 +7,7 @@ class PaymentRefundLog < ActiveRecord::Base
 
   after_create do
     if self.payment.code == 'balance'
-      self.finish
-      self.save
+      self.finish!
     end
   end
 

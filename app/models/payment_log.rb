@@ -60,7 +60,6 @@ class PaymentLog < ActiveRecord::Base
         payment_refund_log.amount = self.amount
         payment_refund_log.out_trade_no = self.out_trade_no
         payment_refund_log.save
-        payment_refund_log.finish!
       end
     end
   end
