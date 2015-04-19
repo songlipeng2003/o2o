@@ -153,3 +153,5 @@ gem "rails_config"
 gem 'newrelic_rpm'
 
 gem "skylight"
+
+gem 'wechat_pay', :git => 'git://github.com/HungYuHei/wechat_pay'

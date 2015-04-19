@@ -1,0 +1,25 @@
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+<%= link_to "wechat_payment_btn", "javascript:void(0)", id: "wechatPaymentBtn" %>
+
+<%= javascript_tag do %>
+  var orderParams = {
+    appId:     "<%= @order_params[:app_id] %>",
+    timeStamp: "<%= @order_params[:timestamp] %>",
+    nonceStr:  "<%= @order_params[:nonce_str] %>",
+    package:   "<%= @order_params[:package] %>",
+    paySign:   "<%= @order_params[:pay_sign] %>",
+    signType:  "<%= @order_params[:sign_type] %>"
+  };
+  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    $('#wechatPaymentBtn').click(function() {
+      WeixinJSBridge.invoke('getBrandWCPayRequest', orderParams, function(res) {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+          alert('pay for success!');
+        } else {
+          alert(res.err_msg);
+        }
+      });
+    });
+  }, false);
+<% end %>

@@ -1,6 +1,20 @@
 class PayController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def weixin_pay
+    params = {
+      body:             '测试支付',
+      out_trade_no:     '123456',
+      total_fee:        '0.01',
+      notify_url:       'http://24didi.com/notify',
+      spbill_create_ip: '123.57.142.27'
+    }
+
+    @order_params = WechatPay::JS.payment(params)
+
+    render layout: false
+  end
+
   def alipay_app_notify
     notify_params = params.except(*request.path_parameters.keys)
 
