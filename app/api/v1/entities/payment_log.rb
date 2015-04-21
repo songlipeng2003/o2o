@@ -58,6 +58,20 @@ module V1
           signature = CGI.escape(signature)
 
           "#{to_sign}&sign=\"#{signature}\"&sign_type=\"RSA\""
+        elsif payment_log.payment.code == 'weixin'
+          Pingpp::Charge.create(
+            :order_no  => payment_log.sn,
+            :app       => { :id => "app_izrXHGyTKezTfjrz" },
+            :channel   => 'wx_pub',
+            :amount    => 100,
+            :client_ip => "127.0.0.1",
+            :currency  => "cny",
+            :subject   => payment_log.name,
+            :body      => payment_log.name,
+            :extra     => {
+              open_id: payment_log.extras[:open_id]
+            }
+          )
         end
       end
     end

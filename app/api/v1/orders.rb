@@ -353,6 +353,7 @@ module V1
       params do
         requires :id, type: Integer, desc: "订单编号"
         requires :payment_id, type: Integer, desc: "支付编号"
+        optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"
       end
       route_param :id do
         post :payment do
@@ -369,6 +370,8 @@ module V1
             payment_log.application = current_application
             payment_log.save
           end
+
+          payment_log.extras = { open_id: params[:open_id] }
 
           present payment_log, with: V1::Entities::PaymentLog
         end

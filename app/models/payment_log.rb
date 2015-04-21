@@ -2,6 +2,8 @@ class PaymentLog < ActiveRecord::Base
   include AASM
   include Snable
 
+  attr_accessor :extras
+
   belongs_to :item, polymorphic: true
   belongs_to :payment
   belongs_to :application
