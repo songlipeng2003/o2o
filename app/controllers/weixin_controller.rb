@@ -11,7 +11,8 @@ class WeixinController < ApplicationController
       redirect_url = "http://m.24didi.com?open_id=#{open_id}"
 
       redirect_to redirect_url
+    else
+      render text: '参数不足'
     end
-    render text: '参数不足'
   end
 end
