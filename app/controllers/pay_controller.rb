@@ -1,20 +1,6 @@
 class PayController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def weixin_pay
-    params = {
-      body:             '测试支付',
-      out_trade_no:     '123456',
-      total_fee:        '0.01',
-      notify_url:       'http://24didi.com/notify',
-      spbill_create_ip: '123.57.142.27'
-    }
-
-    @order_params = WechatPay::JS.payment(params)
-
-    render layout: false
-  end
-
   def alipay_app_notify
     notify_params = params.except(*request.path_parameters.keys)
 
@@ -100,5 +86,36 @@ class PayController < ApplicationController
     else
       render text: 'fail'
     end
+  end
+
+  def pingxx_notify
+    text = 'fail'
+    begin
+      if params[:object].nil?
+      elsif params[:object] == 'charge'
+        @payment_log = PaymentLog.where(sn: params[:order_no]).first
+        @payment_log.notify_params = params.to_json
+        @payment_log.pingxx = params[:id]
+        @payment_log.pay
+        @payment_log.out_trade_no = params[:transaction_no]
+        @payment_log.save
+
+        notify_log = NotifyLog.new
+        notify_log.payment = @payment_log.payment
+        notify_log.type = 'pay'
+        notify_log.params = params.to_json
+        notify_log.save
+
+        text = 'success'
+        # 开发者在此处加入对支付异步通知的处理代码
+      elsif params[:object] == 'refund'
+        text = 'success'
+        # 开发者在此处加入对退款异步通知的处理代码
+      end
+    rescue JSON::ParserError
+      text = 'fail'
+    end
+
+    render text: text
   end
 end

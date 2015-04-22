@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421153854) do
+ActiveRecord::Schema.define(version: 20150422153133) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -334,6 +334,7 @@ ActiveRecord::Schema.define(version: 20150421153854) do
     t.integer  "application_id"
     t.string   "name"
     t.float    "amount",         limit: 24
+    t.string   "pingxx"
   end
 
   create_table "payment_refund_logs", force: true do |t|
