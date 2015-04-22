@@ -63,7 +63,7 @@ module V1
             :order_no  => payment_log.sn,
             :app       => { :id => "app_izrXHGyTKezTfjrz" },
             :channel   => 'wx_pub',
-            :amount    => payment_log.amount,
+            :amount    => payment_log.amount*100,
             :client_ip => "127.0.0.1",
             :currency  => "cny",
             :subject   => payment_log.name,
