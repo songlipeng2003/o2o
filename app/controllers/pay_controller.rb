@@ -109,6 +109,9 @@ class PayController < ApplicationController
         text = 'success'
         # 开发者在此处加入对支付异步通知的处理代码
       elsif params[:object] == 'refund'
+        payment_refund_log = PaymentRefundLog.where(pingxx: params[:id]).first
+        payment_refund_log.finish!
+
         text = 'success'
         # 开发者在此处加入对退款异步通知的处理代码
       end

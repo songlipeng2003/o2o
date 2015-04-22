@@ -61,6 +61,13 @@ class PaymentLog < ActiveRecord::Base
         payment_refund_log.payment = payment
         payment_refund_log.amount = self.amount
         payment_refund_log.out_trade_no = self.out_trade_no
+
+        if pingxx
+          charge = Pingpp::Charge.retrieve(pingxx)
+          refund = charge.refunds.create description: '退款'
+          payment_refund_log.pingxx = refund.id
+        end
+
         payment_refund_log.save
       end
     end
