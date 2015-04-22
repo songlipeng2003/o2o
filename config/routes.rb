@@ -14,10 +14,10 @@ Rails.application.routes.draw do
 
   resources :pay do
     collection do
-      get :weixin_pay
       post :alipay_app_notify
       post :alipay_wap_notify
       post :alipay_refund_notify
+      post :pingxx_notify
     end
   end
 
