@@ -7,8 +7,8 @@ class WeixinController < ApplicationController
       response = Net::HTTP.get_response(uri)
 
       result = JSON.parse response.body
-
-      redirect_url = 'http://m.24didi.com?open_id='+result['open_id']
+      open_id = result['open_id']
+      redirect_url = "http://m.24didi.com?open_id=#{open_id}"
 
       redirect_to redirect_url
     end
