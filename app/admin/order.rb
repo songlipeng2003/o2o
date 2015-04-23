@@ -41,6 +41,9 @@ ActiveAdmin.register Order do
       link_to '关闭', close_admin_order_path(order),
         method: :put,
         data: { confirm: '你确认要关闭吗？' } if order.payed?
+      link_to '完成', finish_admin_order_path(order),
+        method: :put,
+        data: { confirm: '你确认要完成吗？' } if order.payed?
     end
   end
 
@@ -54,15 +57,25 @@ ActiveAdmin.register Order do
   filter :created_at
 
   member_action :close, method: :put do
-    resource.admin_close current_admin_user
-    resource.save
-    redirect_to :back, notice: "关闭成功"
+    resource.admin_close! current_admin_user
+    redirect_to :back, notice: "关闭订单成功"
+  end
+
+  member_action :finish, method: :put do
+    resource.finish! current_admin_user
+    redirect_to :back, notice: "完成订单成功"
   end
 
   action_item :close, only: :show do
     link_to '关闭', close_admin_order_path(order),
       method: :put,
       data: { confirm: '你确认要关闭吗？' } if order.payed?
+  end
+
+  action_item :finish, only: :show do
+    link_to '完成', finish_admin_order_path(order),
+      method: :put,
+      data: { confirm: '你确认要完成吗？' } if order.payed?
   end
 
   controller do
