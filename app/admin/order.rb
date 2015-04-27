@@ -27,15 +27,13 @@ ActiveAdmin.register Order do
     column :sn
     column :user
     column :store
-    column :car do |order|
-      order.car_model.name + '-' + order.license_tag + '-' + order.car_color
-    end
     column :total_amount
     column :product
     column :booked_at
     column :state do |order|
       order.aasm.human_state
     end
+    column :application
     column :created_at
     actions defaults: true do |order|
       link_to '关闭', close_admin_order_path(order),
