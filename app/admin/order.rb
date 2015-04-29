@@ -36,12 +36,16 @@ ActiveAdmin.register Order do
     column :application
     column :created_at
     actions defaults: true do |order|
-      link_to '关闭', close_admin_order_path(order),
+      link = ''
+      link << link_to('关闭', close_admin_order_path(order),
         method: :put,
-        data: { confirm: '你确认要关闭吗？' } if order.payed?
-      link_to '完成', finish_admin_order_path(order),
+        data: { confirm: '你确认要关闭吗？' }) if order.payed?
+      link << ' '
+      link << link_to('完成', finish_admin_order_path(order),
         method: :put,
-        data: { confirm: '你确认要完成吗？' } if order.payed?
+        data: { confirm: '你确认要完成吗？' }) if order.payed?
+
+      raw link
     end
   end
 
