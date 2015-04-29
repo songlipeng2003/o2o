@@ -472,3 +472,10 @@ zh-CN:
         freeze_balance: '冻结金额'
         created_at: '创建时间'
         updated_at: '更新时间'
+
+  active_admin:
+    batch_actions:
+      labels:
+        finish: '完成'
+        close: '关闭'
+        alipay_refund: '支付宝退款'

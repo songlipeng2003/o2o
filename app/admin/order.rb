@@ -80,6 +80,24 @@ ActiveAdmin.register Order do
       data: { confirm: '你确认要完成吗？' } if order.payed?
   end
 
+  batch_action :finish do |ids|
+    orders = ids.map do |id|
+      order = Order.find(id)
+      order.finish! current_admin_user if order.payed?
+    end
+
+    redirect_to :back, notice: "完成订单成功"
+  end
+
+  batch_action :close do |ids|
+    orders = ids.map do |id|
+      order = Order.find(id)
+      order.admin_close! current_admin_user if order.payed?
+    end
+
+    redirect_to :back, notice: "完成订单成功"
+  end
+
   controller do
     def scoped_collection
       Order.with_deleted

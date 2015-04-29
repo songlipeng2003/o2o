@@ -43,12 +43,19 @@ ActiveAdmin.register PaymentRefundLog do
     payment_refund_logs = ids.map do |id|
       PaymentRefundLog.find(id)
     end
-    refund_batch = RefundBatch.new
-    refund_batch.payment_refund_logs = payment_refund_logs
-    refund_batch.payment = PaymentRefundLog.find(ids[0]).payment
-    refund_batch.save
+    payment_refund_logs = payment_refund_logs.select { |payment_refund_log| payment_refund_log.payment.payment_type=='alipay' &&  payment_refund_log.applyed? }
 
-    url = refund_batch.refund_link
-    redirect_to url
+    if payment_refund_logs.length>0
+      refund_batch = RefundBatch.new
+      refund_batch.payment_refund_logs = payment_refund_logs
+      refund_batch.payment = PaymentRefundLog.find(ids[0]).payment
+      refund_batch.save
+
+      url = refund_batch.refund_link
+      redirect_to url
+    else
+      redirect_to :back, notice: "操作失败，没有可用退款记录"
+    end
+
   end
 end
