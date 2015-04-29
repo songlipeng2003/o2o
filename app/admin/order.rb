@@ -82,7 +82,7 @@ ActiveAdmin.register Order do
 
   controller do
     def scoped_collection
-      Order.unscoped
+      Order.with_deleted
     end
   end
 end
