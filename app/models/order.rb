@@ -183,6 +183,12 @@ class Order < ActiveRecord::Base
       price = self.original_price - self.coupon.amount
     end
 
+    if [1, 2].include?(self.product_id)
+      if user.orders.count == 0
+        price = 1;
+      end
+    end
+
     self.total_amount ||= price;
   end
 
