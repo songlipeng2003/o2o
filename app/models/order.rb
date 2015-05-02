@@ -184,6 +184,14 @@ class Order < ActiveRecord::Base
     end
 
     if [1, 2].include?(self.product_id)
+      if is_include_interior
+        if product_id==1
+          price += 7
+        else
+          price += 10
+        end
+      end
+
       if user.orders.count == 0
         price = 1;
       end
