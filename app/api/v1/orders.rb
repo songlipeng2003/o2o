@@ -371,7 +371,7 @@ module V1
             payment_log.save
           end
 
-          payment_log.extras = { open_id: params[:open_id] }
+          payment_log.extras = { open_id: params[:open_id] } unless params[:open_id].blank?
 
           present payment_log, with: V1::Entities::PaymentLog
         end
