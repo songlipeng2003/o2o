@@ -14,9 +14,7 @@ class Recharge < ActiveRecord::Base
 
   before_validation :ensure_amount
 
-  def ensure_amount
-    self.amount ||= recharge_policy.amount
-  end
+  before_create :ensure_recharge_policy
 
   aasm column: :state do
     state :unpayed, :initial => true
@@ -81,6 +79,18 @@ class Recharge < ActiveRecord::Base
     self.where(state: 'unpayed').where("created_at<?", 1.hour.ago).find_each do |recharge|
       recharge.close
       recharge.save
+    end
+  end
+
+  private
+  def ensure_amount
+    self.amount ||= recharge_policy.amount
+  end
+
+  def ensure_recharge_policy
+    unless self.recharge_policy_id
+      recharge_policy = RechargePolicy.where(amount: amount).first
+      self.recharge_policy_id = recharge_policy.id if recharge_policy
     end
   end
 end
