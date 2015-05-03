@@ -65,10 +65,12 @@ ActiveAdmin.register Recharge do
   controller do
     def create
       @recharge = Recharge.new(params[:recharge].permit(:user_id, :amount, :recharge_policy_id))
+      @application = Application.find_by name: '后台'
+      @recharge.application = @application
       if @recharge.save
         @payment_log = @recharge.payment_logs.new
         @payment_log.payment = Payment.find_by code: :offline
-        @payment_log.application = Application.find_by name: '后台'
+        @payment_log.application = @application
         @payment_log.name = "充值#{@recharge.amount}元"
         @payment_log.amount = @recharge.amount
         @payment_log.save
