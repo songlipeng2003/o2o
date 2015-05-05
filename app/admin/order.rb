@@ -23,12 +23,12 @@ ActiveAdmin.register Order do
 
   index do
     selectable_column
-    id_column
     column :sn
     column :user
     column :store
     column :total_amount
     column :product
+    column :license_tag
     column :booked_at
     column :state do |order|
       order.aasm.human_state
@@ -55,6 +55,7 @@ ActiveAdmin.register Order do
   filter :place
   filter :product
   filter :state
+  filter :application
   filter :booked_at
   filter :created_at
 
