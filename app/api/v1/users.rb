@@ -1,7 +1,7 @@
 module V1
   class Users < Grape::API
     resource :users do
-      desc "用户详情", hidden: true
+      desc "用户详情"
       params do
         requires :id, type: Integer, desc: "用户编号"
       end
