@@ -7,7 +7,7 @@ module V1
       end
       route_param :id do
         get do
-          User.find(params[:id])
+          present User.find(params[:id]), with: V1::Entities::User
         end
       end
 
