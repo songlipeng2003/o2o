@@ -192,7 +192,7 @@ class Order < ActiveRecord::Base
         end
       end
 
-      if user.orders.count == 0
+      if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
         price = 1;
       end
     end
