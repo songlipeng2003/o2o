@@ -28,7 +28,11 @@ ActiveAdmin.register Order do
     column :store
     column :total_amount
     column :product
+    column :car do |order|
+      order.car_model.name
+    end
     column :license_tag
+    column :place
     column :booked_at
     column :state do |order|
       order.aasm.human_state
