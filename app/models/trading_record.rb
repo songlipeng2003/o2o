@@ -1,11 +1,30 @@
 class TradingRecord < ActiveRecord::Base
+  # 充值 +
   TRADING_TYPE_RECHARGE = 1
+
+  # 消费 -
   TRADING_TYPE_EXPENSE = 2
+
+  # 充值赠送 +
   TRADING_TYPE_PRESENT = 3
+
+  # 退款 +
   TRADING_TYPE_RETURN = 4
+
+  # 退款到银行 -
   TRADING_TYPE_RETURN_BANK = 5
+
+  # 转入 + 针对平台
   TRADING_TYPE_IN = 6
+
+  # 转出 - 针对平台
   TRADING_TYPE_OUT = 7
+
+  # 补贴 - 针对公司
+  TRADING_TYPE_SUBSIDY = 8
+
+  # 退还补贴 + 针对公司
+  TRADING_TYPE_RETURN_SUBSIDY = 9
 
   # 余额
   FUND_TYPE_BALANCE = 1

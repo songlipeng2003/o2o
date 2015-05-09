@@ -26,6 +26,7 @@ class Recharge < ActiveRecord::Base
       transitions from: :unpayed, to: :payed
 
       after do
+        # 个人充值流水
         trading_record = TradingRecord.new
         trading_record.user = self.user
         trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
@@ -36,12 +37,22 @@ class Recharge < ActiveRecord::Base
 
         if self.recharge_policy_id
           if self.recharge_policy.present_amount>0
+            # 个人赠送流水
             trading_record = TradingRecord.new
             trading_record.user = self.user
             trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT
             trading_record.object = self
             trading_record.name = "充值#{self.amount}元赠送#{self.recharge_policy.present_amount}元"
             trading_record.amount = self.recharge_policy.present_amount
+            trading_record.save
+
+            # 公司补贴流水
+            trading_record = TradingRecord.new
+            trading_record.user = SystemUser.company
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_SUBSIDY
+            trading_record.object = self
+            trading_record.name = "充值#{self.amount}元补贴#{self.recharge_policy.present_amount}元"
+            trading_record.amount = -self.recharge_policy.present_amount
             trading_record.save
           end
 
