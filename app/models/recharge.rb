@@ -20,9 +20,10 @@ class Recharge < ActiveRecord::Base
     state :unpayed, :initial => true
     state :payed
     state :closed
+    state :refunded
 
     event :pay do
-      transitions :from => :unpayed, :to => :payed
+      transitions from: :unpayed, to: :payed
 
       after do
         trading_record = TradingRecord.new
@@ -62,7 +63,7 @@ class Recharge < ActiveRecord::Base
     end
 
     event :close do
-      transitions :from => :unpayed, :to => :closed
+      transitions from: :unpayed, to: :closed
 
       after do
         self.closed_at = Time.now
@@ -90,7 +91,10 @@ class Recharge < ActiveRecord::Base
   def ensure_recharge_policy
     unless self.recharge_policy_id
       recharge_policy = RechargePolicy.where(amount: amount).first
-      self.recharge_policy_id = recharge_policy.id if recharge_policy
+      if recharge_policy
+        self.recharge_policy_id = recharge_policy.id
+        self.present_amount = recharge_policy.present_amount
+      end
     end
   end
 end
