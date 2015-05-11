@@ -45,7 +45,6 @@ module V1
         optional :device, type: String, desc: "设备唯一编号"
         optional :device_model, type: String, desc: "设备型号，例如：小米Note"
         optional :device_type, type: String, desc: "设备类型，android或者ios"
-        optional :umeng, type: String, desc: "友盟用户编号"
       end
       post 'login' do
         unless params[:phone]=='15695696226' && params[:code] = '1111'
@@ -62,14 +61,12 @@ module V1
         phone = params[:phone]
         user = User.where('phone=?', phone).first
         if user
-          user.umeng = params[:umeng]
           user.save
         else
           password = User.random_password
           user = User.new({
             phone: phone,
             password: password,
-            umeng: params[:umeng]
           })
           user.application = current_application
           unless user.save
@@ -86,7 +83,8 @@ module V1
           ip: env['REMOTE_ADDR'],
           device: params[:device],
           device_model: params[:device_model],
-          device_type: params[:device_type]
+          device_type: params[:device_type],
+          application: current_application
         })
 
         present :code, 0
