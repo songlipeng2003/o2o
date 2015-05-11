@@ -355,6 +355,8 @@ zh-CN:
         device_model: '设备类型'
         ip: 'IP'
         created_at: '创建时间'
+        application: '应用'
+        application_id: '应用'
       recharge_policies_system_coupon:
         id: '编号'
         recharge_policy: '充值策略'
