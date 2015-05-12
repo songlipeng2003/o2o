@@ -13,7 +13,8 @@ class AdminUser < ActiveRecord::Base
       ip: request.remote_ip,
       device: request.remote_ip,
       device_model: request.env['HTTP_USER_AGENT'],
-      device_type: 'web'
+      device_type: 'web',
+      application_id: 4
     })
     super(request)
   end
