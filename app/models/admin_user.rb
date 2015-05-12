@@ -10,8 +10,8 @@ class AdminUser < ActiveRecord::Base
 
   def update_tracked_fields!(request)
     self.login_histories.create({
-      ip: request.env['REMOTE_ADDR'],
-      device: request.env['REMOTE_ADDR'],
+      ip: request.remote_ip,
+      device: request.remote_ip,
       device_model: request.env['HTTP_USER_AGENT'],
       device_type: 'web'
     })
