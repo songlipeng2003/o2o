@@ -8,7 +8,6 @@ ActiveAdmin.register Application do
     id_column
     column :name
     column :app_type
-    column :umeng_app_key
     actions
   end
 
