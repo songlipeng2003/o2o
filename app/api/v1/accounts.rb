@@ -80,7 +80,7 @@ module V1
         user.update_tracked_fields!(warden.request)
 
         user.login_histories.create({
-          ip: request.remote_ip,
+          ip: env['X-Forwarded-For'],
           device: params[:device],
           device_model: params[:device_model],
           device_type: params[:device_type],
