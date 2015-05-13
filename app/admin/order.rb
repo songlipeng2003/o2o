@@ -21,6 +21,10 @@ ActiveAdmin.register Order do
     scope.where(state: :closed)
   end
 
+  scope :deleted do |scope|
+    scope.only_deleted
+  end
+
   index do
     selectable_column
     column :sn

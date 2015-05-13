@@ -1,14 +1,35 @@
 ActiveAdmin.register Store do
   permit_params :name, :address, :phone, :description, :lon, :lat, :service_area, :area_id, :province_id, :city_id
 
+
+  scope :all, default: true do |scope|
+    scope.where("deleted_at IS NULL")
+  end
+
+  scope :deleted do |scope|
+    scope.only_deleted
+  end
+
   index do
     selectable_column
     id_column
     column :name
     column :address
     column :phone
-    actions defaults: true do |store|
-      link_to '用户管理', admin_store_store_users_path(store)
+    actions  defaults: false do |store|
+      content = link_to '查看', admin_store_path(store)
+      content << ' '
+      content << link_to('编辑', edit_admin_store_path(store))
+      content << ' '
+      if store.deleted?
+        content << link_to('恢复', restore_admin_store_path(store), method: :put)
+      else
+        content << link_to('删除', admin_store_path(store), method: :delete)
+      end
+
+      content << ' '
+      content << link_to('用户管理', admin_store_store_users_path(store))
+      raw content
     end
   end
 
@@ -34,7 +55,7 @@ ActiveAdmin.register Store do
     end
 
     panel "订单历史" do
-      paginated_collection(store.orders.page(params[:page]).per(10), entry_name: 'Order') do
+      paginated_collection(store.orders.page(params[:page]).per(20), entry_name: 'Order') do
         table_for(collection) do |order|
           column(I18n.t('activerecord.attributes.order.id')) { |order| order.id }
           column(I18n.t('activerecord.attributes.order.sn')) { |order| order.sn }
@@ -53,16 +74,20 @@ ActiveAdmin.register Store do
         end
       end
     end
-
-    # div do
-    #   paginate @orders
-    # end
   end
 
-  # controller do
-  #   def show
-  #     @store = Store.find(params[:id])
-  #     @orders = @store.orders.page(params[:page]);
-  #   end
-  # end
+  member_action :restore, method: :put do
+    Store.with_deleted.find(params[:id]).restore
+    redirect_to :back, notice: "恢复成功"
+  end
+
+  controller do
+    def show
+      @store = Store.with_deleted.find(params[:id])
+    end
+
+    # def scoped_collection
+    #   Store.with_deleted
+    # end
+  end
 end

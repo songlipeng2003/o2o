@@ -22,6 +22,8 @@ class Store < ActiveRecord::Base
   has_many :store_users
   has_many :orders
 
+  acts_as_paranoid
+
   before_create do
     update_area_info
   end
