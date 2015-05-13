@@ -83,7 +83,7 @@ gem 'devise', '~> 3.2.2'
 gem 'ancestry', '~> 2.1.0'
 
 # admin
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre1'
 gem "active_admin-sortable_tree"
 
 # api
