@@ -19,7 +19,7 @@ ActiveAdmin.register Store do
     actions  defaults: false do |store|
       content = link_to '查看', admin_store_path(store)
       content << ' '
-      content << link_to('编辑', edit_admin_store_path(store))
+      content << link_to('编辑', edit_admin_store_path(store)) if store.deleted?
       content << ' '
       if store.deleted?
         content << link_to('恢复', restore_admin_store_path(store), method: :put)
