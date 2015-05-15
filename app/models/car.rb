@@ -4,6 +4,10 @@ class Car < ActiveRecord::Base
   validates :user_id, presence: true
   validates :license_tag, presence: true
 
+  before_validation do
+    self.license_tag = license_tag.upcase
+  end
+
   belongs_to :user
   belongs_to :car_model
   belongs_to :application
