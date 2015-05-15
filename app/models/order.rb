@@ -193,7 +193,13 @@ class Order < ActiveRecord::Base
       end
 
       if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
-        price = 1;
+        if license_tag
+          if license_tag && Order.where(license_tag: license_tag, state: ['payed', 'finished']).count==0
+            price = 1
+          end
+        else
+          price = 1
+        end
       end
     end
 
