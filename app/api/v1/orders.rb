@@ -121,7 +121,12 @@ module V1
             car = current_user.cars.new(car_params)
             car.application = current_application
           end
-          car.save
+          unless car.save
+            return {
+              code: 1,
+              msg: car.errors.values[0][0]
+            }
+          end
           order.car_id = car.id
         end
 
