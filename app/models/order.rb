@@ -22,12 +22,12 @@ class Order < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :store_id, presence: true
-  # validates :car_id, presence: true
+  validates :car_id, presence: true, on: :create
   validates :car_model_id, presence: true
   validates :car_color, presence: true
   validates :license_tag, presence: true
   validates :phone, presence: true
-  # validates :address_id, presence: true
+  validates :address_id, presence: true, on: :create
   validates :place, presence: true
   validates :lat, presence: true
   validates :lon, presence: true
@@ -44,8 +44,8 @@ class Order < ActiveRecord::Base
   validates_associated :city
   validates_associated :area
   validates_associated :user
-  validates_associated :store
-  validates_associated :car
+  validates_associated :store, on: :create
+  validates_associated :car, on: :create
   # validates_associated :product
 
   before_create :cal_total_amount
