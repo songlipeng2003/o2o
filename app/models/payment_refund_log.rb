@@ -25,7 +25,7 @@ class PaymentRefundLog < ActiveRecord::Base
       transitions :from => [:applyed, :operated], :to => :finished
 
       after do
-        unless self.payment.code == 'balance'
+        if self.payment.code != 'balance' && self.payment_log.item_type!='Recharge'
           trading_record = TradingRecord.new
           trading_record.user = self.payment_log.item.user
           trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN_BANK

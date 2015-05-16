@@ -47,14 +47,43 @@ class PaymentLog < ActiveRecord::Base
       transitions :from => :payed, :to => :refunded
 
       after do
-        trading_record = TradingRecord.new
-        trading_record.user = self.item.user
-        trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
-        trading_record.object = self.item
-        trading_record.name = self.name
-        trading_record.amount = self.amount
-        trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE unless payment.balance?
-        trading_record.save
+        if item_type=='Recharge'
+          trading_record = TradingRecord.new
+          trading_record.user = self.item.user
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE_RETURN
+          trading_record.object = self.item
+          trading_record.name = self.name
+          trading_record.amount = - self.amount
+          trading_record.save
+
+          if self.item.present_amount && self.item.present_amount>0
+            trading_record = TradingRecord.new
+            trading_record.user = self.item.user
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT_RETURN
+            trading_record.object = self.item
+            trading_record.name = self.name
+            trading_record.amount = - self.item.present_amount
+            trading_record.save
+
+
+            trading_record = TradingRecord.new
+            trading_record.user = SystemUser.company
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN_SUBSIDY
+            trading_record.object = self.item
+            trading_record.name = self.name
+            trading_record.amount = - self.item.present_amount
+            trading_record.save
+          end
+        else
+          trading_record = TradingRecord.new
+          trading_record.user = self.item.user
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
+          trading_record.object = self.item
+          trading_record.name = self.name
+          trading_record.amount = self.amount
+          trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE unless payment.balance?
+          trading_record.save
+        end
 
         payment_refund_log = PaymentRefundLog.new
         payment_refund_log.payment_log = self

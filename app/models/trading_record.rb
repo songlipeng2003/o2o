@@ -26,6 +26,12 @@ class TradingRecord < ActiveRecord::Base
   # 退还补贴 + 针对公司
   TRADING_TYPE_RETURN_SUBSIDY = 9
 
+  # 充值退款
+  TRADING_TYPE_RECHARGE_RETURN = 10;
+
+  # 赠送退款
+  TRADING_TYPE_PRESENT_RETURN = 11;
+
   # 余额
   FUND_TYPE_BALANCE = 1
 
@@ -39,7 +45,10 @@ class TradingRecord < ActiveRecord::Base
     TRADING_TYPE_RETURN => '退款',
     TRADING_TYPE_RETURN_BANK => '退款到银行',
     TRADING_TYPE_IN => '转入',
-    TRADING_TYPE_OUT => '转出'
+    TRADING_TYPE_OUT => '转出',
+    TRADING_TYPE_SUBSIDY => '补贴',
+    TRADING_TYPE_RETURN_SUBSIDY => '退款补贴',
+    TRADING_TYPE_RECHARGE_RETURN => '充值退款'
   }
 
   FUND_TYPES = {

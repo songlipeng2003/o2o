@@ -85,6 +85,17 @@ class Recharge < ActiveRecord::Base
         end
       end
     end
+
+    event :refund do
+      transitions from: :payed, to: :closed
+
+      after do
+        if self.payment_log && self.payment_log.payed?
+          self.payment_log.refund!
+          self.payment_log.save
+        end
+      end
+    end
   end
 
   def self.auto_close_expired_recharge
