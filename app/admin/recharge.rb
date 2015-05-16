@@ -96,4 +96,5 @@ ActiveAdmin.register Recharge do
     link_to '退款', refund_admin_recharge_path(recharge),
       method: :put,
       data: { confirm: '你确认要退款吗？' } if recharge.payed?
+  end
 end
