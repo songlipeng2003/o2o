@@ -22,12 +22,12 @@ class Order < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :store_id, presence: true
-  validates :car_id, presence: true
+  # validates :car_id, presence: true
   validates :car_model_id, presence: true
   validates :car_color, presence: true
   validates :license_tag, presence: true
   validates :phone, presence: true
-  validates :address_id, presence: true
+  # validates :address_id, presence: true
   validates :place, presence: true
   validates :lat, presence: true
   validates :lon, presence: true
