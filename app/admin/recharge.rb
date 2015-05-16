@@ -29,7 +29,11 @@ ActiveAdmin.register Recharge do
     column :application
     column :created_at
     column :payed_at
-    actions
+    actions defaults: true do |recharge|
+      link_to('退款', refund_admin_recharge_path(recharge),
+        method: :put,
+        data: { confirm: '你确认要退款吗？' }) if recharge.payed?
+    end
   end
 
   filter :amount
@@ -82,4 +86,14 @@ ActiveAdmin.register Recharge do
       end
     end
   end
+
+  member_action :refund, method: :put do
+    resource.refund!
+    redirect_to :back, notice: "退款充值成功"
+  end
+
+  action_item :refund, only: :show do
+    link_to '退款', refund_admin_recharge_path(recharge),
+      method: :put,
+      data: { confirm: '你确认要退款吗？' } if recharge.payed?
 end
