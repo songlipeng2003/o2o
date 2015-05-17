@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516095430) do
+ActiveRecord::Schema.define(version: 20150517155558) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20150516095430) do
     t.integer  "user_id"
     t.string   "color"
     t.integer  "application_id"
+    t.datetime "deleted_at"
   end
 
   create_table "categories", force: true do |t|
