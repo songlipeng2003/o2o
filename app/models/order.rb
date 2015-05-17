@@ -14,6 +14,7 @@ class Order < ActiveRecord::Base
   belongs_to :car_model
   belongs_to :application
   belongs_to :coupon
+  belongs_to :store_user
 
   has_one :evaluation
 
@@ -232,6 +233,12 @@ class Order < ActiveRecord::Base
     order_log.changed_state = aasm.to_state
     order_log.remark = params[:remark]
     order_log.save
+  end
+
+  def store_user_id=(store_user_id)
+    write_attribute(:store_user_id, store_user_id)
+
+    self.store_id = store_user.store_id
   end
 
   private

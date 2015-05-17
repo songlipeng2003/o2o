@@ -70,8 +70,21 @@ class Store < ActiveRecord::Base
   def self.can_serviced_store(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count==0
-        return store.id
+      store = Store.find(store.id)
+      store_users_ids = store.store_users.map do |store_user|
+        store_user.id
+      end
+
+      store_users_ids.shuffle!
+
+      count = Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count
+
+      if count < store.store_users.count
+        store_users_ids.each do |store_user_id|
+          count = Order.unscoped.where({ store_user_id: store_user_id, booked_at: booked_at }).where.not(state: 'closed').count
+
+          return store_user_id if count==0
+        end
       end
     end
     false
