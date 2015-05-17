@@ -152,6 +152,4 @@ gem "rails_config"
 
 gem 'newrelic_rpm'
 
-gem "skylight"
-
 gem "pingpp"
