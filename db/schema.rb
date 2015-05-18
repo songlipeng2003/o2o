@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517155558) do
+ActiveRecord::Schema.define(version: 20150518160026) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -120,6 +120,21 @@ ActiveRecord::Schema.define(version: 20150517155558) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "big_customers", force: true do |t|
+    t.string   "name"
+    t.string   "contacts"
+    t.string   "phone"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "big_customers", ["area_id"], name: "index_big_customers_on_area_id", using: :btree
+  add_index "big_customers", ["city_id"], name: "index_big_customers_on_city_id", using: :btree
+  add_index "big_customers", ["province_id"], name: "index_big_customers_on_province_id", using: :btree
 
   create_table "car_brands", force: true do |t|
     t.string   "name"

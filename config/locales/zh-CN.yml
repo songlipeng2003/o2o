@@ -37,6 +37,7 @@ zh-CN:
       refund_batch: '退款批次'
       app_version: 'App版本'
       finance: '财务账户'
+      big_customer: '集团客户'
     attributes:
       admin_user:
         id: '编号'
@@ -472,6 +473,18 @@ zh-CN:
         financeable: '账户对象'
         balance: '余额'
         freeze_balance: '冻结金额'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      big_customer:
+        name: '名称'
+        contacts: '联系人'
+        phone: '电话'
+        province: '省'
+        province_id: '省'
+        city: '市'
+        city_id: '市'
+        area: '区'
+        area_id: '区'
         created_at: '创建时间'
         updated_at: '更新时间'
 
