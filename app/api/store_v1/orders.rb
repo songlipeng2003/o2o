@@ -77,6 +77,33 @@ module StoreV1
           present order, with: StoreV1::Entities::OrderList
         end
       end
+
+      desc "切换订单商户", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "订单编号"
+        requires :store_user_id, type: Integer, desc: "商户编号"
+      end
+      route_param :id do
+        put :change_user do
+          if current_user.username == 'zhaocuihong'
+            orders = Order.with_deleted
+          else
+            orders = current_store.orders.with_deleted
+          end
+          order = orders.find(params[:id])
+          store_user = StoreUser.find(params[:store_user_id])
+          order.store_user_id = store_user.id
+          order.save
+          present order, with: StoreV1::Entities::OrderList
+        end
+      end
     end
   end
 end
