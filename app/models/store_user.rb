@@ -7,6 +7,8 @@ class StoreUser < ActiveRecord::Base
 
   has_many :login_histories, as: :user
 
+  has_many :orders
+
   validates :phone, presence: true, phone: true, uniqueness: true
   validates :username, length: { minimum: 6 }, uniqueness: true, allow_blank: true
 

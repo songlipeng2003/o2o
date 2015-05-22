@@ -23,7 +23,7 @@ module StoreV1
         if current_user.username == 'zhaocuihong'
           orders = Order.with_deleted
         else
-          orders = current_store.orders.with_deleted
+          orders = current_user.orders.with_deleted
         end
 
         if params[:state].blank?
@@ -49,7 +49,13 @@ module StoreV1
       end
       route_param :id do
         get do
-          present current_store.orders.with_deleted.find(params[:id]), with: V1::Entities::Order
+          if current_user.username == 'zhaocuihong'
+            orders = Order.with_deleted
+          else
+            orders = current_user.orders.with_deleted
+          end
+          order = orders.find(params[:id])
+          present order, with: V1::Entities::Order
         end
       end
 
@@ -69,7 +75,7 @@ module StoreV1
           if current_user.username == 'zhaocuihong'
             orders = Order.with_deleted
           else
-            orders = current_store.orders.with_deleted
+            orders = current_user.orders.with_deleted
           end
           order = orders.find(params[:id])
           order.finish(current_user)
@@ -95,7 +101,7 @@ module StoreV1
           if current_user.username == 'zhaocuihong'
             orders = Order.with_deleted
           else
-            orders = current_store.orders.with_deleted
+            orders = current_user.orders.with_deleted
           end
           order = orders.find(params[:id])
           store_user = StoreUser.find(params[:store_user_id])
