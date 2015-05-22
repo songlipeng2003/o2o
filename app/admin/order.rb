@@ -53,7 +53,7 @@ ActiveAdmin.register Order do
         method: :put,
         data: { confirm: '你确认要完成吗？' }) if order.payed?
 
-      link << link_to('切换商户', change_store_admin_order_path(order)) if order.payed?
+      link << link_to('切换店铺用户', change_store_user_admin_order_path(order)) if order.payed?
 
       raw link
     end
@@ -79,11 +79,11 @@ ActiveAdmin.register Order do
     redirect_to :back, notice: "完成订单成功"
   end
 
-  member_action :change_store, method: [:get, :put, :patch] do
+  member_action :change_store_user, method: [:get, :put, :patch] do
     @order = Order::find(params[:id])
 
     if request.put? || request.patch?
-      @order.store_id = params[:order][:store_id]
+      @order.store_user_id = params[:order][:store_user_id]
       @order.save
 
       redirect_to admin_order_path, notice: "修改商户成功"
