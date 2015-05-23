@@ -83,8 +83,7 @@ ActiveAdmin.register Order do
     @order = Order::find(params[:id])
 
     if request.put? || request.patch?
-      @order.store_user_id = params[:order][:store_user_id]
-      @order.save
+      @order.change_store_user!(params[:order][:store_user_id])
 
       redirect_to admin_order_path, notice: "修改商户成功"
     else

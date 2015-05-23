@@ -105,8 +105,7 @@ module StoreV1
           end
           order = orders.find(params[:id])
           store_user = StoreUser.find(params[:store_user_id])
-          order.store_user_id = store_user.id
-          order.save
+          order.change_store_user!(params[:store_user_id])
           present order, with: StoreV1::Entities::OrderList
         end
       end

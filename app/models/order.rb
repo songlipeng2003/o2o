@@ -241,6 +241,23 @@ class Order < ActiveRecord::Base
     self.store_id = store_user.store_id
   end
 
+  def change_store_user!(store_user_id)
+    self.store_user_id = store_user_id
+    self.save
+
+    params = {
+      booked_at: self.booked_at.strftime('%F %T'),
+      address: self.place,
+      license_tag: self.license_tag,
+      color: self.car_color,
+      car_model: self.car_model_name,
+      phone: self.phone,
+      product: self.product.name,
+      is_include_interior: self.is_include_interior ? '是' : '不'
+    }
+    SMSWorker.perform_async(self.store_user.phone, 671257, params)
+  end
+
   private
   def update_area_info
     if store
