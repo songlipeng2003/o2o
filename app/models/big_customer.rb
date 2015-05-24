@@ -5,6 +5,8 @@ class BigCustomer < ActiveRecord::Base
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
 
+  has_many :big_customer_users
+
   validates :name, presence: true
   validates :contacts, presence: true
   validates :phone, presence: true

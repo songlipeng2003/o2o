@@ -38,6 +38,7 @@ zh-CN:
       app_version: 'App版本'
       finance: '财务账户'
       big_customer: '集团客户'
+      big_customer_user: '集团客户用户'
     attributes:
       admin_user:
         id: '编号'
@@ -478,6 +479,7 @@ zh-CN:
         created_at: '创建时间'
         updated_at: '更新时间'
       big_customer:
+        id: '编号'
         name: '名称'
         contacts: '联系人'
         phone: '电话'
@@ -487,6 +489,24 @@ zh-CN:
         city_id: '市'
         area: '区'
         area_id: '区'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      big_customer_user:
+        id: '编号'
+        store: '店铺'
+        store_id: '店铺'
+        email: 'Email'
+        username: '用户名'
+        phone: '手机'
+        password: '密码'
+        password_confirmation: '确认密码'
+        remember_me: '记住我'
+        sign_in_count: '登陆次数'
+        current_sign_in_at: '当前登陆时间'
+        last_sign_in_at: '上次登陆时间'
+        current_sign_in_ip: '当前登陆ip'
+        last_sign_in_ip: '上次登陆ip'
+        authentication_token: 'token'
         created_at: '创建时间'
         updated_at: '更新时间'
 

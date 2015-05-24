@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518160026) do
+ActiveRecord::Schema.define(version: 20150524082508) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -120,6 +120,24 @@ ActiveRecord::Schema.define(version: 20150518160026) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "big_customer_users", force: true do |t|
+    t.integer  "big_customer_id"
+    t.string   "username"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "encrypted_password"
+    t.integer  "sign_in_count"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "big_customer_users", ["big_customer_id"], name: "index_big_customer_users_on_big_customer_id", using: :btree
 
   create_table "big_customers", force: true do |t|
     t.string   "name"

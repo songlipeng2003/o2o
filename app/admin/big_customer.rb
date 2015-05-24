@@ -6,13 +6,14 @@ ActiveAdmin.register BigCustomer do
   index do
     selectable_column
     id_column
-    column :user
     column :city
     column :contacts
     column :phone
     column :created_at
     column :updated_at
-    actions
+    actions defaults: true do |big_customer|
+      link_to('用户管理', admin_big_customer_big_customer_users_path(big_customer))
+    end
   end
 
   filter :name
