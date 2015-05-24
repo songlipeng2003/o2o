@@ -255,7 +255,8 @@ class Order < ActiveRecord::Base
       product: self.product.name,
       is_include_interior: self.is_include_interior ? '是' : '不'
     }
-    SMSWorker.perform_async(self.store_user.phone, 671257, params)
+    store_user = StoreUser.find(store_user_id)
+    SMSWorker.perform_async(store_user.phone, 671257, params)
   end
 
   private
