@@ -39,6 +39,7 @@ zh-CN:
       finance: '财务账户'
       big_customer: '集团客户'
       big_customer_user: '集团客户用户'
+      system_month_card: '系统月卡'
     attributes:
       admin_user:
         id: '编号'
@@ -507,6 +508,17 @@ zh-CN:
         current_sign_in_ip: '当前登陆ip'
         last_sign_in_ip: '上次登陆ip'
         authentication_token: 'token'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      system_month_card:
+        province: '省'
+        province_id: '省'
+        city: '市'
+        city_id: '市'
+        name: '名称'
+        month: '月份'
+        price: '价格'
+        sort: '排序'
         created_at: '创建时间'
         updated_at: '更新时间'
 
