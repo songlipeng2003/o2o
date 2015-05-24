@@ -198,8 +198,7 @@ module V1
          else
           return {
             code: 2,
-            msg: '下单错误，请稍后重试',
-            error: order.errors
+            msg: order.errors.values[0][0]
           }
         end
       end
