@@ -40,6 +40,7 @@ zh-CN:
       big_customer: '集团客户'
       big_customer_user: '集团客户用户'
       system_month_card: '系统月卡'
+      month_card_order: '月卡订单'
     attributes:
       admin_user:
         id: '编号'
@@ -519,6 +520,23 @@ zh-CN:
         month: '月份'
         price: '价格'
         sort: '排序'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      month_card_order:
+        system_month_card: '系统月卡'
+        system_month_card_id: '系统月卡'
+        car: '汽车'
+        car_id: '汽车'
+        user: '用户'
+        user_id: '用户'
+        month: '月份'
+        price: '价格'
+        state: '状态'
+        state/unpayed: '未付款'
+        state/payed: '待服务'
+        state/closed: '已关闭'
+        application: '应用'
+        application_id: '应用'
         created_at: '创建时间'
         updated_at: '更新时间'
 

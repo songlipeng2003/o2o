@@ -61,6 +61,7 @@ module V1
     mount V1::Coupons
     mount V1::Docs
     mount V1::Files
+    mount V1::MonthCardOrders
     mount V1::Orders
     mount V1::PaymentLogs
     mount V1::Payments
