@@ -236,7 +236,7 @@ class Order < ActiveRecord::Base
   end
 
   def store_user_id=(store_user_id)
-    write_attribute(:store_user_id, store_user_id)
+    super(store_user_id)
 
     self.store_id = store_user.store_id
   end
