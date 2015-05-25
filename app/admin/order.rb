@@ -29,14 +29,23 @@ ActiveAdmin.register Order do
     selectable_column
     column :sn
     column :user
-    column :store
-    column :store_user
+    column :store do |order|
+      content = '店铺：'
+      content << link_to(order.store.name, admin_store_path(order.store))
+      content << '<br/>'
+      content << '店铺用户：'
+      content << link_to(order.store_user.nickname, admin_store_store_user_path(order.store, order.store_user))
+      raw content
+    end
     column :total_amount
     column :product
     column :car do |order|
-      order.car_model.name
+      content = ''
+      content << order.car_model.name
+      content << '<br/>'
+      content << order.license_tag
+      raw content
     end
-    column :license_tag
     column :place
     column :booked_at
     column :state do |order|
@@ -49,11 +58,11 @@ ActiveAdmin.register Order do
       link << link_to('关闭', close_admin_order_path(order),
         method: :put,
         data: { confirm: '你确认要关闭吗？' }) if order.payed?
-      link << ' '
+      link << '<br/>'
       link << link_to('完成', finish_admin_order_path(order),
         method: :put,
         data: { confirm: '你确认要完成吗？' }) if order.payed?
-
+      link << '<br/>'
       link << link_to('切换店铺用户', change_store_user_admin_order_path(order)) if order.payed?
 
       raw link
