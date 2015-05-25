@@ -60,7 +60,7 @@ class Store < ActiveRecord::Base
     stores = in_service_scope(lon, lat)
     ids = stores.map { |store| store._id }
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count==0
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count!=store.store_users.count
         return true
       end
     end
