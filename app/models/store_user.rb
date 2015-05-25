@@ -9,6 +9,7 @@ class StoreUser < ActiveRecord::Base
 
   has_many :orders
 
+  validates :nickname, presence: true
   validates :phone, presence: true, phone: true, uniqueness: true
   validates :username, length: { minimum: 6 }, uniqueness: true, allow_blank: true
 
@@ -21,7 +22,7 @@ class StoreUser < ActiveRecord::Base
   end
 
   def to_s
-    phone
+    nickname
   end
 
   def self.find_for_database_authentication(warden_conditions)
