@@ -58,9 +58,9 @@ class Store < ActiveRecord::Base
 
   def self.can_serviced(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
-    ids = stores.map { |store| store._id }
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count!=store.store_users.count
+      store = Store.find(store.id)
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count < store.store_users.count
         return true
       end
     end
