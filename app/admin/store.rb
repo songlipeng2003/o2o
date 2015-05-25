@@ -55,8 +55,8 @@ ActiveAdmin.register Store do
     end
 
     panel "订单历史" do
-      paginated_collection(store.orders.order('booked_at DESC').page(params[:page]).per(20), entry_name: 'Order') do
-        table_for(collection) do |order|
+      paginated_collection(store.orders.reorder('booked_at DESC').page(params[:page]).per(20), entry_name: 'Order') do
+        table_for collection do |order|
           column(I18n.t('activerecord.attributes.order.id')) { |order| order.id }
           column(I18n.t('activerecord.attributes.order.sn')) { |order| order.sn }
           column(I18n.t('activerecord.attributes.order.user')) do |order|
