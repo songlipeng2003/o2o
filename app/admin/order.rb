@@ -30,6 +30,7 @@ ActiveAdmin.register Order do
     column :sn
     column :user
     column :store
+    column :store_user
     column :total_amount
     column :product
     column :car do |order|

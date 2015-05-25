@@ -62,6 +62,9 @@ ActiveAdmin.register Store do
           column(I18n.t('activerecord.attributes.order.user')) do |order|
             link_to order.user.phone, admin_user_path(order.user)
           end
+          column(I18n.t('activerecord.attributes.order.store_user')) do |order|
+            link_to order.store_user.phone, admin_store_store_user_path(order.store, order.store_user)
+          end
           column(I18n.t('activerecord.attributes.order.car')) do |order|
             order.car_model.name + '-' + order.license_tag + '-' + order.car_color
           end
