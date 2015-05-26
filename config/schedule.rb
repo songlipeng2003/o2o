@@ -7,5 +7,9 @@ every 1.minute do
 end
 
 every 1.minute do
-  runner "MonthCardOrder.auto_close_expired_recharge"
+  runner "MonthCardOrder.auto_close_expired_order"
+end
+
+every 1.minute do
+  runner "MonthCard.auto_expired"
 end

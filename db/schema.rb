@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524130859) do
+ActiveRecord::Schema.define(version: 20150526145722) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -307,12 +307,29 @@ ActiveRecord::Schema.define(version: 20150524130859) do
     t.integer  "application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "license_tag"
   end
 
   add_index "month_card_orders", ["application_id"], name: "index_month_card_orders_on_application_id", using: :btree
   add_index "month_card_orders", ["car_id"], name: "index_month_card_orders_on_car_id", using: :btree
   add_index "month_card_orders", ["system_month_card_id"], name: "index_month_card_orders_on_system_month_card_id", using: :btree
   add_index "month_card_orders", ["user_id"], name: "index_month_card_orders_on_user_id", using: :btree
+
+  create_table "month_cards", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.string   "license_tag"
+    t.datetime "started_at"
+    t.datetime "expired_at"
+    t.string   "use_count",      default: "0"
+    t.string   "state"
+    t.integer  "application_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "month_cards", ["car_id"], name: "index_month_cards_on_car_id", using: :btree
+  add_index "month_cards", ["user_id"], name: "index_month_cards_on_user_id", using: :btree
 
   create_table "notify_logs", force: true do |t|
     t.integer  "payment_id"
@@ -367,6 +384,7 @@ ActiveRecord::Schema.define(version: 20150524130859) do
     t.integer  "payment_id"
     t.datetime "deleted_at"
     t.integer  "store_user_id"
+    t.integer  "month_card_id"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree

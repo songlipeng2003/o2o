@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :login_histories, as: :user
   has_many :coupons
   has_many :month_card_orders
+  has_many :month_cards
 
   validates :phone, presence: true, uniqueness: true, phone: true
 

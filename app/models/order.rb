@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
   belongs_to :application
   belongs_to :coupon
   belongs_to :store_user
+  belongs_to :month_card
 
   has_one :evaluation
 

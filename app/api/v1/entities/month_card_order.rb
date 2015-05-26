@@ -4,6 +4,7 @@ module V1
       expose :id
       expose :system_month_card_id
       expose :car_id
+      expose :license_tag
       expose :month
       expose :price
       expose :state_text do |recharge|
