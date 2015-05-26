@@ -68,6 +68,10 @@ class Order < ActiveRecord::Base
     if self.coupon
       use_coupon
     end
+
+    if [1, 2].include? self.product_id
+      month_card_auto_pay
+    end
   end
 
   has_paper_trail
@@ -86,43 +90,45 @@ class Order < ActiveRecord::Base
       transitions :from => :unpayed, :to => :payed
 
       after do
-        if payment_log.payment.code != 'balance'
+        if payment_log.payment.code != 'month_card'
+          if payment_log.payment.code != 'balance'
+            trading_record = TradingRecord.new
+            trading_record.user = self.user
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
+            trading_record.object = self
+            trading_record.amount = self.total_amount
+            trading_record.name = "充值#{trading_record.amount}"
+            trading_record.save
+          end
+
           trading_record = TradingRecord.new
           trading_record.user = self.user
-          trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_EXPENSE
           trading_record.object = self
-          trading_record.amount = self.total_amount
-          trading_record.name = "充值#{trading_record.amount}"
+          trading_record.name = self.product.name
+          trading_record.amount = -self.total_amount
           trading_record.save
+
+          trading_record = TradingRecord.new
+          trading_record.user = SystemUser.platform
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_IN
+          trading_record.object = self
+          trading_record.name = self.product.name
+          trading_record.amount = self.total_amount
+          trading_record.save
+
+          params = {
+            booked_at: self.booked_at.strftime('%F %T'),
+            address: self.place,
+            license_tag: self.license_tag,
+            color: self.car_color,
+            car_model: self.car_model_name,
+            phone: self.phone,
+            product: self.product.name,
+            is_include_interior: self.is_include_interior ? '是' : '不'
+          }
+          SMSWorker.perform_async(self.store_user.phone, 671257, params)
         end
-
-        trading_record = TradingRecord.new
-        trading_record.user = self.user
-        trading_record.trading_type = TradingRecord::TRADING_TYPE_EXPENSE
-        trading_record.object = self
-        trading_record.name = self.product.name
-        trading_record.amount = -self.total_amount
-        trading_record.save
-
-        trading_record = TradingRecord.new
-        trading_record.user = SystemUser.platform
-        trading_record.trading_type = TradingRecord::TRADING_TYPE_IN
-        trading_record.object = self
-        trading_record.name = self.product.name
-        trading_record.amount = self.total_amount
-        trading_record.save
-
-        params = {
-          booked_at: self.booked_at.strftime('%F %T'),
-          address: self.place,
-          license_tag: self.license_tag,
-          color: self.car_color,
-          car_model: self.car_model_name,
-          phone: self.phone,
-          product: self.product.name,
-          is_include_interior: self.is_include_interior ? '是' : '不'
-        }
-        SMSWorker.perform_async(self.store_user.phone, 671257, params)
       end
     end
 
@@ -258,6 +264,22 @@ class Order < ActiveRecord::Base
     }
     store_user = StoreUser.find(store_user_id)
     SMSWorker.perform_async(store_user.phone, 671257, params)
+  end
+
+  def month_card_auto_pay
+    month_card = user.month_cards.where(license_tag: license_tag).first
+
+    if month_card
+      payment = Payment.where(code: 'month_card').first
+      payment_log = payment_logs.build({
+        payment: payment,
+        name: product.name,
+        amount: total_amount
+      })
+
+      payment_log.save
+      payment_log.pay!
+    end
   end
 
   private

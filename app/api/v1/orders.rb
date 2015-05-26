@@ -193,7 +193,7 @@ module V1
         if order.save
           return {
             code: 0,
-            data: order
+            data: order.reload
           }
          else
           return {
