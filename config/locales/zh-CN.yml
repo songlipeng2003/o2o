@@ -101,6 +101,7 @@ zh-CN:
         phone: '手机'
         password: '密码'
         password_confirmation: '确认密码'
+        pay_password: '支付密码'
         remember_me: '记住我'
         sign_in_count: '登陆次数'
         current_sign_in_at: '当前登陆时间'

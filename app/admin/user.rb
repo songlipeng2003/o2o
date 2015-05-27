@@ -15,7 +15,12 @@ ActiveAdmin.register User do
     column :application
     column :current_sign_in_at
     column :created_at
-    actions
+    actions defaults: true do |user|
+      link = ''
+      link << link_to('修改支付密码', change_pay_password_admin_user_path(user))
+
+      raw link
+    end
   end
 
   filter :phone
@@ -80,6 +85,19 @@ ActiveAdmin.register User do
         column(I18n.t('activerecord.attributes.car.color')) { |car| car.color }
         column('操作') { |car| link_to '查看', admin_car_path(car) }
       end
+    end
+  end
+
+  member_action :change_pay_password, method: [:get, :put, :patch] do
+    @user = User::find(params[:id])
+
+    if request.put? || request.patch?
+      @user.pay_password = params[:user][:pay_password]
+      @user.save
+
+      redirect_to admin_user_path, notice: "修改支付密码成功"
+    else
+      @page_title = "修改支付密码"
     end
   end
 end
