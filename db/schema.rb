@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526153805) do
+ActiveRecord::Schema.define(version: 20150526161942) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -500,6 +500,30 @@ ActiveRecord::Schema.define(version: 20150526153805) do
   end
 
   add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
+
+  create_table "service_ticket_batches", force: true do |t|
+    t.integer  "big_customer_id"
+    t.integer  "number"
+    t.integer  "used_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "service_ticket_batches", ["big_customer_id"], name: "index_service_ticket_batches_on_big_customer_id", using: :btree
+
+  create_table "service_tickets", force: true do |t|
+    t.integer  "big_customer_id"
+    t.integer  "user_id"
+    t.integer  "service_ticket_batch_id"
+    t.string   "code"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "service_tickets", ["big_customer_id"], name: "index_service_tickets_on_big_customer_id", using: :btree
+  add_index "service_tickets", ["service_ticket_batch_id"], name: "index_service_tickets_on_service_ticket_batch_id", using: :btree
+  add_index "service_tickets", ["user_id"], name: "index_service_tickets_on_user_id", using: :btree
 
   create_table "store_users", force: true do |t|
     t.integer  "store_id"

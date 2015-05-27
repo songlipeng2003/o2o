@@ -42,6 +42,8 @@ zh-CN:
       system_month_card: '系统月卡'
       month_card_order: '月卡订单'
       month_card: '月卡'
+      service_ticket_batch: '服务券批次'
+      service_ticket: '服务券'
     attributes:
       admin_user:
         id: '编号'
@@ -514,6 +516,7 @@ zh-CN:
         created_at: '创建时间'
         updated_at: '更新时间'
       system_month_card:
+        id: '编号'
         province: '省'
         province_id: '省'
         city: '市'
@@ -525,6 +528,7 @@ zh-CN:
         created_at: '创建时间'
         updated_at: '更新时间'
       month_card_order:
+        id: '编号'
         system_month_card: '系统月卡'
         system_month_card_id: '系统月卡'
         car: '汽车'
@@ -543,6 +547,7 @@ zh-CN:
         created_at: '创建时间'
         updated_at: '更新时间'
       month_card:
+        id: '编号'
         user: '用户'
         user_id: '用户'
         car: '汽车'
@@ -556,6 +561,26 @@ zh-CN:
         state/expired: '过期'
         application: '应用'
         application_id: '应用'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      service_ticket_batch:
+        id: '编号'
+        big_customer: '集团客户'
+        big_customer_id: '集团客户'
+        number: '数量'
+        used_count: '使用次数'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      service_ticket:
+        id: '编号'
+        big_customer: '集团客户'
+        big_customer_id: '集团客户'
+        user: '用户'
+        user_id: '用户'
+        code: '代码'
+        state: '状态'
+        state/available: '可用的'
+        state/used: '已使用'
         created_at: '创建时间'
         updated_at: '更新时间'
 
