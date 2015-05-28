@@ -31,10 +31,10 @@ ActiveAdmin.register Order do
     column :user
     column :store do |order|
       content = '店铺：'
-      content << link_to(order.store.name, admin_store_path(order.store))
+      content << link_to(order.store.name, admin_store_path(order.store)) if order.store
       content << '<br/>'
       content << '店铺用户：'
-      content << link_to(order.store_user.nickname, admin_store_store_user_path(order.store, order.store_user))
+      content << link_to(order.store_user.nickname, admin_store_store_user_path(order.store, order.store_user)) if order.store_user
       raw content
     end
     column :total_amount
