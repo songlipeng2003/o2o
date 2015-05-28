@@ -222,6 +222,7 @@ zh-CN:
         coupon_id: '代金券'
         store_user: '店铺用户'
         store_user_id: '店铺用户'
+        store_name: '店铺名'
         created_at: '创建时间'
         updated_at: '更新时间'
       application:

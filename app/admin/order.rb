@@ -70,6 +70,7 @@ ActiveAdmin.register Order do
   end
 
   filter :sn
+  filter :store_name, as: :string
   filter :phone
   filter :license_tag
   filter :place
