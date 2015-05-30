@@ -153,3 +153,9 @@ gem "rails_config"
 gem 'newrelic_rpm'
 
 gem "pingpp"
+
+# by date search
+gem 'by_star'
+gem 'groupdate'
+gem "highcharts-rails", "~> 3.0.0"
+gem "chartkick"
