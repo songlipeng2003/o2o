@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
   belongs_to :coupon
   belongs_to :store_user
   belongs_to :month_card
+  belongs_to :service_ticket
 
   has_one :evaluation
 
@@ -65,13 +66,11 @@ class Order < ActiveRecord::Base
   end
 
   after_create do
-    if self.coupon
-      use_coupon
-    end
+    use_coupon
 
-    if [1, 2].include? self.product_id
-      month_card_auto_pay
-    end
+    month_card_auto_pay
+
+    use_service_ticket
   end
 
   has_paper_trail
@@ -90,7 +89,7 @@ class Order < ActiveRecord::Base
       transitions :from => :unpayed, :to => :payed
 
       after do
-        if payment_log.payment.code != 'month_card'
+        if payment_log && payment_log.payment.code != 'month_card'
           if payment_log.payment.code != 'balance'
             trading_record = TradingRecord.new
             trading_record.user = self.user
@@ -266,22 +265,6 @@ class Order < ActiveRecord::Base
     SMSWorker.perform_async(store_user.phone, 671257, params)
   end
 
-  def month_card_auto_pay
-    month_card = user.month_cards.where(license_tag: license_tag).first
-
-    if month_card
-      payment = Payment.where(code: 'month_card').first
-      payment_log = payment_logs.build({
-        payment: payment,
-        name: product.name,
-        amount: total_amount
-      })
-
-      payment_log.save
-      payment_log.pay!
-    end
-  end
-
   private
   def update_area_info
     if store
@@ -292,7 +275,35 @@ class Order < ActiveRecord::Base
   end
 
   def use_coupon
-    self.coupon.use
-    self.coupon.save
+    coupon.use! if coupon
+  end
+
+  def month_card_auto_pay
+    if [1, 2].include?(product_id)
+      month_card = user.month_cards.where(license_tag: license_tag).first
+
+      if month_card
+        payment = Payment.where(code: 'month_card').first
+        payment_log = payment_logs.build({
+          payment: payment,
+          name: product.name,
+          amount: total_amount
+        })
+
+        payment_log.save
+        payment_log.pay!
+      end
+    end
+  end
+
+  def use_service_ticket
+    logger.debug service_ticket
+    if service_ticket && [1, 2].include?(product_id)
+      service_ticket.order_amount = total_amount
+      service_ticket.user_id = user_id
+      service_ticket.use!
+
+      pay! user
+    end
   end
 end

@@ -99,11 +99,14 @@ module V1
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
+        optional :service_ticket_code, type: String, desc: '服务器号码'
         optional :note, type: String, desc: "订单备注"
       end
       post do
         car_params = permitted_params.delete(:car)
         address_params = permitted_params.delete(:address)
+        service_ticket_code = permitted_params.delete :service_ticket_code
+
         order = current_user.orders.new(permitted_params)
         order.product_id = permitted_params[:product_id];
         order.application = current_application
@@ -145,22 +148,23 @@ module V1
           order.address_id = address.id
         end
 
-        result = Store.in_service_scope(address.lon, address.lat)
-        if result.count==0
-          return {
-            code: 1,
-            msg: '不在服务范围内'
-          }
-        end
+        # result = Store.in_service_scope(address.lon, address.lat)
+        # if result.count==0
+        #   return {
+        #     code: 1,
+        #     msg: '不在服务范围内'
+        #   }
+        # end
 
-        store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
+        # store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
 
-        unless store_user_id
-          return {
-            code: 1,
-            msg: '已经被预约，请预约其他时间'
-          }
-        end
+        # unless store_user_id
+        #   return {
+        #     code: 1,
+        #     msg: '已经被预约，请预约其他时间'
+        #   }
+        # end
+        store_user_id = 2
 
         if params[:coupon_id]
           coupon = current_user.coupons.find(params[:coupon_id])
@@ -186,6 +190,18 @@ module V1
             code: 1,
             msg: '当前代金券不满足当前商品类型'
           }
+        end
+
+        unless params[:service_ticket_code].blank?
+          service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+          if service_ticket
+            order.service_ticket_id = service_ticket.id
+          else
+            return {
+              code: 1,
+              msg: '当前服务券不可用'
+            }
+          end
         end
 
         order.store_user_id = store_user_id

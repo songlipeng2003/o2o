@@ -5,10 +5,11 @@ class ServiceTicketBatch < ActiveRecord::Base
   validates :big_customer, presence: true
   validates :number, presence: true, :numericality => { :only_integer => true, greater_than_or_equal_to: 0 }
 
-  after_save do
+  after_create do
     gen_service_tickets
   end
 
+  private
   def gen_service_tickets
     number.times.each do
       service_ticket = self.service_tickets.new
