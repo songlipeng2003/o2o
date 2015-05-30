@@ -148,23 +148,22 @@ module V1
           order.address_id = address.id
         end
 
-        # result = Store.in_service_scope(address.lon, address.lat)
-        # if result.count==0
-        #   return {
-        #     code: 1,
-        #     msg: '不在服务范围内'
-        #   }
-        # end
+        result = Store.in_service_scope(address.lon, address.lat)
+        if result.count==0
+          return {
+            code: 1,
+            msg: '不在服务范围内'
+          }
+        end
 
-        # store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
+        store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
 
-        # unless store_user_id
-        #   return {
-        #     code: 1,
-        #     msg: '已经被预约，请预约其他时间'
-        #   }
-        # end
-        store_user_id = 2
+        unless store_user_id
+          return {
+            code: 1,
+            msg: '已经被预约，请预约其他时间'
+          }
+        end
 
         if params[:coupon_id]
           coupon = current_user.coupons.find(params[:coupon_id])
