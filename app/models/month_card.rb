@@ -8,6 +8,8 @@ class MonthCard < ActiveRecord::Base
 
   validates :license_tag, presence: true
   validates :car, presence: true
+  validates :started_at, presence: true
+  validates :name, presence: true
 
   aasm column: :state do
     state :available, :initial => true

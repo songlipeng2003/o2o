@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527155016) do
+ActiveRecord::Schema.define(version: 20150530145307) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -326,6 +326,7 @@ ActiveRecord::Schema.define(version: 20150527155016) do
     t.integer  "application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "month_cards", ["car_id"], name: "index_month_cards_on_car_id", using: :btree

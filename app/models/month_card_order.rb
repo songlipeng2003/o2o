@@ -27,7 +27,7 @@ class MonthCardOrder < ActiveRecord::Base
           trading_record.object = self
           trading_record.amount = self.price
           trading_record.name = "充值#{trading_record.amount}"
-          trading_record.save
+          trading_record.save!
         end
 
         trading_record = TradingRecord.new
@@ -36,7 +36,7 @@ class MonthCardOrder < ActiveRecord::Base
         trading_record.object = self
         trading_record.name = "#{self.month}个月月卡"
         trading_record.amount = -self.price
-        trading_record.save
+        trading_record.save!
 
         trading_record = TradingRecord.new
         trading_record.user = SystemUser.platform
@@ -44,20 +44,20 @@ class MonthCardOrder < ActiveRecord::Base
         trading_record.object = self
         trading_record.name = "#{self.month}个月月卡"
         trading_record.amount = self.price
-        trading_record.save
+        trading_record.save!
 
-        month_card = self.user.month_cards.where(license_tag: self.car.license_tag, state: 'available').first
-        unless month_card
-          month_card = self.user.month_cards.new
-          month_card.car_id = self.car_id
-          month_card.license_tag = self.license_tag
-          month_card.started_at = Time.now
-          month_card.application = self.application
-        end
+        history_month_card = self.user.month_cards.where(license_tag: self.license_tag, state: 'available')
+          .where("expired_at>?", Time.now).order('id DESC').first
 
-        month_card.expired_at = month_card.started_at + self.month.months
+        month_card = self.user.month_cards.new
+        month_card.car_id = car_id
+        month_card.name = system_month_card.name
+        month_card.license_tag = license_tag
+        month_card.application = application
+        month_card.started_at = history_month_card ? history_month_card.expired_at : Time.now
+        month_card.expired_at = month_card.started_at + month.months
 
-        month_card.save
+        month_card.save!
       end
     end
 

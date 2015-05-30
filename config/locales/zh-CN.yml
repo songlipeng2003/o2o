@@ -553,6 +553,7 @@ zh-CN:
         user_id: '用户'
         car: '汽车'
         car_id: '汽车'
+        name: '名称'
         state: '状态'
         license_tag: '牌照'
         started_at: '开始时间'

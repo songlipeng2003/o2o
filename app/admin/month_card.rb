@@ -9,6 +9,7 @@ ActiveAdmin.register MonthCard do
     column :user
     column :car
     column :license_tag
+    column :name
     column :started_at
     column :expired_at
     column :use_count
