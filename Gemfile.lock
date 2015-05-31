@@ -97,6 +97,7 @@ GEM
     builder (3.2.2)
     by_star (2.2.1)
       activesupport
+    cancancan (1.10.1)
     capistrano (3.3.5)
       capistrano-stats (~> 1.1.0)
       i18n
@@ -432,6 +433,7 @@ DEPENDENCIES
   bootstrap-generators (~> 3.2.0)
   bower-rails (~> 0.9.2)
   by_star
+  cancancan (~> 1.10)
   capistrano (~> 3.3.5)
   capistrano-rails (~> 1.1.2)
   capistrano-rvm (~> 0.1.2)

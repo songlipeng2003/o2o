@@ -159,3 +159,6 @@ gem 'by_star'
 gem 'groupdate'
 gem "highcharts-rails", "~> 3.0.0"
 gem "chartkick"
+
+# auth
+gem 'cancancan', '~> 1.10'
