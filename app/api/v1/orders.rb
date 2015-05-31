@@ -99,7 +99,7 @@ module V1
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
-        optional :service_ticket_code, type: String, desc: '服务器号码'
+        optional :service_ticket_code, type: String, desc: '服务券号码'
         optional :note, type: String, desc: "订单备注"
       end
       post do
