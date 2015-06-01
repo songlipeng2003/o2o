@@ -59,7 +59,7 @@ ActiveAdmin.register Recharge do
 
   form do |f|
     f.inputs do
-      f.input :user
+      f.input :user, as: :select2
       f.input :amount
       f.input :recharge_policy
     end

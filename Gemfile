@@ -62,6 +62,7 @@ end
 gem 'bootstrap-generators', '~> 3.2.0'
 gem "font-awesome-rails", "~> 4.3.0"
 gem "bower-rails", "~> 0.9.2"
+gem 'select2-rails'
 
 # disable assets log
 gem 'quiet_assets', '~> 1.0.3', group: :development
@@ -85,6 +86,7 @@ gem 'ancestry', '~> 2.1.0'
 # admin
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem "active_admin-sortable_tree"
+gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
 
 # api
 gem 'grape', '~> 0.9.0'
