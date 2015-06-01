@@ -1,5 +1,19 @@
 module StoreV1
   class Orders < Grape::API
+    helpers do
+      def order_collection
+        if current_user.username == 'zhaocuihong'
+          Order.with_deleted
+        else
+          if current_user.role == StoreUser::ROLE_LEADER
+            current_store.orders.with_deleted
+          else
+            current_user.orders.with_deleted
+          end
+        end
+      end
+    end
+
     before do
       error!("401 Unauthorized", 401) unless authenticated
     end
@@ -20,16 +34,10 @@ module StoreV1
       end
       paginate per_page: 10
       get do
-        if current_user.username == 'zhaocuihong'
-          orders = Order.with_deleted
-        else
-          orders = current_user.orders.with_deleted
-        end
-
         if params[:state].blank?
-          orders = orders.where.not(state: 'unpayed')
+          orders = order_collection.where.not(state: 'unpayed')
         else
-          orders = orders.where(state: params[:state])
+          orders = order_collection.where(state: params[:state])
         end
         orders = orders.order('booked_at DESC')
         orders = paginate orders
@@ -49,12 +57,7 @@ module StoreV1
       end
       route_param :id do
         get do
-          if current_user.username == 'zhaocuihong'
-            orders = Order.with_deleted
-          else
-            orders = current_user.orders.with_deleted
-          end
-          order = orders.find(params[:id])
+          order = order_collection.find(params[:id])
           present order, with: V1::Entities::Order
         end
       end
@@ -72,12 +75,7 @@ module StoreV1
       end
       route_param :id do
         put :finish do
-          if current_user.username == 'zhaocuihong'
-            orders = Order.with_deleted
-          else
-            orders = current_user.orders.with_deleted
-          end
-          order = orders.find(params[:id])
+          order = order_collection.find(params[:id])
           order.finish(current_user)
           order.save
           present order, with: StoreV1::Entities::OrderList
@@ -98,12 +96,7 @@ module StoreV1
       end
       route_param :id do
         put :change_user do
-          if current_user.username == 'zhaocuihong'
-            orders = Order.with_deleted
-          else
-            orders = current_user.orders.with_deleted
-          end
-          order = orders.find(params[:id])
+          order = order_collection.find(params[:id])
           store_user = StoreUser.find(params[:store_user_id])
           order.change_store_user!(params[:store_user_id])
           present order, with: StoreV1::Entities::OrderList

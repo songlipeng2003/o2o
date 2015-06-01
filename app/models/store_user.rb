@@ -3,6 +3,15 @@ class StoreUser < ActiveRecord::Base
 
   GENDERS = %w(男 女 )
 
+  ROLE_MEMBER = 1
+
+  ROLE_LEADER = 2
+
+  ROLES = {
+    ROLE_MEMBER => '成员',
+    ROLE_LEADER => '组长'
+  }
+
   belongs_to :store
 
   has_many :login_histories, as: :user
@@ -32,5 +41,9 @@ class StoreUser < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def role_name
+    ROLES[role]
   end
 end
