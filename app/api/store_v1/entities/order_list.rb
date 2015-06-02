@@ -27,7 +27,7 @@ module StoreV1
       end
       expose :store_user_id
       expose :store_user_name do |order|
-        order.store_user.nickname
+        order.store_user_id ? order.store_user.nickname : ''
       end
 
 
