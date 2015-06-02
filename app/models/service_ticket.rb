@@ -1,3 +1,6 @@
+require 'securerandom'
+require 'digest'
+
 class ServiceTicket < ActiveRecord::Base
   include AASM
 
@@ -33,7 +36,7 @@ class ServiceTicket < ActiveRecord::Base
 
   private
   def gen_code
-    code = Time.now.strftime('%Y%m%d') + rand(100000...999999).to_s
+    code = Digest::MD5.hexdigest(SecureRandom.hex(16))[0...8].upcase
     code = gen_code if ServiceTicket.where(code: code).first
     self.code = code
   end
