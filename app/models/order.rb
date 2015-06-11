@@ -175,6 +175,7 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total_amount
+    # 洗车分车型计算价格
     if [1, 2].include? self.product_id
       unless self.car_model.auto_type=='SUV'
         self.product_id = 1
@@ -186,11 +187,13 @@ class Order < ActiveRecord::Base
     self.original_price = self.product.market_price
     price = self.product.price
 
+    # 代金券处理
     if self.coupon
       price = self.original_price - self.coupon.amount
     end
 
     if [1, 2].include?(self.product_id)
+      # 洗车是否包含内饰价格变动
       if is_include_interior
         if product_id==1
           price += 7
@@ -199,6 +202,7 @@ class Order < ActiveRecord::Base
         end
       end
 
+      # 第一单优惠处理
       if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
         if license_tag
           if license_tag && Order.where(license_tag: license_tag, state: ['payed', 'finished']).count==0
@@ -209,6 +213,17 @@ class Order < ActiveRecord::Base
         end
       end
     end
+
+    # 消费卡处理
+    month_card = user.month_cards.where(license_tag: license_tag).first
+    puts month_card
+    if month_card
+      price = 0
+      self.month_card_id = month_card.id
+    end
+
+    # 消费券处理
+    service_ticket && price = 0
 
     self.total_amount ||= price;
   end
@@ -283,21 +298,16 @@ class Order < ActiveRecord::Base
       month_card = user.month_cards.where(license_tag: license_tag).first
 
       if month_card
-        payment = Payment.where(code: 'month_card').first
-        payment_log = payment_logs.build({
-          payment: payment,
-          name: product.name,
-          amount: total_amount
-        })
+        pay! user
 
-        payment_log.save
-        payment_log.pay!
+        month_card.update_use_count
+
+        self.service_ticket_id = nil
       end
     end
   end
 
   def use_service_ticket
-    logger.debug service_ticket
     if service_ticket && [1, 2].include?(product_id)
       service_ticket.order_amount = total_amount
       service_ticket.user_id = user_id

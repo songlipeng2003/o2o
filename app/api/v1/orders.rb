@@ -46,10 +46,17 @@ module V1
         order.is_include_interior = params[:is_include_interior]
         order.coupon_id = params[:coupon_id]
         order.license_tag = params[:license_tag]
+        service_ticket_code = params[:service_ticket_code]
+        service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+        if service_ticket
+          order.service_ticket_id = service_ticket.id
+        end
         order.cal_total_amount
         {
           original_price: order.original_price,
-          total_amount: order.total_amount
+          total_amount: order.total_amount,
+          service_ticket_id: order.service_ticket_id,
+          month_card_id: order.month_card_id
         }
       end
 
@@ -192,7 +199,7 @@ module V1
           }
         end
 
-        unless params[:service_ticket_code].blank?
+        unless service_ticket_code.blank?
           service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
           if service_ticket
             order.service_ticket_id = service_ticket.id
