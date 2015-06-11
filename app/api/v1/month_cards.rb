@@ -5,7 +5,7 @@ module V1
     end
 
     resource :month_cards do
-      desc "月卡记录", {
+      desc "消费卡记录", {
         headers: {
           "X-Access-Token" => {
             description: "Token",

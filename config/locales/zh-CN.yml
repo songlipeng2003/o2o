@@ -39,9 +39,9 @@ zh-CN:
       finance: '财务账户'
       big_customer: '集团客户'
       big_customer_user: '集团客户用户'
-      system_month_card: '系统月卡'
-      month_card_order: '月卡订单'
-      month_card: '月卡'
+      system_month_card: '系统消费卡'
+      month_card_order: '消费卡订单'
+      month_card: '消费卡'
       service_ticket_batch: '服务券批次'
       service_ticket: '服务券'
     attributes:
@@ -531,8 +531,8 @@ zh-CN:
         updated_at: '更新时间'
       month_card_order:
         id: '编号'
-        system_month_card: '系统月卡'
-        system_month_card_id: '系统月卡'
+        system_month_card: '系统消费卡'
+        system_month_card_id: '系统消费卡'
         car: '汽车'
         car_id: '汽车'
         user: '用户'

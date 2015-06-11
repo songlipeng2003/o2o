@@ -5,7 +5,7 @@ module V1
     end
 
     resource :month_card_orders do
-      desc "创建月卡订单", {
+      desc "创建消费卡订单", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
@@ -14,7 +14,7 @@ module V1
         }
       }
       params do
-        optional :system_month_card_id, type: Integer, desc: "系统月卡编号"
+        optional :system_month_card_id, type: Integer, desc: "系统消费卡编号"
         optional :car_id, type: Integer, desc: "汽车编号"
       end
       post do
@@ -36,7 +36,7 @@ module V1
         }
       }
       params do
-        requires :id, type: Integer, desc: "月卡订单编号"
+        requires :id, type: Integer, desc: "消费卡订单编号"
         requires :payment_id, type: Integer, desc: "支付编号"
         optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"
       end
@@ -49,7 +49,7 @@ module V1
           unless payment_log && payment_log.unpayed?
             payment_log = month_card_order.payment_logs.build({
               payment: payment,
-              name: "#{month_card_order.month}个月月卡订单",
+              name: "#{month_card_order.month}个月消费卡订单",
               amount: month_card_order.price
             })
             payment_log.application = current_application

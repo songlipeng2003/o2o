@@ -34,7 +34,7 @@ class MonthCardOrder < ActiveRecord::Base
         trading_record.user = self.user
         trading_record.trading_type = TradingRecord::TRADING_TYPE_EXPENSE
         trading_record.object = self
-        trading_record.name = "#{self.month}个月月卡"
+        trading_record.name = "#{self.month}个月消费卡"
         trading_record.amount = -self.price
         trading_record.save!
 
@@ -42,7 +42,7 @@ class MonthCardOrder < ActiveRecord::Base
         trading_record.user = SystemUser.platform
         trading_record.trading_type = TradingRecord::TRADING_TYPE_IN
         trading_record.object = self
-        trading_record.name = "#{self.month}个月月卡"
+        trading_record.name = "#{self.month}个月消费卡"
         trading_record.amount = self.price
         trading_record.save!
 

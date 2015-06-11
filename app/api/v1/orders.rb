@@ -37,6 +37,7 @@ module V1
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
         optional :license_tag, type: String, desc: "牌照，必须填写"
         optional :coupon_id, type: Integer, desc: "代金券编号"
+        optional :service_ticket_code, type: String, desc: "消费券号码"
       end
       get :price do
         order = current_user.orders.new
@@ -99,7 +100,7 @@ module V1
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
-        optional :service_ticket_code, type: String, desc: '服务券号码'
+        optional :service_ticket_code, type: String, desc: '消费券号码'
         optional :note, type: String, desc: "订单备注"
       end
       post do
@@ -198,7 +199,7 @@ module V1
           else
             return {
               code: 1,
-              msg: '当前服务券不可用'
+              msg: '当前消费券不可用'
             }
           end
         end
