@@ -41,6 +41,7 @@ class AdminAbility
       can :manage, SystemMonthCard
       can :manage, TradingRecord
       can :manage, User
+      can :manage, AuthCode
 
       can :read, ActiveAdmin::Page, :name => "Dashboard"
       can :read, ActiveAdmin::Page, :name => "User Report"
