@@ -44,6 +44,7 @@ zh-CN:
       month_card: '消费卡'
       service_ticket_batch: '服务券批次'
       service_ticket: '服务券'
+      auth_code: '验证码'
     attributes:
       admin_user:
         id: '编号'
@@ -586,7 +587,13 @@ zh-CN:
         state/used: '已使用'
         created_at: '创建时间'
         updated_at: '更新时间'
-
+      auth_code:
+        id: '编号'
+        phone: '电话'
+        code: '验证码'
+        expired_at: '过期时间'
+        created_at: '创建时间'
+        updated_at: '更新时间'
   active_admin:
     batch_actions:
       labels:
