@@ -544,7 +544,7 @@ zh-CN:
         state: '状态'
         license_tag: '牌照'
         state/unpayed: '未付款'
-        state/payed: '待服务'
+        state/payed: '已付款'
         state/closed: '已关闭'
         application: '应用'
         application_id: '应用'

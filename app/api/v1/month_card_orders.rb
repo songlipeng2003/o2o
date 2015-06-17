@@ -5,13 +5,33 @@ module V1
     end
 
     resource :month_card_orders do
+      desc "消费卡订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+          [200, 'Ok', V1::Entities::MonthCardOrder]
+        ]
+      }
+      paginate
+      get do
+        month_card_orders = current_user.month_card_orders.where(state: 'payed').order('id DESC')
+        present month_card_orders, with: V1::Entities::MonthCardOrder
+      end
+
       desc "创建消费卡订单", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+          [200, 'Ok', V1::Entities::MonthCardOrder]
+        ]
       }
       params do
         optional :system_month_card_id, type: Integer, desc: "系统消费卡编号"

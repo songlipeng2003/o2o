@@ -18,7 +18,7 @@ module V1
       }
       paginate
       get do
-        month_cards =  paginate current_user.month_cards
+        month_cards =  paginate current_user.month_cards.order('id DESC')
         present month_cards, with: V1::Entities::MonthCard
       end
     end
