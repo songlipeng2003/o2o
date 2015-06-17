@@ -38,6 +38,7 @@ ActiveAdmin.register Order do
       raw content
     end
     column :total_amount
+    column :order_amount
     column :product
     column :car do |order|
       content = ''

@@ -55,6 +55,7 @@ module V1
         {
           original_price: order.original_price,
           total_amount: order.total_amount,
+          order_amount: order.order_amount,
           service_ticket_id: order.service_ticket_id,
           month_card_id: order.month_card_id
         }

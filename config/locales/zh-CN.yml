@@ -216,7 +216,7 @@ zh-CN:
         product_type: '商品类型'
         is_include_interior: '是否清理内饰'
         original_price: '原价'
-        total_amount: '总价'
+        total_amount: '支付金额'
         application: '应用'
         application_id: '应用'
         coupon: '代金券'
@@ -224,6 +224,7 @@ zh-CN:
         store_user: '店铺用户'
         store_user_id: '店铺用户'
         store_name: '店铺名'
+        order_amount: '订单价格'
         created_at: '创建时间'
         updated_at: '更新时间'
       application:

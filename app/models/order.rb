@@ -184,13 +184,9 @@ class Order < ActiveRecord::Base
       end
     end
 
+    # 获取商品价格
     self.original_price = self.product.market_price
     price = self.product.price
-
-    # 代金券处理
-    if self.coupon
-      price = self.original_price - self.coupon.amount
-    end
 
     if [1, 2].include?(self.product_id)
       # 洗车是否包含内饰价格变动
@@ -201,15 +197,26 @@ class Order < ActiveRecord::Base
           price += 10
         end
       end
+    end
 
-      # 第一单优惠处理
+    self.order_amount = price
+
+    # 代金券处理
+    if self.coupon
+      price = self.original_price - self.coupon.amount
+    end
+
+    # 第一单优惠处理
+    if [1, 2].include?(self.product_id)
       if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
         if license_tag
           if license_tag && Order.where(license_tag: license_tag, state: ['payed', 'finished']).count==0
             price = 1
+            self.order_amount = 1
           end
         else
           price = 1
+          self.order_amount = 1
         end
       end
     end
@@ -309,7 +316,7 @@ class Order < ActiveRecord::Base
 
   def use_service_ticket
     if service_ticket && [1, 2].include?(product_id)
-      service_ticket.order_amount = total_amount
+      service_ticket.order_amount = order_amount
       service_ticket.user_id = user_id
       service_ticket.use!
 
