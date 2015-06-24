@@ -1,4 +1,5 @@
 ActiveAdmin.register AppVersion do
+  menu parent: '系统'
 
   permit_params :file, :version, :description
 

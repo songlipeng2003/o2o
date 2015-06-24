@@ -1,4 +1,5 @@
 ActiveAdmin.register AuthCode do
+  menu parent: '系统'
 
   actions :index
 
