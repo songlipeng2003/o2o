@@ -62,6 +62,26 @@ module StoreV1
         end
       end
 
+      desc "确认订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "订单编号"
+      end
+      route_param :id do
+        put :confirm do
+          order = order_collection.find(params[:id])
+          order.confirm(current_user)
+          order.save
+          present order, with: StoreV1::Entities::OrderList
+        end
+      end
+
       desc "订单完成", {
         headers: {
           "X-Access-Token" => {

@@ -211,6 +211,7 @@ zh-CN:
         state: '状态'
         state/unpayed: '未付款'
         state/payed: '待服务'
+        state/confirmed: '已确认'
         state/closed: '已关闭'
         state/finished: '已完成'
         product_type: '商品类型'

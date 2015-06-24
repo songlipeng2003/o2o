@@ -82,6 +82,7 @@ class Order < ActiveRecord::Base
   aasm column: :state do
     state :unpayed, :initial => true
     state :payed
+    state :confirmed
     state :finished
     state :closed
 
@@ -160,17 +161,21 @@ class Order < ActiveRecord::Base
     end
 
     event :finish, after: :log_state_change do
-      transitions :from => :payed, :to => :finished
+      transitions from: [:payed, :confirmed], to: :finished
     end
 
     event :system_close, after: :log_state_change do
-      transitions :from => [:unpayed], :to => :closed
+      transitions from: [:unpayed], to: :closed
 
       after do
         if self.payment_log && self.payment_log.unpayed?
           self.payment_log.close!
         end
       end
+    end
+
+    event :confirm, after: :log_state_change do
+      transitions from: :payed, to: :confirmed
     end
   end
 
