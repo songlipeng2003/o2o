@@ -93,4 +93,14 @@ ActiveAdmin.register Store do
     #   Store.with_deleted
     # end
   end
+
+
+  action_item :map, :only => :index do
+    link_to('区域地图', map_admin_stores_path)
+  end
+
+  collection_action :map do
+    @stores = Store.where(city_id: 131).all
+    @page_title = '区域地图'
+  end
 end
