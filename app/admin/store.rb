@@ -100,7 +100,7 @@ ActiveAdmin.register Store do
   end
 
   collection_action :map do
-    @stores = Store.where(city_id: 131).all
+    @stores = Store.where(city_id: 917).all
     @page_title = '区域地图'
   end
 end
