@@ -87,6 +87,7 @@ gem 'ancestry', '~> 2.1.0'
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem "active_admin-sortable_tree"
 gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
+gem 'activeadmin-axlsx', github: 'milabent/activeadmin-axlsx'
 
 # api
 gem 'grape', '~> 0.9.0'

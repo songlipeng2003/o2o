@@ -32,6 +32,14 @@ GIT
       jquery-rails
       select2-rails
 
+GIT
+  remote: git://github.com/milabent/activeadmin-axlsx.git
+  revision: 654ee0bd91588d18954155b26aed2e1b06c01063
+  specs:
+    activeadmin-axlsx (3.0.0)
+      activeadmin (>= 1.0.0.pre1)
+      axlsx
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -90,6 +98,10 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
     bcrypt (3.1.7)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -233,6 +245,7 @@ GEM
       railties (>= 3.1)
     hike (1.2.3)
     hitimes (1.2.2)
+    htmlentities (4.3.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -356,6 +369,7 @@ GEM
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.3)
+    rubyzip (1.0.0)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -436,6 +450,7 @@ DEPENDENCIES
   aasm (~> 4.0.8)
   active_admin-sortable_tree
   activeadmin (~> 1.0.0.pre1)
+  activeadmin-axlsx!
   activeadmin-select2!
   alipay (~> 0.3.0)
   ancestry (~> 2.1.0)
