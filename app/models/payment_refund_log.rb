@@ -37,5 +37,9 @@ class PaymentRefundLog < ActiveRecord::Base
         end
       end
     end
+
+    event :release do
+      transitions from: :operated, to: :applyed
+    end
   end
 end

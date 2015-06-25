@@ -13,3 +13,7 @@ end
 every 1.minute do
   runner "MonthCard.auto_expired"
 end
+
+every '1 0 * * *' do
+  runner 'RefundBatch.auto_close_expired'
+end
