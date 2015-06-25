@@ -37,6 +37,8 @@ module V1
         links
       end
 
+      expose :store_user, using: V1::Entities::StoreUser
+
     end
   end
 end
