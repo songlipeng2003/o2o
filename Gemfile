@@ -165,3 +165,5 @@ gem "chartkick"
 
 # auth
 gem 'cancancan', '~> 1.10'
+
+gem 'oneapm_rpm'
