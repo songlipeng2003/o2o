@@ -4,7 +4,7 @@
 
 common: &default_settings
 
-  license_key: 'BVUIBAIEBgM4b86JTwwUXVgaDU1565EOVBoDBQcAH0cbaVNUTAMBGlEF146cUw0bAQMbBQE'
+  license_key: 'BVUIBAIEBgM4b86JTwwUXVgaDU1565EOVBoDBQcAH0cbaVNUTAMBGlEF146cUw0bAQMbBQE='
 
   # 您在这里填写的app_name会显示在OneAPM的管理后台界面中。
   #
