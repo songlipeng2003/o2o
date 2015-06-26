@@ -12,8 +12,6 @@ class RefundBatch < ActiveRecord::Base
     end
   end
 
-  has_and_belongs_to_many :payment_refund_logs
-
   aasm column: :state do
     state :applyed, :initial => true
     state :finished
