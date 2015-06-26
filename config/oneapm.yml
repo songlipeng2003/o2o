@@ -11,7 +11,7 @@ common: &default_settings
   # 如果您修改了此处的app_name，一个新的应用会出现在后台，
   # 数据会上传到这个新应用，并停止向旧的应用上传数据。
   #
-  app_name: 嘀嘀雄兵
+  app_name: DiDi
 
 #
 # 环境相关配置
@@ -25,7 +25,7 @@ development:
   <<: *default_settings
   # development模式下，探针开启并上传性能数据
   monitor_mode: true
-  app_name: 嘀嘀雄兵(Development)
+  app_name: DiDi (Development)
 
 test:
   <<: *default_settings
@@ -34,4 +34,4 @@ test:
 staging:
   <<: *default_settings
   monitor_mode: true
-  app_name: 嘀嘀雄兵(Staging)
+  app_name: DiDi (Staging)
