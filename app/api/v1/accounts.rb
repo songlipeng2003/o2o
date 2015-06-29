@@ -45,6 +45,7 @@ module V1
         optional :device, type: String, desc: "设备唯一编号"
         optional :device_model, type: String, desc: "设备型号，例如：小米Note"
         optional :device_type, type: String, desc: "设备类型，android或者ios"
+        optional :jpush, type: String, desc: "极光推送ID"
       end
       post 'login' do
         unless params[:phone]=='15695696226' && params[:code] = '1111'
@@ -79,13 +80,21 @@ module V1
 
         user.update_tracked_fields!(warden.request)
 
-        user.login_histories.create({
+        user.login_histories.create!({
           ip: env['X-Forwarded-For'],
           device: params[:device],
           device_model: params[:device_model],
           device_type: params[:device_type],
           application: current_application
         })
+
+        unless params[:device].blank?
+          device = user.devices.where(code: params[:device]).first_or_create! do |device|
+            device.device_type = params[:device_type]
+          end
+          device.jpush = params[:jpush]
+          device.save!
+        end
 
         present :code, 0
         present :msg, '登录成功'

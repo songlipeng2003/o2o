@@ -15,8 +15,8 @@ class StoreUser < ActiveRecord::Base
   belongs_to :store
 
   has_many :login_histories, as: :user
-
   has_many :orders
+  has_many :devices, as: :deviceable
 
   validates :nickname, presence: true
   validates :phone, presence: true, phone: true, uniqueness: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616122757) do
+ActiveRecord::Schema.define(version: 20150624161609) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -237,12 +237,12 @@ ActiveRecord::Schema.define(version: 20150616122757) do
 
   create_table "devices", force: true do |t|
     t.string   "code"
-    t.string   "type"
-    t.integer  "user_id"
     t.datetime "created_at"
+    t.integer  "deviceable_id"
+    t.string   "deviceable_type"
+    t.string   "device_type"
+    t.string   "jpush"
   end
-
-  add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
 
   create_table "docs", force: true do |t|
     t.string   "title"

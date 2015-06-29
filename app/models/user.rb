@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :coupons
   has_many :month_card_orders
   has_many :month_cards
+  has_many :devices, as: :deviceable
 
   validates :phone, presence: true, uniqueness: true, phone: true
 
