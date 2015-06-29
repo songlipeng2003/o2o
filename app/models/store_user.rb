@@ -26,6 +26,8 @@ class StoreUser < ActiveRecord::Base
 
   has_paper_trail
 
+  mount_uploader :avatar, StoreUserAvatarUploader
+
   def email_required?
     false
   end

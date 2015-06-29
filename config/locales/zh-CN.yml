@@ -342,6 +342,7 @@ zh-CN:
         updated_at: '更新时间'
       store_user:
         id: '编号'
+        avatar: '头像'
         store: '店铺'
         store_id: '店铺'
         email: 'Email'

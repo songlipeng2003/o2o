@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624161609) do
+ActiveRecord::Schema.define(version: 20150629165808) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -546,6 +546,7 @@ ActiveRecord::Schema.define(version: 20150624161609) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role",                 default: 1
+    t.string   "avatar"
   end
 
   add_index "store_users", ["store_id"], name: "index_store_users_on_store_id", using: :btree
