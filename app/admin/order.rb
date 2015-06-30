@@ -53,6 +53,9 @@ ActiveAdmin.register Order do
       order.aasm.human_state
     end
     column :application
+    column :payment do |order|
+      order.payment_log.payment.name if order.payment_log
+    end
     column :created_at
     actions defaults: true do |order|
       link = ''
