@@ -12,13 +12,11 @@ ActiveAdmin.register StoreUser do
       image_tag store_user.avatar.thumb if store_user.avatar
     end
     column :phone
-    column :gender
     column :nickname
     column :role do |store_user|
       store_user.role_name
     end
     column :current_sign_in_at
-    column :sign_in_count
     column :created_at
     actions
   end
@@ -34,6 +32,7 @@ ActiveAdmin.register StoreUser do
 
   form do |f|
     f.inputs do
+      f.input :store
       f.input :avatar, :image_preview => true
       f.input :email
       f.input :username

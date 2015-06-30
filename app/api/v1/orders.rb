@@ -61,6 +61,44 @@ module V1
         }
       end
 
+      desc "订单日期列表", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :product_id, type: Integer, desc: '商品编号'
+      end
+      get :list_available_date do
+        dates = [];
+        7.times.each do |i|
+          dates << i.days.from_now.strftime('%Y-%m-%d')
+        end
+        dates
+      end
+
+      desc "选择时间列表", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :date, type: String, desc: '日期'
+      end
+      get :list_available_time do
+        dates = [];
+        7.times.each do |i|
+          dates << i.days.from_now.strftime('%Y-%m-%d')
+        end
+        dates
+      end
+
       desc "订单详情", {
         headers: {
           "X-Access-Token" => {
