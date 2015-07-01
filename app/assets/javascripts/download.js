@@ -31,13 +31,16 @@ function isWeiXin(){
 
 $(function(){
   if (isMobile.Android()) {
-    if (isWeiXin()) {
+    if(isWeiXin()) {
       alert('请在右上角点击在浏览器中打开下载');
-      // location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.didi361.didi";
     }else{
       location.href = $('#android').attr('href');
     }
   }else if(isMobile.iOS()) {
-    location.href = $('#ios').attr('href');
+    if(isWeiXin()) {
+      alert('请在右上角点击在浏览器中打开下载');
+    }else{
+      location.href = $('#ios').attr('href');
+    }
   }
 });
