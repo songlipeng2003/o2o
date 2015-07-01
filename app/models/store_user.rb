@@ -17,6 +17,7 @@ class StoreUser < ActiveRecord::Base
   has_many :login_histories, as: :user
   has_many :orders
   has_many :devices, as: :deviceable
+  has_many :evaluations
 
   validates :nickname, presence: true
   validates :phone, presence: true, phone: true, uniqueness: true

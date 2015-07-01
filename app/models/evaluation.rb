@@ -3,6 +3,7 @@ class Evaluation < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
   belongs_to :application
+  belongs_to :store_user
 
   has_many :images, as: :item
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629165808) do
+ActiveRecord::Schema.define(version: 20150701160758) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -260,9 +260,14 @@ ActiveRecord::Schema.define(version: 20150629165808) do
     t.integer  "user_id"
     t.integer  "store_id"
     t.integer  "application_id"
+    t.integer  "store_user_id"
+    t.integer  "score1"
+    t.integer  "score2"
+    t.integer  "score3"
   end
 
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
+  add_index "evaluations", ["store_user_id"], name: "index_evaluations_on_store_user_id", using: :btree
 
   create_table "finances", force: true do |t|
     t.integer  "financeable_id"

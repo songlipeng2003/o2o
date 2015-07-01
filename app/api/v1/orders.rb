@@ -292,6 +292,9 @@ module V1
       params do
         requires :id, type: Integer, desc: "订单编号"
         requires :score, type: Integer, desc: '评价，0-5分'
+        requires :score1, type: Integer, desc: '评价1，0-5分'
+        requires :score2, type: Integer, desc: '评价2，0-5分'
+        requires :score3, type: Integer, desc: '评价3，0-5分'
         optional :note, type: String, desc: '备注'
         optional :images, type: Array
       end
@@ -301,7 +304,8 @@ module V1
           error!("404 Not Found", 404) unless order.finished?
           evaluation = order.build_evaluation({
             score: params[:score],
-            note: params[:note]
+            note: params[:note],
+            store_user_id: order.store_user_id
           })
 
           evaluation.application = current_application
