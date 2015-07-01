@@ -2,7 +2,7 @@ ActiveAdmin.register StoreUser do
   belongs_to :store
   navigation_menu :store
 
-  permit_params :email, :phone, :username, :password, :password_confirmation, :gender, :nickname, :role, :avatar
+  permit_params :email, :phone, :username, :password, :password_confirmation, :gender, :nickname, :role, :avatar, :store_id
 
   index do
     selectable_column
@@ -46,5 +46,13 @@ ActiveAdmin.register StoreUser do
       f.input :gender, collection: StoreUser::GENDERS
     end
     f.actions
+  end
+
+  controller do
+    def update
+      super do |success,failure|
+        success.html { redirect_to collection_path }
+      end
+    end
   end
 end
