@@ -70,7 +70,7 @@ module V1
         }
       }
       params do
-        requires :product_id, type: Integer, desc: '商品编号'
+        requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
       end
       get :list_available_date do
         dates = [];
@@ -90,13 +90,29 @@ module V1
       }
       params do
         requires :date, type: String, desc: '日期'
+        requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
+        requires :lon, type: Float, desc: "经度"
+        requires :lat, type: Float, desc: "纬度"
       end
       get :list_available_time do
-        dates = [];
-        7.times.each do |i|
-          dates << i.days.from_now.strftime('%Y-%m-%d')
+        times = {
+          '08:00' => '08:00-10:00',
+          '10:00' => '10:00-12:00',
+          '12:00' => '12:00-14:00',
+          '14:00' => '14:00-16:00',
+          '16:00' => '16:00-18:00',
+          '18:00' => '18:00-20:00',
+        }
+        times = times.map do |time, text|
+          datetime = params[:date] + ' ' + time + ':00'
+          puts datetime
+          result = Store.can_serviced(params[:lon], params[:lat], datetime.to_time)
+          {
+            time: datetime,
+            text: text,
+            result: result
+          }
         end
-        dates
       end
 
       desc "订单详情", {
