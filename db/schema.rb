@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701160758) do
+ActiveRecord::Schema.define(version: 20150701161529) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150701160758) do
     t.datetime "updated_at"
     t.string   "name"
     t.integer  "application_id"
+    t.string   "note"
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree

@@ -52,6 +52,7 @@ module V1
         requires :lat, type: String, desc: "纬度"
         requires :lon, type: String, desc: "经度"
         optional :name, type: String, desc: "名字"
+        optional :note, type: String, desc: "备注"
         optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
       end
       post do
@@ -77,6 +78,7 @@ module V1
         requires :lat, type: String, desc: "纬度"
         requires :lon, type: String, desc: "经度"
         optional :name, type: String, desc: "名字"
+        optional :note, type: String, desc: "备注"
       end
       route_param :id do
         put do

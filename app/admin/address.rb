@@ -19,6 +19,7 @@ ActiveAdmin.register Address do
   filter :user_phone, :as => :string
   filter :name
   filter :place
+  filter :note
   filter :created_at
   filter :updated_at
 
@@ -28,6 +29,7 @@ ActiveAdmin.register Address do
       f.input :place
       f.input :lon
       f.input :lat
+      f.input :note
     end
     f.actions
   end

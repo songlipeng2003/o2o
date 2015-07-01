@@ -154,6 +154,7 @@ module V1
           optional :place, type: String, desc: "地址"
           optional :lon, type: String, desc: "经度"
           optional :lat, type: String, desc: "纬度"
+          optional :note, type: String, desc: "备注"
         end
         mutually_exclusive :address, :address_id
         requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
