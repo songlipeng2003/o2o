@@ -293,9 +293,9 @@ module V1
       params do
         requires :id, type: Integer, desc: "订单编号"
         requires :score, type: Integer, desc: '评价，0-5分'
-        requires :score1, type: Integer, desc: '评价1，0-5分'
-        requires :score2, type: Integer, desc: '评价2，0-5分'
-        requires :score3, type: Integer, desc: '评价3，0-5分'
+        optional :score1, type: Integer, desc: '评价1，0-5分'
+        optional :score2, type: Integer, desc: '评价2，0-5分'
+        optional :score3, type: Integer, desc: '评价3，0-5分'
         optional :note, type: String, desc: '备注'
         optional :images, type: Array
       end
