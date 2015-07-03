@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701161529) do
+ActiveRecord::Schema.define(version: 20150703023105) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -539,9 +539,9 @@ ActiveRecord::Schema.define(version: 20150701161529) do
     t.integer  "store_id"
     t.string   "username"
     t.string   "phone"
-    t.string   "email",                default: "", null: false
-    t.string   "encrypted_password",   default: "", null: false
-    t.integer  "sign_in_count",        default: 0,  null: false
+    t.string   "email",                           default: "",  null: false
+    t.string   "encrypted_password",              default: "",  null: false
+    t.integer  "sign_in_count",                   default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -551,8 +551,10 @@ ActiveRecord::Schema.define(version: 20150701161529) do
     t.string   "nickname"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role",                 default: 1
+    t.integer  "role",                            default: 1
     t.string   "avatar"
+    t.integer  "orders_count",                    default: 0
+    t.float    "score",                limit: 24, default: 0.0
   end
 
   add_index "store_users", ["store_id"], name: "index_store_users_on_store_id", using: :btree
@@ -574,6 +576,7 @@ ActiveRecord::Schema.define(version: 20150701161529) do
     t.integer  "city_id"
     t.integer  "area_id"
     t.datetime "deleted_at"
+    t.integer  "orders_count",             default: 0
   end
 
   create_table "system_coupons", force: true do |t|
@@ -656,6 +659,7 @@ ActiveRecord::Schema.define(version: 20150701161529) do
     t.string   "nickname"
     t.string   "umeng"
     t.integer  "application_id"
+    t.integer  "orders_count",                       default: 0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

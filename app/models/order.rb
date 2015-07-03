@@ -7,14 +7,14 @@ class Order < ActiveRecord::Base
   belongs_to :area, class_name: 'Area'
 
   belongs_to :product
-  belongs_to :user
-  belongs_to :store
+  belongs_to :user, counter_cache: true
+  belongs_to :store, counter_cache: true
   belongs_to :car
   belongs_to :address
   belongs_to :car_model
   belongs_to :application
   belongs_to :coupon
-  belongs_to :store_user
+  belongs_to :store_user, counter_cache: true
   belongs_to :month_card
   belongs_to :service_ticket
 
