@@ -105,8 +105,9 @@ module V1
         }
         times = times.map do |time, text|
           datetime = params[:date] + ' ' + time + ':00'
-          puts datetime
-          result = Store.can_serviced(params[:lon], params[:lat], datetime.to_time)
+          datetime = datetime.to_time
+          result = datetime > Time.now
+          result &&= Store.can_serviced(params[:lon], params[:lat], datetime.to_time)
           {
             time: datetime,
             text: text,
