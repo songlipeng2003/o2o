@@ -75,11 +75,20 @@ module V1
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
       end
       get :list_available_date do
-        dates = [];
-        7.times.each do |i|
-          dates << i.days.from_now.strftime('%Y-%m-%d')
+        dates = 7.times.map do |i|
+          case i
+          when 0
+            text = '今天'
+          when 1
+            text = '明天'
+          when 2
+            text = '后天'
+          else
+            text = i.days.from_now.strftime('%m-%d')
+          end
+          [i.days.from_now.strftime('%Y-%m-%d'), text]
         end
-        dates
+        dates.to_h
       end
 
       desc "选择时间列表", {
