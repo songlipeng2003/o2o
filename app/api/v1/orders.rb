@@ -11,7 +11,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderList]
+        ]
       }
       params do
         optional :page, type: Integer, desc: "页码"
@@ -29,7 +32,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderPrice]
+        ]
       }
       params do
         requires :car_model_id, type: Integer, desc: "车型编号"
@@ -133,7 +139,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
@@ -150,7 +159,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
       }
       params do
         requires :phone, type: String, desc: "手机"
@@ -407,7 +419,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderList]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
