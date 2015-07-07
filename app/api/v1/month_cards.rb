@@ -21,6 +21,19 @@ module V1
         month_cards =  paginate current_user.month_cards.order('id DESC')
         present month_cards, with: V1::Entities::MonthCard
       end
+
+      desc '可用消费卡数量', {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      get :available_count do
+        count = current_user.month_cards.available.count
+        { count: count }
+      end
     end
   end
 end
