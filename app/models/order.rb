@@ -227,9 +227,8 @@ class Order < ActiveRecord::Base
     end
 
     # 消费卡处理
-    month_card = user.month_cards.where(license_tag: license_tag).first
-    puts month_card
-    if month_card
+    month_card = user.month_cards.where(license_tag: license_tag).order('id DESC').first
+    if month_card && month_card.available? && booked_at<month_card.expired_at
       price = 0
       self.month_card_id = month_card.id
     end
@@ -307,9 +306,9 @@ class Order < ActiveRecord::Base
 
   def month_card_auto_pay
     if [1, 2].include?(product_id)
-      month_card = user.month_cards.where(license_tag: license_tag).first
+      month_card = user.month_cards.where(license_tag: license_tag).order('id DESC').first
 
-      if month_card
+      if month_card && month_card.available? && booked_at<month_card.expired_at
         pay! user
 
         month_card.update_use_count

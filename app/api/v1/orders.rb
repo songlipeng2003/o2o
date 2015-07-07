@@ -35,6 +35,7 @@ module V1
         requires :car_model_id, type: Integer, desc: "车型编号"
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
+        requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
         optional :license_tag, type: String, desc: "牌照，必须填写"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :service_ticket_code, type: String, desc: "消费券号码"
@@ -46,6 +47,7 @@ module V1
         order.is_include_interior = params[:is_include_interior]
         order.coupon_id = params[:coupon_id]
         order.license_tag = params[:license_tag]
+        order.booked_at = params[:booked_at]
         service_ticket_code = params[:service_ticket_code]
         service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
         if service_ticket
