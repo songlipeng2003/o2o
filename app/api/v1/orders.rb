@@ -312,7 +312,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Evaluation]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
@@ -345,7 +348,7 @@ module V1
             end
           end
 
-          present evaluation
+          present evaluation, with: V1::Entities::Evaluation
         end
       end
 
