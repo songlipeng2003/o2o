@@ -120,7 +120,7 @@ module V1
           result = datetime > Time.now
           result &&= Store.can_serviced(params[:lon], params[:lat], datetime.to_time)
           {
-            time: datetime,
+            time: datetime.strftime('%Y-%m-%d %H:%M:%S'),
             text: text,
             result: result
           }
