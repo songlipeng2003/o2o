@@ -18,7 +18,7 @@ module V1
       }
       paginate
       get do
-        month_card_orders = current_user.month_card_orders.where(state: 'payed').order('id DESC')
+        month_card_orders = paginate current_user.month_card_orders.where(state: 'payed').order('id DESC')
         present month_card_orders, with: V1::Entities::MonthCardOrder
       end
 
