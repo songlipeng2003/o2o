@@ -25,4 +25,11 @@ class Evaluation < ActiveRecord::Base
       self.score = (score1 + score2 + score3) / 3
     end
   end
+
+  after_save :update_store_user_score
+
+  def update_store_user_score
+    store_user.score = store_user.evaluations.average(:score)
+    store_user.save
+  end
 end
