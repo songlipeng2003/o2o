@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703023105) do
+ActiveRecord::Schema.define(version: 20150708154811) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -394,6 +394,7 @@ ActiveRecord::Schema.define(version: 20150703023105) do
     t.integer  "month_card_id"
     t.integer  "service_ticket_id"
     t.float    "order_amount",        limit: 24
+    t.datetime "booked_end_at"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
