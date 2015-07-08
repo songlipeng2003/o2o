@@ -20,5 +20,9 @@ class Evaluation < ActiveRecord::Base
   before_validation do
     self.user_id = order.user_id
     self.store_id = order.store_id
+
+    if !score
+      self.score = (score1 + score2 + score3) / 3
+    end
   end
 end
