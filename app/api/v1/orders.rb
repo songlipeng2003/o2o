@@ -26,6 +26,22 @@ module V1
         present orders, with: V1::Entities::OrderList
       end
 
+      desc "最近订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
+      }
+      get :lastest_order do
+        order = current_user.orders.order('id DESC').first
+        present order, with: V1::Entities::Order
+      end
+
       desc "计算订单价格接口", {
         headers: {
           "X-Access-Token" => {
