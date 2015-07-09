@@ -133,7 +133,7 @@ module V1
         11.times.map do |i|
           begin_time = start_time + i.hours
           end_time = begin_time + 1.hours
-          text = begin_time.strftime('%H:%M') + end_time.strftime('%H:%M')
+          text = begin_time.strftime('%H:%M') + '-' + end_time.strftime('%H:%M')
           result = Store.can_serviced(params[:lon], params[:lat], begin_time.to_time)
           {
             begin_time: begin_time.strftime('%Y-%m-%d %H:%M:%S'),
