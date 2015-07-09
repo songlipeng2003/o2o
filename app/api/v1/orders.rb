@@ -128,21 +128,16 @@ module V1
         requires :lat, type: Float, desc: "纬度"
       end
       get :list_available_time do
-        times = {
-          '08:00' => '08:00-10:00',
-          '10:00' => '10:00-12:00',
-          '12:00' => '12:00-14:00',
-          '14:00' => '14:00-16:00',
-          '16:00' => '16:00-18:00',
-          '18:00' => '18:00-20:00',
-        }
-        times = times.map do |time, text|
-          datetime = params[:date] + ' ' + time + ':00'
-          datetime = datetime.to_time
-          result = datetime > Time.now
-          result &&= Store.can_serviced(params[:lon], params[:lat], datetime.to_time)
+        start_time = params[:date] + ' 08:00:00'
+        start_time = start_time.to_time
+        11.times.map do |i|
+          begin_time = start_time + i.hours
+          end_time = begin_time + 1.hours
+          text = begin_time.strftime('%H:%M') + end_time.strftime('%H:%M')
+          result = Store.can_serviced(params[:lon], params[:lat], begin_time.to_time)
           {
-            time: datetime.strftime('%Y-%m-%d %H:%M:%S'),
+            begin_time: begin_time.strftime('%Y-%m-%d %H:%M:%S'),
+            end_time: end_time.strftime('%Y-%m-%d %H:%M:%S'),
             text: text,
             result: result
           }
@@ -198,6 +193,7 @@ module V1
         end
         mutually_exclusive :address, :address_id
         requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
+        optional :booked_end_at, type: String, desc: "预约结束时间，时间格式2014-01-01 01:01:00, 为预约的结束时间"
         optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
         requires :product_id, type: Integer, desc: "商品编号，1、2为标准洗车,其他请使用商品列表返回的商品编号"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
@@ -305,6 +301,10 @@ module V1
               msg: '当前消费券不可用'
             }
           end
+        end
+
+        if order.booked_end_at.blank?
+          order.booked_end_at = (order.booked_at + 1.hours)
         end
 
         order.store_user_id = store_user_id
