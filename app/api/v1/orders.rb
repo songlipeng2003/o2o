@@ -108,9 +108,9 @@ module V1
           else
             text = i.days.from_now.strftime('%m-%d')
           end
-          [i.days.from_now.strftime('%Y-%m-%d'), text]
+          { date: i.days.from_now.strftime('%Y-%m-%d'), text: text}
         end
-        dates.to_h
+        dates
       end
 
       desc "选择时间列表", {
