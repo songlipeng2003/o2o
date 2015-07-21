@@ -93,11 +93,11 @@ ActiveAdmin.register User do
 
     if request.put? || request.patch?
       @user.pay_password = params[:user][:pay_password]
-      @user.save
-
-      redirect_to admin_user_path, notice: "修改支付密码成功"
-    else
-      @page_title = "修改支付密码"
+      if @user.save
+        redirect_to admin_user_path, notice: "修改支付密码成功"
+      end
     end
+
+    @page_title = "修改支付密码"
   end
 end
