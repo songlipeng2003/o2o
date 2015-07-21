@@ -232,6 +232,14 @@ module V1
               msg: car.errors.values[0][0]
             }
           end
+
+          unless /^\p{Han}{1}[A-Z]{1}[A-Z_0-9]{5}$/u =~ car.license_tag
+            return {
+              code: 1,
+              msg: '车牌号错误'
+            }
+          end
+
           order.car_id = car.id
         end
 
@@ -244,7 +252,13 @@ module V1
             address = current_user.addresses.new(address_params)
             address.application = current_application
           end
-          address.save
+          unless address.save
+            return {
+              code: 1,
+              msg: address.errors.values[0][0]
+            }
+          end
+
           order.address_id = address.id
         end
 
