@@ -7,8 +7,7 @@ class PaymentRefundLog < ActiveRecord::Base
 
   after_create do
     if self.payment.code == 'balance'
-      self.finish
-      self.save
+      self.finish!
     end
   end
 
@@ -26,16 +25,21 @@ class PaymentRefundLog < ActiveRecord::Base
       transitions :from => [:applyed, :operated], :to => :finished
 
       after do
-        unless self.payment.code == 'balance'
+        if self.payment.code != 'balance' && self.payment_log.item_type!='Recharge'
           trading_record = TradingRecord.new
-          trading_record.user = self.user
+          trading_record.user = self.payment_log.item.user
           trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN_BANK
-          trading_record.object = self.item
-          trading_record.name = self.name
+          trading_record.object = self.payment_log.item
+          trading_record.name = self.payment_log.name
           trading_record.amount = -self.amount
+          trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE
           trading_record.save
         end
       end
+    end
+
+    event :release do
+      transitions from: :operated, to: :applyed
     end
   end
 end

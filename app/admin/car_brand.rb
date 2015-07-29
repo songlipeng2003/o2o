@@ -21,7 +21,7 @@ ActiveAdmin.register CarBrand do
     f.actions
   end
 
-  action_item :only => :index do
+  action_item :import, :only => :index do
     link_to('导入', import_admin_car_brands_path, method: :post)
   end
 

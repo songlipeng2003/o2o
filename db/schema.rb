@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150324151909) do
+=======
+ActiveRecord::Schema.define(version: 20150708154811) do
+>>>>>>> v1
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -31,12 +35,14 @@ ActiveRecord::Schema.define(version: 20150324151909) do
   create_table "addresses", force: true do |t|
     t.string   "place"
     t.string   "address_type"
-    t.decimal  "lat",          precision: 11, scale: 8
-    t.decimal  "lon",          precision: 11, scale: 8
+    t.decimal  "lat",            precision: 11, scale: 8
+    t.decimal  "lon",            precision: 11, scale: 8
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "application_id"
+    t.string   "note"
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
@@ -77,14 +83,20 @@ ActiveRecord::Schema.define(version: 20150324151909) do
   add_index "app_payments", ["application_id"], name: "index_app_payments_on_application_id", using: :btree
   add_index "app_payments", ["payment_id"], name: "index_app_payments_on_payment_id", using: :btree
 
+  create_table "app_versions", force: true do |t|
+    t.string   "file"
+    t.string   "version"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "applications", force: true do |t|
     t.string   "name"
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "umeng_app_key"
     t.string   "app_type"
-    t.string   "app_master_secret"
   end
 
   create_table "areas", force: true do |t|
@@ -114,6 +126,39 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.datetime "updated_at"
   end
 
+  create_table "big_customer_users", force: true do |t|
+    t.integer  "big_customer_id"
+    t.string   "username"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "encrypted_password"
+    t.integer  "sign_in_count"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "big_customer_users", ["big_customer_id"], name: "index_big_customer_users_on_big_customer_id", using: :btree
+
+  create_table "big_customers", force: true do |t|
+    t.string   "name"
+    t.string   "contacts"
+    t.string   "phone"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "big_customers", ["area_id"], name: "index_big_customers_on_area_id", using: :btree
+  add_index "big_customers", ["city_id"], name: "index_big_customers_on_city_id", using: :btree
+  add_index "big_customers", ["province_id"], name: "index_big_customers_on_province_id", using: :btree
+
   create_table "car_brands", force: true do |t|
     t.string   "name"
     t.string   "first_letter"
@@ -139,6 +184,7 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "user_id"
     t.string   "color"
     t.integer  "application_id"
+    t.datetime "deleted_at"
   end
 
   create_table "categories", force: true do |t|
@@ -196,12 +242,12 @@ ActiveRecord::Schema.define(version: 20150324151909) do
 
   create_table "devices", force: true do |t|
     t.string   "code"
-    t.string   "type"
-    t.integer  "user_id"
     t.datetime "created_at"
+    t.integer  "deviceable_id"
+    t.string   "deviceable_type"
+    t.string   "device_type"
+    t.string   "jpush"
   end
-
-  add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
 
   create_table "docs", force: true do |t|
     t.string   "title"
@@ -219,9 +265,14 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "user_id"
     t.integer  "store_id"
     t.integer  "application_id"
+    t.integer  "store_user_id"
+    t.integer  "score1"
+    t.integer  "score2"
+    t.integer  "score3"
   end
 
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
+  add_index "evaluations", ["store_user_id"], name: "index_evaluations_on_store_user_id", using: :btree
 
   create_table "finances", force: true do |t|
     t.integer  "financeable_id"
@@ -253,7 +304,43 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.string   "device_model"
     t.integer  "user_id"
     t.string   "user_type"
+    t.integer  "application_id"
   end
+
+  create_table "month_card_orders", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "system_month_card_id"
+    t.integer  "car_id"
+    t.integer  "month"
+    t.integer  "price"
+    t.string   "state"
+    t.integer  "application_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "license_tag"
+  end
+
+  add_index "month_card_orders", ["application_id"], name: "index_month_card_orders_on_application_id", using: :btree
+  add_index "month_card_orders", ["car_id"], name: "index_month_card_orders_on_car_id", using: :btree
+  add_index "month_card_orders", ["system_month_card_id"], name: "index_month_card_orders_on_system_month_card_id", using: :btree
+  add_index "month_card_orders", ["user_id"], name: "index_month_card_orders_on_user_id", using: :btree
+
+  create_table "month_cards", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.string   "license_tag"
+    t.datetime "started_at"
+    t.datetime "expired_at"
+    t.string   "use_count",      default: "0"
+    t.string   "state"
+    t.integer  "application_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "month_cards", ["car_id"], name: "index_month_cards_on_car_id", using: :btree
+  add_index "month_cards", ["user_id"], name: "index_month_cards_on_user_id", using: :btree
 
   create_table "notify_logs", force: true do |t|
     t.integer  "payment_id"
@@ -308,6 +395,13 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "payment_id"
     t.datetime "deleted_at"
     t.integer  "store_user_id"
+<<<<<<< HEAD
+=======
+    t.integer  "month_card_id"
+    t.integer  "service_ticket_id"
+    t.float    "order_amount",        limit: 24
+    t.datetime "booked_end_at"
+>>>>>>> v1
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
@@ -328,6 +422,7 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "application_id"
     t.string   "name"
     t.float    "amount",         limit: 24
+    t.string   "pingxx"
   end
 
   create_table "payment_refund_logs", force: true do |t|
@@ -340,6 +435,7 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.datetime "updated_at"
     t.integer  "refund_batch_id"
     t.string   "out_trade_no"
+    t.string   "pingxx"
   end
 
   add_index "payment_refund_logs", ["payment_id"], name: "index_payment_refund_logs_on_payment_id", using: :btree
@@ -402,6 +498,7 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "application_id"
     t.integer  "payment_id"
     t.datetime "closed_at"
+    t.integer  "present_amount"
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
@@ -416,14 +513,22 @@ ActiveRecord::Schema.define(version: 20150324151909) do
 
   add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
 
+<<<<<<< HEAD
   create_table "service_areas", force: true do |t|
     t.integer  "product_id"
     t.string   "name"
     t.string   "areas"
+=======
+  create_table "service_ticket_batches", force: true do |t|
+    t.integer  "big_customer_id"
+    t.integer  "number"
+    t.integer  "used_count"
+>>>>>>> v1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   add_index "service_areas", ["product_id"], name: "index_service_areas_on_product_id", using: :btree
 
   create_table "store_user_service_areas", force: true do |t|
@@ -434,14 +539,32 @@ ActiveRecord::Schema.define(version: 20150324151909) do
 
   add_index "store_user_service_areas", ["service_area_id"], name: "index_store_user_service_areas_on_service_area_id", using: :btree
   add_index "store_user_service_areas", ["store_user_id"], name: "index_store_user_service_areas_on_store_user_id", using: :btree
+=======
+  add_index "service_ticket_batches", ["big_customer_id"], name: "index_service_ticket_batches_on_big_customer_id", using: :btree
+
+  create_table "service_tickets", force: true do |t|
+    t.integer  "big_customer_id"
+    t.integer  "user_id"
+    t.integer  "service_ticket_batch_id"
+    t.string   "code"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "order_amount",            limit: 24
+  end
+
+  add_index "service_tickets", ["big_customer_id"], name: "index_service_tickets_on_big_customer_id", using: :btree
+  add_index "service_tickets", ["service_ticket_batch_id"], name: "index_service_tickets_on_service_ticket_batch_id", using: :btree
+  add_index "service_tickets", ["user_id"], name: "index_service_tickets_on_user_id", using: :btree
+>>>>>>> v1
 
   create_table "store_users", force: true do |t|
     t.integer  "store_id"
     t.string   "username"
     t.string   "phone"
-    t.string   "email",                default: "", null: false
-    t.string   "encrypted_password",   default: "", null: false
-    t.integer  "sign_in_count",        default: 0,  null: false
+    t.string   "email",                           default: "",  null: false
+    t.string   "encrypted_password",              default: "",  null: false
+    t.integer  "sign_in_count",                   default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -451,6 +574,10 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.string   "nickname"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "role",                            default: 1
+    t.string   "avatar"
+    t.integer  "orders_count",                    default: 0
+    t.float    "score",                limit: 24, default: 0.0
   end
 
   add_index "store_users", ["store_id"], name: "index_store_users_on_store_id", using: :btree
@@ -470,7 +597,12 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
+<<<<<<< HEAD
     t.integer  "store_type",               default: 1
+=======
+    t.datetime "deleted_at"
+    t.integer  "orders_count",             default: 0
+>>>>>>> v1
   end
 
   create_table "system_coupons", force: true do |t|
@@ -496,6 +628,20 @@ ActiveRecord::Schema.define(version: 20150324151909) do
 
   add_index "system_products", ["category_id"], name: "index_system_products_on_category_id", using: :btree
 
+  create_table "system_month_cards", force: true do |t|
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "month"
+    t.string   "name"
+    t.integer  "price"
+    t.integer  "sort",        default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
+  add_index "system_month_cards", ["province_id"], name: "index_system_month_cards_on_province_id", using: :btree
+
   create_table "system_users", force: true do |t|
     t.string   "code"
     t.string   "name"
@@ -514,6 +660,7 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.float    "start_amount", limit: 24
     t.float    "end_amount",   limit: 24
     t.integer  "finance_id"
+    t.integer  "fund_type",               default: 1, null: false
   end
 
   add_index "trading_records", ["finance_id"], name: "index_trading_records_on_finance_id", using: :btree
@@ -546,10 +693,11 @@ ActiveRecord::Schema.define(version: 20150324151909) do
     t.string   "gender"
     t.string   "nickname"
     t.string   "umeng"
+    t.integer  "application_id"
+    t.integer  "orders_count",                       default: 0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: true do |t|

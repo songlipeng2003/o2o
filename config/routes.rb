@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post :alipay_app_notify
       post :alipay_wap_notify
       post :alipay_refund_notify
+      post :pingxx_notify
     end
   end
 
@@ -25,6 +26,14 @@ Rails.application.routes.draw do
       get :options
     end
   end
+
+  resources :download do
+    collection do
+      get :android
+    end
+  end
+
+  get 'weixin/auth'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

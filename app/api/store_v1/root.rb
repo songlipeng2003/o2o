@@ -46,6 +46,7 @@ module StoreV1
     mount StoreV1::Accounts
     mount StoreV1::Orders
     mount StoreV1::TradingRecords
+    mount StoreV1::Stores
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/store_api',

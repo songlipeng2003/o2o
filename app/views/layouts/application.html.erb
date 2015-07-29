@@ -23,6 +23,7 @@
 </head>
 
 <body class="homepage">
+  <div id="weixin-qrcode" class="hide"><%= image_tag "buttons/weixin.png", width: 200 %></div>
 
   <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right text-center" role="navigation">
     <ul class="list-unstyled menu-links">
@@ -60,7 +61,7 @@
 
     <ul class="list-unstyled download-buttons">
       <li class="app-store">
-        <a href="#">
+        <a href="https://itunes.apple.com/us/app/di-di-qu-na-er/id967901027?l=zh&ls=1&mt=8">
           <%= image_tag "buttons/btn-app-store.png", alt: 'Download from App Store', class: 'img-responsive' %>
         </a>
       </li>
@@ -87,7 +88,7 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="#" class="weixin" role="button" title="微信扫一扫" data-placement="bottom">
                 <i class="fa fa-weixin"></i>
               </a>
             </li>
@@ -116,18 +117,6 @@
             <li><a href="/contact">联系我们</a></li>
           </ul>
         </nav>
-        <ul class="social-icons list-inline">
-          <li>
-            <a href="https://weibo.com/24didi" target="_blank">
-              <i class="fa fa-weibo"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-weixin"></i>
-            </a>
-          </li>
-        </ul>
         <small class="copyright">Copyright &copy; 2015 河南赢道网络科技有限公司</small>
         <small>豫ICP备15000091号</small>
       </div><!--//container-->
@@ -135,6 +124,6 @@
   </div><!--//canvas-wrapper-->
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
+  <%= render partial: "elements/analysis" %>
 </body>
 </html>

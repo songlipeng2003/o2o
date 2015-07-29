@@ -34,16 +34,97 @@ class Store < ActiveRecord::Base
   has_many :products
   has_many :service_areas, through: :products
 
+  acts_as_paranoid
+
   before_create do
     update_area_info
   end
 
+<<<<<<< HEAD
   def store_type_name
     STORE_TYPES[store_type]
+=======
+  # 是否在服务范围内
+  def self.in_service_scope(lon, lat)
+    query = {
+      query:{
+        filtered: {
+          query: {
+            match_all: {}
+          },
+          filter: {
+            geo_shape: {
+              service_area_location: {
+                relation: "intersects",
+                shape: {
+                  type: 'point',
+                  coordinates: [lon.to_f, lat.to_f]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    logger.debug query.to_yaml
+
+    __elasticsearch__.search(query)
+  end
+
+  def self.can_serviced(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    stores.each do |store|
+      store = Store.find(store.id)
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count < store.store_users.count
+        return true
+      end
+    end
+    false
+  end
+
+  def self.can_serviced_store(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    stores.each do |store|
+      store = Store.find(store.id)
+      store_users_ids = store.store_users.map do |store_user|
+        store_user.id
+      end
+
+      store_users_ids.shuffle!
+
+      count = Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count
+
+      if count < store.store_users.count
+        store_users_ids.each do |store_user_id|
+          count = Order.unscoped.where({ store_user_id: store_user_id, booked_at: booked_at }).where.not(state: 'closed').count
+
+          return store_user_id if count==0
+        end
+      end
+    end
+    false
+  end
+
+  include ElasticsearchSearchable
+
+  def service_area_location
+    coordinates = self.service_area.split(',')
+    coordinates = (0..coordinates.length-1).step(2).map do |i|
+      [coordinates[i].to_f, coordinates[i+1].to_f]
+    end
+
+    coordinates << coordinates[0]
+
+    {
+      type: 'polygon',
+      coordinates: [coordinates]
+    }
+>>>>>>> v1
   end
 
   # elasticsearch settings
-  settings index: { number_of_shards: 1 } do
+  settings index: { number_of_shards: 5 } do
     mappings dynamic: 'strict' do
       indexes :name
       indexes :address
@@ -66,4 +147,4 @@ class Store < ActiveRecord::Base
   end
 end
 
-Store.import force: true
+# Store.import force: true

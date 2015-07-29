@@ -7,4 +7,8 @@ class Payment < ActiveRecord::Base
   has_many :applications, through: :app_payments
 
   accepts_nested_attributes_for :app_payments, reject_if: :all_blank, allow_destroy: true
+
+  def balance?
+    code == 'balance'
+  end
 end

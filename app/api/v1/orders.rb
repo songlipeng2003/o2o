@@ -11,7 +11,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderList]
+        ]
       }
       params do
         optional :page, type: Integer, desc: "页码"
@@ -23,7 +26,66 @@ module V1
         present orders, with: V1::Entities::OrderList
       end
 
+      desc "最近订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
+      }
+      get :lastest_order do
+        order = current_user.orders.order('id DESC').first
+        present order, with: V1::Entities::Order
+      end
+
       desc "计算订单价格接口", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderPrice]
+        ]
+      }
+      params do
+        requires :car_model_id, type: Integer, desc: "车型编号"
+        requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
+        requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
+        optional :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
+        optional :license_tag, type: String, desc: "牌照，必须填写"
+        optional :coupon_id, type: Integer, desc: "代金券编号"
+        optional :service_ticket_code, type: String, desc: "消费券号码"
+      end
+      get :price do
+        order = current_user.orders.new
+        order.car_model_id = params[:car_model_id]
+        order.product_id = params[:product_id]
+        order.is_include_interior = params[:is_include_interior]
+        order.coupon_id = params[:coupon_id]
+        order.license_tag = params[:license_tag]
+        order.booked_at = params[:booked_at]
+        service_ticket_code = params[:service_ticket_code]
+        service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+        if service_ticket
+          order.service_ticket_id = service_ticket.id
+        end
+        order.cal_total_amount
+        {
+          original_price: order.original_price,
+          total_amount: order.total_amount,
+          order_amount: order.order_amount,
+          service_ticket_id: order.service_ticket_id,
+          month_card_id: order.month_card_id
+        }
+      end
+
+      desc "订单日期列表", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
@@ -32,22 +94,54 @@ module V1
         }
       }
       params do
-        requires :car_model_id, type: Integer, desc: "车型编号"
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
-        requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
-        optional :coupon_id, type: Integer, desc: "代金券编号"
       end
-      get :price do
-        order = current_user.orders.new
-        order.car_model_id = params[:car_model_id]
-        order.product_id = params[:product_id]
-        order.is_include_interior = params[:is_include_interior]
-        order.coupon_id = params[:coupon_id]
-        order.cal_total_amount
-        {
-          original_price: order.original_price,
-          total_amount: order.total_amount
+      get :list_available_date do
+        dates = 7.times.map do |i|
+          case i
+          when 0
+            text = '今天'
+          when 1
+            text = '明天'
+          when 2
+            text = '后天'
+          else
+            text = i.days.from_now.strftime('%m-%d')
+          end
+          { date: i.days.from_now.strftime('%Y-%m-%d'), text: text}
+        end
+        dates
+      end
+
+      desc "选择时间列表", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
         }
+      }
+      params do
+        requires :date, type: String, desc: '日期'
+        requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
+        requires :lon, type: Float, desc: "经度"
+        requires :lat, type: Float, desc: "纬度"
+      end
+      get :list_available_time do
+        start_time = params[:date] + ' 08:00:00'
+        start_time = start_time.to_time
+        11.times.map do |i|
+          begin_time = start_time + i.hours
+          end_time = begin_time + 1.hours
+          text = begin_time.strftime('%H:%M') + '-' + end_time.strftime('%H:%M')
+          result = Store.can_serviced(params[:lon], params[:lat], begin_time.to_time)
+          {
+            begin_time: begin_time.strftime('%Y-%m-%d %H:%M:%S'),
+            end_time: end_time.strftime('%Y-%m-%d %H:%M:%S'),
+            text: text,
+            result: result
+          }
+        end
       end
 
       desc "订单详情", {
@@ -56,7 +150,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
@@ -73,7 +170,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
       }
       params do
         requires :phone, type: String, desc: "手机"
@@ -89,19 +189,24 @@ module V1
           optional :place, type: String, desc: "地址"
           optional :lon, type: String, desc: "经度"
           optional :lat, type: String, desc: "纬度"
+          optional :note, type: String, desc: "备注"
         end
         mutually_exclusive :address, :address_id
         requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
+        optional :booked_end_at, type: String, desc: "预约结束时间，时间格式2014-01-01 01:01:00, 为预约的结束时间"
         optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
         requires :product_id, type: Integer, desc: "商品编号，1、2为标准洗车,其他请使用商品列表返回的商品编号"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
+        optional :service_ticket_code, type: String, desc: '消费券号码'
         optional :note, type: String, desc: "订单备注"
       end
       post do
         car_params = permitted_params.delete(:car)
         address_params = permitted_params.delete(:address)
+        service_ticket_code = permitted_params.delete :service_ticket_code
+
         order = current_user.orders.new(permitted_params)
         order.product_id = permitted_params[:product_id];
         order.application = current_application
@@ -119,8 +224,22 @@ module V1
           car = current_user.cars.where(car_params).first
           unless car
             car = current_user.cars.new(car_params)
+            car.application = current_application
           end
-          car.save
+          unless car.save
+            return {
+              code: 1,
+              msg: car.errors.values[0][0]
+            }
+          end
+
+          unless /^\p{Han}{1}[A-Z]{1}[A-Z_0-9]{5}$/u =~ car.license_tag
+            return {
+              code: 1,
+              msg: '车牌号错误'
+            }
+          end
+
           order.car_id = car.id
         end
 
@@ -131,8 +250,15 @@ module V1
           address = current_user.addresses.where(place: address_params[:place]).first
           unless address
             address = current_user.addresses.new(address_params)
+            address.application = current_application
           end
-          address.save
+          unless address.save
+            return {
+              code: 1,
+              msg: address.errors.values[0][0]
+            }
+          end
+
           order.address_id = address.id
         end
 
@@ -144,7 +270,11 @@ module V1
           }
         end
 
+<<<<<<< HEAD
         store_user_id = StoreUserServiceArea.can_serviced_store(address.lon, address.lat, booked_at)
+=======
+        store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
+>>>>>>> v1
 
         unless store_user_id
           return {
@@ -158,23 +288,57 @@ module V1
           unless coupon.unused?
             return {
               code: 1,
-              msg: '当前代金券不可用'
+              msg: '当前代金券已经使用'
             }
           end
         end
 
+        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
+          coupon.system_coupon.product_id != order.product_id
+          return {
+            code: 1,
+            msg: '当前代金券不满足当前商品'
+          }
+        end
+
+        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
+          coupon.system_coupon.product_type_id != order.product.product_type_id
+          return {
+            code: 1,
+            msg: '当前代金券不满足当前商品类型'
+          }
+        end
+
+        unless service_ticket_code.blank?
+          service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+          if service_ticket
+            order.service_ticket_id = service_ticket.id
+          else
+            return {
+              code: 1,
+              msg: '当前消费券不可用'
+            }
+          end
+        end
+
+<<<<<<< HEAD
+=======
+        if order.booked_end_at.blank?
+          order.booked_end_at = (order.booked_at + 1.hours)
+        end
+
+>>>>>>> v1
         order.store_user_id = store_user_id
 
         if order.save
           return {
             code: 0,
-            data: order
+            data: order.reload
           }
          else
           return {
             code: 2,
-            msg: '下单错误，请稍后重试',
-            error: order.errors
+            msg: order.errors.values[0][0]
           }
         end
       end
@@ -185,11 +349,17 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Evaluation]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
-        requires :score, type: Integer, desc: '评价，0-5分'
+        optional :score, type: Integer, desc: '评价，0-5分'
+        optional :score1, type: Integer, desc: '评价1，0-5分'
+        optional :score2, type: Integer, desc: '评价2，0-5分'
+        optional :score3, type: Integer, desc: '评价3，0-5分'
         optional :note, type: String, desc: '备注'
         optional :images, type: Array
       end
@@ -199,7 +369,11 @@ module V1
           error!("404 Not Found", 404) unless order.finished?
           evaluation = order.build_evaluation({
             score: params[:score],
-            note: params[:note]
+            score1: params[:score1],
+            score2: params[:score2],
+            score3: params[:score3],
+            note: params[:note],
+            store_user_id: order.store_user_id
           })
 
           evaluation.application = current_application
@@ -214,7 +388,7 @@ module V1
             end
           end
 
-          present evaluation
+          present evaluation, with: V1::Entities::Evaluation
         end
       end
 
@@ -288,7 +462,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderList]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "订单编号"
@@ -335,6 +512,7 @@ module V1
       params do
         requires :id, type: Integer, desc: "订单编号"
         requires :payment_id, type: Integer, desc: "支付编号"
+        optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"
       end
       route_param :id do
         post :payment do
@@ -351,6 +529,8 @@ module V1
             payment_log.application = current_application
             payment_log.save
           end
+
+          payment_log.extras = { open_id: params[:open_id] } unless params[:open_id].blank?
 
           present payment_log, with: V1::Entities::PaymentLog
         end

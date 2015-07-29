@@ -1,36 +1,45 @@
 class StoreUser < ActiveRecord::Base
+  include Tokenable
+
   GENDERS = %w(男 女 )
+
+  ROLE_MEMBER = 1
+
+  ROLE_LEADER = 2
+
+  ROLES = {
+    ROLE_MEMBER => '成员',
+    ROLE_LEADER => '组长'
+  }
 
   belongs_to :store
 
   has_many :login_histories, as: :user
+<<<<<<< HEAD
   has_many :store_user_service_areas, dependent: :destroy
   has_many :service_areas, through: :store_user_service_areas
+=======
+  has_many :orders
+  has_many :devices, as: :deviceable
+  has_many :evaluations
+>>>>>>> v1
 
-  before_save :ensure_authentication_token
+  validates :nickname, presence: true
+  validates :phone, presence: true, phone: true, uniqueness: true
+  validates :username, length: { minimum: 6 }, uniqueness: true, allow_blank: true
 
   devise :database_authenticatable, :trackable, :validatable
 
   has_paper_trail
 
-  def ensure_authentication_token
-    self.authentication_token ||= generate_authentication_token
-  end
+  mount_uploader :avatar, StoreUserAvatarUploader
 
-  def pay_password=(pay_password)
-    self.encrypted_pay_password = password_digest(pay_password)
+  def email_required?
+    false
   end
 
   def to_s
-    phone
-  end
-
-  def validate_pay_password(pay_password)
-    return self.encrypted_pay_password==password_digest(pay_password)
-  end
-
-  def is_set_pay_password
-    !self.encrypted_pay_password.blank?
+    nickname
   end
 
   def self.find_for_database_authentication(warden_conditions)
@@ -42,22 +51,7 @@ class StoreUser < ActiveRecord::Base
     end
   end
 
-  def self.random_email
-    name = (0..10).map { ('a'..'z').to_a[rand(8)] }.join
-
-    name + '@24didi.com'
-  end
-
-  def self.random_password
-    (0..10).map { ('a'..'z').to_a[rand(8)] }.join
-  end
-
-  private
-
-  def generate_authentication_token
-    loop do
-      token = Devise.friendly_token
-      break token unless User.where(authentication_token: token).first
-    end
+  def role_name
+    ROLES[role]
   end
 end
