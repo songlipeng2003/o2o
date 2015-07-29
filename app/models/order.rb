@@ -125,9 +125,10 @@ class Order < ActiveRecord::Base
             car_model: self.car_model_name,
             phone: self.phone,
             product: self.product.name,
-            is_include_interior: self.is_include_interior ? '是' : '不'
+            is_include_interior: self.is_include_interior ? '是' : '不',
+            price: self.order_amount
           }
-          SMSWorker.perform_async(self.store_user.phone, 671257, params)
+          SMSWorker.perform_async(self.store_user.phone, 910055, params)
         end
       end
     end
@@ -234,7 +235,7 @@ class Order < ActiveRecord::Base
     end
 
     # 消费券处理
-    service_ticket && price = 0
+    service_ticket && [1, 2].include?(self.product_id) && price = 0
 
     self.total_amount ||= price;
   end
