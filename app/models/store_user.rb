@@ -15,14 +15,11 @@ class StoreUser < ActiveRecord::Base
   belongs_to :store
 
   has_many :login_histories, as: :user
-<<<<<<< HEAD
   has_many :store_user_service_areas, dependent: :destroy
   has_many :service_areas, through: :store_user_service_areas
-=======
   has_many :orders
   has_many :devices, as: :deviceable
   has_many :evaluations
->>>>>>> v1
 
   validates :nickname, presence: true
   validates :phone, presence: true, phone: true, uniqueness: true

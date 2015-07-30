@@ -40,10 +40,10 @@ class Store < ActiveRecord::Base
     update_area_info
   end
 
-<<<<<<< HEAD
   def store_type_name
     STORE_TYPES[store_type]
-=======
+  end
+
   # 是否在服务范围内
   def self.in_service_scope(lon, lat)
     query = {
@@ -120,7 +120,6 @@ class Store < ActiveRecord::Base
       type: 'polygon',
       coordinates: [coordinates]
     }
->>>>>>> v1
   end
 
   # elasticsearch settings

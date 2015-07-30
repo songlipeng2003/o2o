@@ -2,12 +2,7 @@ ActiveAdmin.register StoreUser do
   belongs_to :store
   navigation_menu :store
 
-<<<<<<< HEAD
-  permit_params :email, :phone, :username, :password, :password_confirmation,
-    :gender, :nickname, { :service_area_ids => [] }
-=======
   permit_params :email, :phone, :username, :password, :password_confirmation, :gender, :nickname, :role, :avatar, :store_id
->>>>>>> v1
 
   index do
     selectable_column
@@ -48,17 +43,11 @@ ActiveAdmin.register StoreUser do
       f.input :username
       f.input :nickname
       f.input :phone
-<<<<<<< HEAD
-      f.input :service_areas, as: :check_boxes, collection: store_user.store.service_areas
-      f.input :password
-      f.input :password_confirmation
-=======
       f.input :role, as: :select, collection: StoreUser::ROLES.invert
       if f.object.new_record?
           f.input :password
           f.input :password_confirmation
       end
->>>>>>> v1
       f.input :gender, collection: StoreUser::GENDERS
     end
     f.actions

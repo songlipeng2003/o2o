@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150324151909) do
-=======
 ActiveRecord::Schema.define(version: 20150708154811) do
->>>>>>> v1
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -395,13 +391,10 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.integer  "payment_id"
     t.datetime "deleted_at"
     t.integer  "store_user_id"
-<<<<<<< HEAD
-=======
     t.integer  "month_card_id"
     t.integer  "service_ticket_id"
     t.float    "order_amount",        limit: 24
     t.datetime "booked_end_at"
->>>>>>> v1
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
@@ -513,33 +506,24 @@ ActiveRecord::Schema.define(version: 20150708154811) do
 
   add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
 
-<<<<<<< HEAD
   create_table "service_areas", force: true do |t|
     t.integer  "product_id"
     t.string   "name"
     t.string   "areas"
-=======
-  create_table "service_ticket_batches", force: true do |t|
-    t.integer  "big_customer_id"
-    t.integer  "number"
-    t.integer  "used_count"
->>>>>>> v1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
   add_index "service_areas", ["product_id"], name: "index_service_areas_on_product_id", using: :btree
 
-  create_table "store_user_service_areas", force: true do |t|
-    t.integer  "store_user_id"
-    t.integer  "service_area_id"
+  create_table "service_ticket_batches", force: true do |t|
+    t.integer  "big_customer_id"
+    t.integer  "number"
+    t.integer  "used_count"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "store_user_service_areas", ["service_area_id"], name: "index_store_user_service_areas_on_service_area_id", using: :btree
-  add_index "store_user_service_areas", ["store_user_id"], name: "index_store_user_service_areas_on_store_user_id", using: :btree
-=======
   add_index "service_ticket_batches", ["big_customer_id"], name: "index_service_ticket_batches_on_big_customer_id", using: :btree
 
   create_table "service_tickets", force: true do |t|
@@ -556,7 +540,15 @@ ActiveRecord::Schema.define(version: 20150708154811) do
   add_index "service_tickets", ["big_customer_id"], name: "index_service_tickets_on_big_customer_id", using: :btree
   add_index "service_tickets", ["service_ticket_batch_id"], name: "index_service_tickets_on_service_ticket_batch_id", using: :btree
   add_index "service_tickets", ["user_id"], name: "index_service_tickets_on_user_id", using: :btree
->>>>>>> v1
+
+  create_table "store_user_service_areas", force: true do |t|
+    t.integer  "store_user_id"
+    t.integer  "service_area_id"
+    t.datetime "created_at"
+  end
+
+  add_index "store_user_service_areas", ["service_area_id"], name: "index_store_user_service_areas_on_service_area_id", using: :btree
+  add_index "store_user_service_areas", ["store_user_id"], name: "index_store_user_service_areas_on_store_user_id", using: :btree
 
   create_table "store_users", force: true do |t|
     t.integer  "store_id"
@@ -597,12 +589,9 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
-<<<<<<< HEAD
-    t.integer  "store_type",               default: 1
-=======
     t.datetime "deleted_at"
     t.integer  "orders_count",             default: 0
->>>>>>> v1
+    t.integer  "store_type",               default: 1
   end
 
   create_table "system_coupons", force: true do |t|
@@ -617,17 +606,6 @@ ActiveRecord::Schema.define(version: 20150708154811) do
 
   add_index "system_coupons", ["product_id"], name: "index_system_coupons_on_product_id", using: :btree
 
-  create_table "system_products", force: true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "category_id"
-    t.string   "image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "system_products", ["category_id"], name: "index_system_products_on_category_id", using: :btree
-
   create_table "system_month_cards", force: true do |t|
     t.integer  "province_id"
     t.integer  "city_id"
@@ -641,6 +619,17 @@ ActiveRecord::Schema.define(version: 20150708154811) do
 
   add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
   add_index "system_month_cards", ["province_id"], name: "index_system_month_cards_on_province_id", using: :btree
+
+  create_table "system_products", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "category_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_products", ["category_id"], name: "index_system_products_on_category_id", using: :btree
 
   create_table "system_users", force: true do |t|
     t.string   "code"

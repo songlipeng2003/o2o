@@ -7,14 +7,9 @@ class Order < ActiveRecord::Base
   belongs_to :area, class_name: 'Area'
 
   belongs_to :product
-<<<<<<< HEAD
-  belongs_to :user
-  belongs_to :store
   belongs_to :store_user
-=======
   belongs_to :user, counter_cache: true
   belongs_to :store, counter_cache: true
->>>>>>> v1
   belongs_to :car
   belongs_to :address
   belongs_to :car_model

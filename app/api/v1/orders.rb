@@ -270,11 +270,7 @@ module V1
           }
         end
 
-<<<<<<< HEAD
-        store_user_id = StoreUserServiceArea.can_serviced_store(address.lon, address.lat, booked_at)
-=======
         store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
->>>>>>> v1
 
         unless store_user_id
           return {
@@ -321,13 +317,10 @@ module V1
           end
         end
 
-<<<<<<< HEAD
-=======
         if order.booked_end_at.blank?
           order.booked_end_at = (order.booked_at + 1.hours)
         end
 
->>>>>>> v1
         order.store_user_id = store_user_id
 
         if order.save

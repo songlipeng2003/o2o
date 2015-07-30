@@ -34,10 +34,8 @@ zh-CN:
       order_log: '订单历史'
       payment_refund_log: '退款历史'
       refund_batch: '退款批次'
-<<<<<<< HEAD
       system_product: '系统商品'
       service_area: '服务区域'
-=======
       app_version: 'App版本'
       finance: '财务账户'
       big_customer: '集团客户'
@@ -48,7 +46,6 @@ zh-CN:
       service_ticket_batch: '服务券批次'
       service_ticket: '服务券'
       auth_code: '验证码'
->>>>>>> v1
     attributes:
       admin_user:
         id: '编号'
@@ -363,11 +360,8 @@ zh-CN:
         authentication_token: 'token'
         gender: '性别'
         nickname: '昵称'
-<<<<<<< HEAD
         service_areas: '服务区域'
-=======
         role: '身份'
->>>>>>> v1
         created_at: '创建时间'
         updated_at: '更新时间'
       login_history:
@@ -478,7 +472,6 @@ zh-CN:
         state/finished: '已完成'
         created_at: '创建时间'
         updated_at: '更新时间'
-<<<<<<< HEAD
       system_product:
         id: '编号'
         name: '名称'
@@ -496,7 +489,6 @@ zh-CN:
         product_id: '商品'
         created_at: '创建时间'
         updated_at: '更新时间'
-=======
       app_version:
         id: '编号'
         file: '文件'
@@ -624,4 +616,3 @@ zh-CN:
         finish: '完成'
         close: '关闭'
         alipay_refund: '支付宝退款'
->>>>>>> v1

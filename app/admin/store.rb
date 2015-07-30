@@ -19,12 +19,6 @@ ActiveAdmin.register Store do
     end
     column :address
     column :phone
-<<<<<<< HEAD
-    actions defaults: true do |store|
-      content = link_to '用户管理', admin_store_store_users_path(store)
-      content << ' '
-      content << (link_to '商品管理', admin_store_products_path(store))
-=======
     actions  defaults: false do |store|
       content = link_to '查看', admin_store_path(store)
       content << ' '
@@ -38,8 +32,10 @@ ActiveAdmin.register Store do
 
       content << ' '
       content << link_to('用户管理', admin_store_store_users_path(store))
+
+      content << ' '
+      content << (link_to '商品管理', admin_store_products_path(store))
       raw content
->>>>>>> v1
     end
   end
 
@@ -88,9 +84,6 @@ ActiveAdmin.register Store do
         end
       end
     end
-<<<<<<< HEAD
-  end
-=======
   end
 
   member_action :restore, method: :put do
@@ -117,5 +110,4 @@ ActiveAdmin.register Store do
     @stores = Store.where(city_id: 917).all
     @page_title = '区域地图'
   end
->>>>>>> v1
 end
