@@ -12,6 +12,9 @@ ActiveAdmin.register User do
     column "代金券数量", :coupons do |user|
       user.coupons.count
     end
+    column "订单数", :orders do |user|
+      user.orders.count
+    end
     column :application
     column :current_sign_in_at
     column :created_at
