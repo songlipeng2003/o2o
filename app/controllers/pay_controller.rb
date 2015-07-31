@@ -19,12 +19,16 @@ class PayController < ApplicationController
       notify_log.save
 
       if ['TRADE_SUCCESS', 'TRADE_FINISHED'].include?(trade_status)
-        @payment_log.pay
-        @payment_log.out_trade_no = trade_no
-        @payment_log.save
+        if @payment_log.unpayed?
+          @payment_log.pay
+          @payment_log.out_trade_no = trade_no
+          @payment_log.save
+        end
       elsif trade_status == 'TRADE_CLOSED'
-        @payment_log.close
-        @payment_log.save
+        if @payment_log.unpayed?
+          @payment_log.close
+          @payment_log.save
+        end
       end
 
       render :text => 'success'
