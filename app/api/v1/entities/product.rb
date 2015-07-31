@@ -4,6 +4,7 @@ module V1
       expose :id
       expose :name
       expose :market_price
+      expose :suv_price
       expose :price
       expose :description
       expose :image do |product|
