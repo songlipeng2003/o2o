@@ -1,7 +1,7 @@
 ActiveAdmin.register Product do
   menu parent: '商品'
 
-  permit_params :name, :price, :market_price, :description, :image, :product_type_id
+  permit_params :name, :price, :suv_price, :market_price, :description, :image, :product_type_id
 
   index do
     id_column
@@ -12,6 +12,7 @@ ActiveAdmin.register Product do
       image_tag(product.image.thumb.url)
     end
     column :price
+    column :suv_price
     column :market_price
     column :created_at
     actions
@@ -28,6 +29,7 @@ ActiveAdmin.register Product do
       f.input :product_type
       f.input :image, :image_preview => true
       f.input :price
+      f.input :suv_price
       f.input :market_price
       f.input :description
     end
@@ -44,6 +46,7 @@ ActiveAdmin.register Product do
         image_tag(product.image.url)
       end
       row :price
+      row :suv_price
       row :market_price
       row :description
       row :created_at

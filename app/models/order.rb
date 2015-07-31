@@ -182,25 +182,25 @@ class Order < ActiveRecord::Base
 
   def cal_total_amount
     # 洗车分车型计算价格
-    if [1, 2].include? self.product_id
-      unless self.car_model.auto_type=='SUV'
-        self.product_id = 1
-      else
-        self.product_id = 2
-      end
+    if product_id == 2
+      product_id = 1
     end
 
     # 获取商品价格
     self.original_price = self.product.market_price
-    price = self.product.price
+    if product.suv_price && car_model.auto_type == 'SUV'
+      price = self.product.suv_price
+    else
+      price = self.product.price
+    end
 
-    if [1, 2].include?(self.product_id)
+    if product_id==1
       # 洗车是否包含内饰价格变动
       if is_include_interior
-        if product_id==1
-          price += 7
-        else
+        if car_model.auto_type == 'SUV'
           price += 10
+        else
+          price += 5
         end
       end
     end
@@ -213,7 +213,7 @@ class Order < ActiveRecord::Base
     end
 
     # 第一单优惠处理
-    if [1, 2].include?(self.product_id)
+    if product_id==1
       if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
         if license_tag
           if license_tag && Order.where(license_tag: license_tag, state: ['payed', 'finished']).count==0
@@ -235,7 +235,7 @@ class Order < ActiveRecord::Base
     end
 
     # 消费券处理
-    service_ticket && [1, 2].include?(self.product_id) && price = 0
+    service_ticket && product_id==0 && price = 0
 
     self.total_amount ||= price;
   end

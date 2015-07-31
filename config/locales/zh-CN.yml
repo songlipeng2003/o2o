@@ -289,6 +289,7 @@ zh-CN:
         price: '价格'
         product_type: '商品类型'
         product_type_id: '商品类型'
+        suv_price: 'SUV车价格'
         market_price: '市场价'
         image: '图片'
         category: '分类'
