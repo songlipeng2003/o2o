@@ -183,7 +183,7 @@ class Order < ActiveRecord::Base
   def cal_total_amount
     # 洗车分车型计算价格
     if product_id == 2
-      product_id = 1
+      self.product_id = 1
     end
 
     # 获取商品价格
