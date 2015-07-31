@@ -200,7 +200,7 @@ class Order < ActiveRecord::Base
         if car_model.auto_type == 'SUV'
           price += 10
         else
-          price += 5
+          price += 8
         end
       end
     end
