@@ -219,7 +219,9 @@ module V1
           }
         end
 
-        unless params[:car].blank?
+        if params[:car].blank?
+          car = current_user.cars.find(params[:car_id])
+        else
           car_params = clean_params(params).require(:car).permit(:car_model_id, :color, :license_tag)
           car = current_user.cars.where(car_params).first
           unless car
@@ -233,14 +235,14 @@ module V1
             }
           end
 
-          unless /^\p{Han}{1}[A-Z]{1}[A-Z_0-9]{5}$/u =~ car.license_tag
-            return {
-              code: 1,
-              msg: '车牌号错误'
-            }
-          end
-
           order.car_id = car.id
+        end
+
+        unless /^\p{Han}{1}[A-Z]{1}[A-Z_0-9]{5}$/u =~ car.license_tag
+          return {
+            code: 1,
+            msg: '车牌号错误'
+          }
         end
 
         if params[:address].blank?
