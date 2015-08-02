@@ -1,6 +1,8 @@
 ActiveAdmin.register CarModel do
   menu parent: '汽车'
 
+  belongs_to :car_brand
+
   permit_params :name, :car_brand_id
 
   index do
@@ -10,7 +12,10 @@ ActiveAdmin.register CarModel do
     column :car_brand
     column :first_letter
     column :auto_type
-    actions
+    actions do |car_model|
+      content = (link_to '车款管理', admin_car_model_car_styles_path(car_model))
+      raw content
+    end
   end
 
   filter :name

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708154811) do
+ActiveRecord::Schema.define(version: 20150802094353) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -171,6 +171,17 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.string   "first_letter"
   end
 
+  create_table "car_styles", force: true do |t|
+    t.integer  "car_brand_id"
+    t.integer  "car_model_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "car_styles", ["car_brand_id"], name: "index_car_styles_on_car_brand_id", using: :btree
+  add_index "car_styles", ["car_model_id"], name: "index_car_styles_on_car_model_id", using: :btree
+
   create_table "cars", force: true do |t|
     t.string   "license_tag"
     t.integer  "car_model_id"
@@ -181,7 +192,10 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.string   "color"
     t.integer  "application_id"
     t.datetime "deleted_at"
+    t.integer  "car_style_id"
   end
+
+  add_index "cars", ["car_style_id"], name: "index_cars_on_car_style_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -450,6 +464,13 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.string   "payment_type"
   end
 
+  create_table "product_types", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -462,6 +483,8 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.integer  "system_product_id"
     t.integer  "product_type",                 default: 1
     t.integer  "store_id"
+    t.float    "suv_price",         limit: 24
+    t.integer  "product_type_id"
   end
 
   add_index "products", ["system_product_id"], name: "index_products_on_system_product_id", using: :btree

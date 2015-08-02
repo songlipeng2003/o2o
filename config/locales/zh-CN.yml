@@ -46,6 +46,7 @@ zh-CN:
       service_ticket_batch: '服务券批次'
       service_ticket: '服务券'
       auth_code: '验证码'
+      car_style: '车款'
     attributes:
       admin_user:
         id: '编号'
@@ -84,6 +85,8 @@ zh-CN:
         user_id: '用户'
         car_model: '车型'
         car_model_id: '车型'
+        car_style: '车款'
+        car_style_id: '车款'
         license_tag: '牌照'
         buy_date: '购买日期'
         color: '颜色'
@@ -610,6 +613,16 @@ zh-CN:
         expired_at: '过期时间'
         created_at: '创建时间'
         updated_at: '更新时间'
+      car_style:
+        id: '编号'
+        name: '名称'
+        car_brand: '汽车品牌'
+        car_brand_id: '汽车品牌'
+        car_model: '车型'
+        car_model_id: '车型'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+
   active_admin:
     batch_actions:
       labels:

@@ -4,6 +4,8 @@ class CarBrand < ActiveRecord::Base
 
   has_many :car_models
 
+  acts_as_paranoid
+
   def self.import
     url = 'http://sta.ganji.com/ng/app/client/app/xiche/pub_page/data/models.json'
     uri = URI.parse(url)
