@@ -8,6 +8,8 @@ class Car < ActiveRecord::Base
 
   acts_as_paranoid
 
+  has_paper_trail
+
   before_validation do
     self.license_tag = license_tag.upcase
   end

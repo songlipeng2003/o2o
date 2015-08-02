@@ -8,5 +8,5 @@ class CarModel < ActiveRecord::Base
   belongs_to :car_brand
   has_many :car_styles
 
-  acts_as_paranoid
+  has_paper_trail
 end

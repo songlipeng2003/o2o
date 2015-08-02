@@ -4,7 +4,7 @@ class CarStyle < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { scope: :car_model_id }
 
-  acts_as_paranoid
+  has_paper_trail
 
   def car_model_id=(car_model_id)
     self[:car_model_id] = car_model_id
