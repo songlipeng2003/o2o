@@ -130,7 +130,7 @@ module V1
       get :list_available_time do
         start_time = params[:date] + ' 08:00:00'
         start_time = start_time.to_time
-        11.times.map do |i|
+        result = 11.times.map do |i|
           begin_time = start_time + i.hours
           end_time = begin_time + 1.hours
           text = begin_time.strftime('%H:%M') + '-' + end_time.strftime('%H:%M')
@@ -142,6 +142,13 @@ module V1
             result: result
           }
         end
+
+        result << {
+          begin_time: start_time.strftime('%Y-%m-%d 20:00:00'),
+          end_time: start_time.strftime('%Y-%m-%d 23:00:00'),
+          text: '20:00-23:00',
+          result: Store.can_serviced_in_night(params[:lon], params[:lat], start_time.strftime('%Y-%m-%d 20:00:00').to_time)
+        }
       end
 
       desc "订单详情", {

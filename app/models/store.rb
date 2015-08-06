@@ -67,6 +67,17 @@ class Store < ActiveRecord::Base
     false
   end
 
+  def self.can_serviced_in_night(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    stores.each do |store|
+      store = Store.find(store.id)
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count < store.store_users.count * 16
+        return true
+      end
+    end
+    false
+  end
+
   def self.can_serviced_store(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
     stores.each do |store|
