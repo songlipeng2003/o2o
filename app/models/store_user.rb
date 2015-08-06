@@ -20,7 +20,7 @@ class StoreUser < ActiveRecord::Base
   has_many :evaluations
 
   validates :nickname, presence: true
-  validates :phone, presence: true, phone: true, uniqueness: true
+  validates :phone, presence: true, phone: true
   validates :username, length: { minimum: 6 }, uniqueness: true, allow_blank: true
 
   devise :database_authenticatable, :trackable, :validatable
