@@ -203,6 +203,15 @@ class Order < ActiveRecord::Base
           price += 8
         end
       end
+
+      # 夜间洗车费用
+      if booked_at && booked_at.hour >= 20
+        if car_model.auto_type == 'SUV'
+          price = 7.9
+        else
+          price = 5.9
+        end
+      end
     end
 
     self.order_amount = price
