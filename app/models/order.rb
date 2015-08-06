@@ -209,7 +209,7 @@ class Order < ActiveRecord::Base
 
     # 代金券处理
     if self.coupon
-      price = self.original_price - self.coupon.amount
+      price = price - self.coupon.amount
     end
 
     # 第一单优惠处理
