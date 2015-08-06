@@ -90,6 +90,29 @@ class Store < ActiveRecord::Base
     false
   end
 
+  def self.can_serviced_store_in_night(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    stores.each do |store|
+      store = Store.find(store.id)
+      store_users_ids = store.store_users.map do |store_user|
+        store_user.id
+      end
+
+      store_users_ids.shuffle!
+
+      count = Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count
+
+      if count < store.store_users.count * 16
+        store_users_ids.each do |store_user_id|
+          count = Order.unscoped.where({ store_user_id: store_user_id, booked_at: booked_at }).where.not(state: 'closed').count
+
+          return store_user_id if count<16
+        end
+      end
+    end
+    false
+  end
+
   include ElasticsearchSearchable
 
   def service_area_location

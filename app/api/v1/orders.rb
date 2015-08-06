@@ -272,7 +272,12 @@ module V1
           }
         end
 
-        store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
+        if booked_at.hour>=20
+          store_user_id = Store.can_serviced_store_in_night(address.lon, address.lat, booked_at)
+        else
+          store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
+        end
+
 
         unless store_user_id
           return {
