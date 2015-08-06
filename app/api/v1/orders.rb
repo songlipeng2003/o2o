@@ -332,7 +332,11 @@ module V1
         end
 
         if order.booked_end_at.blank?
-          order.booked_end_at = (order.booked_at + 1.hours)
+          if booked_at.hour == 20
+            order.booked_end_at = (order.booked_at + 3.hours)
+          else
+            order.booked_end_at = (order.booked_at + 1.hours)
+          end
         end
 
         order.store_user_id = store_user_id
