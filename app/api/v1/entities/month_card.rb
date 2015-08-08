@@ -8,6 +8,7 @@ module V1
       expose :expired_at, documentation: { type: Time, desc: '过期时间' }
       expose :use_count, documentation: { type: Integer, desc: '使用次数' }
       expose :created_at, documentation: { type: Time, desc: '创建时间' }
+      expose :state, documentation: { type: String, desc: '状态，available：可用，expired：已过期' }
     end
   end
 end
