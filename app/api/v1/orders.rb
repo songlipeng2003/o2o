@@ -134,7 +134,7 @@ module V1
           begin_time = start_time + i.hours
           end_time = begin_time + 1.hours
           text = begin_time.strftime('%H:%M') + '-' + end_time.strftime('%H:%M')
-          result = Store.can_serviced(params[:lon], params[:lat], begin_time.to_time)
+          result = begin_time > Time.now ? Store.can_serviced(params[:lon], params[:lat], begin_time.to_time) : false
           {
             begin_time: begin_time.strftime('%Y-%m-%d %H:%M:%S'),
             end_time: end_time.strftime('%Y-%m-%d %H:%M:%S'),
