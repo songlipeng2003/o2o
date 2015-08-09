@@ -139,7 +139,8 @@ module V1
             begin_time: begin_time.strftime('%Y-%m-%d %H:%M:%S'),
             end_time: end_time.strftime('%Y-%m-%d %H:%M:%S'),
             text: text,
-            result: result
+            result: result,
+            is_can_include_interior: true
           }
         end
 
@@ -147,7 +148,8 @@ module V1
           begin_time: start_time.strftime('%Y-%m-%d 20:00:00'),
           end_time: start_time.strftime('%Y-%m-%d 23:00:00'),
           text: '20:00-23:00',
-          result: Store.can_serviced_in_night(params[:lon], params[:lat], start_time.strftime('%Y-%m-%d 20:00:00').to_time)
+          result: Store.can_serviced_in_night(params[:lon], params[:lat], start_time.strftime('%Y-%m-%d 20:00:00').to_time),
+          is_can_include_interior: false
         }
       end
 
