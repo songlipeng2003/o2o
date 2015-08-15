@@ -48,7 +48,7 @@ module V1
         optional :jpush, type: String, desc: "极光推送ID"
       end
       post 'login' do
-        unless params[:phone]=='15695696226' && params[:code] = '1111'
+        unless params[:phone]=='15695696226' && params[:code] == '1111'
           is_valid = AuthCode.validate_code(params[:phone], params[:code])
 
           unless is_valid
