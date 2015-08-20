@@ -1,4 +1,4 @@
-# 嘀嘀去哪儿了
+# 嘀嘀雄兵
 
 ## 前段技术介绍
 jquery、boostrap、angularjs

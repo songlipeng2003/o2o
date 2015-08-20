@@ -78,7 +78,7 @@ module V1
       base_path: '/api',
       api_version: 'v1',
       info: {
-        title: '嘀嘀去哪儿接口文档',
+        title: '嘀嘀雄兵接口文档',
         contact: 'songlipeng2003@gmail.com',
         description: <<-NOTE
           本接口完全按照REST设计规范进行设计
