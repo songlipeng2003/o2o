@@ -243,7 +243,7 @@ class Order < ActiveRecord::Base
       end
 
       # 消费券处理
-      service_ticket && product_id==0 && price = 0
+      service_ticket && product_id==1 && price = 0
     end
 
     self.total_amount ||= price;
