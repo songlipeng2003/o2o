@@ -19,5 +19,6 @@ ActiveAdmin.register ServiceTicket do
 
   filter :code
   filter :state, as: :select, collection: ServiceTicket.aasm.states
+  filter :big_customer
   filter :created_at
 end
