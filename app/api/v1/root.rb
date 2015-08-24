@@ -60,6 +60,7 @@ module V1
     # mount V1::Communities
     mount V1::Coupons
     mount V1::Docs
+    mount V1::Feedbacks
     mount V1::Files
     mount V1::MonthCardOrders
     mount V1::MonthCards
