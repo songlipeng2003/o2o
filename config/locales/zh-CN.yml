@@ -45,6 +45,7 @@ zh-CN:
       service_ticket_batch: '服务券批次'
       service_ticket: '服务券'
       auth_code: '验证码'
+      feedback: '反馈'
     attributes:
       admin_user:
         id: '编号'
@@ -596,6 +597,17 @@ zh-CN:
         phone: '电话'
         code: '验证码'
         expired_at: '过期时间'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      feedback:
+        id: '编号'
+        user: '用户'
+        user_id: '用户'
+        feedback_type: '反馈类型'
+        title: '标题'
+        content: '内容'
+        application: '应用'
+        application_id: '应用'
         created_at: '创建时间'
         updated_at: '更新时间'
   active_admin:
