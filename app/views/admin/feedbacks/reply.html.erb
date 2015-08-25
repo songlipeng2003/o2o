@@ -1,0 +1,6 @@
+<%= semantic_form_for @reply, url: reply_admin_feedback_path(@feedback) do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :content %>
+  <% end %>
+  <%= f.actions %>
+<% end %>
