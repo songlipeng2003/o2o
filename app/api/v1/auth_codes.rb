@@ -24,7 +24,7 @@ module V1
 
         code = AuthCode.generate phone
         tpl_params = { code: code}
-        SMSWorker.perform_async(phone, 671255, tpl_params)
+        SMSWorker.perform_async(phone, 943151, tpl_params)
 
         {
           code: 0,
