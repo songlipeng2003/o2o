@@ -249,6 +249,7 @@ zh-CN:
         id: '编号'
         user: '用户'
         user_id: '用户'
+        user_phone: '用户手机号'
         amount: '金额'
         state: '状态'
         recharge_policy: '充值策略'

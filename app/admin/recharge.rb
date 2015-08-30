@@ -36,6 +36,7 @@ ActiveAdmin.register Recharge do
     end
   end
 
+  filter :user_phone, as: :string
   filter :amount
   filter :state
   filter :created_at
