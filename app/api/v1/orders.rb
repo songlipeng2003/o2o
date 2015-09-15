@@ -143,14 +143,6 @@ module V1
             is_can_include_interior: true
           }
         end
-
-        result << {
-          begin_time: start_time.strftime('%Y-%m-%d 20:00:00'),
-          end_time: start_time.strftime('%Y-%m-%d 23:00:00'),
-          text: '20:00-23:00',
-          result: Store.can_serviced_in_night(params[:lon], params[:lat], start_time.strftime('%Y-%m-%d 20:00:00').to_time),
-          is_can_include_interior: false
-        }
       end
 
       desc "订单详情", {
