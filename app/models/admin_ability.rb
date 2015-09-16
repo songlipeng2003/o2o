@@ -8,6 +8,9 @@ class AdminAbility
 
     if user.id == 1
       can :manage, :all
+    elsif user.id ==5
+      can :read, ActiveAdmin::Page, :name => "Dashboard"
+      can :manage, Order
     else
       can :manage, Address
       can :manage, Announcement

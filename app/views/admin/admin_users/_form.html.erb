@@ -1,0 +1,13 @@
+<%= semantic_form_for [:admin, @admin_user] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.input :province, :collection => Area.provinces,
+      :input_html => { :class => :cascade_select, 'data-cascade-target' => 'admin_user_city_id' } %>
+    <%= f.input :city, :collection => (f.object.city ? f.object.city.parent.children : ''),
+      :input_html => { :class => :cascade_select, 'data-cascade-target' => 'admin_user_area_id' } %>
+    <%= f.input :area, :collection => (f.object.area ? f.object.area.parent.children : '') %>
+  <% end %>
+  <%= f.actions %>
+<% end %>
