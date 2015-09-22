@@ -8,7 +8,7 @@ class WeixinController < ApplicationController
 
       result = JSON.parse response.body
       open_id = result['openid']
-      if params[:redirect_url].empty?
+      if params[:redirect_url].blank?
         redirect_url = "http://m.24didi.com?open_id=#{open_id}"
       elsif
         if redirect_url.index_of('?')>0
