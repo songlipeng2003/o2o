@@ -296,6 +296,10 @@ zh-CN:
         image: '图片'
         category: '分类'
         category_id: '分类'
+        province: '省份'
+        province_id: '省份'
+        city: '城市'
+        city_id: '城市'
         created_at: '创建时间'
         updated_at: '更新时间'
       evaluation:
