@@ -8,7 +8,7 @@ role :app, %w{deploy@123.57.142.27}
 role :web, %w{deploy@123.57.142.27}
 role :db,  %w{deploy@123.57.142.27}
 
-set :branch, 'v1'
+set :branch, 'v3'
 
 
 # Extended Server Syntax

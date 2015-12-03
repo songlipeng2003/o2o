@@ -196,22 +196,22 @@ class Order < ActiveRecord::Base
 
     if product_id==1
       # 洗车是否包含内饰价格变动
-      if is_include_interior
-        if car_model.auto_type == 'SUV'
-          price += 10
-        else
-          price += 8
-        end
-      end
+      # if is_include_interior
+      #   if car_model.auto_type == 'SUV'
+      #     price += 10
+      #   else
+      #     price += 8
+      #   end
+      # end
 
       # 夜间洗车费用
-      if booked_at && booked_at.hour >= 20
-        if car_model.auto_type == 'SUV'
-          price = 5.9
-        else
-          price = 5.9
-        end
-      end
+      # if booked_at && booked_at.hour >= 20
+      #   if car_model.auto_type == 'SUV'
+      #     price = 5.9
+      #   else
+      #     price = 5.9
+      #   end
+      # end
     end
 
     self.order_amount = price
@@ -226,11 +226,11 @@ class Order < ActiveRecord::Base
       if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
         if license_tag
           if license_tag && Order.where(license_tag: license_tag, state: ['payed', 'finished']).count==0
-            price = 1
+            price = 10
             self.order_amount = 1
           end
         else
-          price = 1
+          price = 10
           self.order_amount = 1
         end
       end
