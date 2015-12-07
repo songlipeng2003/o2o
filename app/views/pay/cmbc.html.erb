@@ -1,0 +1,12 @@
+<%= javascript_include_tag 'jquery' %>
+
+<form id="form" action="<%= @pay_url %>" method="post" accept-charset="utf-8">
+  <input name="orderinfo" type="hidden" value="<%= @order_info %>">
+  <button type="submit">提交</button>
+</form>
+
+<script >
+$(function(){
+  // $('#form').submit();
+});
+</script>

@@ -129,4 +129,29 @@ class PayController < ApplicationController
 
     render text: text
   end
+
+  def cmbc
+    @pay_url = Settings.cmbc.pay_url
+    @order_info = params[:order_info]
+
+    render layout: false
+  end
+
+  def cmbc_notify
+    payresult = params[:payresult]
+
+    url = Settings.cmbc.sign_encrypt_url
+    uri = URI.parse(url)
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+
+    response = http.request(request)
+
+    if response.code == "200"
+      str = response.body
+    end
+
+    arr = str.split('|')
+  end
 end
