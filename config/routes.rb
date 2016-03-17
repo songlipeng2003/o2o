@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :test
+
   get 'weixin/auth'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
