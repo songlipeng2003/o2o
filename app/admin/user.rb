@@ -23,6 +23,8 @@ ActiveAdmin.register User do
     actions defaults: true do |user|
       link = ''
       link << link_to('修改支付密码', change_pay_password_admin_user_path(user))
+      link << '&nbsp;&nbsp;'
+      link << link_to('修改余额', set_balance_admin_user_path(user))
 
       raw link
     end
@@ -113,5 +115,33 @@ ActiveAdmin.register User do
     end
 
     @page_title = "修改支付密码"
+  end
+
+  member_action :set_balance, method: [:get, :put, :patch] do
+    @user = User::find(params[:id])
+
+    if request.put? || request.patch?
+      trading_record = TradingRecord.new
+      trading_record.user = @user
+      trading_record.object = @user
+
+      if @user.balance > params[:user][:balance].to_f
+        amount = @user.balance - params[:user][:balance].to_f
+        trading_record.amount = - amount
+        trading_record.trading_type = TradingRecord::TRADING_TYPE_OUT_BY_PLATFORM
+        trading_record.name = "后台减少#{amount}"
+      elsif @user.balance < params[:user][:balance].to_f
+        amount = params[:user][:balance].to_f - @user.balance
+        trading_record.amount = amount
+        trading_record.trading_type = TradingRecord::TRADING_TYPE_IN_BY_PLATFORM
+        trading_record.name = "后台增加#{amount}"
+      end
+
+      if trading_record.save
+        redirect_to admin_user_path, notice: "修改余额成功"
+      end
+    end
+
+    @page_title = "修改余额"
   end
 end
