@@ -1,7 +1,9 @@
 ActiveAdmin.register User do
   menu parent: '用户'
 
-  actions :index, :show
+  actions :index, :show, :edit, :update
+
+  permit_params :phone, :nickname, :gender
 
   index do
     id_column
@@ -30,6 +32,15 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
+
+  form do |f|
+    f.inputs do
+      f.input :phone
+      f.input :nickname
+      f.input :gender
+    end
+    f.actions
+  end
 
   show do
     attributes_table do
