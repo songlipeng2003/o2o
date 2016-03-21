@@ -1,16 +1,15 @@
 ActiveAdmin.register Product do
   menu parent: '商品'
 
-  permit_params :name, :price, :suv_price, :market_price, :description, :image, :product_type_id
+  permit_params :name, :price, :suv_price, :market_price, :description,
+    :image, :product_type_id, :province_id, :city_id, :category_id
 
   index do
     id_column
     column :name
     column :category
     column :product_type
-    column :image, sortable: false do |product|
-      image_tag(product.image.thumb.url)
-    end
+    column :city
     column :price
     column :suv_price
     column :market_price
@@ -22,19 +21,7 @@ ActiveAdmin.register Product do
   filter :price
   filter :created_at
 
-  form html: { multipart: true } do |f|
-    f.inputs do
-      f.input :name
-      f.input :category
-      f.input :product_type
-      f.input :image, :image_preview => true
-      f.input :price
-      f.input :suv_price
-      f.input :market_price
-      f.input :description
-    end
-    f.actions
-  end
+  form :partial => "form"
 
   show do
     attributes_table do
@@ -42,6 +29,8 @@ ActiveAdmin.register Product do
       row :name
       row :category
       row :product_type
+      row :province
+      row :city
       row :image do
         image_tag(product.image.url)
       end

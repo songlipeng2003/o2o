@@ -209,7 +209,7 @@ module V1
         service_ticket_code = permitted_params.delete :service_ticket_code
 
         order = current_user.orders.new(permitted_params)
-        order.product_id = permitted_params[:product_id];
+        order.product_id = permitted_params[:product_id]
         order.application = current_application
 
         booked_at = params[:booked_at].to_time
