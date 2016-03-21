@@ -46,6 +46,7 @@ zh-CN:
       service_ticket: '服务券'
       auth_code: '验证码'
       feedback: '反馈'
+      wash_machine: '洗车机'
     attributes:
       admin_user:
         id: '编号'
@@ -613,6 +614,15 @@ zh-CN:
         content: '内容'
         application: '应用'
         application_id: '应用'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      wash_machine:
+        id: '编号'
+        code: '唯一编号'
+        address: '坐标'
+        lat: '纬度'
+        lon: '经度'
+        price: '价格'
         created_at: '创建时间'
         updated_at: '更新时间'
   active_admin:
