@@ -47,6 +47,7 @@ zh-CN:
       auth_code: '验证码'
       feedback: '反馈'
       wash_machine: '洗车机'
+      wash_machine_set: '洗车机套餐'
     attributes:
       admin_user:
         id: '编号'
@@ -623,6 +624,14 @@ zh-CN:
         lat: '纬度'
         lon: '经度'
         price: '价格'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      wash_machine_set:
+        id: '编号'
+        name: '名称'
+        image: '图片'
+        price: '价格'
+        description: '描述'
         created_at: '创建时间'
         updated_at: '更新时间'
   active_admin:

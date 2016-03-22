@@ -74,6 +74,7 @@ module V1
     mount V1::SystemMonthCards
     mount V1::TradingRecords
     mount V1::Users
+    mount V1::WashMachineSets
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
