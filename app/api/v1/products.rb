@@ -1,7 +1,17 @@
 module V1
   class Products < Grape::API
     resource :products do
-      desc "商品列表"
+      desc "商品列表", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Product]
+        ]
+      }
       params do
         requires :city_id, type: Integer, default: 917, desc: "城市编号, 默认值917为郑州"
         requires :category_id, type: Integer, default: 2, desc: "商品分类, 1为洗车，2为美容"
