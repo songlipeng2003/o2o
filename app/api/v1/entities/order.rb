@@ -38,6 +38,17 @@ module V1
 
       expose :store_user, using: V1::Entities::StoreUser, documentation: { type: 'V1::Entities::StoreUser', desc: '服务人员' }
 
+      expose :order_type, documentation: { type: Integer, desc: '订单类型,1为上门洗车订单，2为洗车机订单' }
+
+      expose :wash_machine_id, documentation: { type: Integer, desc: '洗车机编号' }
+      expose :wash_machine_name, documentation: { type: String, desc: '洗车机名称' } do |order|
+        order.wash_machine.code
+      end
+      expose :wash_machine_set_id, documentation: { type: Integer, desc: '洗车机套餐编号' }
+      expose :wash_machine_set_name, documentation: { type: String, desc: '洗车机套餐名称' } do |order|
+        order.wash_machine_set.name
+      end
+
     end
   end
 end

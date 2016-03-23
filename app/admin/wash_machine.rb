@@ -1,7 +1,7 @@
 ActiveAdmin.register WashMachine do
   menu parent: '基础数据'
 
-  permit_params :code, :lat, :lon, :address, :price
+  permit_params :code, :lat, :lon, :address, :price, :province_id, :city_id, :area_id
 
   index do
     selectable_column
@@ -19,14 +19,5 @@ ActiveAdmin.register WashMachine do
   filter :created_at
   filter :updated_at
 
-  form do |f|
-    f.inputs do
-      f.input :code
-      f.input :lon
-      f.input :lat
-      f.input :address
-      f.input :price
-    end
-    f.actions
-  end
+  form :partial => "form"
 end

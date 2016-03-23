@@ -232,7 +232,7 @@ module V1
           unless car.save
             return {
               code: 1,
-              msg: car.errors.values[0][0]
+              msg: car.errors.full_messages[0]
             }
           end
 
@@ -258,7 +258,7 @@ module V1
           unless address.save
             return {
               code: 1,
-              msg: address.errors.values[0][0]
+              msg: address.errors.full_messages[0]
             }
           end
 
@@ -343,7 +343,96 @@ module V1
          else
           return {
             code: 2,
-            msg: order.errors.values[0][0]
+            msg: order.errors.full_messages[0][0]
+          }
+        end
+      end
+
+      desc "创建洗车机订单", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Order]
+        ]
+      }
+      params do
+        requires :wash_machine_code, type: String, desc: '洗车机设备码'
+        requires :wash_machine_set_id, type: String, desc: '洗车机套餐'
+        optional :coupon_id, type: Integer, desc: "代金券编号"
+        optional :service_ticket_code, type: String, desc: '消费券号码'
+        optional :note, type: String, desc: "订单备注"
+      end
+      post :machine do
+        service_ticket_code = permitted_params.delete :service_ticket_code
+
+        order = current_user.orders.new(permitted_params)
+        wash_machine_code = params[:wash_machine_code]
+        wash_machine = WashMachine.where(code: wash_machine_code).first
+
+        unless wash_machine
+          return {
+            code: 1,
+            msg: '洗车机设备码错误'
+          }
+        end
+
+        order.wash_machine = wash_machine
+        order.phone = current_user.phone
+        order.order_type = Order::ORDER_TYPE_MACHINE
+        order.product_id = 1
+        order.application = current_application
+
+        if params[:coupon_id]
+          coupon = current_user.coupons.find(params[:coupon_id])
+          unless coupon.unused?
+            return {
+              code: 1,
+              msg: '当前代金券已经使用'
+            }
+          end
+        end
+
+        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
+          coupon.system_coupon.product_id != order.product_id
+          return {
+            code: 1,
+            msg: '当前代金券不满足当前商品'
+          }
+        end
+
+        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
+          coupon.system_coupon.product_type_id != order.product.product_type_id
+          return {
+            code: 1,
+            msg: '当前代金券不满足当前商品类型'
+          }
+        end
+
+        unless service_ticket_code.blank?
+          service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+          if service_ticket
+            order.service_ticket_id = service_ticket.id
+          else
+            return {
+              code: 1,
+              msg: '当前消费券不可用'
+            }
+          end
+        end
+
+        if order.save
+          return {
+            code: 0,
+            data: order.reload
+          }
+         else
+          return {
+            code: 2,
+            msg: order.errors.full_messages[0]
           }
         end
       end

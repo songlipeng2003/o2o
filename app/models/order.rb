@@ -2,6 +2,9 @@ class Order < ActiveRecord::Base
   include AASM
   include Snable
 
+  ORDER_TYPE_NORMAL = 1
+  ORDER_TYPE_MACHINE = 2
+
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
@@ -17,29 +20,37 @@ class Order < ActiveRecord::Base
   belongs_to :store_user, counter_cache: true
   belongs_to :month_card
   belongs_to :service_ticket
+  belongs_to :wash_machine
+  belongs_to :wash_machine_set
 
   has_one :evaluation
 
   has_many :payment_logs, as: :item
   has_one :payment_log, -> { order 'id DESC' }, as: :item
 
+  validates :order_type, presence: true
+
   validates :user_id, presence: true
-  validates :store_id, presence: true
-  validates :car_id, presence: true, on: :create
-  validates :car_model_id, presence: true
-  validates :car_color, presence: true
-  validates :license_tag, presence: true
+  validates :store_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :car_id, presence: true, on: :create, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :car_model_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :car_color, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :license_tag, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
   validates :phone, presence: true
-  validates :address_id, presence: true, on: :create
-  validates :place, presence: true
-  validates :lat, presence: true
-  validates :lon, presence: true
+  validates :address_id, presence: true, on: :create, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :place, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :lat, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
+  validates :lon, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
   validates :product_id, presence: true
-  validates :booked_at, presence: true
+  validates :booked_at, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_NORMAL }
   validates :note, length: { maximum: 255 }
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
+
+  validates :wash_machine_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
+  validates :wash_machine_set_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
+  validates :wash_machine_code, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
 
   validate :check_coupon
 
@@ -51,16 +62,21 @@ class Order < ActiveRecord::Base
   validates_associated :car, on: :create
   # validates_associated :product
 
+  validates_associated :wash_machine
+  validates_associated :wash_machine_set
+
   before_create :cal_total_amount
 
   before_validation(on: :create) do
-    self.car_model_id = self.car.car_model_id
-    self.car_color = self.car.color
-    self.license_tag = self.car.license_tag
+    if order_type==ORDER_TYPE_NORMAL
+      self.car_model_id = self.car.car_model_id
+      self.car_color = self.car.color
+      self.license_tag = self.car.license_tag
 
-    self.place = self.address.place
-    self.lon = self.address.lon
-    self.lat = self.address.lat
+      self.place = self.address.place
+      self.lon = self.address.lon
+      self.lat = self.address.lat
+    end
 
     update_area_info
   end
@@ -250,11 +266,11 @@ class Order < ActiveRecord::Base
   end
 
   def car_model_name
-    car_model.name
+    car_model ? car_model.name : nil
   end
 
   def product_type_text
-    product.name
+    product ? product.name : nil
   end
 
   def check_coupon
@@ -307,6 +323,12 @@ class Order < ActiveRecord::Base
       self.area = self.store.area
       self.city_id = self.area.parent.id
       self.province_id = self.area.parent.parent.id
+    end
+
+    if wash_machine
+      self.area = self.wash_machine.area
+      self.city_id = self.wash_machine.area.parent.id
+      self.province_id = self.wash_machine.area.parent.parent.id
     end
   end
 
