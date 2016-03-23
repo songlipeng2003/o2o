@@ -84,7 +84,7 @@ class Order < ActiveRecord::Base
   after_create do
     use_coupon
 
-    month_card_auto_pay
+    month_card_auto_pay if order_type==ORDER_TYPE_NORMAL
 
     use_service_ticket
   end

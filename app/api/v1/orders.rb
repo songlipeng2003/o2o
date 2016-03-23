@@ -383,7 +383,7 @@ module V1
         order.wash_machine = wash_machine
         order.phone = current_user.phone
         order.order_type = Order::ORDER_TYPE_MACHINE
-        order.product_id = 1
+        order.product_id = 9
         order.application = current_application
 
         if params[:coupon_id]
