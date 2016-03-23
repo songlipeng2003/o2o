@@ -103,7 +103,8 @@ class Order < ActiveRecord::Base
     state :closed
 
     event :pay, after: :log_state_change do
-      transitions :from => :unpayed, :to => :payed
+      transitions :from => :unpayed, :to => :payed if order.order_type==ORDER_TYPE_NORMAL
+      transitions :from => :finished, :to => :payed if order.order_type==ORDER_TYPE_MACHINE
 
       after do
         if payment_log && payment_log.payment.code != 'month_card'
