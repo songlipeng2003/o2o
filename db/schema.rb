@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708154811) do
+ActiveRecord::Schema.define(version: 20160323151015) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -56,6 +56,9 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "area_id"
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
@@ -270,6 +273,18 @@ ActiveRecord::Schema.define(version: 20150708154811) do
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
   add_index "evaluations", ["store_user_id"], name: "index_evaluations_on_store_user_id", using: :btree
 
+  create_table "feedbacks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "application_id"
+    t.text     "content"
+    t.integer  "feedback_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feedbacks", ["application_id"], name: "index_feedbacks_on_application_id", using: :btree
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
+
   create_table "finances", force: true do |t|
     t.integer  "financeable_id"
     t.string   "financeable_type"
@@ -395,10 +410,16 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.integer  "service_ticket_id"
     t.float    "order_amount",        limit: 24
     t.datetime "booked_end_at"
+    t.integer  "wash_machine_id"
+    t.integer  "wash_machine_set_id"
+    t.integer  "order_type",                                              default: 1
+    t.string   "wash_machine_code"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
+  add_index "orders", ["wash_machine_id"], name: "index_orders_on_wash_machine_id", using: :btree
+  add_index "orders", ["wash_machine_set_id"], name: "index_orders_on_wash_machine_set_id", using: :btree
 
   create_table "payment_logs", force: true do |t|
     t.string   "sn"
@@ -467,9 +488,14 @@ ActiveRecord::Schema.define(version: 20150708154811) do
     t.string   "image"
     t.integer  "product_type_id"
     t.integer  "category_id"
+    t.float    "suv_price",       limit: 24
+    t.integer  "province_id",                default: 916
+    t.integer  "city_id",                    default: 917
   end
 
+  add_index "products", ["city_id"], name: "index_products_on_city_id", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+  add_index "products", ["province_id"], name: "index_products_on_province_id", using: :btree
 
   create_table "recharge_policies", force: true do |t|
     t.integer  "amount"
@@ -514,7 +540,7 @@ ActiveRecord::Schema.define(version: 20150708154811) do
   create_table "service_ticket_batches", force: true do |t|
     t.integer  "big_customer_id"
     t.integer  "number"
-    t.integer  "used_count"
+    t.integer  "used_count",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -676,5 +702,26 @@ ActiveRecord::Schema.define(version: 20150708154811) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "wash_machine_sets", force: true do |t|
+    t.string   "price"
+    t.string   "name"
+    t.string   "image"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wash_machines", force: true do |t|
+    t.string   "code"
+    t.float    "lat",         limit: 24
+    t.float    "lon",         limit: 24
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "area_id"
+  end
 
 end

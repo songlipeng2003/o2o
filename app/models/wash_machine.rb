@@ -7,7 +7,6 @@ class WashMachine < ActiveRecord::Base
   validates :lat, presence: true
   validates :lon, presence: true
   validates :address, presence: true
-  validates :price, presence: true, :numericality => { greater_than: 0 }
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
