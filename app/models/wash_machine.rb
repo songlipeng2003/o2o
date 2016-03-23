@@ -14,4 +14,8 @@ class WashMachine < ActiveRecord::Base
   validates_associated :province
   validates_associated :city
   validates_associated :area
+
+  def name
+    "#{id}自主洗车机"
+  end
 end
