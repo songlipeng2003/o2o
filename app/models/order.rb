@@ -204,31 +204,15 @@ class Order < ActiveRecord::Base
     end
 
     # 获取商品价格
-    self.original_price = self.product.market_price
-    if product.suv_price && car_model.auto_type == 'SUV'
-      price = self.product.suv_price
+    if order_type == ORDER_TYPE_NORMAL
+      self.original_price = self.product.market_price
+      if product.suv_price && car_model.auto_type == 'SUV'
+        price = self.product.suv_price
+      else
+        price = self.product.price
+      end
     else
-      price = self.product.price
-    end
-
-    if product_id==1
-      # 洗车是否包含内饰价格变动
-      # if is_include_interior
-      #   if car_model.auto_type == 'SUV'
-      #     price += 10
-      #   else
-      #     price += 8
-      #   end
-      # end
-
-      # 夜间洗车费用
-      # if booked_at && booked_at.hour >= 20
-      #   if car_model.auto_type == 'SUV'
-      #     price = 5.9
-      #   else
-      #     price = 5.9
-      #   end
-      # end
+      price = wash_machine_set.price
     end
 
     self.order_amount = price
@@ -262,6 +246,8 @@ class Order < ActiveRecord::Base
       # 消费券处理
       service_ticket && product_id==1 && price = 0
     end
+
+    price = price<0 ? 0 : price
 
     self.total_amount ||= price;
   end
