@@ -28,6 +28,7 @@ module V1
       expose :wash_machine_name, documentation: { type: String, desc: '洗车机名称' } do |order|
         order.wash_machine ? order.wash_machine.name : nil
       end
+      expose :order_type, documentation: { type: Integer, desc: '订单类型,1为上门洗车订单，2为洗车机订单' }
 
       expose :links do |order|
         links = []
