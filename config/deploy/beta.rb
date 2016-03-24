@@ -15,7 +15,7 @@ role :db,  %w{deploy@123.57.142.27}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-set :branch, 'v3'
+set :branch, 'develop'
 
 set :deploy_to, '/var/www/didi_beta'
 
