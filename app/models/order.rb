@@ -145,6 +145,8 @@ class Order < ActiveRecord::Base
             price: self.order_amount
           }
           SMSWorker.perform_async(self.store_user.phone, 943153, params) if order_type==ORDER_TYPE_NORMAL
+
+          finish! user if order_type==ORDER_TYPE_MACHINE
         end
       end
     end
@@ -222,7 +224,7 @@ class Order < ActiveRecord::Base
     end
 
     if price<=0
-      self.total_amount = 0
+      self.total_amount = 0.01
       return
     end
 
@@ -340,7 +342,7 @@ class Order < ActiveRecord::Base
   end
 
   def use_service_ticket
-    if service_ticket && [1, 2].include?(product_id)
+    if service_ticket && [1, 2, 9].include?(product_id)
       service_ticket.order_amount = order_amount
       service_ticket.user_id = user_id
       service_ticket.use!
