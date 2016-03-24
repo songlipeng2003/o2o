@@ -60,7 +60,10 @@ module V1
     # mount V1::Communities
     mount V1::Coupons
     mount V1::Docs
+    mount V1::Feedbacks
     mount V1::Files
+    mount V1::MonthCardOrders
+    mount V1::MonthCards
     mount V1::Orders
     mount V1::PaymentLogs
     mount V1::Payments
@@ -68,14 +71,16 @@ module V1
     mount V1::RechargePolicies
     mount V1::Recharges
     mount V1::Stores
+    mount V1::SystemMonthCards
     mount V1::TradingRecords
     mount V1::Users
+    mount V1::WashMachineSets
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
       api_version: 'v1',
       info: {
-        title: '嘀嘀去哪儿接口文档',
+        title: '嘀嘀雄兵接口文档',
         contact: 'songlipeng2003@gmail.com',
         description: <<-NOTE
           本接口完全按照REST设计规范进行设计

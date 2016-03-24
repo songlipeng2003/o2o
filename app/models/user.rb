@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   include Financeable
+  include Tokenable
+
+  belongs_to :application
 
   has_many :cars
   has_many :orders
@@ -9,10 +12,12 @@ class User < ActiveRecord::Base
   has_many :images
   has_many :login_histories, as: :user
   has_many :coupons
+  has_many :month_card_orders
+  has_many :month_cards
+  has_many :devices, as: :deviceable
+  has_many :feedbacks
 
-  validates :phone, presence: true, uniqueness: true
-
-  before_save :ensure_authentication_token
+  validates :phone, presence: true, uniqueness: true, phone: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -22,10 +27,6 @@ class User < ActiveRecord::Base
   has_paper_trail
 
   mount_uploader :avatar, AvatarUploader
-
-  def ensure_authentication_token
-    self.authentication_token ||= generate_authentication_token
-  end
 
   def pay_password=(pay_password)
     self.encrypted_pay_password = password_digest(pay_password)
@@ -45,6 +46,10 @@ class User < ActiveRecord::Base
     Devise.secure_compare(pay_password, encrypted_pay_password)
   end
 
+  def email_required?
+    false
+  end
+
   def is_set_pay_password
     !self.encrypted_pay_password.blank?
   end
@@ -58,22 +63,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.random_email
-    name = (0..10).map { ('a'..'z').to_a[rand(8)] }.join
-
-    name + '@24didi.com'
-  end
-
   def self.random_password
     (0..10).map { ('a'..'z').to_a[rand(8)] }.join
-  end
-
-  private
-
-  def generate_authentication_token
-    loop do
-      token = Devise.friendly_token
-      break token unless User.where(authentication_token: token).first
-    end
   end
 end

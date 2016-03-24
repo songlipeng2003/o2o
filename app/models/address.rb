@@ -5,6 +5,7 @@ class Address < ActiveRecord::Base
   validates :lon, presence: true
 
   belongs_to :user
+  belongs_to :application
 
   default_value_for :address_type, 'other'
 end

@@ -22,6 +22,8 @@ class Store < ActiveRecord::Base
   has_many :store_users
   has_many :orders
 
+  acts_as_paranoid
+
   before_create do
     update_area_info
   end
@@ -56,9 +58,20 @@ class Store < ActiveRecord::Base
 
   def self.can_serviced(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
-    ids = stores.map { |store| store._id }
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
+      store = Store.find(store.id)
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count < store.store_users.count
+        return true
+      end
+    end
+    false
+  end
+
+  def self.can_serviced_in_night(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    stores.each do |store|
+      store = Store.find(store.id)
+      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count < store.store_users.count * 16
         return true
       end
     end
@@ -68,8 +81,44 @@ class Store < ActiveRecord::Base
   def self.can_serviced_store(lon, lat, booked_at)
     stores = in_service_scope(lon, lat)
     stores.each do |store|
-      if Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).count==0
-        return store.id
+      store = Store.find(store.id)
+      store_users_ids = store.store_users.map do |store_user|
+        store_user.id
+      end
+
+      store_users_ids.shuffle!
+
+      count = Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count
+
+      if count < store.store_users.count
+        store_users_ids.each do |store_user_id|
+          count = Order.unscoped.where({ store_user_id: store_user_id, booked_at: booked_at }).where.not(state: 'closed').count
+
+          return store_user_id if count==0
+        end
+      end
+    end
+    false
+  end
+
+  def self.can_serviced_store_in_night(lon, lat, booked_at)
+    stores = in_service_scope(lon, lat)
+    stores.each do |store|
+      store = Store.find(store.id)
+      store_users_ids = store.store_users.map do |store_user|
+        store_user.id
+      end
+
+      store_users_ids.shuffle!
+
+      count = Order.unscoped.where({ store_id: store.id, booked_at: booked_at }).where.not(state: 'closed').count
+
+      if count < store.store_users.count * 16
+        store_users_ids.each do |store_user_id|
+          count = Order.unscoped.where({ store_user_id: store_user_id, booked_at: booked_at }).where.not(state: 'closed').count
+
+          return store_user_id if count<16
+        end
       end
     end
     false
@@ -92,7 +141,7 @@ class Store < ActiveRecord::Base
   end
 
   # elasticsearch settings
-  settings index: { number_of_shards: 1 } do
+  settings index: { number_of_shards: 5 } do
     mappings dynamic: 'strict' do
       indexes :name
       indexes :address
@@ -116,4 +165,4 @@ class Store < ActiveRecord::Base
   end
 end
 
-Store.import force: true
+# Store.import force: true

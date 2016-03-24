@@ -1,0 +1,50 @@
+<div id="map" style="height: 500px;">
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=4daf14fd86b568d2429698650673d9c1"></script>
+<script language="javascript">
+var map;
+//初始化地图对象，加载地图
+function map_init(){
+  map = new AMap.Map("map",{
+    //二维地图显示视口
+    view: new AMap.View2D({
+      zoom:13 //地图显示的缩放级别
+    })
+  });
+
+  map.plugin(["AMap.ToolBar"],function(){
+    tool = new AMap.ToolBar();
+    map.addControl(tool);
+  });
+
+  var data = [
+    <% @stores.each do |store| %>
+      <%= store.service_area_location[:coordinates][0].to_json %>,
+    <% end %>
+  ];
+
+  $.each(data, function(i, polygon_data){
+    var arr = new Array();
+    for(var i=0;i<polygon_data.length;i++){
+      arr.push(new AMap.LngLat(polygon_data[i][0], polygon_data[i][1]));
+    }
+
+    var polygon_option = {
+      map: map,
+      path: arr,
+      strokeColor:"#FF33FF",
+      strokeOpacity:1,
+      strokeWeight:2,
+      fillColor: "#f5deb3",
+      fillOpacity: 0.35
+    };
+
+    var polygon = new AMap.Polygon(polygon_option);
+  })
+
+  map.setFitView();
+}
+
+$(function(){
+  map_init();
+});
+</script>

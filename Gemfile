@@ -62,6 +62,7 @@ end
 gem 'bootstrap-generators', '~> 3.2.0'
 gem "font-awesome-rails", "~> 4.3.0"
 gem "bower-rails", "~> 0.9.2"
+gem 'select2-rails'
 
 # disable assets log
 gem 'quiet_assets', '~> 1.0.3', group: :development
@@ -83,8 +84,10 @@ gem 'devise', '~> 3.2.2'
 gem 'ancestry', '~> 2.1.0'
 
 # admin
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre1'
 gem "active_admin-sortable_tree"
+gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
+gem 'activeadmin-axlsx', github: 'milabent/activeadmin-axlsx'
 
 # api
 gem 'grape', '~> 0.9.0'
@@ -149,3 +152,16 @@ gem "rails_config"
 
 # exception notification
 # gem 'exception_notification'
+
+gem "pingpp"
+
+# by date search
+gem 'by_star'
+gem 'groupdate'
+gem "highcharts-rails", "~> 3.0.0"
+gem "chartkick"
+
+# auth
+gem 'cancancan', '~> 1.10'
+
+gem 'oneapm_rpm'

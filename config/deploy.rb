@@ -2,7 +2,7 @@
 lock '3.3.5'
 
 set :application, 'didi'
-set :repo_url, 'git@coding.net:songlipeng2003/didi.git'
+set :repo_url, 'git@git.coding.net:songlipeng2003/didi.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

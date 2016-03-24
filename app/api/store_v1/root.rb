@@ -46,12 +46,13 @@ module StoreV1
     mount StoreV1::Accounts
     mount StoreV1::Orders
     mount StoreV1::TradingRecords
+    mount StoreV1::Stores
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/store_api',
       api_version: 'v1',
       info: {
-        title: '嘀嘀去哪儿商户接口文档',
+        title: '嘀嘀雄兵商户接口文档',
         contact: 'songlipeng2003@gmail.com',
         description: <<-NOTE
           本接口完全按照REST设计规范进行设计

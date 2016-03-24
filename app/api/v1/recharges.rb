@@ -11,7 +11,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::Recharge]
+        ]
       }
       paginate
       get do
@@ -25,7 +28,10 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [201, '成功', V1::Entities::Recharge]
+        ]
       }
       params do
         optional :amount, type: Integer, desc: "金额,金额和充值策略只能选择一个，选择金额充值不会有任何优惠活动，只有选择充值策略的时候，才会有返现和赠送代金券"
@@ -45,11 +51,15 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        http_codes: [
+         [201, '成功', V1::Entities::PaymentLog]
+        ]
       }
       params do
         requires :id, type: Integer, desc: "充值编号"
         requires :payment_id, type: Integer, desc: "支付编号"
+        optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"
       end
       route_param :id do
         post :payment do
@@ -69,6 +79,8 @@ module V1
             payment_log.application = current_application
             payment_log.save
           end
+
+          payment_log.extras = { open_id: params[:open_id] } unless params[:open_id].blank?
 
           present payment_log, with: V1::Entities::PaymentLog
         end

@@ -5,6 +5,24 @@ ActiveAdmin.register PaymentLog do
 
   config.batch_actions = false
 
+  scope :all, :default => true
+
+  scope :unpayed do |scope|
+    scope.where(state: :unpayed)
+  end
+
+  scope :payed do |scope|
+    scope.where(state: :payed)
+  end
+
+  scope :closed do |scope|
+    scope.where(state: :closed)
+  end
+
+  scope :refunded do |scope|
+    scope.where(state: :refunded)
+  end
+
   index do
     id_column
     column :sn

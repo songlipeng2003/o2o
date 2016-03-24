@@ -22,9 +22,19 @@ ActiveAdmin.register RefundBatch do
       refund_batch.aasm.human_state
     end
     column :created_at
-    actions defaults: true do |order|
-      link_to '处理', order.refund_link, target: '_blank'
+    actions defaults: true do |refund_batch|
+      link = ''
+      link << link_to('处理', refund_batch.refund_link, target: '_blank') if refund_batch.applyed?
+      link << ' ' if refund_batch.applyed?
+      link << link_to('关闭', close_admin_refund_batch_path(refund_batch), method: :put,
+        data: { confirm: '你确认要完成吗？' } ) if refund_batch.applyed?
+      raw link
     end
+  end
+
+  member_action :close, method: :put do
+    resource.close!
+    redirect_to :back, notice: "关闭退款批次成功"
   end
 
   filter :payment

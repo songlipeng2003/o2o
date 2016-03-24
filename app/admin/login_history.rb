@@ -10,6 +10,7 @@ ActiveAdmin.register LoginHistory do
     column :device_type
     column :device_model
     column :ip
+    column :application
     column :created_at
     actions
   end

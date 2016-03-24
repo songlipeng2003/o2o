@@ -7,9 +7,8 @@ ActiveAdmin.register Banner do
     selectable_column
     id_column
     column :image, sortable: false do |banner|
-      image_tag(banner.image.url)
+      link_to image_tag(banner.image.url, width: 300), banner.link, target: '_blank'
     end
-    column :link
     column :created_at
     column :updated_at
     actions
@@ -29,9 +28,8 @@ ActiveAdmin.register Banner do
     attributes_table do
       row :id
       row :image do
-        image_tag(banner.image.url)
+        link_to image_tag(banner.image.url, width: 300), banner.link, target: '_blank'
       end
-      row :link
       row :created_at
       row :updated_at
     end

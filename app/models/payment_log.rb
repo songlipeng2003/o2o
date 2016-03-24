@@ -2,6 +2,8 @@ class PaymentLog < ActiveRecord::Base
   include AASM
   include Snable
 
+  attr_accessor :extras
+
   belongs_to :item, polymorphic: true
   belongs_to :payment
   belongs_to :application
@@ -45,19 +47,56 @@ class PaymentLog < ActiveRecord::Base
       transitions :from => :payed, :to => :refunded
 
       after do
-        trading_record = TradingRecord.new
-        trading_record.user = self.item.user
-        trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
-        trading_record.object = self.item
-        trading_record.name = self.name
-        trading_record.amount = self.amount
-        trading_record.save
+        if item_type=='Recharge'
+          trading_record = TradingRecord.new
+          trading_record.user = self.item.user
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_RECHARGE_RETURN
+          trading_record.object = self.item
+          trading_record.name = self.name
+          trading_record.amount = - self.amount
+          trading_record.save
+
+          if self.item.present_amount && self.item.present_amount>0
+            trading_record = TradingRecord.new
+            trading_record.user = self.item.user
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_PRESENT_RETURN
+            trading_record.object = self.item
+            trading_record.name = self.name
+            trading_record.amount = - self.item.present_amount
+            trading_record.save
+
+
+            trading_record = TradingRecord.new
+            trading_record.user = SystemUser.company
+            trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN_SUBSIDY
+            trading_record.object = self.item
+            trading_record.name = self.name
+            trading_record.amount = - self.item.present_amount
+            trading_record.save
+          end
+        else
+          trading_record = TradingRecord.new
+          trading_record.user = self.item.user
+          trading_record.trading_type = TradingRecord::TRADING_TYPE_RETURN
+          trading_record.object = self.item
+          trading_record.name = self.name
+          trading_record.amount = self.amount
+          trading_record.fund_type = TradingRecord::FUND_TYPE_FREEZE_BALANCE unless payment.balance?
+          trading_record.save
+        end
 
         payment_refund_log = PaymentRefundLog.new
         payment_refund_log.payment_log = self
         payment_refund_log.payment = payment
         payment_refund_log.amount = self.amount
         payment_refund_log.out_trade_no = self.out_trade_no
+
+        if pingxx
+          charge = Pingpp::Charge.retrieve(pingxx)
+          refund = charge.refunds.create description: '退款'
+          payment_refund_log.pingxx = refund.id
+        end
+
         payment_refund_log.save
       end
     end

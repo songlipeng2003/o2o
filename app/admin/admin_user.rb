@@ -1,7 +1,7 @@
 ActiveAdmin.register AdminUser do
   menu parent: '用户'
 
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :password, :password_confirmation, :province_id, :city_id, :area_id
 
   index do
     selectable_column
@@ -18,13 +18,5 @@ ActiveAdmin.register AdminUser do
   filter :sign_in_count
   filter :created_at
 
-  form do |f|
-    f.inputs "Admin Details" do
-      f.input :email
-      f.input :password
-      f.input :password_confirmation
-    end
-    f.actions
-  end
-
+  form :partial => "form"
 end

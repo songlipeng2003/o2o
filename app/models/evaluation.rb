@@ -3,6 +3,7 @@ class Evaluation < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
   belongs_to :application
+  belongs_to :store_user
 
   has_many :images, as: :item
 
@@ -19,5 +20,16 @@ class Evaluation < ActiveRecord::Base
   before_validation do
     self.user_id = order.user_id
     self.store_id = order.store_id
+
+    if !score
+      self.score = (score1 + score2 + score3) / 3
+    end
+  end
+
+  after_save :update_store_user_score
+
+  def update_store_user_score
+    store_user.score = store_user.evaluations.average(:score)
+    store_user.save
   end
 end
