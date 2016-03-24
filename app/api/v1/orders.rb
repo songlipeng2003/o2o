@@ -42,6 +42,57 @@ module V1
         present order, with: V1::Entities::Order
       end
 
+      desc "计算洗车机订单价格接口", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+         [200, '成功', V1::Entities::OrderPrice]
+        ]
+      }
+      params do
+        requires :wash_machine_code, type: String, desc: '洗车机设备码'
+        requires :wash_machine_set_id, type: String, desc: '洗车机套餐'
+        optional :coupon_id, type: Integer, desc: "代金券编号"
+        optional :service_ticket_code, type: String, desc: '消费券号码'
+      end
+      get :machine_price do
+        order = current_user.orders.new
+        order.order_type = Order::ORDER_TYPE_MACHINE
+        order.product_id = 9
+        wash_machine_code = params[:wash_machine_code]
+        wash_machine = WashMachine.where(code: wash_machine_code).first
+
+        unless wash_machine
+          return {
+            code: 1,
+            msg: '洗车机设备码错误'
+          }
+        end
+
+        order.wash_machine_id = wash_machine.id
+
+        order.wash_machine_set_id = params[:wash_machine_set_id]
+        order.coupon_id = params[:coupon_id]
+
+        service_ticket_code = params[:service_ticket_code]
+        service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+        if service_ticket
+          order.service_ticket_id = service_ticket.id
+        end
+        order.cal_total_amount
+        {
+          original_price: order.original_price,
+          total_amount: order.total_amount,
+          order_amount: order.order_amount,
+          service_ticket_id: order.service_ticket_id,
+          month_card_id: order.month_card_id
+        }
+      end
+
       desc "计算订单价格接口", {
         headers: {
           "X-Access-Token" => {

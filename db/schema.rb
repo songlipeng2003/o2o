@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323151015) do
+ActiveRecord::Schema.define(version: 20160324144412) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -704,7 +704,7 @@ ActiveRecord::Schema.define(version: 20160323151015) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "wash_machine_sets", force: true do |t|
-    t.string   "price"
+    t.float    "price",       limit: 24
     t.string   "name"
     t.string   "image"
     t.string   "description"

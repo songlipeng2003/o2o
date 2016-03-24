@@ -221,6 +221,11 @@ class Order < ActiveRecord::Base
       price = price - self.coupon.amount
     end
 
+    if price<=0
+      self.total_amount = 0
+      return
+    end
+
     # 第一单优惠处理
     if product_id==1
       if user.orders.with_deleted.count == 0 || user.orders.with_deleted.count == user.orders.with_deleted.where(state: 'closed').count
@@ -241,10 +246,10 @@ class Order < ActiveRecord::Base
         price = 0
         self.month_card_id = month_card.id
       end
-
-      # 消费券处理
-      service_ticket && product_id==1 && price = 0
     end
+
+    # 消费券处理
+    service_ticket && (product_id==1 || product_id==9) && price = 0
 
     self.total_amount ||= price;
   end
