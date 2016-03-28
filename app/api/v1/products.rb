@@ -13,8 +13,8 @@ module V1
         ]
       }
       params do
-        requires :city_id, type: Integer, default: 917, desc: "城市编号, 默认值917为郑州"
-        requires :category_id, type: Integer, default: 2, desc: "商品分类, 1为洗车，2为美容"
+        optional :city_id, type: Integer, default: 917, desc: "城市编号, 默认值917为郑州"
+        optional :category_id, type: Integer, default: 2, desc: "商品分类, 1为洗车，2为美容"
       end
       get do
         products = Product
