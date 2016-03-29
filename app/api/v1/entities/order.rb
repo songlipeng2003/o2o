@@ -49,6 +49,9 @@ module V1
         order.wash_machine_set ? order.wash_machine_set.name : nil
       end
 
+      expose :wash_machine_encrypt_code, documentation: { type: Integer, desc: '洗车机套餐编号' } do |order|
+        '123456'
+      end
     end
   end
 end
