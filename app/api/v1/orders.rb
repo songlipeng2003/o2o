@@ -553,7 +553,7 @@ module V1
         put 'pay' do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed?
-          if order.booked_at.hour >=20
+          if order.booked_at && order.booked_at.hour >=20
             return {
               code: 1,
               msg: '夜晚订单特惠，不支持余额支付'
