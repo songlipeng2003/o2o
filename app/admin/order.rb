@@ -30,22 +30,26 @@ ActiveAdmin.register Order do
     column :sn
     column :user
     column :store do |order|
-      content = '店铺：'
-      content << link_to(order.store.name, admin_store_path(order.store)) if order.store
-      content << '<br/>'
-      content << '店铺用户：'
-      content << link_to(order.store_user.nickname, admin_store_store_user_path(order.store, order.store_user)) if order.store_user
-      raw content
+      if order.store
+        content = '店铺：'
+        content << link_to(order.store.name, admin_store_path(order.store)) if order.store
+        content << '<br/>'
+        content << '店铺用户：'
+        content << link_to(order.store_user.nickname, admin_store_store_user_path(order.store, order.store_user)) if order.store_user
+        raw content
+      end
     end
     column :total_amount
     column :order_amount
     column :product
     column :car do |order|
-      content = ''
-      content << order.car_model.name
-      content << '<br/>'
-      content << order.license_tag
-      raw content
+      if order.car
+        content = ''
+        content << order.car_model.name
+        content << '<br/>'
+        content << order.license_tag
+        raw content
+      end
     end
     column :place
     column :booked_at
