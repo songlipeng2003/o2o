@@ -75,6 +75,7 @@ module V1
     mount V1::TradingRecords
     mount V1::Users
     mount V1::WashMachineSets
+    mount V1::WashMachines
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
