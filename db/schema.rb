@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324144412) do
+ActiveRecord::Schema.define(version: 20160330144812) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -380,27 +380,27 @@ ActiveRecord::Schema.define(version: 20160324144412) do
     t.integer  "car_id"
     t.string   "phone"
     t.string   "place"
-    t.decimal  "lat",                            precision: 11, scale: 8
-    t.decimal  "lon",                            precision: 11, scale: 8
+    t.decimal  "lat",                                 precision: 11, scale: 8
+    t.decimal  "lon",                                 precision: 11, scale: 8
     t.datetime "booked_at"
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
-    t.boolean  "is_underground_park",                                     default: false
+    t.boolean  "is_underground_park",                                          default: false
     t.string   "carport"
     t.string   "license_tag"
     t.integer  "car_model_id"
     t.string   "car_color"
     t.integer  "address_id"
     t.integer  "product_id"
-    t.float    "total_amount",        limit: 24
+    t.float    "total_amount",             limit: 24
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
-    t.float    "original_price",      limit: 24
-    t.integer  "product_type",                                            default: 1
-    t.boolean  "is_include_interior",                                     default: false
+    t.float    "original_price",           limit: 24
+    t.integer  "product_type",                                                 default: 1
+    t.boolean  "is_include_interior",                                          default: false
     t.integer  "application_id"
     t.integer  "coupon_id"
     t.integer  "payment_id"
@@ -408,12 +408,13 @@ ActiveRecord::Schema.define(version: 20160324144412) do
     t.integer  "store_user_id"
     t.integer  "month_card_id"
     t.integer  "service_ticket_id"
-    t.float    "order_amount",        limit: 24
+    t.float    "order_amount",             limit: 24
     t.datetime "booked_end_at"
     t.integer  "wash_machine_id"
     t.integer  "wash_machine_set_id"
-    t.integer  "order_type",                                              default: 1
+    t.integer  "order_type",                                                   default: 1
     t.string   "wash_machine_code"
+    t.string   "wash_machine_random_code"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree

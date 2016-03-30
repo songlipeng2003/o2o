@@ -352,4 +352,8 @@ class Order < ActiveRecord::Base
       pay! user
     end
   end
+
+  def wash_machine_encrypt_code
+    Utils::Util::encrypt(wash_machine_random_code)
+  end
 end
