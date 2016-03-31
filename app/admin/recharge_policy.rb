@@ -4,13 +4,14 @@ ActiveAdmin.register RechargePolicy do
   config.sort_order = 'sort_desc, id_desc'
   config.batch_actions = false
 
-  permit_params :amount, :present_amount, :note, :sort, { recharge_policies_system_coupons_attributes: [:id, :system_coupon_id, :number, :_destroy] }
+  permit_params :amount, :present_amount, :note, :sort, :show, { recharge_policies_system_coupons_attributes: [:id, :system_coupon_id, :number, :_destroy] }
 
   index do
     id_column
     column :amount
     column :present_amount
     column :sort
+    column :show
     column :created_at
     actions
   end
@@ -18,6 +19,7 @@ ActiveAdmin.register RechargePolicy do
   filter :amount
   filter :present_amount
   filter :note
+  filter :show
   filter :created_at
 
   form :partial => "form"
@@ -37,6 +39,7 @@ ActiveAdmin.register RechargePolicy do
         end
         raw(content)
       end
+      row :show
       row :note
       row :created_at
       row :updated_at
