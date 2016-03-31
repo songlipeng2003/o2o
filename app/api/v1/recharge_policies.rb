@@ -4,7 +4,7 @@ module V1
     resource :recharge_policies do
       desc "充值策略列表"
       get do
-        present RechargePolicy.all
+        present RechargePolicy.where(show: true).all
       end
     end
   end
