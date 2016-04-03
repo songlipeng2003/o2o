@@ -311,7 +311,7 @@ class Order < ActiveRecord::Base
   end
 
   def wash_machine_encrypt_code
-    Utils::Util::encrypt(wash_machine_random_code)
+    Utils::Util::encrypt(wash_machine_random_code) if order_type==ORDER_TYPE_MACHINE && state!='unpayed' && state!='closed'
   end
 
   private
