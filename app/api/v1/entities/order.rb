@@ -52,7 +52,7 @@ module V1
       expose :wash_machine_random_code, documentation: { type: Integer, desc: '洗车机随机码' }
 
       expose :wash_machine_encrypt_code, documentation: { type: Integer, desc: '洗车机加密码' } do |order|
-        order.wash_machine_encrypt_code if order.state!='unpayed'
+        order.wash_machine_encrypt_code if order.state!='unpayed' && order.state!='closed'
       end
     end
   end

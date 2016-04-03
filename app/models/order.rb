@@ -310,6 +310,10 @@ class Order < ActiveRecord::Base
     SMSWorker.perform_async(store_user.phone, 671257, params)
   end
 
+  def wash_machine_encrypt_code
+    Utils::Util::encrypt(wash_machine_random_code)
+  end
+
   private
   def update_area_info
     if store
@@ -351,9 +355,5 @@ class Order < ActiveRecord::Base
 
       pay! user
     end
-  end
-
-  def wash_machine_encrypt_code
-    Utils::Util::encrypt(wash_machine_random_code)
   end
 end
