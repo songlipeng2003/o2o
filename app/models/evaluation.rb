@@ -29,7 +29,9 @@ class Evaluation < ActiveRecord::Base
   after_save :update_store_user_score
 
   def update_store_user_score
-    store_user.score = store_user.evaluations.average(:score)
-    store_user.save
+    if store_user
+      store_user.score = store_user.evaluations.average(:score)
+      store_user.save
+    end
   end
 end
