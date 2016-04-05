@@ -13,7 +13,7 @@ module V1
         ]
       }
       params do
-        requires :code, type: Integer, desc: "洗车机设备码"
+        requires :code, type: String, desc: "洗车机设备码"
       end
       get do
         list =  WashMachine.where(code: params[:code]).all()
