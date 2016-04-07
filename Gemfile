@@ -90,10 +90,10 @@ gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
 gem 'activeadmin-axlsx', github: 'milabent/activeadmin-axlsx'
 
 # api
-gem 'grape', '~> 0.9.0'
+gem 'grape', '~> 0.16.0'
 gem 'grape-entity', '~> 0.4.4'
-gem 'grape-swagger', '~> 0.9.0'
-gem 'api-pagination'
+gem 'grape-swagger', '~> 0.10.4'
+gem 'api-pagination', '~> 4.3.0'
 gem 'kramdown'
 gem 'grape-swagger-rails', github: 'fabn/grape-swagger-rails', branch: 'grape-swagger-0.8'
 
