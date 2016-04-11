@@ -21,7 +21,7 @@ module V2
             :currency  => "cny",
             :extra     => {
               success_url: 'http://m.24didi.com'
-            }
+            },
             :subject   => payment_log.name,
             :body      => payment_log.name,
           )

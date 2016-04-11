@@ -2,7 +2,7 @@ module V2
   class Root < Grape::API
     default_format :json
     format :json
-    # error_formatter :json, V1::ErrorFormatter
+    error_formatter :json, V2:Entities::ErrorFormatter
 
     version 'v2', using: :path
 
@@ -11,15 +11,15 @@ module V2
     end
 
     rescue_from Grape::Exceptions::ValidationErrors do |e|
-      error_response(message: e.message, status: 404)
+      error!(e.message, 422)
     end
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      error_response(message: e.message, status: 404)
+      error!(e.message, 422)
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      error_response(message: e.message, status: 422)
+      error!(e.message, 422)
     end
 
     helpers do
