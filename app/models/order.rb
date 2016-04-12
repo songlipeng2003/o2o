@@ -132,23 +132,23 @@ class Order < ActiveRecord::Base
           trading_record.name = self.product.name
           trading_record.amount = self.total_amount
           trading_record.save
+        end
 
-          if order_type==ORDER_TYPE_NORMAL
-            params = {
-              booked_at: self.booked_at.strftime('%F %T'),
-              address: self.place,
-              license_tag: self.license_tag,
-              color: self.car_color,
-              car_model: self.car_model_name,
-              phone: self.phone,
-              product: self.product.name,
-              is_include_interior: self.is_include_interior ? '是' : '不',
-              price: self.order_amount
-            }
-            SMSWorker.perform_async(self.store_user.phone, 943153, params)
-          end
+        finish! user if order_type==ORDER_TYPE_MACHINE
 
-          finish! user if order_type==ORDER_TYPE_MACHINE
+        if order_type==ORDER_TYPE_NORMAL
+          params = {
+            booked_at: self.booked_at.strftime('%F %T'),
+            address: self.place,
+            license_tag: self.license_tag,
+            color: self.car_color,
+            car_model: self.car_model_name,
+            phone: self.phone,
+            product: self.product.name,
+            is_include_interior: self.is_include_interior ? '是' : '不',
+            price: self.order_amount
+          }
+          SMSWorker.perform_async(self.store_user.phone, 943153, params)
         end
       end
     end
