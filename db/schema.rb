@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330144812) do
+ActiveRecord::Schema.define(version: 20160414100700) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -411,7 +411,6 @@ ActiveRecord::Schema.define(version: 20160330144812) do
     t.float    "order_amount",             limit: 24
     t.datetime "booked_end_at"
     t.integer  "wash_machine_id"
-    t.integer  "wash_machine_set_id"
     t.integer  "order_type",                                                   default: 1
     t.string   "wash_machine_code"
     t.string   "wash_machine_random_code"
@@ -420,7 +419,6 @@ ActiveRecord::Schema.define(version: 20160330144812) do
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
   add_index "orders", ["wash_machine_id"], name: "index_orders_on_wash_machine_id", using: :btree
-  add_index "orders", ["wash_machine_set_id"], name: "index_orders_on_wash_machine_set_id", using: :btree
 
   create_table "payment_logs", force: true do |t|
     t.string   "sn"
@@ -505,6 +503,7 @@ ActiveRecord::Schema.define(version: 20160330144812) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sort",           default: 0
+    t.boolean  "show",           default: true
   end
 
   create_table "recharge_policies_system_coupons", force: true do |t|
@@ -703,15 +702,6 @@ ActiveRecord::Schema.define(version: 20160330144812) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
-
-  create_table "wash_machine_sets", force: true do |t|
-    t.float    "price",       limit: 24
-    t.string   "name"
-    t.string   "image"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "wash_machines", force: true do |t|
     t.string   "code"

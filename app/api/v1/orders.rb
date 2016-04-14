@@ -55,7 +55,6 @@ module V1
       }
       params do
         requires :wash_machine_code, type: String, desc: '洗车机设备码'
-        requires :wash_machine_set_id, type: String, desc: '洗车机套餐'
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :service_ticket_code, type: String, desc: '消费券号码'
       end
@@ -75,7 +74,6 @@ module V1
 
         order.wash_machine_id = wash_machine.id
 
-        order.wash_machine_set_id = params[:wash_machine_set_id]
         order.coupon_id = params[:coupon_id]
 
         service_ticket_code = params[:service_ticket_code]
@@ -412,7 +410,6 @@ module V1
       }
       params do
         requires :wash_machine_code, type: String, desc: '洗车机设备码'
-        requires :wash_machine_set_id, type: String, desc: '洗车机套餐'
         requires :wash_machine_random_code, type: String, desc: '洗车机随机码'
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :service_ticket_code, type: String, desc: '消费券号码'

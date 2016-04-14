@@ -21,7 +21,6 @@ class Order < ActiveRecord::Base
   belongs_to :month_card
   belongs_to :service_ticket
   belongs_to :wash_machine
-  belongs_to :wash_machine_set
 
   has_one :evaluation
 
@@ -49,7 +48,6 @@ class Order < ActiveRecord::Base
   validates :area, presence: true
 
   validates :wash_machine_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
-  validates :wash_machine_set_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
   validates :wash_machine_code, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
 
   validate :check_coupon
@@ -63,7 +61,6 @@ class Order < ActiveRecord::Base
   # validates_associated :product
 
   validates_associated :wash_machine
-  validates_associated :wash_machine_set
 
   before_create :cal_total_amount
 
@@ -207,15 +204,11 @@ class Order < ActiveRecord::Base
     end
 
     # 获取商品价格
-    if order_type == ORDER_TYPE_NORMAL
-      self.original_price = self.product.market_price
-      if product.suv_price && car_model.auto_type == 'SUV'
-        price = self.product.suv_price
-      else
-        price = self.product.price
-      end
+    self.original_price = self.product.market_price
+    if product.suv_price && car_model.auto_type == 'SUV'
+      price = self.product.suv_price
     else
-      price = wash_machine_set.price
+      price = self.product.price
     end
 
     self.order_amount = price
