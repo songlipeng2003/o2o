@@ -1,7 +1,7 @@
 source 'https://ruby.taobao.org/'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.6'
 # Use sqli  te3 as the database for Active Record
 # gem 'pg', '~> 0.17.1'
 # gem 'activerecord-postgis-adapter', '~> 2.2.1'
@@ -84,7 +84,7 @@ gem 'devise', '~> 3.2.2'
 gem 'ancestry', '~> 2.1.0'
 
 # admin
-gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'activeadmin', github: 'activeadmin'
 gem "active_admin-sortable_tree"
 gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
 gem 'activeadmin-axlsx', github: 'milabent/activeadmin-axlsx'
