@@ -16,6 +16,6 @@ class WashMachine < ActiveRecord::Base
   validates_associated :area
 
   def name
-    "#{id}自主洗车机"
+    "#{id}号自助洗车机"
   end
 end
