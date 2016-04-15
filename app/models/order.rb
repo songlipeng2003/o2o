@@ -205,8 +205,12 @@ class Order < ActiveRecord::Base
 
     # 获取商品价格
     self.original_price = self.product.market_price
-    if product.suv_price && car_model.auto_type == 'SUV'
-      price = self.product.suv_price
+    if order_type==ORDER_TYPE_NORMAL
+      if product.suv_price && car_model.auto_type == 'SUV'
+        price = self.product.suv_price
+      else
+        price = self.product.price
+      end
     else
       price = self.product.price
     end
