@@ -74,7 +74,7 @@ gem 'simple_form', '~> 3.0.1'
 gem 'rails-i18n', '~> 4.0.0'
 
 # 登陆
-gem 'devise', '~> 3.2.2'
+gem 'devise', '~> 3.5.6'
 
 # 分页
 # gem 'will_paginate', '~> 3.0'
@@ -90,12 +90,12 @@ gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
 gem 'activeadmin-axlsx', github: 'milabent/activeadmin-axlsx'
 
 # api
-gem 'grape', '~> 0.16.0'
-gem 'grape-entity', '~> 0.4.4'
-gem 'grape-swagger', '~> 0.10.4'
+gem 'grape', '~> 0.14.0'
+gem 'grape-entity', '~> 0.5.1'
+gem 'grape-swagger', '~> 0.20.0'
 gem 'api-pagination', '~> 4.3.0'
 gem 'kramdown'
-gem 'grape-swagger-rails', github: 'fabn/grape-swagger-rails', branch: 'grape-swagger-0.8'
+gem 'grape-swagger-rails', '~> 0.2.0'
 
 # upload
 gem 'carrierwave', '~> 0.10.0'

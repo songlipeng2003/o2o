@@ -11,6 +11,7 @@ module V1
             required: true
           },
         },
+        is_array: true,
         http_codes: [
          [200, '成功', V1::Entities::Address]
         ]

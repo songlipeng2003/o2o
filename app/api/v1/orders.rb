@@ -494,7 +494,7 @@ module V1
           },
         },
         http_codes: [
-         [200, '成功', V1::Entities::Evaluation]
+         [201, '成功', V1::Entities::Evaluation]
         ]
       }
       params do
@@ -504,7 +504,7 @@ module V1
         optional :score2, type: Integer, desc: '评价2，0-5分'
         optional :score3, type: Integer, desc: '评价3，0-5分'
         optional :note, type: String, desc: '备注'
-        optional :images, type: Array
+        optional :images, type: Array[String], desc: '图片'
       end
       route_param :id do
         post 'evaluate' do

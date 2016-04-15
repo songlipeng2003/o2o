@@ -57,7 +57,6 @@ module V1
     mount V1::CarBrands
     mount V1::CarModels
     mount V1::Cars
-    # mount V1::Communities
     mount V1::Coupons
     mount V1::Docs
     mount V1::Feedbacks
@@ -144,7 +143,7 @@ module V1
           code为0表示争取，其他表示失败
         NOTE
       },
-      models: [V1::Entities::CarBrand, V1::Entities::Car],
-      markdown: GrapeSwagger::Markdown::KramdownAdapter
+      # models: [V1::Entities::CarBrand, V1::Entities::Car],
+      markdown: GrapeSwagger::Markdown::KramdownAdapter.new
   end
 end
