@@ -16,7 +16,7 @@ module V1
       end
 
       def permitted_params
-        @permitted_params ||= declared(params, include_missing: false, include_parent_namespaces: false)
+        @permitted_params ||= declared(params, include_missing: false)
       end
 
       def clean_params(params)

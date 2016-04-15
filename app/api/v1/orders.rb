@@ -256,7 +256,9 @@ module V1
         address_params = permitted_params.delete(:address)
         service_ticket_code = permitted_params.delete :service_ticket_code
 
-        order = current_user.orders.new(permitted_params)
+        safe_params = clean_params(params).permit(:booked_at, :booked_end_at, :is_include_interior, :product_id,
+          :is_underground_park, :coupon_id, :carport, :note)
+        order = current_user.orders.new(safe_params)
         order.product_id = permitted_params[:product_id]
         order.application = current_application
 
@@ -417,7 +419,8 @@ module V1
       post :machine do
         service_ticket_code = permitted_params.delete :service_ticket_code
 
-        order = current_user.orders.new(permitted_params)
+        safe_params = clean_params(params).permit(:wash_machine_code, :wash_machine_random_code, :coupon_id, :note)
+        order = current_user.orders.new(safe_params)
         wash_machine_code = params[:wash_machine_code]
         wash_machine = WashMachine.where(code: wash_machine_code).first
 

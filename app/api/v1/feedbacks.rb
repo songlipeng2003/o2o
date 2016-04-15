@@ -28,7 +28,8 @@ module V1
         requires :content, type: String, desc: "经度"
       end
       post do
-        feedback = current_user.feedbacks.new(permitted_params)
+        safe_params = clean_params(params).permit(:content)
+        feedback = current_user.feedbacks.new(safe_params)
         feedback.application = current_application
         feedback.feedback_type = Feedback::FEEDBACK_TYPE_FEEDBACK
         feedback.save

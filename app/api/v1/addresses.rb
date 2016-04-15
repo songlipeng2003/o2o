@@ -57,7 +57,8 @@ module V1
         optional :address_type, type: String, desc: "类型：home,company,other，可不填，默认other"
       end
       post do
-        address = current_user.addresses.new(permitted_params)
+        safe_params = clean_params(params).permit(:place, :lat, :lon, :name, :note, :address_type)
+        address = current_user.addresses.new(safe_params)
         address.application = current_application
         address.save
         present address, with: V1::Entities::Address
@@ -84,7 +85,8 @@ module V1
       route_param :id do
         put do
           address = current_user.addresses.find(params[:id])
-          address.update(permitted_params)
+          safe_params = clean_params(params).permit(:place, :lat, :lon, :name, :note, :address_type)
+          address.update(safe_params)
           present address, with: V1::Entities::Address
         end
       end

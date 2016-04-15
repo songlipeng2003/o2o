@@ -38,7 +38,8 @@ module V1
         mutually_exclusive :amount, :recharge_policy_id
       end
       post do
-        recharge = current_user.recharges.new(permitted_params)
+        safe_params = clean_params(params).permit(:amount, :recharge_policy_id, :amount)
+        recharge = current_user.recharges.new(safe_params)
         recharge.application = current_application
         recharge.save
         present recharge, with: V1::Entities::Recharge
