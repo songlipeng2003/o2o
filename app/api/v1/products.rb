@@ -8,9 +8,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::Product]
-        ]
+        is_array: true,
+        entity: V1::Entities::Product
       }
       params do
         optional :city_id, type: Integer, default: 917, desc: "城市编号, 默认值917为郑州"

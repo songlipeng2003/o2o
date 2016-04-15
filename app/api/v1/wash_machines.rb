@@ -8,9 +8,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::WashMachine]
-        ]
+        is_array: true,
+        entity: V1::Entities::WashMachine
       }
       params do
         requires :code, type: String, desc: "洗车机设备码"

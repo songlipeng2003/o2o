@@ -11,9 +11,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::Feedback]
-        ]
+        is_array: true,
+        entity: V1::Entities::Feedback
       get do
         present current_user.feedbacks.order('id DESC, id DESC').all, with: V1::Entities::Feedback
       end
@@ -24,10 +23,7 @@ module V1
             description: "Token",
             required: true
           },
-        },
-        http_codes: [
-          [201, '成功', V1::Entities::Feedback]
-        ]
+        }
       params do
         requires :content, type: String, desc: "经度"
       end

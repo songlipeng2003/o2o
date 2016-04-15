@@ -11,7 +11,9 @@ module V1
             description: "Token",
             required: true
           },
-        }
+        },
+        is_array:true,
+        entity: V1::Entities::Car
       }
       get do
         present current_user.cars.all, with: V1::Entities::Car

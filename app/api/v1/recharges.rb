@@ -12,9 +12,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::Recharge]
-        ]
+        is_array: true,
+        entity: V1::Entities::Recharge
       }
       paginate
       get do

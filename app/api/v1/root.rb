@@ -78,6 +78,7 @@ module V1
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
       api_version: 'v1',
+      schemes: ['http'],
       info: {
         title: '嘀嘀雄兵接口文档',
         contact: 'songlipeng2003@gmail.com',

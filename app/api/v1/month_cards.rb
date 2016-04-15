@@ -12,9 +12,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-          [200, 'Ok', V1::Entities::MonthCard]
-        ]
+        is_array: true,
+        entity: V1::Entities::MonthCard
       }
       paginate
       get do

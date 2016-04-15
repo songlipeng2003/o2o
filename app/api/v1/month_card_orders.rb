@@ -12,9 +12,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-          [200, 'Ok', V1::Entities::MonthCardOrder]
-        ]
+        is_array: true,
+        entity: V1::Entities::MonthCardOrder
       }
       paginate
       get do
@@ -28,10 +27,7 @@ module V1
             description: "Token",
             required: true
           },
-        },
-        http_codes: [
-          [200, 'Ok', V1::Entities::MonthCardOrder]
-        ]
+        }
       }
       params do
         optional :system_month_card_id, type: Integer, desc: "系统消费卡编号"

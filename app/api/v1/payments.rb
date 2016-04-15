@@ -2,9 +2,8 @@ module V1
   class Payments < Grape::API
     resource :payments do
       desc "支付方式列表", {
-        http_codes: [
-         [200, '成功', V1::Entities::OrderList]
-        ]
+        is_array: true,
+        entity: V1::Entities::Payment
       }
       params do
         requires :type, type: String, desc: "支付对象，目前可以传 product,recharge,month_card_order"

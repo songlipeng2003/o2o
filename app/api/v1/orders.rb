@@ -12,9 +12,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::OrderList]
-        ]
+        is_array: true,
+        entity: V1::Entities::OrderList
       }
       params do
         optional :page, type: Integer, desc: "页码"

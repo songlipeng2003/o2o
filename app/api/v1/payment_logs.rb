@@ -12,9 +12,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::PaymentLog]
-        ]
+        is_array: true,
+        entity: V1::Entities::PaymentLog
       params do
         requires :id, type: Integer, desc: "支付记录编号"
       end

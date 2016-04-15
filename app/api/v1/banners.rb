@@ -8,9 +8,8 @@ module V1
             required: true
           },
         },
-        http_codes: [
-         [200, '成功', V1::Entities::Banner]
-        ]
+        is_array: true,
+        entity: V1::Entities::Banner
       }
       get do
         present Banner.all(), with: V1::Entities::Banner
