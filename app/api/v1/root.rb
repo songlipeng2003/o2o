@@ -79,9 +79,20 @@ module V1
       base_path: '/api',
       api_version: 'v1',
       schemes: ['http'],
+      # security_definitions: {
+      #   api_key: {
+      #     type: 'apiKey',
+      #     name: 'api_key',
+      #     in: 'query'
+      #   },
+      # },
       info: {
         title: '嘀嘀雄兵接口文档',
-        contact: 'songlipeng2003@gmail.com',
+        contact: {
+          name: 'Thinking Song',
+          url: 'http://wmstars.com',
+          email: 'songlipeng2003@gmail.com'
+        },
         description: <<-NOTE
           本接口完全按照REST设计规范进行设计
 
