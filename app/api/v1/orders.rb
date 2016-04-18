@@ -519,6 +519,7 @@ module V1
             score3: params[:score3],
             note: params[:note],
             store_user_id: order.store_user_id
+            wash_machine_id: order.wash_machine_id
           })
 
           evaluation.application = current_application

@@ -321,6 +321,8 @@ zh-CN:
         user_id: '用户'
         store: '店铺'
         store_id: '店铺'
+        wash_machine: '洗车机'
+        wash_machine_id: '洗车机'
         score: '分数'
         note: '备注'
         images: '图片'

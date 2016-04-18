@@ -4,6 +4,7 @@ class Evaluation < ActiveRecord::Base
   belongs_to :store
   belongs_to :application
   belongs_to :store_user
+  belongs_to :wash_machine
 
   has_many :images, as: :item
 
@@ -16,6 +17,8 @@ class Evaluation < ActiveRecord::Base
   # validates_associated :order
   validates_associated :user
   validates_associated :store
+  validates_associated :store_user
+  validates_associated :wash_machine
 
   before_validation do
     self.user_id = order.user_id
@@ -32,6 +35,16 @@ class Evaluation < ActiveRecord::Base
     if store_user
       store_user.score = store_user.evaluations.average(:score)
       store_user.save
+    end
+
+    if store
+      store.score = store.evaluations.average(:score)
+      store.save
+    end
+
+    if wash_machine
+      wash_machine.score = wash_machine.evaluations.average(:score)
+      wash_machine.save
     end
   end
 end

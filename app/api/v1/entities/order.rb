@@ -40,6 +40,8 @@ module V1
 
       expose :order_type, documentation: { type: Integer, desc: '订单类型,1为上门洗车订单，2为洗车机订单' }
 
+      expose :wash_machine, using: V1::Entities::WashMachine, documentation: { type: 'V1::Entities::WashMachine', desc: '洗车机' }
+
       expose :wash_machine_id, documentation: { type: Integer, desc: '洗车机编号' }
       expose :wash_machine_name, documentation: { type: String, desc: '洗车机名称' } do |order|
         order.wash_machine ? order.wash_machine.name : nil

@@ -5,6 +5,10 @@ class Store < ActiveRecord::Base
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
 
+  has_many :store_users
+  has_many :orders
+  has_many :evaluations
+
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true
   validates :phone, presence: true
@@ -18,9 +22,6 @@ class Store < ActiveRecord::Base
   validates_associated :province
   validates_associated :city
   validates_associated :area
-
-  has_many :store_users
-  has_many :orders
 
   acts_as_paranoid
 

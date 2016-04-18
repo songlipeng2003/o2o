@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414100700) do
+ActiveRecord::Schema.define(version: 20160418050745) do
 
-  create_table "active_admin_comments", force: true do |t|
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 191
-    t.text     "body"
-    t.string   "resource_id",               null: false
-    t.string   "resource_type", limit: 191, null: false
-    t.integer  "author_id"
+    t.text     "body",          limit: 65535
+    t.string   "resource_id",   limit: 255,   null: false
+    t.string   "resource_type", limit: 191,   null: false
+    t.integer  "author_id",     limit: 4
     t.string   "author_type",   limit: 191
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -28,53 +28,53 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", length: {"resource_type"=>nil, "resource_id"=>191}, using: :btree
 
-  create_table "addresses", force: true do |t|
-    t.string   "place"
-    t.string   "address_type"
-    t.decimal  "lat",            precision: 11, scale: 8
-    t.decimal  "lon",            precision: 11, scale: 8
-    t.integer  "user_id"
+  create_table "addresses", force: :cascade do |t|
+    t.string   "place",          limit: 255
+    t.string   "address_type",   limit: 255
+    t.decimal  "lat",                        precision: 11, scale: 8
+    t.decimal  "lon",                        precision: 11, scale: 8
+    t.integer  "user_id",        limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.integer  "application_id"
-    t.string   "note"
+    t.string   "name",           limit: 255
+    t.integer  "application_id", limit: 4
+    t.string   "note",           limit: 255
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
-  create_table "admin_users", force: true do |t|
+  create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  limit: 191, default: "", null: false
-    t.string   "encrypted_password",                 default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 191
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "area_id"
+    t.integer  "province_id",            limit: 4
+    t.integer  "city_id",                limit: 4
+    t.integer  "area_id",                limit: 4
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "announcements", force: true do |t|
-    t.string   "title"
-    t.text     "content"
+  create_table "announcements", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "app_payments", force: true do |t|
-    t.integer  "application_id"
-    t.integer  "payment_id"
-    t.integer  "sort",           default: 0
+  create_table "app_payments", force: :cascade do |t|
+    t.integer  "application_id", limit: 4
+    t.integer  "payment_id",     limit: 4
+    t.integer  "sort",           limit: 4, default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,74 +82,74 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "app_payments", ["application_id"], name: "index_app_payments_on_application_id", using: :btree
   add_index "app_payments", ["payment_id"], name: "index_app_payments_on_payment_id", using: :btree
 
-  create_table "app_versions", force: true do |t|
-    t.string   "file"
-    t.string   "version"
-    t.text     "description"
+  create_table "app_versions", force: :cascade do |t|
+    t.string   "file",        limit: 255
+    t.string   "version",     limit: 255
+    t.text     "description", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "applications", force: true do |t|
-    t.string   "name"
-    t.string   "token"
+  create_table "applications", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "token",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "app_type"
+    t.string   "app_type",   limit: 255
   end
 
-  create_table "areas", force: true do |t|
-    t.string   "name"
-    t.integer  "parent_id"
+  create_table "areas", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.integer  "parent_id",      limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ancestry",       limit: 191
-    t.integer  "ancestry_depth",             default: 0
+    t.integer  "ancestry_depth", limit: 4,   default: 0
   end
 
   add_index "areas", ["ancestry"], name: "index_areas_on_ancestry", using: :btree
   add_index "areas", ["parent_id"], name: "index_areas_on_parent_id", using: :btree
 
-  create_table "auth_codes", force: true do |t|
-    t.string   "phone"
-    t.string   "code"
+  create_table "auth_codes", force: :cascade do |t|
+    t.string   "phone",      limit: 255
+    t.string   "code",       limit: 255
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "banners", force: true do |t|
-    t.string   "image"
-    t.string   "link"
+  create_table "banners", force: :cascade do |t|
+    t.string   "image",      limit: 255
+    t.string   "link",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "big_customer_users", force: true do |t|
-    t.integer  "big_customer_id"
-    t.string   "username"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "encrypted_password"
-    t.integer  "sign_in_count"
+  create_table "big_customer_users", force: :cascade do |t|
+    t.integer  "big_customer_id",      limit: 4
+    t.string   "username",             limit: 255
+    t.string   "phone",                limit: 255
+    t.string   "email",                limit: 255
+    t.string   "encrypted_password",   limit: 255
+    t.integer  "sign_in_count",        limit: 4
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "authentication_token"
+    t.string   "current_sign_in_ip",   limit: 255
+    t.string   "last_sign_in_ip",      limit: 255
+    t.string   "authentication_token", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "big_customer_users", ["big_customer_id"], name: "index_big_customer_users_on_big_customer_id", using: :btree
 
-  create_table "big_customers", force: true do |t|
-    t.string   "name"
-    t.string   "contacts"
-    t.string   "phone"
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "area_id"
+  create_table "big_customers", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "contacts",    limit: 255
+    t.string   "phone",       limit: 255
+    t.integer  "province_id", limit: 4
+    t.integer  "city_id",     limit: 4
+    t.integer  "area_id",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -158,55 +158,55 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "big_customers", ["city_id"], name: "index_big_customers_on_city_id", using: :btree
   add_index "big_customers", ["province_id"], name: "index_big_customers_on_province_id", using: :btree
 
-  create_table "car_brands", force: true do |t|
-    t.string   "name"
-    t.string   "first_letter"
+  create_table "car_brands", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "first_letter", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "car_models", force: true do |t|
-    t.string   "name"
-    t.integer  "car_brand_id"
+  create_table "car_models", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.integer  "car_brand_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "auto_type"
-    t.string   "first_letter"
+    t.string   "auto_type",    limit: 255
+    t.string   "first_letter", limit: 255
   end
 
-  create_table "cars", force: true do |t|
-    t.string   "license_tag"
-    t.integer  "car_model_id"
+  create_table "cars", force: :cascade do |t|
+    t.string   "license_tag",    limit: 255
+    t.integer  "car_model_id",   limit: 4
     t.date     "buy_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.string   "color"
-    t.integer  "application_id"
+    t.integer  "user_id",        limit: 4
+    t.string   "color",          limit: 255
+    t.integer  "application_id", limit: 4
     t.datetime "deleted_at"
   end
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "cities", force: true do |t|
-    t.string   "name"
+  create_table "cities", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "ckeditor_assets", force: true do |t|
-    t.string   "data_file_name",               null: false
-    t.string   "data_content_type"
-    t.integer  "data_file_size"
-    t.integer  "assetable_id"
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",    limit: 255, null: false
+    t.string   "data_content_type", limit: 255
+    t.integer  "data_file_size",    limit: 4
+    t.integer  "assetable_id",      limit: 4
     t.string   "assetable_type",    limit: 30
     t.string   "type",              limit: 30
-    t.integer  "width"
-    t.integer  "height"
+    t.integer  "width",             limit: 4
+    t.integer  "height",            limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -214,10 +214,10 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
-  create_table "communities", force: true do |t|
-    t.string   "name"
-    t.string   "address"
-    t.integer  "area_id"
+  create_table "communities", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "address",    limit: 255
+    t.integer  "area_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "lat",        limit: 24
@@ -226,12 +226,12 @@ ActiveRecord::Schema.define(version: 20160414100700) do
 
   add_index "communities", ["area_id"], name: "index_communities_on_area_id", using: :btree
 
-  create_table "coupons", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "system_coupon_id"
+  create_table "coupons", force: :cascade do |t|
+    t.integer  "user_id",          limit: 4
+    t.integer  "system_coupon_id", limit: 4
     t.float    "amount",           limit: 24
-    t.string   "state"
-    t.string   "expired_at"
+    t.string   "state",            limit: 255
+    t.string   "expired_at",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -239,45 +239,46 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "coupons", ["system_coupon_id"], name: "index_coupons_on_system_coupon_id", using: :btree
   add_index "coupons", ["user_id"], name: "index_coupons_on_user_id", using: :btree
 
-  create_table "devices", force: true do |t|
-    t.string   "code"
+  create_table "devices", force: :cascade do |t|
+    t.string   "code",            limit: 255
     t.datetime "created_at"
-    t.integer  "deviceable_id"
-    t.string   "deviceable_type"
-    t.string   "device_type"
-    t.string   "jpush"
+    t.integer  "deviceable_id",   limit: 4
+    t.string   "deviceable_type", limit: 255
+    t.string   "device_type",     limit: 255
+    t.string   "jpush",           limit: 255
   end
 
-  create_table "docs", force: true do |t|
-    t.string   "title"
-    t.string   "key"
-    t.text     "content"
+  create_table "docs", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.string   "key",        limit: 255
+    t.text     "content",    limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "evaluations", force: true do |t|
-    t.integer  "order_id"
-    t.integer  "score"
-    t.string   "note"
+  create_table "evaluations", force: :cascade do |t|
+    t.integer  "order_id",        limit: 4
+    t.integer  "score",           limit: 4
+    t.string   "note",            limit: 255
     t.datetime "created_at"
-    t.integer  "user_id"
-    t.integer  "store_id"
-    t.integer  "application_id"
-    t.integer  "store_user_id"
-    t.integer  "score1"
-    t.integer  "score2"
-    t.integer  "score3"
+    t.integer  "user_id",         limit: 4
+    t.integer  "store_id",        limit: 4
+    t.integer  "application_id",  limit: 4
+    t.integer  "store_user_id",   limit: 4
+    t.integer  "score1",          limit: 4
+    t.integer  "score2",          limit: 4
+    t.integer  "score3",          limit: 4
+    t.integer  "wash_machine_id", limit: 4
   end
 
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
   add_index "evaluations", ["store_user_id"], name: "index_evaluations_on_store_user_id", using: :btree
 
-  create_table "feedbacks", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "application_id"
-    t.text     "content"
-    t.integer  "feedback_type"
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "application_id", limit: 4
+    t.text     "content",        limit: 65535
+    t.integer  "feedback_type",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -285,50 +286,50 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "feedbacks", ["application_id"], name: "index_feedbacks_on_application_id", using: :btree
   add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
 
-  create_table "finances", force: true do |t|
-    t.integer  "financeable_id"
-    t.string   "financeable_type"
-    t.float    "balance",          limit: 24, default: 0.0
-    t.float    "freeze_balance",   limit: 24, default: 0.0
+  create_table "finances", force: :cascade do |t|
+    t.integer  "financeable_id",   limit: 4
+    t.string   "financeable_type", limit: 255
+    t.float    "balance",          limit: 24,  default: 0.0
+    t.float    "freeze_balance",   limit: 24,  default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "images", force: true do |t|
-    t.string   "file"
-    t.integer  "filesize"
-    t.integer  "item_id"
+  create_table "images", force: :cascade do |t|
+    t.string   "file",       limit: 255
+    t.integer  "filesize",   limit: 4
+    t.integer  "item_id",    limit: 4
     t.string   "item_type",  limit: 191
     t.datetime "created_at"
-    t.integer  "user_id"
+    t.integer  "user_id",    limit: 4
   end
 
   add_index "images", ["item_id", "item_type"], name: "index_images_on_item_id_and_item_type", using: :btree
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
 
-  create_table "login_histories", force: true do |t|
-    t.string   "device"
-    t.string   "device_type"
-    t.string   "ip"
+  create_table "login_histories", force: :cascade do |t|
+    t.string   "device",         limit: 255
+    t.string   "device_type",    limit: 255
+    t.string   "ip",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "device_model"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.integer  "application_id"
+    t.string   "device_model",   limit: 255
+    t.integer  "user_id",        limit: 4
+    t.string   "user_type",      limit: 255
+    t.integer  "application_id", limit: 4
   end
 
-  create_table "month_card_orders", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "system_month_card_id"
-    t.integer  "car_id"
-    t.integer  "month"
-    t.integer  "price"
-    t.string   "state"
-    t.integer  "application_id"
+  create_table "month_card_orders", force: :cascade do |t|
+    t.integer  "user_id",              limit: 4
+    t.integer  "system_month_card_id", limit: 4
+    t.integer  "car_id",               limit: 4
+    t.integer  "month",                limit: 4
+    t.integer  "price",                limit: 4
+    t.string   "state",                limit: 255
+    t.integer  "application_id",       limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "license_tag"
+    t.string   "license_tag",          limit: 255
   end
 
   add_index "month_card_orders", ["application_id"], name: "index_month_card_orders_on_application_id", using: :btree
@@ -336,223 +337,223 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "month_card_orders", ["system_month_card_id"], name: "index_month_card_orders_on_system_month_card_id", using: :btree
   add_index "month_card_orders", ["user_id"], name: "index_month_card_orders_on_user_id", using: :btree
 
-  create_table "month_cards", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "car_id"
-    t.string   "license_tag"
+  create_table "month_cards", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "car_id",         limit: 4
+    t.string   "license_tag",    limit: 255
     t.datetime "started_at"
     t.datetime "expired_at"
-    t.string   "use_count",      default: "0"
-    t.string   "state"
-    t.integer  "application_id"
+    t.string   "use_count",      limit: 255, default: "0"
+    t.string   "state",          limit: 255
+    t.integer  "application_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",           limit: 255
   end
 
   add_index "month_cards", ["car_id"], name: "index_month_cards_on_car_id", using: :btree
   add_index "month_cards", ["user_id"], name: "index_month_cards_on_user_id", using: :btree
 
-  create_table "notify_logs", force: true do |t|
-    t.integer  "payment_id"
-    t.string   "type"
-    t.text     "params"
+  create_table "notify_logs", force: :cascade do |t|
+    t.integer  "payment_id", limit: 4
+    t.string   "type",       limit: 255
+    t.text     "params",     limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "notify_logs", ["payment_id"], name: "utf8mb4notify_logs_on_payment_id", using: :btree
 
-  create_table "order_logs", force: true do |t|
-    t.integer  "order_id"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "state"
-    t.string   "changed_state"
-    t.string   "remark"
+  create_table "order_logs", force: :cascade do |t|
+    t.integer  "order_id",      limit: 4
+    t.integer  "user_id",       limit: 4
+    t.string   "user_type",     limit: 255
+    t.string   "state",         limit: 255
+    t.string   "changed_state", limit: 255
+    t.string   "remark",        limit: 255
     t.datetime "created_at"
   end
 
-  create_table "orders", force: true do |t|
-    t.string   "sn"
-    t.integer  "user_id"
-    t.integer  "store_id"
-    t.integer  "car_id"
-    t.string   "phone"
-    t.string   "place"
-    t.decimal  "lat",                                 precision: 11, scale: 8
-    t.decimal  "lon",                                 precision: 11, scale: 8
+  create_table "orders", force: :cascade do |t|
+    t.string   "sn",                       limit: 255
+    t.integer  "user_id",                  limit: 4
+    t.integer  "store_id",                 limit: 4
+    t.integer  "car_id",                   limit: 4
+    t.string   "phone",                    limit: 255
+    t.string   "place",                    limit: 255
+    t.decimal  "lat",                                  precision: 11, scale: 8
+    t.decimal  "lon",                                  precision: 11, scale: 8
     t.datetime "booked_at"
-    t.string   "note"
+    t.string   "note",                     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state"
-    t.boolean  "is_underground_park",                                          default: false
-    t.string   "carport"
-    t.string   "license_tag"
-    t.integer  "car_model_id"
-    t.string   "car_color"
-    t.integer  "address_id"
-    t.integer  "product_id"
+    t.string   "state",                    limit: 255
+    t.boolean  "is_underground_park",                                           default: false
+    t.string   "carport",                  limit: 255
+    t.string   "license_tag",              limit: 255
+    t.integer  "car_model_id",             limit: 4
+    t.string   "car_color",                limit: 255
+    t.integer  "address_id",               limit: 4
+    t.integer  "product_id",               limit: 4
     t.float    "total_amount",             limit: 24
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "area_id"
+    t.integer  "province_id",              limit: 4
+    t.integer  "city_id",                  limit: 4
+    t.integer  "area_id",                  limit: 4
     t.float    "original_price",           limit: 24
-    t.integer  "product_type",                                                 default: 1
-    t.boolean  "is_include_interior",                                          default: false
-    t.integer  "application_id"
-    t.integer  "coupon_id"
-    t.integer  "payment_id"
+    t.integer  "product_type",             limit: 4,                            default: 1
+    t.boolean  "is_include_interior",                                           default: false
+    t.integer  "application_id",           limit: 4
+    t.integer  "coupon_id",                limit: 4
+    t.integer  "payment_id",               limit: 4
     t.datetime "deleted_at"
-    t.integer  "store_user_id"
-    t.integer  "month_card_id"
-    t.integer  "service_ticket_id"
+    t.integer  "store_user_id",            limit: 4
+    t.integer  "month_card_id",            limit: 4
+    t.integer  "service_ticket_id",        limit: 4
     t.float    "order_amount",             limit: 24
     t.datetime "booked_end_at"
-    t.integer  "wash_machine_id"
-    t.integer  "order_type",                                                   default: 1
-    t.string   "wash_machine_code"
-    t.string   "wash_machine_random_code"
+    t.integer  "wash_machine_id",          limit: 4
+    t.integer  "order_type",               limit: 4,                            default: 1
+    t.string   "wash_machine_code",        limit: 255
+    t.string   "wash_machine_random_code", limit: 255
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
   add_index "orders", ["wash_machine_id"], name: "index_orders_on_wash_machine_id", using: :btree
 
-  create_table "payment_logs", force: true do |t|
-    t.string   "sn"
-    t.integer  "item_id"
-    t.string   "item_type"
-    t.integer  "payment_id"
-    t.string   "state"
+  create_table "payment_logs", force: :cascade do |t|
+    t.string   "sn",             limit: 255
+    t.integer  "item_id",        limit: 4
+    t.string   "item_type",      limit: 255
+    t.integer  "payment_id",     limit: 4
+    t.string   "state",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "payed_at"
     t.datetime "closed_at"
-    t.string   "out_trade_no"
-    t.text     "notify_params"
-    t.integer  "application_id"
-    t.string   "name"
+    t.string   "out_trade_no",   limit: 255
+    t.text     "notify_params",  limit: 65535
+    t.integer  "application_id", limit: 4
+    t.string   "name",           limit: 255
     t.float    "amount",         limit: 24
-    t.string   "pingxx"
+    t.string   "pingxx",         limit: 255
   end
 
-  create_table "payment_refund_logs", force: true do |t|
-    t.string   "sn"
-    t.integer  "payment_id"
-    t.integer  "payment_log_id"
+  create_table "payment_refund_logs", force: :cascade do |t|
+    t.string   "sn",              limit: 255
+    t.integer  "payment_id",      limit: 4
+    t.integer  "payment_log_id",  limit: 4
     t.float    "amount",          limit: 24
-    t.string   "state"
+    t.string   "state",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "refund_batch_id"
-    t.string   "out_trade_no"
-    t.string   "pingxx"
+    t.integer  "refund_batch_id", limit: 4
+    t.string   "out_trade_no",    limit: 255
+    t.string   "pingxx",          limit: 255
   end
 
   add_index "payment_refund_logs", ["payment_id"], name: "index_payment_refund_logs_on_payment_id", using: :btree
   add_index "payment_refund_logs", ["payment_log_id"], name: "index_payment_refund_logs_on_payment_log_id", using: :btree
 
-  create_table "payment_refund_logs_refund_batches", id: false, force: true do |t|
-    t.integer "payment_refund_log_id", null: false
-    t.integer "refund_batch_id",       null: false
+  create_table "payment_refund_logs_refund_batches", id: false, force: :cascade do |t|
+    t.integer "payment_refund_log_id", limit: 4, null: false
+    t.integer "refund_batch_id",       limit: 4, null: false
   end
 
-  create_table "payments", force: true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "code"
+  create_table "payments", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "description",  limit: 255
+    t.string   "code",         limit: 255
     t.float    "pay_fee",      limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_show",                 default: true
-    t.string   "payment_type"
+    t.boolean  "is_show",                  default: true
+    t.string   "payment_type", limit: 255
   end
 
-  create_table "product_types", force: true do |t|
-    t.string   "name"
-    t.string   "description"
+  create_table "product_types", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "products", force: true do |t|
-    t.string   "name"
-    t.text     "description"
+  create_table "products", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.text     "description",     limit: 65535
     t.float    "price",           limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "market_price",    limit: 24
-    t.string   "image"
-    t.integer  "product_type_id"
-    t.integer  "category_id"
+    t.string   "image",           limit: 255
+    t.integer  "product_type_id", limit: 4
+    t.integer  "category_id",     limit: 4
     t.float    "suv_price",       limit: 24
-    t.integer  "province_id",                default: 916
-    t.integer  "city_id",                    default: 917
+    t.integer  "province_id",     limit: 4,     default: 916
+    t.integer  "city_id",         limit: 4,     default: 917
   end
 
   add_index "products", ["city_id"], name: "index_products_on_city_id", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
   add_index "products", ["province_id"], name: "index_products_on_province_id", using: :btree
 
-  create_table "recharge_policies", force: true do |t|
-    t.integer  "amount"
-    t.integer  "present_amount"
-    t.string   "note"
+  create_table "recharge_policies", force: :cascade do |t|
+    t.integer  "amount",         limit: 4
+    t.integer  "present_amount", limit: 4
+    t.string   "note",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sort",           default: 0
-    t.boolean  "show",           default: true
+    t.integer  "sort",           limit: 4,   default: 0
+    t.boolean  "show",                       default: true
   end
 
-  create_table "recharge_policies_system_coupons", force: true do |t|
-    t.integer "recharge_policy_id",             null: false
-    t.integer "system_coupon_id",               null: false
-    t.integer "number",             default: 1
+  create_table "recharge_policies_system_coupons", force: :cascade do |t|
+    t.integer "recharge_policy_id", limit: 4,             null: false
+    t.integer "system_coupon_id",   limit: 4,             null: false
+    t.integer "number",             limit: 4, default: 1
   end
 
-  create_table "recharges", force: true do |t|
-    t.integer  "user_id"
+  create_table "recharges", force: :cascade do |t|
+    t.integer  "user_id",            limit: 4
     t.float    "amount",             limit: 24
-    t.string   "state"
+    t.string   "state",              limit: 255
     t.datetime "created_at"
     t.datetime "payed_at"
-    t.integer  "recharge_policy_id"
-    t.integer  "application_id"
-    t.integer  "payment_id"
+    t.integer  "recharge_policy_id", limit: 4
+    t.integer  "application_id",     limit: 4
+    t.integer  "payment_id",         limit: 4
     t.datetime "closed_at"
-    t.integer  "present_amount"
+    t.integer  "present_amount",     limit: 4
   end
 
   add_index "recharges", ["user_id"], name: "index_recharges_on_user_id", using: :btree
 
-  create_table "refund_batches", force: true do |t|
-    t.integer  "payment_id"
-    t.string   "sn"
-    t.string   "state"
+  create_table "refund_batches", force: :cascade do |t|
+    t.integer  "payment_id", limit: 4
+    t.string   "sn",         limit: 255
+    t.string   "state",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
 
-  create_table "service_ticket_batches", force: true do |t|
-    t.integer  "big_customer_id"
-    t.integer  "number"
-    t.integer  "used_count",      default: 0
+  create_table "service_ticket_batches", force: :cascade do |t|
+    t.integer  "big_customer_id", limit: 4
+    t.integer  "number",          limit: 4
+    t.integer  "used_count",      limit: 4, default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "service_ticket_batches", ["big_customer_id"], name: "index_service_ticket_batches_on_big_customer_id", using: :btree
 
-  create_table "service_tickets", force: true do |t|
-    t.integer  "big_customer_id"
-    t.integer  "user_id"
-    t.integer  "service_ticket_batch_id"
-    t.string   "code"
-    t.string   "state"
+  create_table "service_tickets", force: :cascade do |t|
+    t.integer  "big_customer_id",         limit: 4
+    t.integer  "user_id",                 limit: 4
+    t.integer  "service_ticket_batch_id", limit: 4
+    t.string   "code",                    limit: 255
+    t.string   "state",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "order_amount",            limit: 24
@@ -562,71 +563,71 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "service_tickets", ["service_ticket_batch_id"], name: "index_service_tickets_on_service_ticket_batch_id", using: :btree
   add_index "service_tickets", ["user_id"], name: "index_service_tickets_on_user_id", using: :btree
 
-  create_table "store_users", force: true do |t|
-    t.integer  "store_id"
-    t.string   "username"
-    t.string   "phone"
-    t.string   "email",                           default: "",  null: false
-    t.string   "encrypted_password",              default: "",  null: false
-    t.integer  "sign_in_count",                   default: 0,   null: false
+  create_table "store_users", force: :cascade do |t|
+    t.integer  "store_id",             limit: 4
+    t.string   "username",             limit: 255
+    t.string   "phone",                limit: 255
+    t.string   "email",                limit: 255, default: "",  null: false
+    t.string   "encrypted_password",   limit: 255, default: "",  null: false
+    t.integer  "sign_in_count",        limit: 4,   default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "authentication_token"
-    t.string   "gender"
-    t.string   "nickname"
+    t.string   "current_sign_in_ip",   limit: 255
+    t.string   "last_sign_in_ip",      limit: 255
+    t.string   "authentication_token", limit: 255
+    t.string   "gender",               limit: 255
+    t.string   "nickname",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role",                            default: 1
-    t.string   "avatar"
-    t.integer  "orders_count",                    default: 0
-    t.float    "score",                limit: 24, default: 0.0
+    t.integer  "role",                 limit: 4,   default: 1
+    t.string   "avatar",               limit: 255
+    t.integer  "orders_count",         limit: 4,   default: 0
+    t.float    "score",                limit: 24,  default: 0.0
   end
 
   add_index "store_users", ["store_id"], name: "index_store_users_on_store_id", using: :btree
 
-  create_table "stores", force: true do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "address"
-    t.string   "description"
-    t.float    "good_rate",     limit: 24, default: 0.0
-    t.integer  "collect_count",            default: 0
-    t.float    "score",         limit: 24, default: 0.0
+  create_table "stores", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.string   "phone",         limit: 255
+    t.string   "address",       limit: 255
+    t.string   "description",   limit: 255
+    t.float    "good_rate",     limit: 24,    default: 0.0
+    t.integer  "collect_count", limit: 4,     default: 0
+    t.float    "score",         limit: 24,    default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "lat",           limit: 24
     t.float    "lon",           limit: 24
-    t.text     "service_area"
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "area_id"
+    t.text     "service_area",  limit: 65535
+    t.integer  "province_id",   limit: 4
+    t.integer  "city_id",       limit: 4
+    t.integer  "area_id",       limit: 4
     t.datetime "deleted_at"
-    t.integer  "orders_count",             default: 0
+    t.integer  "orders_count",  limit: 4,     default: 0
   end
 
-  create_table "system_coupons", force: true do |t|
-    t.string   "name"
-    t.integer  "product_id"
+  create_table "system_coupons", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.integer  "product_id",      limit: 4
     t.float    "amount",          limit: 24
-    t.string   "description"
+    t.string   "description",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image"
-    t.integer  "product_type_id"
+    t.string   "image",           limit: 255
+    t.integer  "product_type_id", limit: 4
   end
 
   add_index "system_coupons", ["product_id"], name: "index_system_coupons_on_product_id", using: :btree
   add_index "system_coupons", ["product_type_id"], name: "index_system_coupons_on_product_type_id", using: :btree
 
-  create_table "system_month_cards", force: true do |t|
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "month"
-    t.string   "name"
-    t.integer  "price"
-    t.integer  "sort",        default: 0
+  create_table "system_month_cards", force: :cascade do |t|
+    t.integer  "province_id", limit: 4
+    t.integer  "city_id",     limit: 4
+    t.integer  "month",       limit: 4
+    t.string   "name",        limit: 255
+    t.integer  "price",       limit: 4
+    t.integer  "sort",        limit: 4,   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -634,85 +635,86 @@ ActiveRecord::Schema.define(version: 20160414100700) do
   add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
   add_index "system_month_cards", ["province_id"], name: "index_system_month_cards_on_province_id", using: :btree
 
-  create_table "system_users", force: true do |t|
-    t.string   "code"
-    t.string   "name"
+  create_table "system_users", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "trading_records", force: true do |t|
-    t.integer  "trading_type"
+  create_table "trading_records", force: :cascade do |t|
+    t.integer  "trading_type", limit: 4
     t.float    "amount",       limit: 24
-    t.string   "name"
-    t.integer  "object_id"
-    t.string   "object_type"
-    t.string   "remark"
+    t.string   "name",         limit: 255
+    t.integer  "object_id",    limit: 4
+    t.string   "object_type",  limit: 255
+    t.string   "remark",       limit: 255
     t.datetime "created_at"
     t.float    "start_amount", limit: 24
     t.float    "end_amount",   limit: 24
-    t.integer  "finance_id"
-    t.integer  "fund_type",               default: 1, null: false
+    t.integer  "finance_id",   limit: 4
+    t.integer  "fund_type",    limit: 4,   default: 1, null: false
   end
 
   add_index "trading_records", ["finance_id"], name: "index_trading_records_on_finance_id", using: :btree
 
-  create_table "upload_files", force: true do |t|
-    t.string   "file"
-    t.integer  "filesize"
+  create_table "upload_files", force: :cascade do |t|
+    t.string   "file",           limit: 255
+    t.integer  "filesize",       limit: 4
     t.datetime "created_at"
-    t.integer  "application_id"
+    t.integer  "application_id", limit: 4
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 191, default: "",  null: false
-    t.string   "encrypted_password",                 default: "",  null: false
+    t.string   "encrypted_password",     limit: 255, default: "",  null: false
     t.string   "reset_password_token",   limit: 191
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,   null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone"
+    t.string   "phone",                  limit: 255
     t.string   "authentication_token",   limit: 191
     t.float    "score",                  limit: 24,  default: 0.0
-    t.string   "encrypted_pay_password"
-    t.string   "avatar"
-    t.string   "gender"
-    t.string   "nickname"
-    t.string   "umeng"
-    t.integer  "application_id"
-    t.integer  "orders_count",                       default: 0
+    t.string   "encrypted_pay_password", limit: 255
+    t.string   "avatar",                 limit: 255
+    t.string   "gender",                 limit: 255
+    t.string   "nickname",               limit: 255
+    t.string   "umeng",                  limit: 255
+    t.integer  "application_id",         limit: 4
+    t.integer  "orders_count",           limit: 4,   default: 0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "versions", force: true do |t|
-    t.string   "item_type",  limit: 191, null: false
-    t.integer  "item_id",                null: false
-    t.string   "event",                  null: false
-    t.string   "whodunnit"
-    t.text     "object"
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  limit: 191,   null: false
+    t.integer  "item_id",    limit: 4,     null: false
+    t.string   "event",      limit: 255,   null: false
+    t.string   "whodunnit",  limit: 255
+    t.text     "object",     limit: 65535
     t.datetime "created_at"
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-  create_table "wash_machines", force: true do |t|
-    t.string   "code"
+  create_table "wash_machines", force: :cascade do |t|
+    t.string   "code",        limit: 255
     t.float    "lat",         limit: 24
     t.float    "lon",         limit: 24
-    t.string   "address"
+    t.string   "address",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "area_id"
+    t.integer  "province_id", limit: 4
+    t.integer  "city_id",     limit: 4
+    t.integer  "area_id",     limit: 4
+    t.float    "score",       limit: 24
   end
 
 end

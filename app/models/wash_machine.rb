@@ -2,6 +2,8 @@ class WashMachine < ActiveRecord::Base
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
   belongs_to :area
+  
+  has_many :evaluations
 
   validates :code, presence: true, uniqueness: true
   validates :lat, presence: true
