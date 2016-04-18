@@ -518,7 +518,7 @@ module V1
             score2: params[:score2],
             score3: params[:score3],
             note: params[:note],
-            store_user_id: order.store_user_id
+            store_user_id: order.store_user_id,
             wash_machine_id: order.wash_machine_id
           })
 
