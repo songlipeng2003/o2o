@@ -6,28 +6,19 @@ module V1
 
     resource :cars do
       desc "汽车", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         is_array:true,
         entity: V1::Entities::Car
       }
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get do
         present current_user.cars.all, with: V1::Entities::Car
       end
 
-      desc "汽车详情", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "汽车详情"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "编号"
       end
       route_param :id do
@@ -36,15 +27,9 @@ module V1
         end
       end
 
-      desc "添加汽车", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "添加汽车"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :car_model_id, type: Integer, desc: "车型id"
         requires :license_tag, type: String, desc: "牌照"
         # requires :buy_date, type: String, desc: "购买日期, 格式： 2014-01-01"
@@ -58,15 +43,9 @@ module V1
         present car, with: V1::Entities::Car
       end
 
-      desc "编辑汽车", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "编辑汽车"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "汽车编号"
         requires :car_model_id, type: Integer, desc: "车型id"
         requires :license_tag, type: String, desc: "牌照"
@@ -82,15 +61,9 @@ module V1
         end
       end
 
-      desc "删除汽车", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "删除汽车"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "汽车编号"
       end
       route_param :id do

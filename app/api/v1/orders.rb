@@ -6,16 +6,11 @@ module V1
 
     resource :orders do
       desc "订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         is_array: true,
         entity: V1::Entities::OrderList
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :page, type: Integer, desc: "页码"
         optional :per_page, type: Integer, desc: '每页数量'
       end
@@ -26,33 +21,25 @@ module V1
       end
 
       desc "最近订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get :lastest_order do
         order = current_user.orders.order('id DESC').first
         present order, with: V1::Entities::Order
       end
 
       desc "计算洗车机订单价格接口", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::OrderPrice]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :wash_machine_code, type: String, desc: '洗车机设备码'
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :service_ticket_code, type: String, desc: '消费券号码'
@@ -91,17 +78,12 @@ module V1
       end
 
       desc "计算订单价格接口", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::OrderPrice]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :car_model_id, type: Integer, desc: "车型编号"
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
@@ -133,15 +115,9 @@ module V1
         }
       end
 
-      desc "订单日期列表", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "订单日期列表"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
       end
       get :list_available_date do
@@ -161,15 +137,9 @@ module V1
         dates
       end
 
-      desc "选择时间列表", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "选择时间列表"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :date, type: String, desc: '日期'
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
         requires :lon, type: Float, desc: "经度"
@@ -214,17 +184,12 @@ module V1
       end
 
       desc "生成订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :phone, type: String, desc: "手机"
         optional :car_id, type: Integer, desc: "汽车编号,汽车编号和汽车详情仅需填写一个"
         optional :car, type: Hash do
@@ -399,17 +364,12 @@ module V1
       end
 
       desc "创建洗车机订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :wash_machine_code, type: String, desc: '洗车机设备码'
         requires :wash_machine_random_code, type: String, desc: '洗车机随机码'
         optional :coupon_id, type: Integer, desc: "代金券编号"
@@ -489,17 +449,12 @@ module V1
       end
 
       desc "评价", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [201, '成功', V1::Entities::Evaluation]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
         optional :score, type: Integer, desc: '评价，0-5分'
         optional :score1, type: Integer, desc: '评价1，0-5分'
@@ -538,15 +493,9 @@ module V1
         end
       end
 
-      desc "余额支付", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "余额支付"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
         requires :pay_password, type: String, desc: "支付密码"
       end
@@ -609,17 +558,12 @@ module V1
       end
 
       desc "关闭订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::OrderList]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
       end
       route_param :id do
@@ -653,15 +597,9 @@ module V1
         end
       end
 
-      desc "选择支付方式", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "选择支付方式"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
         requires :payment_id, type: Integer, desc: "支付编号"
         optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"

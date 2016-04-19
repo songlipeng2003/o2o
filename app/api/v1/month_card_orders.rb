@@ -6,30 +6,21 @@ module V1
 
     resource :month_card_orders do
       desc "消费卡订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         is_array: true,
         entity: V1::Entities::MonthCardOrder
       }
       paginate
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get do
         month_card_orders = paginate current_user.month_card_orders.where(state: 'payed').order('id DESC')
         present month_card_orders, with: V1::Entities::MonthCardOrder
       end
 
-      desc "创建消费卡订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "创建消费卡订单"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :system_month_card_id, type: Integer, desc: "系统消费卡编号"
         optional :car_id, type: Integer, desc: "汽车编号"
       end
@@ -45,15 +36,9 @@ module V1
         present month_card_order, with: V1::Entities::MonthCardOrder
       end
 
-      desc "选择支付方式", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "选择支付方式"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "消费卡订单编号"
         requires :payment_id, type: Integer, desc: "支付编号"
         optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"

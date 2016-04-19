@@ -5,26 +5,19 @@ module V1
     end
 
     resource :feedbacks do
-      desc "反馈列表", headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
+      desc "反馈列表",
         is_array: true,
         entity: V1::Entities::Feedback
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get do
         present current_user.feedbacks.order('id DESC, id DESC').all, with: V1::Entities::Feedback
       end
 
-      desc "添加反馈",
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
+      desc "添加反馈"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :content, type: String, desc: "经度"
       end
       post do

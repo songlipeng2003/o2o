@@ -6,15 +6,12 @@ module V1
 
     resource :trading_records do
       desc "交易记录",
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         is_array: true,
         entity: V1::Entities::TradingRecord
       paginate per_page: 10
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get do
         trading_records = paginate current_user.trading_records.order('id DESC')
         present trading_records, with: V1::Entities::TradingRecord

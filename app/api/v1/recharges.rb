@@ -6,33 +6,25 @@ module V1
 
     resource :recharges do
       desc "充值记录", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         is_array: true,
         entity: V1::Entities::Recharge
       }
       paginate
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get do
         recharges =  paginate current_user.recharges
         present recharges, with: V1::Entities::Recharge
       end
 
       desc "充值", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [201, '成功', V1::Entities::Recharge]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :amount, type: Integer, desc: "金额,金额和充值策略只能选择一个，选择金额充值不会有任何优惠活动，只有选择充值策略的时候，才会有返现和赠送代金券"
         optional :recharge_policy_id, type: Integer, desc: "充值策略"
         mutually_exclusive :amount, :recharge_policy_id
@@ -46,17 +38,12 @@ module V1
       end
 
       desc "选择支付方式", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [201, '成功', V1::Entities::PaymentLog]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "充值编号"
         requires :payment_id, type: Integer, desc: "支付编号"
         optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"

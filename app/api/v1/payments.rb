@@ -6,6 +6,7 @@ module V1
         entity: V1::Entities::Payment
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :type, type: String, desc: "支付对象，目前可以传 product,recharge,month_card_order"
         optional :order_id, type: Integer, desc: '订单编号'
       end

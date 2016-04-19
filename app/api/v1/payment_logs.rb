@@ -6,15 +6,10 @@ module V1
 
     resource :payment_logs do
       desc "支付流水",
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         is_array: true,
         entity: V1::Entities::PaymentLog
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "支付记录编号"
       end
       route_param :id do
@@ -26,16 +21,11 @@ module V1
       end
 
       desc "余额支付",
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [201, '成功', V1::Entities::PaymentLog]
         ]
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "支付流水编号"
         requires :pay_password, type: String, desc: "支付密码"
       end
