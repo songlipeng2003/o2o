@@ -30,8 +30,8 @@ module V1
 
         month_card_order = current_user.month_card_orders.new
         month_card_order.application = current_application
-        month_card_order.car = car
-        month_card_order.system_month_card = system_month_card
+        month_card_order.car_id = car.id
+        month_card_order.system_month_card_id = system_month_card.id
         month_card_order.save
         present month_card_order, with: V1::Entities::MonthCardOrder
       end
