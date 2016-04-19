@@ -257,7 +257,7 @@ module V1
         service_ticket_code = permitted_params.delete :service_ticket_code
 
         safe_params = clean_params(params).permit(:booked_at, :booked_end_at, :is_include_interior, :product_id,
-          :is_underground_park, :coupon_id, :carport, :note)
+          :is_underground_park, :coupon_id, :carport, :note, :phone, :car_id, :address_id)
         order = current_user.orders.new(safe_params)
         order.product_id = permitted_params[:product_id]
         order.application = current_application
@@ -286,7 +286,7 @@ module V1
             }
           end
 
-          order.car_id = car.id
+          order.car.id = car.id
         end
 
         unless /^\p{Han}{1}[A-Z]{1}[A-Z_0-9]{5}$/u =~ car.license_tag
