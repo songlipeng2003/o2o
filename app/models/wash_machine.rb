@@ -2,7 +2,7 @@ class WashMachine < ActiveRecord::Base
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
   belongs_to :area
-  
+
   has_many :evaluations
 
   validates :code, presence: true, uniqueness: true
@@ -12,6 +12,7 @@ class WashMachine < ActiveRecord::Base
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
+  validates :price, :numericality => { :only_integer => true, greater_than: 0 }, allow_blank: true
 
   validates_associated :province
   validates_associated :city

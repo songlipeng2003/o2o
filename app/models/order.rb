@@ -217,6 +217,7 @@ class Order < ActiveRecord::Base
       end
     else
       price = self.product.price
+      price = wash_machine && wash_machine.price ? wash_machine.price : price
     end
 
     self.order_amount = price
