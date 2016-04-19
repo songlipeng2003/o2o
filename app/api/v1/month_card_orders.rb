@@ -35,10 +35,12 @@ module V1
       end
       post do
         car = current_user.cars.find(params[:car_id])
+        system_month_card = SystemMonthCard.find(params[:system_month_card_id])
 
-        month_card_order = current_user.month_card_orders.new(permitted_params)
+        month_card_order = current_user.month_card_orders.new
         month_card_order.application = current_application
         month_card_order.car = car
+        month_card_order.system_month_card = system_month_card
         month_card_order.save
         present month_card_order, with: V1::Entities::MonthCardOrder
       end
