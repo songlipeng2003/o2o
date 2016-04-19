@@ -393,7 +393,7 @@ module V1
          else
           return {
             code: 2,
-            msg: order.errors.full_messages[0][0]
+            msg: order.errors.full_messages[0]
           }
         end
       end

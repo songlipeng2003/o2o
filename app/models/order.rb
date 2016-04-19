@@ -66,13 +66,17 @@ class Order < ActiveRecord::Base
 
   before_validation(on: :create) do
     if order_type==ORDER_TYPE_NORMAL
-      self.car_model_id = self.car.car_model_id
-      self.car_color = self.car.color
-      self.license_tag = self.car.license_tag
+      if self.car
+        self.car_model_id = self.car.car_model_id
+        self.car_color = self.car.color
+        self.license_tag = self.car.license_tag
+      end
 
-      self.place = self.address.place
-      self.lon = self.address.lon
-      self.lat = self.address.lat
+      if self.address
+        self.place = self.address.place
+        self.lon = self.address.lon
+        self.lat = self.address.lat
+      end
     end
 
     update_area_info
