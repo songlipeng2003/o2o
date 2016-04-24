@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
   belongs_to :store_user, counter_cache: true
   belongs_to :month_card
   belongs_to :service_ticket
-  belongs_to :wash_machine
+  belongs_to :wash_machine, counter_cache: true
 
   has_one :evaluation
 

@@ -4,6 +4,7 @@ class WashMachine < ActiveRecord::Base
   belongs_to :area
 
   has_many :evaluations
+  has_many :orders
 
   validates :code, presence: true, uniqueness: true
   validates :lat, presence: true

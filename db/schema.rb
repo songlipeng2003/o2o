@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419162300) do
+ActiveRecord::Schema.define(version: 20160424154009) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 191
@@ -705,17 +705,18 @@ ActiveRecord::Schema.define(version: 20160419162300) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "wash_machines", force: :cascade do |t|
-    t.string   "code",        limit: 255
-    t.float    "lat",         limit: 24
-    t.float    "lon",         limit: 24
-    t.string   "address",     limit: 255
+    t.string   "code",         limit: 255
+    t.float    "lat",          limit: 24
+    t.float    "lon",          limit: 24
+    t.string   "address",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "province_id", limit: 4
-    t.integer  "city_id",     limit: 4
-    t.integer  "area_id",     limit: 4
-    t.float    "score",       limit: 24
-    t.integer  "price",       limit: 4
+    t.integer  "province_id",  limit: 4
+    t.integer  "city_id",      limit: 4
+    t.integer  "area_id",      limit: 4
+    t.integer  "score",        limit: 4,   default: 5
+    t.integer  "price",        limit: 4
+    t.integer  "orders_count", limit: 4,   default: 0
   end
 
 end

@@ -164,17 +164,12 @@ module V1
       end
 
       desc "订单详情", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
       end
       route_param :id do
