@@ -541,6 +541,7 @@ zh-CN:
         month: '月份'
         price: '价格'
         sort: '排序'
+        is_show: '是否显示'
         created_at: '创建时间'
         updated_at: '更新时间'
       month_card_order:

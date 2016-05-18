@@ -7,7 +7,7 @@ module V1
          [200, '成功', V1::Entities::SystemMonthCard]
         ]
       get do
-        present SystemMonthCard.all, with: V1::Entities::SystemMonthCard
+        present SystemMonthCard.where(is_show: true).all, with: V1::Entities::SystemMonthCard
       end
     end
   end
