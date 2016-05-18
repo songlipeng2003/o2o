@@ -41,6 +41,10 @@ module StoreV1
       def current_store
         @user.store
       end
+
+      def client_ip
+        env['action_dispatch.remote_ip'].to_s
+      end
     end
 
     mount StoreV1::Accounts
