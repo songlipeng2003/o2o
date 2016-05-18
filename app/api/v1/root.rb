@@ -46,6 +46,10 @@ module V1
         api_key = params[:api_key] || request.headers['X-Api-Key']
         @application ||= Application.where(token: api_key).first
       end
+
+      def client_ip
+        env['action_dispatch.remote_ip'].to_s
+      end
     end
 
     mount V1::Accounts
