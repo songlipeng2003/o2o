@@ -4,7 +4,7 @@ ActiveAdmin.register SystemMonthCard do
   config.sort_order = 'sort_desc, id_desc'
   config.batch_actions = false
 
-  permit_params :province_id, :city_id, :name, :month, :price, :sort
+  permit_params :province_id, :city_id, :name, :month, :price, :sort, :is_show
 
   index do
     id_column
@@ -12,6 +12,7 @@ ActiveAdmin.register SystemMonthCard do
     column :name
     column :month
     column :price
+    column :is_show
     column :created_at
     actions
   end
@@ -24,6 +25,7 @@ ActiveAdmin.register SystemMonthCard do
       f.input :province, :collection => Area.provinces,
         :input_html => { :class => :cascade_select, 'data-cascade-target' => 'system_month_card_city_id' }
       f.input :city, :collection => (f.object.city ? f.object.city.parent.children : '')
+      f.input :is_show
     end
     f.actions
   end

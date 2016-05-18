@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323151015) do
+ActiveRecord::Schema.define(version: 20160518150821) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace",     limit: 191
@@ -268,6 +268,7 @@ ActiveRecord::Schema.define(version: 20160323151015) do
     t.integer  "score1"
     t.integer  "score2"
     t.integer  "score3"
+    t.integer  "wash_machine_id"
   end
 
   add_index "evaluations", ["order_id"], name: "index_evaluations_on_order_id", using: :btree
@@ -380,27 +381,27 @@ ActiveRecord::Schema.define(version: 20160323151015) do
     t.integer  "car_id"
     t.string   "phone"
     t.string   "place"
-    t.decimal  "lat",                            precision: 11, scale: 8
-    t.decimal  "lon",                            precision: 11, scale: 8
+    t.decimal  "lat",                                 precision: 11, scale: 8
+    t.decimal  "lon",                                 precision: 11, scale: 8
     t.datetime "booked_at"
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
-    t.boolean  "is_underground_park",                                     default: false
+    t.boolean  "is_underground_park",                                          default: false
     t.string   "carport"
     t.string   "license_tag"
     t.integer  "car_model_id"
     t.string   "car_color"
     t.integer  "address_id"
     t.integer  "product_id"
-    t.float    "total_amount",        limit: 24
+    t.float    "total_amount",             limit: 24
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
-    t.float    "original_price",      limit: 24
-    t.integer  "product_type",                                            default: 1
-    t.boolean  "is_include_interior",                                     default: false
+    t.float    "original_price",           limit: 24
+    t.integer  "product_type",                                                 default: 1
+    t.boolean  "is_include_interior",                                          default: false
     t.integer  "application_id"
     t.integer  "coupon_id"
     t.integer  "payment_id"
@@ -408,18 +409,17 @@ ActiveRecord::Schema.define(version: 20160323151015) do
     t.integer  "store_user_id"
     t.integer  "month_card_id"
     t.integer  "service_ticket_id"
-    t.float    "order_amount",        limit: 24
+    t.float    "order_amount",             limit: 24
     t.datetime "booked_end_at"
     t.integer  "wash_machine_id"
-    t.integer  "wash_machine_set_id"
-    t.integer  "order_type",                                              default: 1
+    t.integer  "order_type",                                                   default: 1
     t.string   "wash_machine_code"
+    t.string   "wash_machine_random_code"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
   add_index "orders", ["wash_machine_id"], name: "index_orders_on_wash_machine_id", using: :btree
-  add_index "orders", ["wash_machine_set_id"], name: "index_orders_on_wash_machine_set_id", using: :btree
 
   create_table "payment_logs", force: true do |t|
     t.string   "sn"
@@ -504,6 +504,7 @@ ActiveRecord::Schema.define(version: 20160323151015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sort",           default: 0
+    t.boolean  "show",           default: true
   end
 
   create_table "recharge_policies_system_coupons", force: true do |t|
@@ -629,6 +630,7 @@ ActiveRecord::Schema.define(version: 20160323151015) do
     t.integer  "sort",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_show",     default: true
   end
 
   add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
@@ -703,25 +705,19 @@ ActiveRecord::Schema.define(version: 20160323151015) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-  create_table "wash_machine_sets", force: true do |t|
-    t.string   "price"
-    t.string   "name"
-    t.string   "image"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "wash_machines", force: true do |t|
     t.string   "code"
-    t.float    "lat",         limit: 24
-    t.float    "lon",         limit: 24
+    t.float    "lat",          limit: 24
+    t.float    "lon",          limit: 24
     t.string   "address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
+    t.integer  "score",                   default: 5
+    t.integer  "price"
+    t.integer  "orders_count",            default: 0
   end
 
 end
