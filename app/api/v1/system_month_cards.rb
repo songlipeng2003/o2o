@@ -6,7 +6,7 @@ module V1
         is_array: true,
         entity: V1::Entities::SystemMonthCard
       get do
-        present SystemMonthCard.all, with: V1::Entities::SystemMonthCard
+        present SystemMonthCard.where(is_show: true).all, with: V1::Entities::SystemMonthCard
       end
     end
   end

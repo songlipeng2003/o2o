@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424154009) do
+ActiveRecord::Schema.define(version: 20160518150821) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 191
@@ -630,6 +630,7 @@ ActiveRecord::Schema.define(version: 20160424154009) do
     t.integer  "sort",        limit: 4,   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_show",     default: true
   end
 
   add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
