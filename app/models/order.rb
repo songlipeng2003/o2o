@@ -249,8 +249,12 @@ class Order < ActiveRecord::Base
       # 消费卡处理
       month_card = user.month_cards.where(license_tag: license_tag).order('id DESC').first
       if month_card && booked_at && month_card.available? && booked_at<month_card.expired_at
-        price = 0
-        self.month_card_id = month_card.id
+        order = user.orders.where('created_at> ? AND month_card_id IS NOT NULL', Time.now.strftime('%Y-%m-%d 00:00:00')).first
+
+        unless order
+          price = 0
+          self.month_card_id = month_card.id
+        end
       end
     end
 
