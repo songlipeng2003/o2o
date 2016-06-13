@@ -6,7 +6,7 @@ module StoreV1
           Order.with_deleted
         else
           if current_user.role == StoreUser::ROLE_LEADER
-            current_store.orders.with_deleted
+            Order.with_deleted.where('store_id=? OR store_user_id=?', current_user.id, current_user.store_id)
           else
             current_user.orders.with_deleted
           end
