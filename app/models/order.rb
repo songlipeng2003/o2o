@@ -246,20 +246,20 @@ class Order < ActiveRecord::Base
         end
       end
 
-      # 消费卡处理
-      month_card = user.month_cards.where(license_tag: license_tag, product_id: product_id).order('id DESC').first
-      if month_card && booked_at && month_card.available? && booked_at<month_card.expired_at
-        order = user.orders.where('created_at> ? AND month_card_id IS NOT NULL', Time.now.strftime('%Y-%m-%d 00:00:00')).first
-
-        unless order
-          price = 0
-          self.month_card_id = month_card.id
-        end
-      end
+      # 消费券处理
+      service_ticket && product_id==1 && price = 0
     end
 
-    # 消费券处理
-    service_ticket && (product_id==1 || product_id==9) && price = 0
+    # 消费卡处理
+    month_card = user.month_cards.where(license_tag: license_tag, product_id: product_id).order('id DESC').first
+    if month_card && booked_at && month_card.available? && booked_at<month_card.expired_at
+      order = user.orders.where('created_at> ? AND month_card_id IS NOT NULL', Time.now.strftime('%Y-%m-%d 00:00:00')).first
+
+      unless order
+        price = 0
+        self.month_card_id = month_card.id
+      end
+    end
 
     self.total_amount ||= price;
   end
