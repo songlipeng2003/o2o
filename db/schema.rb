@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518150821) do
+ActiveRecord::Schema.define(version: 20160619111152) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 191
@@ -343,15 +343,19 @@ ActiveRecord::Schema.define(version: 20160518150821) do
     t.string   "license_tag",    limit: 255
     t.datetime "started_at"
     t.datetime "expired_at"
-    t.string   "use_count",      limit: 255, default: "0"
-    t.string   "state",          limit: 255
-    t.integer  "application_id", limit: 4
+    t.string   "use_count",            default: "0"
+    t.string   "state"
+    t.integer  "application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",           limit: 255
+    t.string   "name"
+    t.integer  "product_id"
+    t.integer  "system_month_card_id"
   end
 
   add_index "month_cards", ["car_id"], name: "index_month_cards_on_car_id", using: :btree
+  add_index "month_cards", ["product_id"], name: "index_month_cards_on_product_id", using: :btree
+  add_index "month_cards", ["system_month_card_id"], name: "index_month_cards_on_system_month_card_id", using: :btree
   add_index "month_cards", ["user_id"], name: "index_month_cards_on_user_id", using: :btree
 
   create_table "notify_logs", force: :cascade do |t|
@@ -631,9 +635,11 @@ ActiveRecord::Schema.define(version: 20160518150821) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_show",     default: true
+    t.integer  "product_id"
   end
 
   add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
+  add_index "system_month_cards", ["product_id"], name: "index_system_month_cards_on_product_id", using: :btree
   add_index "system_month_cards", ["province_id"], name: "index_system_month_cards_on_province_id", using: :btree
 
   create_table "system_users", force: :cascade do |t|

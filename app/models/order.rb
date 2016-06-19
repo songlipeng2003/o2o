@@ -247,7 +247,7 @@ class Order < ActiveRecord::Base
       end
 
       # 消费卡处理
-      month_card = user.month_cards.where(license_tag: license_tag).order('id DESC').first
+      month_card = user.month_cards.where(license_tag: license_tag, product_id: product_id).order('id DESC').first
       if month_card && booked_at && month_card.available? && booked_at<month_card.expired_at
         order = user.orders.where('created_at> ? AND month_card_id IS NOT NULL', Time.now.strftime('%Y-%m-%d 00:00:00')).first
 
