@@ -4,11 +4,12 @@ ActiveAdmin.register SystemMonthCard do
   config.sort_order = 'sort_desc, id_desc'
   config.batch_actions = false
 
-  permit_params :province_id, :city_id, :name, :month, :price, :sort, :is_show
+  permit_params :province_id, :city_id, :name, :month, :price, :sort, :is_show, :product_id
 
   index do
     id_column
     column :city
+    column :product
     column :name
     column :month
     column :price
@@ -19,6 +20,7 @@ ActiveAdmin.register SystemMonthCard do
 
   form do |f|
     f.inputs do
+      f.input :product
       f.input :name
       f.input :month
       f.input :price
