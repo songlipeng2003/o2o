@@ -4,6 +4,8 @@ class MonthCard < ActiveRecord::Base
   belongs_to :user
   belongs_to :car
   belongs_to :application
+  belongs_to :product
+  belongs_to :system_month_card
   has_many :orders
 
   validates :license_tag, presence: true

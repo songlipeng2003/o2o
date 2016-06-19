@@ -7,6 +7,7 @@ ActiveAdmin.register MonthCard do
     selectable_column
     id_column
     column :user
+    column :product
     column :car
     column :license_tag
     column :name
