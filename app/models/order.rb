@@ -325,16 +325,14 @@ class Order < ActiveRecord::Base
   end
 
   def month_card_auto_pay
-    if [1, 2].include?(product_id)
-      month_card = user.month_cards.where(license_tag: license_tag).order('id DESC').first
+    month_card = user.month_cards.where(license_tag: license_tag, product_id: product_id).order('id DESC').first
 
-      if month_card && month_card.available? && booked_at<month_card.expired_at
-        pay! user
+    if month_card && month_card.available? && booked_at<month_card.expired_at
+      pay! user
 
-        month_card.update_use_count
+      month_card.update_use_count
 
-        self.service_ticket_id = nil
-      end
+      self.service_ticket_id = nil
     end
   end
 
