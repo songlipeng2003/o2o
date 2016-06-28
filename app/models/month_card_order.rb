@@ -57,7 +57,7 @@ class MonthCardOrder < ActiveRecord::Base
         month_card.started_at = history_month_card ? history_month_card.expired_at : Time.now
         month_card.expired_at = month_card.started_at + month.months
         month_card.system_month_card_id = system_month_card_id
-        month_card.product_id = product_id
+        month_card.product_id = system_month_card.product_id
 
         month_card.save!
       end
