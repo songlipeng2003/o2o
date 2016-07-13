@@ -136,16 +136,17 @@ class PayController < ApplicationController
     text = 'fail'
     event = Pingpp::Event.retrieve(params[:id])
 
-    notify_log = NotifyLog.new
-    notify_log.payment = @payment_log.payment
-    notify_log.type = 'webhook'
-    notify_log.params = params.to_json
-    notify_log.save
-
     if event
       object = event[:data][:object]
       if params.type == 'charge.succeeded'
         @payment_log = PaymentLog.where(sn: object[:order_no]).first
+
+        notify_log = NotifyLog.new
+        notify_log.payment = @payment_log.payment
+        notify_log.type = 'webhook'
+        notify_log.params = params.to_json
+        notify_log.save
+
         if @payment_log.unpayed?
           @payment_log.notify_params = params.to_json
           @payment_log.pingxx = object[:id]
