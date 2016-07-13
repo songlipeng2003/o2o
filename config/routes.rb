@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       post :alipay_wap_notify
       post :alipay_refund_notify
       post :pingxx_notify
-      get :pingxx_webhook
+      post :pingxx_webhook
 
       get :cmbc
       post :cmbc_notify
