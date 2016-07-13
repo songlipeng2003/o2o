@@ -138,7 +138,7 @@ class PayController < ApplicationController
 
     if event
       object = event[:data][:object]
-      if params.type == 'charge.succeeded'
+      if event.type == 'charge.succeeded'
         @payment_log = PaymentLog.where(sn: object[:order_no]).first
 
         notify_log = NotifyLog.new
@@ -157,7 +157,7 @@ class PayController < ApplicationController
 
         text = 'success'
         # 开发者在此处加入对支付异步通知的处理代码
-      elsif params.type == 'refund.succeeded'
+      elsif event.type == 'refund.succeeded'
         payment_refund_log = PaymentRefundLog.where(pingxx: object[:id]).first
         if payment_refund_log.applyed?
           payment_refund_log.finish!
