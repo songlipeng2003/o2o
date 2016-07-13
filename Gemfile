@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer',  platforms: :ruby
+#gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -52,7 +52,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.3.0'
   gem 'capybara', '~> 2.2.0'
   gem 'database_cleaner', '~> 1.2.0'
-  gem 'did_you_mean', '~> 0.9.4'
+  gem 'did_you_mean', '~> 1.0.0'
 
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'better_errors', '~> 2.0.0'
@@ -102,7 +102,7 @@ gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
 
 # thin server
-gem 'thin', '~> 1.6.3'
+gem 'thin', '~> 1.7.0'
 
 # fulltext
 gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
