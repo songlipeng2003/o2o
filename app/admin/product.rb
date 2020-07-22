@@ -2,7 +2,7 @@ ActiveAdmin.register Product do
   belongs_to :store, :optional => true
 
   permit_params :name, :price, :suv_price, :market_price, :description,
-    :image, :product_type_id, :province_id, :city_id, :category_id, :system_product_id
+    :image, :product_type_id, :province_id, :city_id, :category_id, :system_product_id, :store_id
 
   index do
     id_column

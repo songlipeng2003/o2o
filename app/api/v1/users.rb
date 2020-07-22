@@ -81,6 +81,25 @@ module V1
         end
       end
 
+      desc "用户店铺列表", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "用户编号"
+      end
+      route_param :id do
+        get :stores do
+          authenticate!
+          error!("403 Forbidden", 403) unless current_user.id==params[:id]
+          present current_user.stores
+        end
+      end
+
     end
   end
 end

@@ -158,20 +158,30 @@ class Store < ActiveRecord::Base
       type: 'polygon',
       coordinates: [coordinates]
     }
+  def location
+    [lat, lon]
+  end
+
+  def system_product_ids
+    products.map { |product| product.system_product_id  }
   end
 
   # elasticsearch settings
   settings index: { number_of_shards: 5 } do
     mappings dynamic: 'strict' do
+      indexes :id
+      indexes :store_type
       indexes :name
+      indexes :phone
       indexes :address
       indexes :phone
       indexes :description
+      indexes :location, type: 'geo_point', geohash_precision: '1m'
     end
   end
 
   def as_indexed_json(options={})
-    self.as_json(only: [:name, :address, :phone, :description])
+    self.as_json(only: [:id, :store_type, :name, :phone, :address, :phone, :description], method: [:location])
   end
 
   private

@@ -17,7 +17,9 @@ module V1
         if params[:city_id]
           products = products.where(city_id: params[:city_id])
         end
-
+        if params[:category_id]
+          products = products.where(category_id: params[:category_id])
+        end
         if params[:product_type]
           products = products.where(product_type: params[:product_type])
         end

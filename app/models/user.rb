@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :month_cards
   has_many :devices, as: :deviceable
   has_many :feedbacks
+  has_many :user_stores
+  has_many :stores, through: :user_stores
 
   validates :phone, presence: true, uniqueness: true, phone: true
 
