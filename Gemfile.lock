@@ -89,7 +89,6 @@ GEM
     bcrypt (3.1.15)
     bootstrap-generators (3.2.0)
       railties (>= 3.1.0)
-    bower-rails (0.9.2)
     builder (3.2.4)
     by_star (3.0.0)
       activesupport (> 3)
@@ -525,7 +524,6 @@ DEPENDENCIES
   ancestry!
   api-pagination (~> 4.8.2)
   bootstrap-generators (~> 3.2.0)
-  bower-rails (~> 0.9.2)
   by_star
   cancancan (~> 1.10)
   capistrano (~> 3.3.5)

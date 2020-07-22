@@ -14,13 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require jasny-bootstrap/dist/js/jasny-bootstrap
-//= require fullpage.js/jquery.fullPage
-//= require jquery-placeholder/jquery.placeholder
 //= require owl.carousel
-//= require isMobile/isMobile
-//= require jquery-migrate/jquery-migrate
-//= require fullpage-custom
 //= require owl-custom
 //= require form-mobile-fix
 //= require main

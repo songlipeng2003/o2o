@@ -61,7 +61,6 @@ end
 # assets
 gem 'bootstrap-generators', '~> 3.2.0'
 gem "font-awesome-rails", "~> 4.7.0"
-gem "bower-rails", "~> 0.9.2"
 gem 'select2-rails'
 
 # disable assets log
