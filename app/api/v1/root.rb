@@ -158,8 +158,8 @@ module V1
 
           code为0表示争取，其他表示失败
         NOTE
-      },
+      }
       # models: [V1::Entities::CarBrand, V1::Entities::Car],
-      markdown: GrapeSwagger::Markdown::KramdownAdapter.new
+      # markdown: GrapeSwagger::Markdown::KramdownAdapter.new
   end
 end

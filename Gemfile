@@ -1,26 +1,26 @@
-source 'https://ruby.taobao.org/'
+source 'https://gems.ruby-china.com'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '~> 6.0.0'
 # Use sqli  te3 as the database for Active Record
 # gem 'pg', '~> 0.17.1'
 # gem 'activerecord-postgis-adapter', '~> 2.2.1'
 gem 'mysql2'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 6.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+# gem 'coffee-rails', '~> 6.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.4.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.10.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -48,65 +48,65 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_girl_rails', '~> 4.3.0'
   gem 'capybara', '~> 2.2.0'
   gem 'database_cleaner', '~> 1.2.0'
-  gem 'did_you_mean', '~> 1.0.0'
+  gem 'did_you_mean', '~> 1.4.0'
 
-  gem 'binding_of_caller', '~> 0.7.2'
-  gem 'better_errors', '~> 2.0.0'
+  # gem 'binding_of_caller', '~> 0.7.2'
+  # gem 'better_errors', '~> 2.7.1'
 end
 
 # assets
 gem 'bootstrap-generators', '~> 3.2.0'
-gem "font-awesome-rails", "~> 4.3.0"
+gem "font-awesome-rails", "~> 4.7.0"
 gem "bower-rails", "~> 0.9.2"
 gem 'select2-rails'
 
 # disable assets log
-gem 'quiet_assets', '~> 1.0.3', group: :development
+# gem 'quiet_assets', '~> 1.0.3', group: :development
 
 # 表单
-gem 'simple_form', '~> 3.0.1'
+gem 'simple_form', '~> 5.0.2'
 
 # rails i18n
-gem 'rails-i18n', '~> 4.0.0'
+gem 'rails-i18n', '~> 6.0.0'
 
 # 登陆
-gem 'devise', '~> 3.5.6'
+gem 'devise', '~> 4.7.2'
 
 # 分页
 # gem 'will_paginate', '~> 3.0'
 # gem 'will_paginate-bootstrap', '~> 1.0.0'
 
 # tree
-gem 'ancestry', '~> 2.1.0'
+gem 'ancestry', github: 'stefankroes/ancestry'
 
 # admin
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin'
 gem "active_admin-sortable_tree"
-gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
-gem 'activeadmin-axlsx', github: 'milabent/activeadmin-axlsx'
+# gem 'activeadmin-select2'
+# gem 'activeadmin-axlsx'
 
 # api
-gem 'grape', '~> 0.14.0'
-gem 'grape-entity', '~> 0.5.1'
-gem 'grape-swagger', '~> 0.20.0'
-gem 'api-pagination', '~> 4.3.0'
+gem 'grape', '~> 1.4.0'
+gem 'grape-entity', '~> 0.8.1'
+gem 'grape-swagger', '~> 1.2.1'
+gem 'api-pagination', '~> 4.8.2'
 gem 'kramdown'
-gem 'grape-swagger-rails', '~> 0.2.0'
+gem 'grape-swagger-rails', '~> 0.3.1'
 
 # upload
-gem 'carrierwave', '~> 0.10.0'
-gem 'mini_magick', '~> 3.7.0'
+gem 'carrierwave', '~> 2.1.0'
+gem 'mini_magick', '~> 4.10.1'
 
 # thin server
 gem 'thin', '~> 1.7.0'
 
 # fulltext
-gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 # SMS
 gem 'china_sms', '~> 0.0.7'
@@ -119,10 +119,10 @@ gem 'sidekiq', '~> 3.3.0'
 gem 'evil_transform'
 
 # defualt value for model
-gem "default_value_for", "~> 3.0.0"
+gem "default_value_for", "~> 3.3.0"
 
 # model version
-gem 'paper_trail', '~> 3.0.6'
+gem 'paper_trail', '~> 10.3.1'
 
 # alipay
 gem 'alipay', '~> 0.3.0'
@@ -144,11 +144,11 @@ gem "cocoon"
 gem "rack-cors"
 
 # soft delete
-gem "paranoia", "~> 2.0"
+gem "paranoia", "~> 2.4.2"
 
-gem 'jpush', :git => 'git://github.com/jpush/jpush-api-ruby-client.git'
+gem 'jpush'
 
-gem "rails_config"
+gem "config", '~> 2.2.1'
 
 # exception notification
 # gem 'exception_notification'
@@ -164,4 +164,8 @@ gem "chartkick"
 # auth
 gem 'cancancan', '~> 1.10'
 
-gem 'oneapm_rpm'
+# gem 'oneapm_rpm'
+
+gem 'listen'
+gem "webpacker"
+gem 'sprockets', '~> 3.7.2'

@@ -240,7 +240,7 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 
-  config.before_filter :user_for_paper_trail
+  config.before_action :user_for_paper_trail
 end
 
 require 'active_admin/controller_ext'
