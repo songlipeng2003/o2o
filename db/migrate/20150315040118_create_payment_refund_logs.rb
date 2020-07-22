@@ -1,4 +1,4 @@
-class CreatePaymentRefundLogs < ActiveRecord::Migration
+class CreatePaymentRefundLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :payment_refund_logs do |t|
       t.string :sn

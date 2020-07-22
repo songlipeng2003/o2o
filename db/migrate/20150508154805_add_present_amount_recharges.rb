@@ -1,4 +1,4 @@
-class AddPresentAmountRecharges < ActiveRecord::Migration
+class AddPresentAmountRecharges < ActiveRecord::Migration[4.2]
   def change
     change_table :recharges do |t|
       t.integer :present_amount

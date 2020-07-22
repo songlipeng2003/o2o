@@ -1,4 +1,4 @@
-class CreateSystemCoupons < ActiveRecord::Migration
+class CreateSystemCoupons < ActiveRecord::Migration[4.2]
   def change
     create_table :system_coupons do |t|
       t.string :name

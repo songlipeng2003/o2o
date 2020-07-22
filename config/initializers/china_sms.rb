@@ -1,1 +1,1 @@
-ChinaSMS.use :yunpian, password: Settings.yunpian.password
+# ChinaSMS.use :yunpian, password: Settings.yunpian.password

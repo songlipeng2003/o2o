@@ -1,4 +1,4 @@
-class CreateWashMachines < ActiveRecord::Migration
+class CreateWashMachines < ActiveRecord::Migration[4.2]
   def change
     create_table :wash_machines do |t|
       t.string :code

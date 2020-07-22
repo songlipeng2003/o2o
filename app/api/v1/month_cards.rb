@@ -6,30 +6,22 @@ module V1
 
     resource :month_cards do
       desc "消费卡记录", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
-        http_codes: [
-          [200, 'Ok', V1::Entities::MonthCard]
-        ]
+        is_array: true,
+        entity: V1::Entities::MonthCard
       }
       paginate
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get do
         month_cards =  paginate current_user.month_cards.order('id DESC')
         present month_cards, with: V1::Entities::MonthCard
       end
 
-      desc '可用消费卡数量', {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc '可用消费卡数量'
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get :available_count do
         count = current_user.month_cards.available.count
         { count: count }

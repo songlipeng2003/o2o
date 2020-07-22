@@ -11,15 +11,9 @@ module V1
         end
       end
 
-      desc '更新用户信息', {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc '更新用户信息'
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :avatar, type: String, desc: '头像'
         requires :nickname, type: String, desc: '昵称'
         requires :gender, type: String, desc: '性别, 男, 女'
@@ -38,15 +32,9 @@ module V1
         present current_user, with: V1::Entities::User
       end
 
-      desc "是否设置支付密码（仅能访问登录用户自己）", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "是否设置支付密码（仅能访问登录用户自己）"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "用户编号"
       end
       route_param :id do
@@ -59,15 +47,9 @@ module V1
         end
       end
 
-      desc "设置支付密码（仅能访问登录用户自己,设置密码接口仅在未设置支付密码时，设置一次）", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "设置支付密码（仅能访问登录用户自己,设置密码接口仅在未设置支付密码时，设置一次）"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "ID"
         requires :pay_password, type: String, desc: "支付密码,至少六位"
       end
@@ -82,15 +64,9 @@ module V1
         end
       end
 
-      desc "获取个人信息,APP我的界面所需要的相关信息", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "获取个人信息,APP我的界面所需要的相关信息"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "用户编号"
         requires :last_time, type: Integer, desc: "时间戳"
       end
@@ -102,6 +78,25 @@ module V1
             balance: current_user.finance.balance,
             unreaded_msg_count: Announcement.count_of(params[:last_time])
           }
+        end
+      end
+
+      desc "用户店铺列表", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        }
+      }
+      params do
+        requires :id, type: Integer, desc: "用户编号"
+      end
+      route_param :id do
+        get :stores do
+          authenticate!
+          error!("403 Forbidden", 403) unless current_user.id==params[:id]
+          present current_user.stores
         end
       end
 

@@ -1,5 +1,5 @@
 ActiveAdmin.register Store do
-  permit_params :name, :address, :phone, :description, :lon, :lat, :service_area, :area_id, :province_id, :city_id
+  permit_params :name, :address, :phone, :description, :lon, :lat, :area_id, :province_id, :city_id
 
 
   scope :all, default: true do |scope|
@@ -14,6 +14,9 @@ ActiveAdmin.register Store do
     selectable_column
     id_column
     column :name
+    column :store_type do |store|
+      store.store_type_name
+    end
     column :address
     column :phone
     actions  defaults: false do |store|
@@ -29,6 +32,9 @@ ActiveAdmin.register Store do
 
       content << ' '
       content << link_to('用户管理', admin_store_store_users_path(store))
+
+      content << ' '
+      content << (link_to '商品管理', admin_store_products_path(store))
       raw content
     end
   end
@@ -43,6 +49,7 @@ ActiveAdmin.register Store do
     attributes_table do
       row :id
       row :name
+      row :store_type_name
       row :phone
       row :address
       row :description

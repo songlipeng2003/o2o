@@ -1,4 +1,4 @@
-class AddMonthCardToPayment < ActiveRecord::Migration
+class AddMonthCardToPayment < ActiveRecord::Migration[4.2]
   def change
     Payment.create(
       name: '消费卡支付',

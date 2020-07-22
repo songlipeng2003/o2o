@@ -40,15 +40,16 @@ module V1
 
       expose :order_type, documentation: { type: Integer, desc: '订单类型,1为上门洗车订单，2为洗车机订单' }
 
+      expose :wash_machine, using: V1::Entities::WashMachine, documentation: { type: 'V1::Entities::WashMachine', desc: '洗车机' }
+
       expose :wash_machine_id, documentation: { type: Integer, desc: '洗车机编号' }
       expose :wash_machine_name, documentation: { type: String, desc: '洗车机名称' } do |order|
         order.wash_machine ? order.wash_machine.name : nil
       end
-      expose :wash_machine_set_id, documentation: { type: Integer, desc: '洗车机套餐编号' }
-      expose :wash_machine_set_name, documentation: { type: String, desc: '洗车机套餐名称' } do |order|
-        order.wash_machine_set ? order.wash_machine_set.name : nil
-      end
 
+      expose :wash_machine_random_code, documentation: { type: Integer, desc: '洗车机随机码' }
+
+      expose :wash_machine_encrypt_code, documentation: { type: Integer, desc: '洗车机加密码' }
     end
   end
 end

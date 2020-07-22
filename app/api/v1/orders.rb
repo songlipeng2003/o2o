@@ -6,17 +6,11 @@ module V1
 
     resource :orders do
       desc "订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
-        http_codes: [
-         [200, '成功', V1::Entities::OrderList]
-        ]
+        is_array: true,
+        entity: V1::Entities::OrderList
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :page, type: Integer, desc: "页码"
         optional :per_page, type: Integer, desc: '每页数量'
       end
@@ -27,33 +21,69 @@ module V1
       end
 
       desc "最近订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+      end
       get :lastest_order do
         order = current_user.orders.order('id DESC').first
         present order, with: V1::Entities::Order
       end
 
-      desc "计算订单价格接口", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
+      desc "计算洗车机订单价格接口", {
         http_codes: [
          [200, '成功', V1::Entities::OrderPrice]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        requires :wash_machine_code, type: String, desc: '洗车机设备码'
+        optional :coupon_id, type: Integer, desc: "代金券编号"
+        optional :service_ticket_code, type: String, desc: '消费券号码'
+      end
+      get :machine_price do
+        order = current_user.orders.new
+        order.order_type = Order::ORDER_TYPE_MACHINE
+        order.product_id = 9
+        wash_machine_code = params[:wash_machine_code]
+        wash_machine = WashMachine.where(code: wash_machine_code).first
+
+        unless wash_machine
+          return {
+            code: 1,
+            msg: '洗车机设备码错误'
+          }
+        end
+
+        order.wash_machine_id = wash_machine.id
+
+        order.coupon_id = params[:coupon_id]
+
+        service_ticket_code = params[:service_ticket_code]
+        service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
+        if service_ticket
+          order.service_ticket_id = service_ticket.id
+        end
+        order.cal_total_amount
+        {
+          original_price: order.original_price,
+          total_amount: order.total_amount,
+          order_amount: order.order_amount,
+          service_ticket_id: order.service_ticket_id,
+          month_card_id: order.month_card_id
+        }
+      end
+
+      desc "计算订单价格接口", {
+        http_codes: [
+         [200, '成功', V1::Entities::OrderPrice]
+        ]
+      }
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :car_model_id, type: Integer, desc: "车型编号"
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
         requires :is_include_interior, type: Boolean, desc: "是否包含内饰"
@@ -85,15 +115,9 @@ module V1
         }
       end
 
-      desc "订单日期列表", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "订单日期列表"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
       end
       get :list_available_date do
@@ -113,15 +137,9 @@ module V1
         dates
       end
 
-      desc "选择时间列表", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "选择时间列表"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :date, type: String, desc: '日期'
         requires :product_id, type: Integer, desc: "商品类型，1为标准洗车,2为标准打蜡,3为标准抛光,4为标准深清"
         requires :lon, type: Float, desc: "经度"
@@ -146,17 +164,12 @@ module V1
       end
 
       desc "订单详情", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
       end
       route_param :id do
@@ -166,17 +179,12 @@ module V1
       end
 
       desc "生成订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :phone, type: String, desc: "手机"
         optional :car_id, type: Integer, desc: "汽车编号,汽车编号和汽车详情仅需填写一个"
         optional :car, type: Hash do
@@ -185,7 +193,7 @@ module V1
           optional :license_tag, type: String, desc: "车牌号"
         end
         mutually_exclusive :car_id, :car
-        optional :address_id, type: Integer, desc: "地址编号,地址编号和地址信息仅需填写一个"
+        optional :address_id, type: Integer, desc: "地址编号,地址编号和地址信息仅需填写一个, 如果是到店洗车，地址可以不填写"
         optional :address, type: Hash do
           optional :place, type: String, desc: "地址"
           optional :lon, type: String, desc: "经度"
@@ -196,8 +204,10 @@ module V1
         requires :booked_at, type: String, desc: "预约时间，时间格式2014-01-01 01:01:00, 为预约的起始时间"
         optional :booked_end_at, type: String, desc: "预约结束时间，时间格式2014-01-01 01:01:00, 为预约的结束时间"
         optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
+        optional :store_id, type: Integer, desc: "店铺编号，上门服务不用填写，到店服务必须填写"
         requires :product_id, type: Integer, desc: "商品编号，1、2为标准洗车,其他请使用商品列表返回的商品编号"
         optional :is_underground_park, type: Boolean, desc: "是否在地下停车库"
+        optional :is_include_interior, type: Boolean, desc: "是否包含内饰"
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :carport, type: String, desc: "车位号"
         optional :service_ticket_code, type: String, desc: '消费券号码'
@@ -208,7 +218,9 @@ module V1
         address_params = permitted_params.delete(:address)
         service_ticket_code = permitted_params.delete :service_ticket_code
 
-        order = current_user.orders.new(permitted_params)
+        safe_params = clean_params(params).permit(:booked_at, :booked_end_at, :is_include_interior, :product_id,
+          :is_underground_park, :coupon_id, :carport, :note, :phone, :car_id, :address_id)
+        order = current_user.orders.new(safe_params)
         order.product_id = permitted_params[:product_id]
         order.application = current_application
 
@@ -236,7 +248,7 @@ module V1
             }
           end
 
-          order.car_id = car.id
+          order.car.id = car.id
         end
 
         unless /^\p{Han}{1}[A-Z]{1}[A-Z_0-9]{5}$/u =~ car.license_tag
@@ -264,14 +276,27 @@ module V1
 
           order.address_id = address.id
         end
+        # 上门服务
+        unless params[:store_id]
+          if params[:address].blank?
+            address = current_user.addresses.find(params[:address_id])
+          else
+            address_params = clean_params(params).require(:address).permit(:place, :lon, :lat)
+            address = current_user.addresses.where(place: address_params[:place]).first
+            unless address
+              address = current_user.addresses.new(address_params)
+            end
+            address.save
+            order.address_id = address.id
+          end
 
-        result = Store.in_service_scope(address.lon, address.lat)
-        if result.count==0
-          return {
-            code: 1,
-            msg: '不在服务范围内'
-          }
-        end
+          result = StoreUserServiceArea.in_service_scope(address.lon, address.lat)
+          if result.count==0
+            return {
+              code: 1,
+              msg: '不在服务范围内'
+            }
+          end
 
         if booked_at.hour>=20
           store_user_id = Store.can_serviced_store_in_night(address.lon, address.lat, booked_at)
@@ -279,12 +304,16 @@ module V1
           store_user_id = Store.can_serviced_store(address.lon, address.lat, booked_at)
         end
 
+          store_user_id = StoreUserServiceArea.can_serviced_store(address.lon, address.lat, booked_at)
 
-        unless store_user_id
-          return {
-            code: 1,
-            msg: '已经被预约，请预约其他时间'
-          }
+          unless store_user_id
+            return {
+              code: 1,
+              msg: '已经被预约，请预约其他时间'
+            }
+          end
+
+          order.store_user_id = store_user_id
         end
 
         if params[:coupon_id]
@@ -343,25 +372,20 @@ module V1
          else
           return {
             code: 2,
-            msg: order.errors.full_messages[0][0]
+            msg: order.errors.full_messages[0]
           }
         end
       end
 
       desc "创建洗车机订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::Order]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :wash_machine_code, type: String, desc: '洗车机设备码'
-        requires :wash_machine_set_id, type: String, desc: '洗车机套餐'
+        requires :wash_machine_random_code, type: String, desc: '洗车机随机码'
         optional :coupon_id, type: Integer, desc: "代金券编号"
         optional :service_ticket_code, type: String, desc: '消费券号码'
         optional :note, type: String, desc: "订单备注"
@@ -369,7 +393,8 @@ module V1
       post :machine do
         service_ticket_code = permitted_params.delete :service_ticket_code
 
-        order = current_user.orders.new(permitted_params)
+        safe_params = clean_params(params).permit(:wash_machine_code, :wash_machine_random_code, :coupon_id, :note)
+        order = current_user.orders.new(safe_params)
         wash_machine_code = params[:wash_machine_code]
         wash_machine = WashMachine.where(code: wash_machine_code).first
 
@@ -438,24 +463,19 @@ module V1
       end
 
       desc "评价", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
-         [200, '成功', V1::Entities::Evaluation]
+         [201, '成功', V1::Entities::Evaluation]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
         optional :score, type: Integer, desc: '评价，0-5分'
         optional :score1, type: Integer, desc: '评价1，0-5分'
         optional :score2, type: Integer, desc: '评价2，0-5分'
         optional :score3, type: Integer, desc: '评价3，0-5分'
         optional :note, type: String, desc: '备注'
-        optional :images, type: Array
+        optional :images, type: Array[String], desc: '图片'
       end
       route_param :id do
         post 'evaluate' do
@@ -467,7 +487,8 @@ module V1
             score2: params[:score2],
             score3: params[:score3],
             note: params[:note],
-            store_user_id: order.store_user_id
+            store_user_id: order.store_user_id,
+            wash_machine_id: order.wash_machine_id
           })
 
           evaluation.application = current_application
@@ -486,15 +507,9 @@ module V1
         end
       end
 
-      desc "余额支付", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "余额支付"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
         requires :pay_password, type: String, desc: "支付密码"
       end
@@ -502,7 +517,7 @@ module V1
         put 'pay' do
           order = current_user.orders.find(params[:id])
           error!("404 Not Found", 404) unless order.unpayed?
-          if order.booked_at.hour >=20
+          if order.booked_at && order.booked_at.hour >=20
             return {
               code: 1,
               msg: '夜晚订单特惠，不支持余额支付'
@@ -557,17 +572,12 @@ module V1
       end
 
       desc "关闭订单", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        },
         http_codes: [
          [200, '成功', V1::Entities::OrderList]
         ]
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
       end
       route_param :id do
@@ -601,15 +611,9 @@ module V1
         end
       end
 
-      desc "选择支付方式", {
-        headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
-        }
-      }
+      desc "选择支付方式"
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"
         requires :payment_id, type: Integer, desc: "支付编号"
         optional :open_id, type: String, desc: "OpenId, 微信公众号支付时需要"

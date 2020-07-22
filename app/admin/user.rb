@@ -71,13 +71,13 @@ ActiveAdmin.register User do
           column(I18n.t('activerecord.attributes.order.id')) { |order| order.id }
           column(I18n.t('activerecord.attributes.order.sn')) { |order| order.sn }
           column(I18n.t('activerecord.attributes.order.car')) do |order|
-            order.car_model.name + '-' + order.license_tag + '-' + order.car_color
+            order.car_model.name + '-' + order.license_tag + '-' + order.car_color if order.car
           end
           column(I18n.t('activerecord.attributes.order.product')) do |order|
             link_to order.product.name, admin_product_path(order.product)
           end
           column(I18n.t('activerecord.attributes.order.total_amount')) { |order| order.total_amount }
-          column(I18n.t('activerecord.attributes.order.booked_at')) { |order| I18n.l order.booked_at, :format => :long }
+          column(I18n.t('activerecord.attributes.order.booked_at')) { |order| I18n.l order.booked_at, :format => :long if order.booked_at }
           column(I18n.t('activerecord.attributes.order.state')) { |order| order.aasm.human_state }
         end
       end

@@ -16,7 +16,7 @@ module V1
       end
 
       def permitted_params
-        @permitted_params ||= declared(params, include_missing: false, include_parent_namespaces: false)
+        @permitted_params ||= declared(params, include_missing: false)
       end
 
       def clean_params(params)
@@ -61,7 +61,6 @@ module V1
     mount V1::CarBrands
     mount V1::CarModels
     mount V1::Cars
-    # mount V1::Communities
     mount V1::Coupons
     mount V1::Docs
     mount V1::Feedbacks
@@ -76,16 +75,29 @@ module V1
     mount V1::Recharges
     mount V1::Stores
     mount V1::SystemMonthCards
+    mount V1::SystemProducts
     mount V1::TradingRecords
     mount V1::Users
-    mount V1::WashMachineSets
+    mount V1::WashMachines
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
       api_version: 'v1',
+      schemes: ['http'],
+      # security_definitions: {
+      #   api_key: {
+      #     type: 'apiKey',
+      #     name: 'api_key',
+      #     in: 'query'
+      #   },
+      # },
       info: {
         title: '嘀嘀雄兵接口文档',
-        contact: 'songlipeng2003@gmail.com',
+        contact: {
+          name: 'Thinking Song',
+          url: 'http://wmstars.com',
+          email: 'songlipeng2003@gmail.com'
+        },
         description: <<-NOTE
           本接口完全按照REST设计规范进行设计
 
@@ -147,8 +159,8 @@ module V1
 
           code为0表示争取，其他表示失败
         NOTE
-      },
-      models: [V1::Entities::CarBrand, V1::Entities::Car],
-      markdown: GrapeSwagger::Markdown::KramdownAdapter
+      }
+      # models: [V1::Entities::CarBrand, V1::Entities::Car],
+      # markdown: GrapeSwagger::Markdown::KramdownAdapter.new
   end
 end

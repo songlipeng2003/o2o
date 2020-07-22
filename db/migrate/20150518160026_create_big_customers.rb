@@ -1,4 +1,4 @@
-class CreateBigCustomers < ActiveRecord::Migration
+class CreateBigCustomers < ActiveRecord::Migration[4.2]
   def change
     create_table :big_customers do |t|
       t.string :name

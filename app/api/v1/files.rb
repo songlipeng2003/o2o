@@ -3,10 +3,6 @@ module V1
     resource :files do
       desc "上传文件", {
         headers: {
-          "X-Access-Token" => {
-            description: "Token",
-            required: true
-          },
           "X-File-Name" => {
             description: "二进制上传时的文件名",
             required: false
@@ -14,6 +10,7 @@ module V1
         }
       }
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :file, type: Rack::Multipart::UploadedFile, desc: "文件,也可以直接使用二进制流上传,在header中添加X-File-Name作为文件名"
       end
       post do

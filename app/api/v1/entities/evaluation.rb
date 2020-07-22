@@ -8,7 +8,7 @@ module V1
       expose :score3, documentation: { type: Integer, desc: '分数3' }
       expose :note, documentation: { type: String, desc: '备注' }
       expose :created_at, documentation: { type: String, desc: '评价时间' }
-      expose :images, documentation: { type: Array, desc: '图片' } do |evaluation|
+      expose :images, documentation: { type: Array[String], desc: '图片' } do |evaluation|
         images = []
         evaluation.images.each do |image|
           images << image.file.url

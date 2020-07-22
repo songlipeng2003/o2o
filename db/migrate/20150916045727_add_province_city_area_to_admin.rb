@@ -1,4 +1,4 @@
-class AddProvinceCityAreaToAdmin < ActiveRecord::Migration
+class AddProvinceCityAreaToAdmin < ActiveRecord::Migration[4.2]
   def change
     change_table :admin_users do |t|
       t.references :province

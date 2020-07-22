@@ -1,4 +1,4 @@
-class CreateServiceTicketBatches < ActiveRecord::Migration
+class CreateServiceTicketBatches < ActiveRecord::Migration[4.2]
   def change
     create_table :service_ticket_batches do |t|
       t.references :big_customer, index: true

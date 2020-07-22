@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
   include Financeable
   include Tokenable
@@ -16,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :month_cards
   has_many :devices, as: :deviceable
   has_many :feedbacks
+  has_many :user_stores
+  has_many :stores, through: :user_stores
 
   validates :phone, presence: true, uniqueness: true, phone: true
 
@@ -38,11 +42,11 @@ class User < ActiveRecord::Base
 
   def validate_pay_password(pay_password)
     return false if encrypted_pay_password.blank?
-    bcrypt   = ::BCrypt::Password.new(encrypted_pay_password)
+    bcrypt   = BCrypt::Password.new(encrypted_pay_password)
     if self.class.pepper.present?
       pay_password = "#{pay_password}#{self.class.pepper}"
     end
-    pay_password = ::BCrypt::Engine.hash_secret(pay_password, bcrypt.salt)
+    pay_password = BCrypt::Engine.hash_secret(pay_password, bcrypt.salt)
     Devise.secure_compare(pay_password, encrypted_pay_password)
   end
 

@@ -1,4 +1,4 @@
-class AddBookedEndAt < ActiveRecord::Migration
+class AddBookedEndAt < ActiveRecord::Migration[4.2]
   def change
     change_table :orders do |t|
       t.datetime :booked_end_at

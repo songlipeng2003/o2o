@@ -1,4 +1,4 @@
-class ModifyFloatPrecision < ActiveRecord::Migration
+class ModifyFloatPrecision < ActiveRecord::Migration[4.2]
   def change
     change_table :addresses do |t|
       t.change :lon, :decimal, :precision => 11, :scale => 8

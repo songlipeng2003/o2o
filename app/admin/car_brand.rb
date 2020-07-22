@@ -8,7 +8,11 @@ ActiveAdmin.register CarBrand do
     id_column
     column :name
     column :first_letter
-    actions
+    actions do |car_brand|
+      content = ' '
+      content << (link_to '车型管理', admin_car_brand_car_models_path(car_brand))
+      raw content
+    end
   end
 
   filter :name

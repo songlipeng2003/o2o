@@ -1,4 +1,4 @@
-class CreateRefundBatches < ActiveRecord::Migration
+class CreateRefundBatches < ActiveRecord::Migration[4.2]
   def change
     create_table :refund_batches do |t|
       t.references :payment, index: true

@@ -1,4 +1,4 @@
-class ChangeAmountType < ActiveRecord::Migration
+class ChangeAmountType < ActiveRecord::Migration[4.2]
   def change
     change_table :trading_records do |t|
       t.change :amount, :float

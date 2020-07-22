@@ -1,9 +1,22 @@
 class Store < ActiveRecord::Base
   include Financeable
+  include ElasticsearchSearchable
+
+  STORE_TYPE_SELF = 1
+  STORE_TYPE_JOIN = 2
+
+  STORE_TYPES ={
+    STORE_TYPE_SELF => '自营',
+    STORE_TYPE_JOIN => '加盟'
+  }
 
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
   belongs_to :area, class_name: 'Area'
+
+  has_many :store_users
+  has_many :orders
+  has_many :evaluations
 
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true
@@ -14,6 +27,7 @@ class Store < ActiveRecord::Base
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
+  validates :store_type, presence: true
 
   validates_associated :province
   validates_associated :city
@@ -21,11 +35,17 @@ class Store < ActiveRecord::Base
 
   has_many :store_users
   has_many :orders
+  has_many :products
+  has_many :service_areas, through: :products
 
   acts_as_paranoid
 
   before_create do
     update_area_info
+  end
+
+  def store_type_name
+    STORE_TYPES[store_type]
   end
 
   # 是否在服务范围内
@@ -138,21 +158,30 @@ class Store < ActiveRecord::Base
       type: 'polygon',
       coordinates: [coordinates]
     }
+  def location
+    [lat, lon]
+  end
+
+  def system_product_ids
+    products.map { |product| product.system_product_id  }
   end
 
   # elasticsearch settings
   settings index: { number_of_shards: 5 } do
     mappings dynamic: 'strict' do
+      indexes :id
+      indexes :store_type
       indexes :name
+      indexes :phone
       indexes :address
       indexes :phone
       indexes :description
-      indexes :service_area_location, type: 'geo_shape', tree: 'geohash', precision: '1m'
+      indexes :location, type: 'geo_point', geohash_precision: '1m'
     end
   end
 
   def as_indexed_json(options={})
-    self.as_json(only: [:name, :address, :phone, :description], methods: :service_area_location)
+    self.as_json(only: [:id, :store_type, :name, :phone, :address, :phone, :description], method: [:location])
   end
 
   private

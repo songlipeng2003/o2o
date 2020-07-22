@@ -8,6 +8,8 @@ ActiveAdmin.register WashMachine do
     id_column
     column :code
     column :address
+    column :price
+    column :score
     column :created_at
     column :updated_at
     actions
@@ -15,6 +17,8 @@ ActiveAdmin.register WashMachine do
 
   filter :code
   filter :address
+  filter :price
+  filter :score
   filter :created_at
   filter :updated_at
 

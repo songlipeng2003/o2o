@@ -1,4 +1,4 @@
-class AddFinanceToTradingRecords < ActiveRecord::Migration
+class AddFinanceToTradingRecords < ActiveRecord::Migration[4.2]
   def change
     change_table :trading_records do |t|
       t.remove :user_id

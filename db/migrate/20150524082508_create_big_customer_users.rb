@@ -1,4 +1,4 @@
-class CreateBigCustomerUsers < ActiveRecord::Migration
+class CreateBigCustomerUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :big_customer_users do |t|
       t.references :big_customer, index: true

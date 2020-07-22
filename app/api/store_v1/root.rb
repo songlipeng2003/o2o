@@ -119,7 +119,7 @@ module StoreV1
 
           code为0表示争取，其他表示失败
         NOTE
-      },
-      markdown: GrapeSwagger::Markdown::KramdownAdapter
+      }
+      # markdown: GrapeSwagger::Markdown::KramdownAdapter
   end
 end

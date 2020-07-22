@@ -14,6 +14,7 @@ ActiveAdmin.register Car do
     id_column
     column :user
     column :car_model
+    column :car_style
     column :license_tag
     column :color
     column :application
@@ -47,7 +48,7 @@ ActiveAdmin.register Car do
 
   controller do
     def show
-      @car = Store.with_deleted.find(params[:id])
+      @car = Car.with_deleted.find(params[:id])
     end
 
     # def scoped_collection

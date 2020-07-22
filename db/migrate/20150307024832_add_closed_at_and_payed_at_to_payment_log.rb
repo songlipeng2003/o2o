@@ -1,4 +1,4 @@
-class AddClosedAtAndPayedAtToPaymentLog < ActiveRecord::Migration
+class AddClosedAtAndPayedAtToPaymentLog < ActiveRecord::Migration[4.2]
   def change
     change_table :payment_log do |t|
       t.datetime :payed_at

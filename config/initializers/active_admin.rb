@@ -121,7 +121,7 @@ ActiveAdmin.setup do |config|
   config.comments = false
   #
   # You can disable the menu item for the comments index page:
-  config.show_comments_in_menu = false
+  # config.show_comments_in_menu = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
@@ -240,7 +240,7 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 
-  config.before_filter :user_for_paper_trail
+  config.before_action :user_for_paper_trail
 end
 
 require 'active_admin/controller_ext'

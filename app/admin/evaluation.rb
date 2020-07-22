@@ -10,6 +10,7 @@ ActiveAdmin.register Evaluation do
     column :order
     column :user
     column :store
+    column :wash_machine
     column :score
     column :note
     column :created_at
@@ -24,6 +25,7 @@ ActiveAdmin.register Evaluation do
       row :user
       row :store
       row :order
+      row :wash_machine
       row :score
       row :note
       row :images do

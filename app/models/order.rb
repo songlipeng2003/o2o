@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
   belongs_to :area, class_name: 'Area'
 
   belongs_to :product
+  belongs_to :store_user
   belongs_to :user, counter_cache: true
   belongs_to :store, counter_cache: true
   belongs_to :car
@@ -20,8 +21,7 @@ class Order < ActiveRecord::Base
   belongs_to :store_user, counter_cache: true
   belongs_to :month_card
   belongs_to :service_ticket
-  belongs_to :wash_machine
-  belongs_to :wash_machine_set
+  belongs_to :wash_machine, counter_cache: true
 
   has_one :evaluation
 
@@ -49,7 +49,6 @@ class Order < ActiveRecord::Base
   validates :area, presence: true
 
   validates :wash_machine_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
-  validates :wash_machine_set_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
   validates :wash_machine_code, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
 
   validate :check_coupon
@@ -63,20 +62,25 @@ class Order < ActiveRecord::Base
   # validates_associated :product
 
   validates_associated :wash_machine
-  validates_associated :wash_machine_set
 
   before_create :cal_total_amount
 
   before_validation(on: :create) do
     if order_type==ORDER_TYPE_NORMAL
-      self.car_model_id = self.car.car_model_id
-      self.car_color = self.car.color
-      self.license_tag = self.car.license_tag
+      if self.car
+        self.car_model_id = self.car.car_model_id
+        self.car_color = self.car.color
+        self.license_tag = self.car.license_tag
+      end
 
-      self.place = self.address.place
-      self.lon = self.address.lon
-      self.lat = self.address.lat
+      if self.address
+        self.place = self.address.place
+        self.lon = self.address.lon
+        self.lat = self.address.lat
+      end
     end
+
+    self.store_id = self.store_user.store_id
 
     update_area_info
   end
@@ -134,18 +138,22 @@ class Order < ActiveRecord::Base
           trading_record.save
         end
 
-        params = {
-          booked_at: self.booked_at.strftime('%F %T'),
-          address: self.place,
-          license_tag: self.license_tag,
-          color: self.car_color,
-          car_model: self.car_model_name,
-          phone: self.phone,
-          product: self.product.name,
-          is_include_interior: self.is_include_interior ? '是' : '不',
-          price: self.order_amount
-        }
-        SMSWorker.perform_async(self.store_user.phone, 943153, params) if order_type==ORDER_TYPE_NORMAL
+        finish! user if order_type==ORDER_TYPE_MACHINE
+
+        if order_type==ORDER_TYPE_NORMAL
+          params = {
+            booked_at: self.booked_at.strftime('%F %T'),
+            address: self.place,
+            license_tag: self.license_tag,
+            color: self.car_color,
+            car_model: self.car_model_name,
+            phone: self.phone,
+            product: self.product.name,
+            is_include_interior: self.is_include_interior ? '是' : '不',
+            price: self.order_amount
+          }
+          SMSWorker.perform_async(self.store_user.phone, 943153, params)
+        end
       end
     end
 
@@ -203,15 +211,16 @@ class Order < ActiveRecord::Base
     end
 
     # 获取商品价格
-    if order_type == ORDER_TYPE_NORMAL
-      self.original_price = self.product.market_price
+    self.original_price = self.product.market_price
+    if order_type==ORDER_TYPE_NORMAL
       if product.suv_price && car_model.auto_type == 'SUV'
         price = self.product.suv_price
       else
         price = self.product.price
       end
     else
-      price = wash_machine_set.price
+      price = self.product.price
+      price = wash_machine && wash_machine.price ? wash_machine.price : price
     end
 
     self.order_amount = price
@@ -219,6 +228,11 @@ class Order < ActiveRecord::Base
     # 代金券处理
     if self.coupon
       price = price - self.coupon.amount
+    end
+
+    if price<=0
+      self.total_amount = 0.01
+      return
     end
 
     # 第一单优惠处理
@@ -305,6 +319,10 @@ class Order < ActiveRecord::Base
     SMSWorker.perform_async(store_user.phone, 671257, params)
   end
 
+  def wash_machine_encrypt_code
+    Utils::Util::encrypt(wash_machine_random_code) if order_type==ORDER_TYPE_MACHINE && state!='unpayed' && state!='closed'
+  end
+
   private
   def update_area_info
     if store
@@ -337,7 +355,7 @@ class Order < ActiveRecord::Base
   end
 
   def use_service_ticket
-    if service_ticket && [1, 2].include?(product_id)
+    if service_ticket && [1, 2, 9].include?(product_id)
       service_ticket.order_amount = order_amount
       service_ticket.user_id = user_id
       service_ticket.use!
