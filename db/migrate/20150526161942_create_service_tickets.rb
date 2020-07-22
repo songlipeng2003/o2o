@@ -1,4 +1,4 @@
-class CreateServiceTickets < ActiveRecord::Migration
+class CreateServiceTickets < ActiveRecord::Migration[4.2]
   def change
     create_table :service_tickets do |t|
       t.references :big_customer, index: true

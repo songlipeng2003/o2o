@@ -1,4 +1,4 @@
-class AddStoreUserToEvaluations < ActiveRecord::Migration
+class AddStoreUserToEvaluations < ActiveRecord::Migration[4.2]
   def change
     change_table :evaluations do |t|
       t.references :store_user, index: true

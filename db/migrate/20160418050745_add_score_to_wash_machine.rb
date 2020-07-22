@@ -1,4 +1,4 @@
-class AddScoreToWashMachine < ActiveRecord::Migration
+class AddScoreToWashMachine < ActiveRecord::Migration[4.2]
   def change
     change_table :wash_machines do |t|
       t.float :score

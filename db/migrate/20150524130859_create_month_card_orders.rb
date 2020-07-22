@@ -1,4 +1,4 @@
-class CreateMonthCardOrders < ActiveRecord::Migration
+class CreateMonthCardOrders < ActiveRecord::Migration[4.2]
   def change
     create_table :month_card_orders do |t|
       t.references :user, index: true

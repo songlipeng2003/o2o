@@ -1,4 +1,4 @@
-class CreateSystemUsers < ActiveRecord::Migration
+class CreateSystemUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :system_users do |t|
       t.string :code

@@ -1,4 +1,4 @@
-class CreateFinances < ActiveRecord::Migration
+class CreateFinances < ActiveRecord::Migration[4.2]
   def change
     create_table :finances do |t|
       t.references :user, polymorphic: true

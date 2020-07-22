@@ -1,4 +1,4 @@
-class ModifyDevice < ActiveRecord::Migration
+class ModifyDevice < ActiveRecord::Migration[4.2]
   def change
     change_table :devices do |t|
       t.references :deviceable, polymorphic: true

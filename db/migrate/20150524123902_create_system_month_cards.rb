@@ -1,4 +1,4 @@
-class CreateSystemMonthCards < ActiveRecord::Migration
+class CreateSystemMonthCards < ActiveRecord::Migration[4.2]
   def change
     create_table :system_month_cards do |t|
       t.references :province, index: true

@@ -1,4 +1,4 @@
-class RenameFreezeToFreezeBalanceToFinance < ActiveRecord::Migration
+class RenameFreezeToFreezeBalanceToFinance < ActiveRecord::Migration[4.2]
   def change
     change_table :finances do |t|
       t.rename :freeze, :freeze_balance

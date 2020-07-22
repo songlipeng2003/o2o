@@ -1,4 +1,4 @@
-class CreateWashMachineSets < ActiveRecord::Migration
+class CreateWashMachineSets < ActiveRecord::Migration[4.2]
   def change
     create_table :wash_machine_sets do |t|
       t.string :price

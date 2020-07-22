@@ -1,4 +1,4 @@
-class AddApplicationToLoginHistories < ActiveRecord::Migration
+class AddApplicationToLoginHistories < ActiveRecord::Migration[4.2]
   def change
     change_table :login_histories do |t|
       t.references :application

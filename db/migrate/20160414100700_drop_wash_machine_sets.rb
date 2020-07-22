@@ -1,4 +1,4 @@
-class DropWashMachineSets < ActiveRecord::Migration
+class DropWashMachineSets < ActiveRecord::Migration[4.2]
   def change
     drop_table :wash_machine_sets
 

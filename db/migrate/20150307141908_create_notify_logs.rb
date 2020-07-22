@@ -1,4 +1,4 @@
-class CreateNotifyLogs < ActiveRecord::Migration
+class CreateNotifyLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :notify_logs do |t|
       t.references :payment, index: true

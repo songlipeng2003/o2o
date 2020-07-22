@@ -1,4 +1,4 @@
-class AddSubsidyTradingRecord < ActiveRecord::Migration
+class AddSubsidyTradingRecord < ActiveRecord::Migration[4.2]
   def change
     Recharge.where(state: 'payed').all.each do |recharge|
       if !recharge.present_amount.blank? && recharge.present_amount > 0

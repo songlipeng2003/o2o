@@ -1,4 +1,4 @@
-class CreateAppVersions < ActiveRecord::Migration
+class CreateAppVersions < ActiveRecord::Migration[4.2]
   def change
     create_table :app_versions do |t|
       t.string :file

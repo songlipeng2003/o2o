@@ -1,4 +1,4 @@
-class ChangeVarcharIndexLength < ActiveRecord::Migration
+class ChangeVarcharIndexLength < ActiveRecord::Migration[4.2]
   def change
     change_table :active_admin_comments do |t|
       t.change :namespace, :string, limit: 191

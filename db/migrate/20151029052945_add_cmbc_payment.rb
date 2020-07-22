@@ -1,4 +1,4 @@
-class AddCmbcPayment < ActiveRecord::Migration
+class AddCmbcPayment < ActiveRecord::Migration[4.2]
   def up
     payment = Payment.new
     payment.name = '民生银行'
