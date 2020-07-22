@@ -1,4 +1,4 @@
-class DropProductTypes < ActiveRecord::Migration
+class DropProductTypes < ActiveRecord::Migration[4.2]
   def change
     drop_table :product_types
     change_table :products do |t|
