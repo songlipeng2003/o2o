@@ -170,16 +170,36 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.string "license_tag"
     t.integer "car_model_id"
     t.date "buy_date"
+  create_table "car_styles", force: true do |t|
+    t.integer  "car_brand_id"
+    t.integer  "car_model_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "car_styles", ["car_brand_id"], name: "index_car_styles_on_car_brand_id", using: :btree
+  add_index "car_styles", ["car_model_id"], name: "index_car_styles_on_car_model_id", using: :btree
+
+  create_table "cars", force: true do |t|
+    t.string   "license_tag"
+    t.integer  "car_model_id"
+    t.date     "buy_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "user_id"
     t.string "color"
     t.integer "application_id"
     t.datetime "deleted_at"
+    t.integer  "car_style_id"
   end
 
   create_table "categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
+  add_index "cars", ["car_style_id"], name: "index_cars_on_car_style_id", using: :btree
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -485,6 +505,28 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.integer "amount"
     t.integer "present_amount"
     t.string "note"
+  create_table "products", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "price",             limit: 24
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "market_price",      limit: 24
+    t.string   "image"
+    t.integer  "category_id"
+    t.integer  "system_product_id"
+    t.integer  "product_type",                 default: 1
+    t.integer  "store_id"
+    t.float    "suv_price",         limit: 24
+    t.integer  "product_type_id"
+  end
+
+  add_index "products", ["system_product_id"], name: "index_products_on_system_product_id", using: :btree
+
+  create_table "recharge_policies", force: true do |t|
+    t.integer  "amount"
+    t.integer  "present_amount"
+    t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "sort", default: 0
@@ -524,6 +566,22 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.integer "big_customer_id"
     t.integer "number"
     t.integer "used_count", default: 0
+  add_index "refund_batches", ["payment_id"], name: "index_refund_batches_on_payment_id", using: :btree
+
+  create_table "service_areas", force: true do |t|
+    t.integer  "product_id"
+    t.string   "name"
+    t.string   "areas"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "service_areas", ["product_id"], name: "index_service_areas_on_product_id", using: :btree
+
+  create_table "service_ticket_batches", force: true do |t|
+    t.integer  "big_customer_id"
+    t.integer  "number"
+    t.integer  "used_count"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["big_customer_id"], name: "index_service_ticket_batches_on_big_customer_id"
@@ -606,6 +664,82 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.string "name"
     t.integer "price"
     t.integer "sort", default: 0
+  add_index "service_tickets", ["big_customer_id"], name: "index_service_tickets_on_big_customer_id", using: :btree
+  add_index "service_tickets", ["service_ticket_batch_id"], name: "index_service_tickets_on_service_ticket_batch_id", using: :btree
+  add_index "service_tickets", ["user_id"], name: "index_service_tickets_on_user_id", using: :btree
+
+  create_table "store_user_service_areas", force: true do |t|
+    t.integer  "store_user_id"
+    t.integer  "service_area_id"
+    t.datetime "created_at"
+  end
+
+  add_index "store_user_service_areas", ["service_area_id"], name: "index_store_user_service_areas_on_service_area_id", using: :btree
+  add_index "store_user_service_areas", ["store_user_id"], name: "index_store_user_service_areas_on_store_user_id", using: :btree
+
+  create_table "store_users", force: true do |t|
+    t.integer  "store_id"
+    t.string   "username"
+    t.string   "phone"
+    t.string   "email",                           default: "",  null: false
+    t.string   "encrypted_password",              default: "",  null: false
+    t.integer  "sign_in_count",                   default: 0,   null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.string   "gender"
+    t.string   "nickname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "role",                            default: 1
+    t.string   "avatar"
+    t.integer  "orders_count",                    default: 0
+    t.float    "score",                limit: 24, default: 0.0
+  end
+
+  add_index "store_users", ["store_id"], name: "index_store_users_on_store_id", using: :btree
+
+  create_table "stores", force: true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "address"
+    t.string   "description"
+    t.float    "good_rate",     limit: 24, default: 0.0
+    t.integer  "collect_count",            default: 0
+    t.float    "score",         limit: 24, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "lat",           limit: 24
+    t.float    "lon",           limit: 24
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "area_id"
+    t.datetime "deleted_at"
+    t.integer  "orders_count",             default: 0
+    t.integer  "store_type",               default: 1
+  end
+
+  create_table "system_coupons", force: true do |t|
+    t.string   "name"
+    t.integer  "product_id"
+    t.float    "amount",      limit: 24
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image"
+  end
+
+  add_index "system_coupons", ["product_id"], name: "index_system_coupons_on_product_id", using: :btree
+
+  create_table "system_month_cards", force: true do |t|
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "month"
+    t.string   "name"
+    t.integer  "price"
+    t.integer  "sort",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "is_show", default: true
@@ -618,6 +752,23 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
   create_table "system_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "code"
     t.string "name"
+  add_index "system_month_cards", ["city_id"], name: "index_system_month_cards_on_city_id", using: :btree
+  add_index "system_month_cards", ["province_id"], name: "index_system_month_cards_on_province_id", using: :btree
+
+  create_table "system_products", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "category_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_products", ["category_id"], name: "index_system_products_on_category_id", using: :btree
+
+  create_table "system_users", force: true do |t|
+    t.string   "code"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

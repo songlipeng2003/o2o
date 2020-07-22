@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
   belongs_to :area, class_name: 'Area'
 
   belongs_to :product
+  belongs_to :store_user
   belongs_to :user, counter_cache: true
   belongs_to :store, counter_cache: true
   belongs_to :car
@@ -78,6 +79,8 @@ class Order < ActiveRecord::Base
         self.lat = self.address.lat
       end
     end
+
+    self.store_id = self.store_user.store_id
 
     update_area_info
   end

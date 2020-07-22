@@ -1,6 +1,7 @@
 <%= semantic_form_for [:admin, @store] do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :store_type, :collection => Store::STORE_TYPES %>
     <%= f.input :province, :collection => Area.provinces,
       :input_html => { :class => :cascade_select, 'data-cascade-target' => 'store_city_id' } %>
     <%= f.input :city, :collection => (f.object.city ? f.object.city.parent.children : ''),
@@ -17,23 +18,13 @@
     </div>
     <div id="map1" style="height: 500px;">
     </div>
-    <%= f.input :service_area, as: :string, :input_html => { :readonly => true }  %>
-    <!-- <div>
-      <input id="map2_keyword" type="text"/>
-      <input id="map2_search" type="button" value="搜索"/>
-    </div> -->
-    <div id="map2" style="height: 500px;">
-    </div>
-    <div id='tips'>鼠标在地图上点击绘制多边形，点击右键或双击左键结束绘制</div>
-    <input type="button" value="开始编辑多边形" onClick="edit_polygon()"/>
-    <input type="button" value="结束编辑多边形" onClick="end_edit()"/>
   <% end %>
   <%= f.actions %>
 <% end %>
 
 <script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=4daf14fd86b568d2429698650673d9c1"></script>
 <script language="javascript">
-var map1, map2, marker1, mouse_tool, editor_tool;
+var map1, marker1, mouse_tool;
 //初始化地图对象，加载地图
 function map_init(){
   map1 = new AMap.Map("map1",{
@@ -116,85 +107,6 @@ function map_init(){
     });
     return false;
   });
-
-  map2 = new AMap.Map("map2",{
-    //二维地图显示视口
-    view: new AMap.View2D({
-      // center:new AMap.LngLat(116.397428,39.90923),//地图中心点
-      zoom:13 //地图显示的缩放级别
-    })
-  });
-
-  map2.plugin(["AMap.ToolBar"],function(){
-    tool = new AMap.ToolBar();
-    map2.addControl(tool);
-  });
-
-  var area = $('#store_service_area').val();
-  if(area){
-    var points = area.split(',');
-
-    var arr = new Array();
-
-    for(var i=0;i<points.length;i+=2){
-      arr.push(new AMap.LngLat(points[i], points[i+1]));
-    }
-
-    //设置多边形的属性
-    var polygon_option = {
-      map: map2,
-      path: arr,
-      strokeColor:"#FF33FF",
-      strokeOpacity:1,
-      strokeWeight:2,
-      fillColor: "#f5deb3",
-      fillOpacity: 0.35
-    };
-
-    var polygon = new AMap.Polygon(polygon_option);
-
-    map2.setFitView();
-
-    map2.plugin(["AMap.PolyEditor"], function() {
-      editor_tool = new AMap.PolyEditor(map2, polygon);
-
-      var change = function(e){
-        $('#store_service_area').val(e.target.getPath());
-      }
-
-      AMap.event.addListener(editor_tool, "addnode", change);
-      AMap.event.addListener(editor_tool, "adjust", change);
-      AMap.event.addListener(editor_tool, "removenode", change);
-    });
-  }else{
-    var polygon_option = {
-      strokeColor:"#FF33FF",
-      strokeOpacity:1,
-      strokeWeight:2
-    };
-
-    //在地图中添加MouseTool插件
-    map2.plugin(["AMap.MouseTool"],function(){
-      mouse_tool = new AMap.MouseTool(map2);
-      mouse_tool.polygon(polygon_option);   //使用鼠标工具绘制多边形
-
-      AMap.event.addListener(mouse_tool,"draw",function(e){
-        var draw_obj = e.obj;  //obj属性就是绘制完成的覆盖物对象。
-        $('#store_service_area').val(draw_obj.getPath());
-      });
-    });
-  }
-
-  map2.setFitView();
-}
-
-function edit_polygon()
-{
-  editor_tool.open();
-}
-function end_edit()
-{
-  editor_tool.close();
 }
 
 $(function(){

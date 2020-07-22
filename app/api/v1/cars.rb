@@ -47,7 +47,8 @@ module V1
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "汽车编号"
-        requires :car_model_id, type: Integer, desc: "车型id"
+        requires :car_model_id, type: Integer, desc: "车型编号"
+        optional :car_style_id, type: Integer, desc: "车款编号"
         requires :license_tag, type: String, desc: "牌照"
         # requires :buy_date, type: Date, desc: "购买日期, 格式： 2014-01-01"
         requires :color, type: String, desc: "颜色"

@@ -1,5 +1,14 @@
 class Store < ActiveRecord::Base
   include Financeable
+  include ElasticsearchSearchable
+
+  STORE_TYPE_SELF = 1
+  STORE_TYPE_JOIN = 2
+
+  STORE_TYPES ={
+    STORE_TYPE_SELF => '自营',
+    STORE_TYPE_JOIN => '加盟'
+  }
 
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
@@ -18,15 +27,25 @@ class Store < ActiveRecord::Base
   validates :province, presence: true
   validates :city, presence: true
   validates :area, presence: true
+  validates :store_type, presence: true
 
   validates_associated :province
   validates_associated :city
   validates_associated :area
 
+  has_many :store_users
+  has_many :orders
+  has_many :products
+  has_many :service_areas, through: :products
+
   acts_as_paranoid
 
   before_create do
     update_area_info
+  end
+
+  def store_type_name
+    STORE_TYPES[store_type]
   end
 
   # 是否在服务范围内
@@ -148,12 +167,11 @@ class Store < ActiveRecord::Base
       indexes :address
       indexes :phone
       indexes :description
-      indexes :service_area_location, type: 'geo_shape', tree: 'geohash', precision: '1m'
     end
   end
 
   def as_indexed_json(options={})
-    self.as_json(only: [:name, :address, :phone, :description], methods: :service_area_location)
+    self.as_json(only: [:name, :address, :phone, :description])
   end
 
   private

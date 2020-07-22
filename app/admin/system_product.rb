@@ -1,31 +1,26 @@
-ActiveAdmin.register SystemCoupon do
-  menu parent: '促销'
+ActiveAdmin.register SystemProduct do
+  menu parent: '商品'
 
-  permit_params :name, :product_id, :amount, :description, :image
+  permit_params :name, :description, :image
 
   index do
     id_column
     column :name
-    column :amount
-    column :image, sortable: false do |system_coupon|
-      image_tag(system_coupon.image.thumb.url)
+    column :category
+    column :image, sortable: false do |product|
+      image_tag(product.image.thumb.url)
     end
-    column :product
     column :created_at
     actions
   end
 
   filter :name
-  filter :amount
-  filter :description
-  filter :created_at
 
   form html: { multipart: true } do |f|
     f.inputs do
       f.input :name
-      f.input :amount
+      f.input :category
       f.input :image, :image_preview => true
-      f.input :product
       f.input :description
     end
     f.actions
@@ -35,11 +30,10 @@ ActiveAdmin.register SystemCoupon do
     attributes_table do
       row :id
       row :name
-      row :amount
+      row :category
       row :image do
-        image_tag(system_coupon.image.url)
+        image_tag(system_product.image.url)
       end
-      row :product
       row :description
       row :created_at
       row :updated_at

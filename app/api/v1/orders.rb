@@ -275,7 +275,7 @@ module V1
           order.address_id = address.id
         end
 
-        result = Store.in_service_scope(address.lon, address.lat)
+        result = StoreUserServiceArea.in_service_scope(address.lon, address.lat)
         if result.count==0
           return {
             code: 1,

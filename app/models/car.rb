@@ -8,15 +8,25 @@ class Car < ActiveRecord::Base
 
   acts_as_paranoid
 
+  has_paper_trail
+
   before_validation do
     self.license_tag = license_tag.upcase
   end
 
   belongs_to :user
   belongs_to :car_model
+  belongs_to :car_style
   belongs_to :application
 
   def car_model_name
     self.car_model_id ? self.car_model.name : ''
+  end
+
+  def car_style_id=(car_style_id)
+    self[:car_style_id] = car_style_id
+    if car_style
+      self.car_model_id = car_style.car_model_id
+    end
   end
 end

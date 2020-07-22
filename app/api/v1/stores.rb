@@ -8,7 +8,7 @@ module V1
         requires :lat, type: Float, desc: "纬度"
       end
       get 'in_service_scope' do
-        result = Store.in_service_scope(params[:lon], params[:lat])
+        result = StoreUserServiceArea.in_service_scope(params[:lon], params[:lat])
         {
           result: result.count>0
         }
@@ -27,7 +27,7 @@ module V1
             result: false
           }
         end
-        result = Store.can_serviced(params[:lon], params[:lat], booked_at)
+        result = StoreUserServiceArea.can_serviced(params[:lon], params[:lat], booked_at)
         {
           result: result
         }
