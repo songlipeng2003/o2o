@@ -676,6 +676,15 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.integer "application_id"
   end
 
+  create_table "user_stores", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["store_id"], name: "index_user_stores_on_store_id"
+    t.index ["user_id"], name: "index_user_stores_on_user_id"
+  end
+
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "email", limit: 191, default: "", null: false
     t.string "encrypted_password", default: "", null: false

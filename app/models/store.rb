@@ -5,7 +5,7 @@ class Store < ActiveRecord::Base
   STORE_TYPE_SELF = 1
   STORE_TYPE_JOIN = 2
 
-  STORE_TYPES ={
+  STORE_TYPES = {
     STORE_TYPE_SELF => '自营',
     STORE_TYPE_JOIN => '加盟'
   }
@@ -158,6 +158,8 @@ class Store < ActiveRecord::Base
       type: 'polygon',
       coordinates: [coordinates]
     }
+  end
+
   def location
     [lat, lon]
   end
@@ -193,5 +195,4 @@ class Store < ActiveRecord::Base
     end
   end
 end
-
 # Store.import force: true
