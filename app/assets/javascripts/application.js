@@ -14,8 +14,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require owl.carousel
-//= require owl-custom
-//= require form-mobile-fix
-//= require main
 //= require_self

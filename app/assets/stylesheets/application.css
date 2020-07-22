@@ -13,10 +13,6 @@
  *= require bootstrap-generators
  *= require bootstrap-variables
  *= require font-awesome
- *= require owl.carousel
- *= require owl.theme
- *= require pe-icon-7-stroke/pe-icon-7-stroke
- *= require pe-icon-7-stroke/helper
  *= require styles
  *= require_self
  */
