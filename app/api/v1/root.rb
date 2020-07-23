@@ -92,7 +92,7 @@ module V1
       #   },
       # },
       info: {
-        title: '嘀嘀雄兵接口文档',
+        title: '用户端接口文档',
         contact: {
           name: 'Thinking Song',
           url: 'http://wmstars.com',
