@@ -111,8 +111,8 @@ gem 'elasticsearch-rails'
 gem 'china_sms', '~> 0.0.7'
 
 # asynchronous task
-gem 'sinatra', '>= 1.3.0', :require => nil
-gem 'sidekiq', '~> 3.3.0'
+gem 'sinatra', '>= 2.0.8', :require => nil
+gem 'sidekiq', '~> 6.0.2'
 
 # 地理坐标系转化
 gem 'evil_transform'
