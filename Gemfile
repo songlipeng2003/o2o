@@ -92,6 +92,7 @@ gem "active_admin-sortable_tree"
 gem 'grape', '~> 1.4.0'
 gem 'grape-entity', '~> 0.8.1'
 gem 'grape-swagger', '~> 1.2.1'
+gem 'grape-swagger-entity', '~> 0.3'
 gem 'api-pagination', '~> 4.8.2'
 gem 'kramdown'
 gem 'grape-swagger-rails', '~> 0.3.1'
