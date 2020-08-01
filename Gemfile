@@ -152,8 +152,6 @@ gem "config", '~> 2.2.1'
 # exception notification
 # gem 'exception_notification'
 
-gem "pingpp"
-
 # by date search
 gem 'by_star'
 gem 'groupdate'
