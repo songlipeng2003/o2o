@@ -161,8 +161,6 @@ gem "chartkick"
 # auth
 gem 'cancancan', '~> 1.10'
 
-# gem 'oneapm_rpm'
-
 gem 'listen'
 gem "webpacker"
 gem 'sprockets', '~> 3.7.2'
