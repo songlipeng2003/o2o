@@ -130,6 +130,5 @@ module V2
           code为0表示争取，其他表示失败
         NOTE
       }
-      # markdown: GrapeSwagger::Markdown::KramdownAdapter
   end
 end
