@@ -611,7 +611,19 @@ module V1
         end
       end
 
-      desc "选择支付方式"
+      desc "选择支付方式", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+          [404, 'Not Found', V1::Entities::Error],
+          [401, 'Unauthorized', V1::Entities::Error],
+          [200, 'Ok', V1::Entities::PaymentLog]
+        ]
+      }
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "订单编号"

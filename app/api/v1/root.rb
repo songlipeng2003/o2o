@@ -2,12 +2,24 @@ module V1
   class Root < Grape::API
     default_format :json
     format :json
-    # error_formatter :json, V1::ErrorFormatter
+    error_formatter :json, V1::ErrorFormatter
 
     version 'v1', using: :path
 
     before do
       error!("401 Unauthorized", 401) unless current_application
+    end
+
+    rescue_from Grape::Exceptions::ValidationErrors do |e|
+      error!(e.message, 422)
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      error!(e.message, 422)
+    end
+
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      error!(e.message, 422)
     end
 
     helpers do
