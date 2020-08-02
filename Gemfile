@@ -61,7 +61,6 @@ end
 # assets
 gem 'bootstrap-generators', '~> 3.2.0'
 gem "font-awesome-rails", "~> 4.7.0"
-gem "bower-rails", "~> 0.9.2"
 gem 'select2-rails'
 
 # disable assets log
@@ -93,8 +92,8 @@ gem "active_admin-sortable_tree"
 gem 'grape', '~> 1.4.0'
 gem 'grape-entity', '~> 0.8.1'
 gem 'grape-swagger', '~> 1.2.1'
+gem 'grape-swagger-entity', '~> 0.3'
 gem 'api-pagination', '~> 4.8.2'
-gem 'kramdown'
 gem 'grape-swagger-rails', '~> 0.3.1'
 
 # upload
@@ -112,8 +111,8 @@ gem 'elasticsearch-rails'
 gem 'china_sms', '~> 0.0.7'
 
 # asynchronous task
-gem 'sinatra', '>= 1.3.0', :require => nil
-gem 'sidekiq', '~> 3.3.0'
+gem 'sinatra', '>= 2.0.8', :require => nil
+gem 'sidekiq', '~> 6.0.2'
 
 # 地理坐标系转化
 gem 'evil_transform'
@@ -153,8 +152,6 @@ gem "config", '~> 2.2.1'
 # exception notification
 # gem 'exception_notification'
 
-gem "pingpp"
-
 # by date search
 gem 'by_star'
 gem 'groupdate'
@@ -163,8 +160,6 @@ gem "chartkick"
 
 # auth
 gem 'cancancan', '~> 1.10'
-
-# gem 'oneapm_rpm'
 
 gem 'listen'
 gem "webpacker"

@@ -5,7 +5,7 @@ class Store < ActiveRecord::Base
   STORE_TYPE_SELF = 1
   STORE_TYPE_JOIN = 2
 
-  STORE_TYPES ={
+  STORE_TYPES = {
     STORE_TYPE_SELF => '自营',
     STORE_TYPE_JOIN => '加盟'
   }
@@ -158,12 +158,10 @@ class Store < ActiveRecord::Base
       type: 'polygon',
       coordinates: [coordinates]
     }
-  def location
-    [lat, lon]
   end
 
-  def system_product_ids
-    products.map { |product| product.system_product_id  }
+  def location
+    [lat, lon]
   end
 
   # elasticsearch settings
@@ -193,5 +191,4 @@ class Store < ActiveRecord::Base
     end
   end
 end
-
 # Store.import force: true

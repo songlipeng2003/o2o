@@ -6,7 +6,6 @@ module V1
       params do
         optional :store_type, type: Integer, desc: "店铺类型"
         optional :product_type, type: Integer, desc: "商品类型"
-        optional :system_product_id, type: Integer, desc: "系统商品编号"
         optional :top_left, type: String, desc: "左上角坐标，例如：40.73,-74.1"
         optional :bottom_right, type: String, desc: "右下角坐标，例如：40.73,-74.1"
       end
@@ -23,10 +22,6 @@ module V1
             }
           }
         }
-
-        if params[:system_product_id]
-          query[:query][:filtered][:query][:match_all][:match] = { system_product_id: params[:system_product_id] }
-        end
 
         if params[:store_type]
           query[:query][:filtered][:query][:match_all][:match] = { store_type: params[:store_type]}

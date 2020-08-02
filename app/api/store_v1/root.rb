@@ -56,7 +56,7 @@ module StoreV1
       base_path: '/store_api',
       api_version: 'v1',
       info: {
-        title: '嘀嘀雄兵商户接口文档',
+        title: '商户接口文档',
         contact: 'songlipeng2003@gmail.com',
         description: <<-NOTE
           本接口完全按照REST设计规范进行设计
@@ -120,6 +120,5 @@ module StoreV1
           code为0表示争取，其他表示失败
         NOTE
       }
-      # markdown: GrapeSwagger::Markdown::KramdownAdapter
   end
 end

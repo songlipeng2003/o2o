@@ -24,7 +24,7 @@ module V1
 
         code = AuthCode.generate phone
         tpl_params = { code: code}
-        SMSWorker.perform_async(phone, 943151, tpl_params)
+        SmsJob.perform_later phone, 943151, tpl_params
 
         {
           code: 0,
@@ -54,7 +54,7 @@ module V1
         end
 
         code = AuthCode.generate phone
-        VoiceCodeWorker.perform_async(phone, code)
+        VoiceCodeJob.perform_later phone, code
 
         {
           code: 0,

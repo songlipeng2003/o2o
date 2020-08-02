@@ -1,4 +1,6 @@
 ActiveAdmin.register Store do
+  menu parent: '店铺\商品'
+
   permit_params :name, :address, :phone, :description, :lon, :lat, :area_id, :province_id, :city_id
 
 

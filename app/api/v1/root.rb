@@ -2,12 +2,24 @@ module V1
   class Root < Grape::API
     default_format :json
     format :json
-    # error_formatter :json, V1::ErrorFormatter
+    error_formatter :json, V1::ErrorFormatter
 
     version 'v1', using: :path
 
     before do
       error!("401 Unauthorized", 401) unless current_application
+    end
+
+    rescue_from Grape::Exceptions::ValidationErrors do |e|
+      error!(e.message, 422)
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      error!(e.message, 422)
+    end
+
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      error!(e.message, 422)
     end
 
     helpers do
@@ -75,7 +87,6 @@ module V1
     mount V1::Recharges
     mount V1::Stores
     mount V1::SystemMonthCards
-    mount V1::SystemProducts
     mount V1::TradingRecords
     mount V1::Users
     mount V1::WashMachines
@@ -92,7 +103,7 @@ module V1
       #   },
       # },
       info: {
-        title: '嘀嘀雄兵接口文档',
+        title: '用户端接口文档',
         contact: {
           name: 'Thinking Song',
           url: 'http://wmstars.com',
@@ -160,7 +171,5 @@ module V1
           code为0表示争取，其他表示失败
         NOTE
       }
-      # models: [V1::Entities::CarBrand, V1::Entities::Car],
-      # markdown: GrapeSwagger::Markdown::KramdownAdapter.new
   end
 end
