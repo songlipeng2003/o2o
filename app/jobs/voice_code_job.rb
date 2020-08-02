@@ -1,8 +1,8 @@
 require "uri"
 require "net/http"
 
-class VoiceCodeWorker
-  include Sidekiq::Worker
+class VoiceCodeJob < ApplicationJob
+  queue_as :default
 
   def perform(phone, code)
     params = {

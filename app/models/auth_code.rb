@@ -52,6 +52,6 @@ class AuthCode < ActiveRecord::Base
   end
 
   def self.clear_expired_codes
-    self.delete_all(["expired_at<?", 10.minutes.ago])
+    self.destroy_by(["expired_at<?", 10.minutes.ago])
   end
 end

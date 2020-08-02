@@ -152,7 +152,7 @@ class Order < ActiveRecord::Base
             is_include_interior: self.is_include_interior ? '是' : '不',
             price: self.order_amount
           }
-          SMSWorker.perform_async(self.store_user.phone, 943153, params)
+          SmsJob.perform_later self.store_user.phone, 943153, params
         end
       end
     end
