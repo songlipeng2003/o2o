@@ -10,7 +10,6 @@ class StoreUserServiceArea < ActiveRecord::Base
       indexes :store_id
       indexes :store_user_id
       indexes :product_id
-      indexes :system_product_id
       indexes :areas, type: 'geo_shape', tree: 'geohash', precision: '1m'
     end
   end
@@ -75,7 +74,6 @@ class StoreUserServiceArea < ActiveRecord::Base
       store_id: self.store_user.store_id,
       store_user_id: self.store_user_id,
       product_id: self.service_area.product_id,
-      system_product_id: self.service_area.product.system_product_id,
       areas: areas
     }
   end

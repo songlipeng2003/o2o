@@ -87,7 +87,6 @@ module V1
     mount V1::Recharges
     mount V1::Stores
     mount V1::SystemMonthCards
-    mount V1::SystemProducts
     mount V1::TradingRecords
     mount V1::Users
     mount V1::WashMachines

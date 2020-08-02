@@ -164,10 +164,6 @@ class Store < ActiveRecord::Base
     [lat, lon]
   end
 
-  def system_product_ids
-    products.map { |product| product.system_product_id  }
-  end
-
   # elasticsearch settings
   settings index: { number_of_shards: 5 } do
     mappings dynamic: 'strict' do

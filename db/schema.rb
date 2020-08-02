@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_030834) do
+ActiveRecord::Schema.define(version: 2020_08_02_091258) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -480,12 +480,10 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.float "suv_price"
     t.integer "province_id", default: 916
     t.integer "city_id", default: 917
-    t.integer "system_product_id"
     t.integer "product_type", default: 1
     t.integer "store_id"
     t.index ["city_id"], name: "index_products_on_city_id"
     t.index ["province_id"], name: "index_products_on_province_id"
-    t.index ["system_product_id"], name: "index_products_on_system_product_id"
   end
 
   create_table "recharge_policies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -635,16 +633,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_030834) do
     t.index ["city_id"], name: "index_system_month_cards_on_city_id"
     t.index ["product_id"], name: "index_system_month_cards_on_product_id"
     t.index ["province_id"], name: "index_system_month_cards_on_province_id"
-  end
-
-  create_table "system_products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.integer "category_id"
-    t.string "image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["category_id"], name: "index_system_products_on_category_id"
   end
 
   create_table "system_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

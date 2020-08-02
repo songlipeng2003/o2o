@@ -1,8 +1,10 @@
 ActiveAdmin.register Product do
+  menu parent: '店铺\商品'
+
   belongs_to :store, :optional => true
 
   permit_params :name, :price, :suv_price, :market_price, :description,
-    :image, :product_type_id, :province_id, :city_id, :category_id, :system_product_id, :store_id
+    :image, :product_type_id, :province_id, :city_id, :category_id, :store_id
 
   index do
     id_column
@@ -32,8 +34,7 @@ ActiveAdmin.register Product do
   show do
     attributes_table do
       row :id
-      # row :store
-      row :system_product
+      row :store
       row :name
       row :product_type do
         product.product_type_name

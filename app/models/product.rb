@@ -15,7 +15,6 @@ class Product < ActiveRecord::Base
   belongs_to :category
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
-  belongs_to :system_product
   belongs_to :store
 
   has_many :service_areas
@@ -49,7 +48,6 @@ class Product < ActiveRecord::Base
       indexes :market_price
       indexes :category_id
       indexes :store_id
-      indexes :system_product_id
       indexes :product_type
       indexes :store_type
       indexes :price
@@ -61,7 +59,7 @@ class Product < ActiveRecord::Base
 
   def as_indexed_json(options={})
     self.as_json(only: [:id, :name, :price, :market_price, :category_id, :store_id,
-      :system_product_id, :product_type, :price, :market_price, :description], method: [:location, :store_type])
+      :product_type, :price, :market_price, :description], method: [:location, :store_type])
   end
 
   def location
