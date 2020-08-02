@@ -154,3 +154,5 @@ gem 'cancancan', '~> 1.10'
 
 gem "webpacker"
 gem 'sprockets', '~> 3.7.2'
+
+gem "json", ">= 2.3.0"
