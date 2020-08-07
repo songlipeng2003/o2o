@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_091258) do
+ActiveRecord::Schema.define(version: 2020_08_07_145738) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -269,7 +269,6 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.integer "score1"
     t.integer "score2"
     t.integer "score3"
-    t.integer "wash_machine_id"
     t.index ["order_id"], name: "index_evaluations_on_order_id"
     t.index ["store_user_id"], name: "index_evaluations_on_store_user_id"
   end
@@ -410,13 +409,9 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.integer "service_ticket_id"
     t.float "order_amount"
     t.datetime "booked_end_at"
-    t.integer "wash_machine_id"
     t.integer "order_type", default: 1
-    t.string "wash_machine_code"
-    t.string "wash_machine_random_code"
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["deleted_at"], name: "index_orders_on_deleted_at"
-    t.index ["wash_machine_id"], name: "index_orders_on_wash_machine_id"
   end
 
   create_table "payment_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -708,21 +703,6 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.text "object"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
-  create_table "wash_machines", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "code"
-    t.float "lat"
-    t.float "lon"
-    t.string "address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "province_id"
-    t.integer "city_id"
-    t.integer "area_id"
-    t.integer "score", default: 5
-    t.integer "price"
-    t.integer "orders_count", default: 0
   end
 
 end
