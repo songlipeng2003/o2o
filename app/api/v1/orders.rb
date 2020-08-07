@@ -33,50 +33,6 @@ module V1
         present order, with: V1::Entities::Order
       end
 
-      desc "计算洗车机订单价格接口", {
-        http_codes: [
-         [200, '成功', V1::Entities::OrderPrice]
-        ]
-      }
-      params do
-        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
-        requires :wash_machine_code, type: String, desc: '洗车机设备码'
-        optional :coupon_id, type: Integer, desc: "代金券编号"
-        optional :service_ticket_code, type: String, desc: '消费券号码'
-      end
-      get :machine_price do
-        order = current_user.orders.new
-        order.order_type = Order::ORDER_TYPE_MACHINE
-        order.product_id = 9
-        wash_machine_code = params[:wash_machine_code]
-        wash_machine = WashMachine.where(code: wash_machine_code).first
-
-        unless wash_machine
-          return {
-            code: 1,
-            msg: '洗车机设备码错误'
-          }
-        end
-
-        order.wash_machine_id = wash_machine.id
-
-        order.coupon_id = params[:coupon_id]
-
-        service_ticket_code = params[:service_ticket_code]
-        service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
-        if service_ticket
-          order.service_ticket_id = service_ticket.id
-        end
-        order.cal_total_amount
-        {
-          original_price: order.original_price,
-          total_amount: order.total_amount,
-          order_amount: order.order_amount,
-          service_ticket_id: order.service_ticket_id,
-          month_card_id: order.month_card_id
-        }
-      end
-
       desc "计算订单价格接口", {
         http_codes: [
          [200, '成功', V1::Entities::OrderPrice]
@@ -377,91 +333,6 @@ module V1
         end
       end
 
-      desc "创建洗车机订单", {
-        http_codes: [
-         [200, '成功', V1::Entities::Order]
-        ]
-      }
-      params do
-        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
-        requires :wash_machine_code, type: String, desc: '洗车机设备码'
-        requires :wash_machine_random_code, type: String, desc: '洗车机随机码'
-        optional :coupon_id, type: Integer, desc: "代金券编号"
-        optional :service_ticket_code, type: String, desc: '消费券号码'
-        optional :note, type: String, desc: "订单备注"
-      end
-      post :machine do
-        service_ticket_code = permitted_params.delete :service_ticket_code
-
-        safe_params = clean_params(params).permit(:wash_machine_code, :wash_machine_random_code, :coupon_id, :note)
-        order = current_user.orders.new(safe_params)
-        wash_machine_code = params[:wash_machine_code]
-        wash_machine = WashMachine.where(code: wash_machine_code).first
-
-        unless wash_machine
-          return {
-            code: 1,
-            msg: '洗车机设备码错误'
-          }
-        end
-
-        order.wash_machine = wash_machine
-        order.phone = current_user.phone
-        order.order_type = Order::ORDER_TYPE_MACHINE
-        order.product_id = 9
-        order.application = current_application
-
-        if params[:coupon_id]
-          coupon = current_user.coupons.find(params[:coupon_id])
-          unless coupon.unused?
-            return {
-              code: 1,
-              msg: '当前代金券已经使用'
-            }
-          end
-        end
-
-        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
-          coupon.system_coupon.product_id != order.product_id
-          return {
-            code: 1,
-            msg: '当前代金券不满足当前商品'
-          }
-        end
-
-        if coupon && coupon.system_coupon.product_id && order.coupon_id &&
-          coupon.system_coupon.product_type_id != order.product.product_type_id
-          return {
-            code: 1,
-            msg: '当前代金券不满足当前商品类型'
-          }
-        end
-
-        unless service_ticket_code.blank?
-          service_ticket = ServiceTicket.available.where(code: service_ticket_code).first
-          if service_ticket
-            order.service_ticket_id = service_ticket.id
-          else
-            return {
-              code: 1,
-              msg: '当前消费券不可用'
-            }
-          end
-        end
-
-        if order.save
-          return {
-            code: 0,
-            data: order.reload
-          }
-         else
-          return {
-            code: 2,
-            msg: order.errors.full_messages[0]
-          }
-        end
-      end
-
       desc "评价", {
         http_codes: [
          [201, '成功', V1::Entities::Evaluation]
@@ -487,8 +358,7 @@ module V1
             score2: params[:score2],
             score3: params[:score3],
             note: params[:note],
-            store_user_id: order.store_user_id,
-            wash_machine_id: order.wash_machine_id
+            store_user_id: order.store_user_id
           })
 
           evaluation.application = current_application

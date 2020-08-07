@@ -3,7 +3,6 @@ class Order < ActiveRecord::Base
   include Snable
 
   ORDER_TYPE_NORMAL = 1
-  ORDER_TYPE_MACHINE = 2
 
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
@@ -21,7 +20,6 @@ class Order < ActiveRecord::Base
   belongs_to :store_user, counter_cache: true
   belongs_to :month_card
   belongs_to :service_ticket
-  belongs_to :wash_machine, counter_cache: true
 
   has_one :evaluation
 
@@ -48,9 +46,6 @@ class Order < ActiveRecord::Base
   validates :city, presence: true
   validates :area, presence: true
 
-  validates :wash_machine_id, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
-  validates :wash_machine_code, presence: true, if: Proc.new { |order| order.order_type==ORDER_TYPE_MACHINE }
-
   validate :check_coupon
 
   validates_associated :province
@@ -60,8 +55,6 @@ class Order < ActiveRecord::Base
   validates_associated :store, on: :create
   validates_associated :car, on: :create
   # validates_associated :product
-
-  validates_associated :wash_machine
 
   before_create :cal_total_amount
 
@@ -137,8 +130,6 @@ class Order < ActiveRecord::Base
           trading_record.amount = self.total_amount
           trading_record.save
         end
-
-        finish! user if order_type==ORDER_TYPE_MACHINE
 
         if order_type==ORDER_TYPE_NORMAL
           params = {
@@ -220,7 +211,6 @@ class Order < ActiveRecord::Base
       end
     else
       price = self.product.price
-      price = wash_machine && wash_machine.price ? wash_machine.price : price
     end
 
     self.order_amount = price
@@ -319,22 +309,12 @@ class Order < ActiveRecord::Base
     SMSWorker.perform_async(store_user.phone, 671257, params)
   end
 
-  def wash_machine_encrypt_code
-    Utils::Util::encrypt(wash_machine_random_code) if order_type==ORDER_TYPE_MACHINE && state!='unpayed' && state!='closed'
-  end
-
   private
   def update_area_info
     if store
       self.area = self.store.area
       self.city_id = self.area.parent.id
       self.province_id = self.area.parent.parent.id
-    end
-
-    if wash_machine
-      self.area = self.wash_machine.area
-      self.city_id = self.wash_machine.area.parent.id
-      self.province_id = self.wash_machine.area.parent.parent.id
     end
   end
 
