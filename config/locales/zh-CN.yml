@@ -1,10 +1,21 @@
 zh-CN:
+  actions:
+    manage: 所有
+    read: 读取
+    create: 创建
+    update: 更新
+    destroy: 删除
+    batch_action: 批量操作
+
   activerecord:
     models:
       admin_user: '管理员'
+      role: '角色'
+      permission: '权限'
       city: '城市'
       car_brand: '汽车品牌'
       car_model: '车型'
+      car_style: '车款'
       car: '汽车'
       announcement: '公告'
       user: '用户'
@@ -46,7 +57,6 @@ zh-CN:
       service_ticket: '服务券'
       auth_code: '验证码'
       feedback: '反馈'
-      car_style: '车款'
     attributes:
       admin_user:
         id: '编号'
@@ -59,6 +69,23 @@ zh-CN:
         last_sign_in_at: '上次登陆时间'
         current_sign_in_ip: '当前登陆ip'
         last_sign_in_ip: '上次登陆ip'
+        roles: '角色'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      role:
+        id: '编号'
+        name: '名称'
+        description: '描述'
+        permissions: '权限'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      permission:
+        id: '编号'
+        subject_class: '对象'
+        subject_id: '对象ID'
+        action: '操作'
+        name: '名称'
+        description: '描述'
         created_at: '创建时间'
         updated_at: '更新时间'
       city:
