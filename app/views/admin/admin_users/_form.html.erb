@@ -3,6 +3,7 @@
     <%= f.input :email %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
+    <%= f.input :roles, :as => :check_boxes, :collection => Role.order("id DESC").all %>
     <%= f.input :province, :collection => Area.provinces,
       :input_html => { :class => :cascade_select, 'data-cascade-target' => 'admin_user_city_id' } %>
     <%= f.input :city, :collection => (f.object.city ? f.object.city.parent.children : ''),

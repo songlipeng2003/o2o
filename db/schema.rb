@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_091258) do
+ActiveRecord::Schema.define(version: 2020_08_08_093628) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -24,6 +24,27 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", length: { resource_id: 191 }
+  end
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "addresses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -269,7 +290,6 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.integer "score1"
     t.integer "score2"
     t.integer "score3"
-    t.integer "wash_machine_id"
     t.index ["order_id"], name: "index_evaluations_on_order_id"
     t.index ["store_user_id"], name: "index_evaluations_on_store_user_id"
   end
@@ -410,13 +430,9 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.integer "service_ticket_id"
     t.float "order_amount"
     t.datetime "booked_end_at"
-    t.integer "wash_machine_id"
     t.integer "order_type", default: 1
-    t.string "wash_machine_code"
-    t.string "wash_machine_random_code"
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["deleted_at"], name: "index_orders_on_deleted_at"
-    t.index ["wash_machine_id"], name: "index_orders_on_wash_machine_id"
   end
 
   create_table "payment_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -466,6 +482,16 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.datetime "updated_at"
     t.boolean "is_show", default: true
     t.string "payment_type"
+  end
+
+  create_table "permissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "subject_class"
+    t.integer "subject_id"
+    t.string "action"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -523,6 +549,21 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["payment_id"], name: "index_refund_batches_on_payment_id"
+  end
+
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "roles_permissions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "permission_id"
+    t.bigint "role_id"
+    t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
+    t.index ["role_id", "permission_id"], name: "index_roles_permissions_on_role_id_and_permission_id"
+    t.index ["role_id"], name: "index_roles_permissions_on_role_id"
   end
 
   create_table "service_areas", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -700,6 +741,14 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "users_roles", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
   create_table "versions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
@@ -710,19 +759,5 @@ ActiveRecord::Schema.define(version: 2020_08_02_091258) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  create_table "wash_machines", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "code"
-    t.float "lat"
-    t.float "lon"
-    t.string "address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "province_id"
-    t.integer "city_id"
-    t.integer "area_id"
-    t.integer "score", default: 5
-    t.integer "price"
-    t.integer "orders_count", default: 0
-  end
-
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

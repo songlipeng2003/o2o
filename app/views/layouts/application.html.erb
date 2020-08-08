@@ -11,7 +11,7 @@
   <link rel="shortcut icon" href="favicon.ico">
   <!-- Global CSS -->
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all'%>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
 
   <%= yield %>
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
   <%= render partial: "elements/analysis" %>
 </body>
 </html>

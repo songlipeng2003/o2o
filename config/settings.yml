@@ -3,10 +3,3 @@ jpush:
   master_secret: 1f3bfc54c5c00ec1b0fe0bef
 yunpian:
   password: 3e8cb5fe9bf638c4485b7004e35cd84d
-cmbc:
-  pay_url: http://111.205.207.118:55000/pweb/b2cprelogin.do
-  order_url: http://111.205.207.118:55003/epay/cmbcPayConnect.do
-  sign_encrypt_url: http://0.0.0.0:4567/encryption/sign-encrypt-msg
-  decrypt_verify_url: http://0.0.0.0:4567//encryption/decrypt-verify-msg
-  id: 66002
-  name: test

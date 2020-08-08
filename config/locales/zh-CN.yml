@@ -1,10 +1,21 @@
 zh-CN:
+  actions:
+    manage: 所有
+    read: 读取
+    create: 创建
+    update: 更新
+    destroy: 删除
+    batch_action: 批量操作
+
   activerecord:
     models:
       admin_user: '管理员'
+      role: '角色'
+      permission: '权限'
       city: '城市'
       car_brand: '汽车品牌'
       car_model: '车型'
+      car_style: '车款'
       car: '汽车'
       announcement: '公告'
       user: '用户'
@@ -46,9 +57,6 @@ zh-CN:
       service_ticket: '服务券'
       auth_code: '验证码'
       feedback: '反馈'
-      wash_machine: '洗车机'
-      wash_machine_set: '洗车机套餐'
-      car_style: '车款'
     attributes:
       admin_user:
         id: '编号'
@@ -61,6 +69,23 @@ zh-CN:
         last_sign_in_at: '上次登陆时间'
         current_sign_in_ip: '当前登陆ip'
         last_sign_in_ip: '上次登陆ip'
+        roles: '角色'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      role:
+        id: '编号'
+        name: '名称'
+        description: '描述'
+        permissions: '权限'
+        created_at: '创建时间'
+        updated_at: '更新时间'
+      permission:
+        id: '编号'
+        subject_class: '对象'
+        subject_id: '对象ID'
+        action: '操作'
+        name: '名称'
+        description: '描述'
         created_at: '创建时间'
         updated_at: '更新时间'
       city:
@@ -232,10 +257,6 @@ zh-CN:
         store_name: '店铺名'
         order_amount: '订单价格'
         booked_end_at: '预定结束时间'
-        wash_machine: '洗车机'
-        wash_machine_id: '洗车机'
-        wash_machine_set: '洗车机套餐'
-        wash_machine_set_id: '洗车机套餐'
         order_type: '订单类型'
         payment: '支付方法'
         payment_id: '支付方法'
@@ -325,8 +346,6 @@ zh-CN:
         user_id: '用户'
         store: '店铺'
         store_id: '店铺'
-        wash_machine: '洗车机'
-        wash_machine_id: '洗车机'
         score: '分数'
         note: '备注'
         images: '图片'
@@ -637,30 +656,6 @@ zh-CN:
         content: '内容'
         application: '应用'
         application_id: '应用'
-        created_at: '创建时间'
-        updated_at: '更新时间'
-      wash_machine:
-        id: '编号'
-        code: '设备编码'
-        address: '地址'
-        lat: '纬度'
-        lon: '经度'
-        price: '价格'
-        score: '评价得分'
-        province: '省'
-        province_id: '省'
-        city: '市'
-        city_id: '市'
-        area: '区'
-        area_id: '区'
-        created_at: '创建时间'
-        updated_at: '更新时间'
-      wash_machine_set:
-        id: '编号'
-        name: '名称'
-        image: '图片'
-        price: '价格'
-        description: '描述'
         created_at: '创建时间'
         updated_at: '更新时间'
       car_style:

@@ -29,38 +29,6 @@ module V1
           token = Alipay::Service::Wap.trade_create_direct_token(options)
           Alipay::Service::Wap.auth_and_execute(request_token: token)
         end
-
-        if payment_log.payment.code == 'cmbc'
-          now = Time.now
-          date = now.strftime('%Y%m%d')
-          time = now.strftime('%H%M%S')
-          cmbc_id = Settings.cmbc.id
-          cmbc_name = Settings.cmbc.name
-          cmbc2_id = Settings.cmbc.id2
-          notify_url = 'http:://24didi.com/pay/cmbc_notify'
-          jump_url = 'http:://24didi.com/pay/cmbc_notify'
-
-          # 订单号|交易金额|币种|交易日期|交易时间|商户代码|商户名称|备注1|备注2|是否实时返回标志|处理结果返回的URL|MAC|银行编码|产品编码
-          str = "#{payment_log.sn}|#{payment_log.amount}|01|#{date}|#{time}|#{cmbc_id}|#{cmbc_name}|||0|#{notify_url}|||"
-
-          puts str
-
-          str = URI.encode(str)
-
-          url = Settings.cmbc.sign_encrypt_url + "?msg=#{str}"
-          uri = URI.parse(url)
-
-          http = Net::HTTP.new(uri.host, uri.port)
-          req = Net::HTTP::Post.new(uri.request_uri)
-
-          resp = http.request(req)
-
-          # if response.code == "200"
-            order_info = resp.body
-          # end
-
-          "http://24didi.com/pay/cmbc?order_info=#{order_info}"
-        end
       end
       expose :pay_params, documentation: { type: String, desc: "支付参数" } do |payment_log|
         if payment_log.payment.code == 'alipay_app'
