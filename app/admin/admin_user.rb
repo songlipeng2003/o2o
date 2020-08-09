@@ -1,7 +1,7 @@
 ActiveAdmin.register AdminUser do
   menu parent: '用户'
 
-  permit_params :email, :password, :password_confirmation, :province_id, :city_id, :area_id, role_ids: []
+  permit_params :email, :password, :password_confirmation, role_ids: []
 
   index do
     selectable_column
