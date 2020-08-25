@@ -7,7 +7,9 @@ ActiveAdmin.register Banner do
     selectable_column
     id_column
     column :image, sortable: false do |banner|
-      link_to image_tag(banner.image.url, width: 300), banner.link, target: '_blank'
+      if banner.image.attached?
+        link_to image_tag(banner.image, width: 300), banner.link, target: '_blank'
+      end
     end
     column :created_at
     column :updated_at
@@ -18,7 +20,7 @@ ActiveAdmin.register Banner do
 
   form html: { multipart: true } do |f|
     f.inputs do
-      f.input :image, :image_preview => true
+      f.input :image, as: :file, image_preview: true
       f.input :link
     end
     f.actions
@@ -28,7 +30,9 @@ ActiveAdmin.register Banner do
     attributes_table do
       row :id
       row :image do
-        link_to image_tag(banner.image.url, width: 300), banner.link, target: '_blank'
+        if banner.image.attached?
+          link_to image_tag(banner.image, width: 300), banner.link, target: '_blank'
+        end
       end
       row :created_at
       row :updated_at
