@@ -6,7 +6,7 @@ class SystemCoupon < ActiveRecord::Base
   validates :amount, presence: true, :numericality => { greater_than_or_equal_to: 0 }
   validates :description, presence: true
 
-  validates_associated :product
+  # validates_associated :product
 
-  mount_uploader :image, SystemCouponImageUploader
+  has_one_attached :image
 end

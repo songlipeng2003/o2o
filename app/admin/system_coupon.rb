@@ -8,7 +8,9 @@ ActiveAdmin.register SystemCoupon do
     column :name
     column :amount
     column :image, sortable: false do |system_coupon|
-      image_tag(system_coupon.image.thumb.url)
+      if system_coupon.image.attached?
+        image_tag(system_coupon.image, width: 300)
+      end
     end
     column :product
     column :created_at
@@ -24,7 +26,7 @@ ActiveAdmin.register SystemCoupon do
     f.inputs do
       f.input :name
       f.input :amount
-      f.input :image, :image_preview => true
+      f.input :image, as: :file
       f.input :product
       f.input :description
     end
@@ -37,7 +39,9 @@ ActiveAdmin.register SystemCoupon do
       row :name
       row :amount
       row :image do
-        image_tag(system_coupon.image.url)
+        if system_coupon.image.attached?
+          image_tag(system_coupon.image, width: 400)
+        end
       end
       row :product
       row :description
