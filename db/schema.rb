@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_140944) do
+ActiveRecord::Schema.define(version: 2020_09_17_142542) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -459,7 +459,6 @@ ActiveRecord::Schema.define(version: 2020_09_17_140944) do
     t.datetime "updated_at"
     t.integer "refund_batch_id"
     t.string "out_trade_no"
-    t.string "pingxx"
     t.index ["payment_id"], name: "index_payment_refund_logs_on_payment_id"
     t.index ["payment_log_id"], name: "index_payment_refund_logs_on_payment_log_id"
   end
