@@ -2,11 +2,11 @@
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :category %>
-    <%= f.input :product_type %>
+    <%= f.input :product_type, as: :select, collection: Product::PRODUCT_TYPES.invert %>
     <%= f.input :province, :collection => Area.provinces,
       :input_html => { :class => :cascade_select, 'data-cascade-target' => 'product_city_id' } %>
     <%= f.input :city, :collection => (f.object.city ? f.object.city.parent.children : '') %>
-    <%= f.input :image, :image_preview => true %>
+    <%= f.input :image, as: :file %>
     <%= f.input :price %>
     <%= f.input :suv_price %>
     <%= f.input :market_price %>

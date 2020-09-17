@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  include ElasticsearchSearchable
+  # include ElasticsearchSearchable
 
   # 上门服务
   PRODUCT_TYPE_OUT_DOOR = 1;
@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
   belongs_to :category
   belongs_to :province, class_name: 'Area'
   belongs_to :city, class_name: 'Area'
-  belongs_to :store
+  belongs_to :store, optional: true
 
   has_many :service_areas
 
@@ -28,34 +28,32 @@ class Product < ActiveRecord::Base
   validates :description, presence: true
   validates :market_price, presence: true, :numericality => { greater_than_or_equal_to: 0 }
 
-  validates_associated :product_type
   validates_associated :category
   validates_associated :province
   validates_associated :city
   validates_associated :store
 
-  mount_uploader :image, ProductImageUploader
+  has_one_attached :image
 
   default_scope -> { order('id DESC') }
 
-
   # elasticsearch settings
-  settings index: { number_of_shards: 1 } do
-    mappings dynamic: 'strict' do
-      indexes :id
-      indexes :name
-      indexes :price
-      indexes :market_price
-      indexes :category_id
-      indexes :store_id
-      indexes :product_type
-      indexes :store_type
-      indexes :price
-      indexes :market_price
-      indexes :description
-      indexes :location, type: 'geo_point', geohash_precision: '1m'
-    end
-  end
+  # settings index: { number_of_shards: 1 } do
+  #   mappings dynamic: 'strict' do
+  #     indexes :id
+  #     indexes :name
+  #     indexes :price
+  #     indexes :market_price
+  #     indexes :category_id
+  #     indexes :store_id
+  #     indexes :product_type
+  #     indexes :store_type
+  #     indexes :price
+  #     indexes :market_price
+  #     indexes :description
+  #     indexes :location, type: 'geo_point', geohash_precision: '1m'
+  #   end
+  # end
 
   def as_indexed_json(options={})
     self.as_json(only: [:id, :name, :price, :market_price, :category_id, :store_id,
