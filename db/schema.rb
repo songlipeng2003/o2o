@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_09_084630) do
+ActiveRecord::Schema.define(version: 2020_09_17_140944) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -447,7 +447,6 @@ ActiveRecord::Schema.define(version: 2020_08_09_084630) do
     t.integer "application_id"
     t.string "name"
     t.float "amount"
-    t.string "pingxx"
   end
 
   create_table "payment_refund_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
