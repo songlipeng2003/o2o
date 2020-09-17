@@ -143,17 +143,17 @@ ActiveAdmin.register Order do
   controller do
     def scoped_collection
       orders = Order.with_deleted
-      if current_admin_user.province
-        orders = orders.where(province_id: current_admin_user.province_id)
-      end
+      # if current_admin_user.province
+      #   orders = orders.where(province_id: current_admin_user.province_id)
+      # end
 
-      if current_admin_user.city
-        orders = orders.where(city_id: current_admin_user.city_id)
-      end
+      # if current_admin_user.city
+      #   orders = orders.where(city_id: current_admin_user.city_id)
+      # end
 
-      if current_admin_user.area
-        orders = orders.where(area_id: current_admin_user.area_id)
-      end
+      # if current_admin_user.area
+      #   orders = orders.where(area_id: current_admin_user.area_id)
+      # end
 
       orders
     end
