@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
   validates :file, presence: true
   belongs_to :item, polymorphic: true
 
-  mount_uploader :file, ImageUploader
+  has_one_attached :image
 
   before_save :update_file_attributes
 
