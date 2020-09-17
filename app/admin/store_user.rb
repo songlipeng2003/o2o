@@ -9,7 +9,9 @@ ActiveAdmin.register StoreUser do
     id_column
     column :username
     column :avatar do |store_user|
-      image_tag store_user.avatar.thumb if store_user.avatar
+      if store_user.avatar.attached?
+        image_tag(store_user.avatar, width: 300)
+      end
     end
     column :phone
     column :nickname
@@ -38,7 +40,7 @@ ActiveAdmin.register StoreUser do
   form do |f|
     f.inputs do
       f.input :store
-      f.input :avatar, :image_preview => true
+      f.input :avatar, as: :file
       f.input :email
       f.input :username
       f.input :nickname

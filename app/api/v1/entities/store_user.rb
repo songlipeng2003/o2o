@@ -7,7 +7,9 @@ module V1
       expose :orders_count, documentation: { type: Integer, desc: '订单数' }
       expose :score, documentation: { type: Float, desc: '得分' }
       expose :avatar, documentation: { type: String, desc: '头像' } do |instance|
-        instance.avatar.url
+        if instance.avatar.attached?
+          store_user.avatar
+        end
       end
     end
   end

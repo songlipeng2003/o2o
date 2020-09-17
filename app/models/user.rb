@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
-  mount_uploader :avatar, AvatarUploader
+  has_one_attached :avatar
 
   def pay_password=(pay_password)
     self.encrypted_pay_password = password_digest(pay_password)
