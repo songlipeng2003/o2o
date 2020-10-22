@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_142542) do
+ActiveRecord::Schema.define(version: 2020_09_28_141643) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -378,6 +378,19 @@ ActiveRecord::Schema.define(version: 2020_09_17_142542) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["payment_id"], name: "utf8mb4notify_logs_on_payment_id"
+  end
+
+  create_table "operation_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "path"
+    t.string "method"
+    t.string "ip"
+    t.bigint "application_id"
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["application_id"], name: "index_operation_logs_on_application_id"
+    t.index ["user_id"], name: "index_operation_logs_on_user_id"
   end
 
   create_table "order_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
