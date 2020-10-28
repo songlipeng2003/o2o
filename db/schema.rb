@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_28_141643) do
+ActiveRecord::Schema.define(version: 2020_10_28_144459) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -130,11 +130,20 @@ ActiveRecord::Schema.define(version: 2020_09_28_141643) do
     t.datetime "updated_at"
   end
 
+  create_table "banner_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "banners", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "image"
     t.string "link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "banner_group_id"
+    t.index ["banner_group_id"], name: "index_banners_on_banner_group_id"
   end
 
   create_table "big_customer_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

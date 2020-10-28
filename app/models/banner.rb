@@ -3,4 +3,5 @@ class Banner < ActiveRecord::Base
   validates :link, presence: true
 
   has_one_attached :image
+  belongs_to :banner_group
 end

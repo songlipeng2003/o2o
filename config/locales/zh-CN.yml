@@ -25,6 +25,7 @@ zh-CN:
       community: '社区'
       doc: '文档'
       banner: 'Banner'
+      banner_group: 'Banner分组'
       order: '订单'
       application: '应用'
       version: '操作历史'
@@ -202,10 +203,18 @@ zh-CN:
         content: '内容'
         created_at: '创建时间'
         updated_at: '更新时间'
+      banner_group:
+        id: '编号'
+        key: 'Key'
+        name: '名称'
+        created_at: '创建时间'
+        updated_at: '更新时间'
       banner:
         id: '编号'
         image: '图片'
         link: '链接'
+        banner_group_id: 'Banner分组'
+        banner_group: 'Banner分组'
         created_at: '创建时间'
         updated_at: '更新时间'
       order:
