@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_093628) do
+ActiveRecord::Schema.define(version: 2020_09_28_141643) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -74,9 +74,6 @@ ActiveRecord::Schema.define(version: 2020_08_08_093628) do
     t.string "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "province_id"
-    t.integer "city_id"
-    t.integer "area_id"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -383,6 +380,19 @@ ActiveRecord::Schema.define(version: 2020_08_08_093628) do
     t.index ["payment_id"], name: "utf8mb4notify_logs_on_payment_id"
   end
 
+  create_table "operation_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "path"
+    t.string "method"
+    t.string "ip"
+    t.bigint "application_id"
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["application_id"], name: "index_operation_logs_on_application_id"
+    t.index ["user_id"], name: "index_operation_logs_on_user_id"
+  end
+
   create_table "order_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "order_id"
     t.integer "user_id"
@@ -450,7 +460,6 @@ ActiveRecord::Schema.define(version: 2020_08_08_093628) do
     t.integer "application_id"
     t.string "name"
     t.float "amount"
-    t.string "pingxx"
   end
 
   create_table "payment_refund_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -463,7 +472,6 @@ ActiveRecord::Schema.define(version: 2020_08_08_093628) do
     t.datetime "updated_at"
     t.integer "refund_batch_id"
     t.string "out_trade_no"
-    t.string "pingxx"
     t.index ["payment_id"], name: "index_payment_refund_logs_on_payment_id"
     t.index ["payment_log_id"], name: "index_payment_refund_logs_on_payment_log_id"
   end

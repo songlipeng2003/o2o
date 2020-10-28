@@ -7,7 +7,9 @@ module V1
       expose :balance
       expose :score
       expose :avatar do |instance|
-        instance.avatar.url
+        if instance.avatar.attached?
+          store_user.avatar
+        end
       end
       expose :gender
       expose :nickname

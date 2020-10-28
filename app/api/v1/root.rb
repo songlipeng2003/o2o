@@ -1,3 +1,5 @@
+require 'json'
+
 module V1
   class Root < Grape::API
     default_format :json
@@ -8,6 +10,17 @@ module V1
 
     before do
       error!("401 Unauthorized", 401) unless current_application
+    end
+
+    before do
+      opertion_log = OperationLog.new
+      opertion_log.user = current_user
+      opertion_log.path = request.path
+      opertion_log.method = request.request_method
+      opertion_log.ip = client_ip
+      opertion_log.application = current_application
+      opertion_log.data = params.to_json
+      opertion_log.save!
     end
 
     rescue_from Grape::Exceptions::ValidationErrors do |e|

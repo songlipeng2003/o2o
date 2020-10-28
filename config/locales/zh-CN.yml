@@ -324,7 +324,6 @@ zh-CN:
         product_type: '商品类型'
         description: '描述'
         price: '价格'
-        product_type_id: '商品类型'
         suv_price: 'SUV车价格'
         store_id: '店铺'
         store: '店铺'

@@ -4,7 +4,7 @@ ActiveAdmin.register Product do
   belongs_to :store, :optional => true
 
   permit_params :name, :price, :suv_price, :market_price, :description,
-    :image, :product_type_id, :province_id, :city_id, :category_id, :store_id
+    :image, :product_type, :province_id, :city_id, :category_id, :store_id
 
   index do
     id_column
@@ -44,7 +44,9 @@ ActiveAdmin.register Product do
       row :province
       row :city
       row :image do
-        image_tag(product.image.url)
+        if product.image.attached?
+          image_tag(product.image, width: 300)
+        end
       end
       row :price
       row :suv_price

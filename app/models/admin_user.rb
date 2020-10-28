@@ -2,10 +2,6 @@ class AdminUser < ActiveRecord::Base
 
   has_many :login_histories, as: :user
 
-  belongs_to :province, class_name: 'Area'
-  belongs_to :city, class_name: 'Area'
-  belongs_to :area, class_name: 'Area'
-
   has_and_belongs_to_many :roles, join_table: :users_roles, foreign_key: :user_id
 
   # Include default devise modules. Others available are:

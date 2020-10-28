@@ -6,6 +6,21 @@ module StoreV1
 
     version 'v1', using: :path
 
+    before do
+      error!("401 Unauthorized", 401) unless current_application
+    end
+
+    before do
+      opertion_log = OperationLog.new
+      opertion_log.user = current_user
+      opertion_log.path = request.path
+      opertion_log.method = request.request_method
+      opertion_log.ip = client_ip
+      opertion_log.application = current_application
+      opertion_log.data = params.to_json
+      opertion_log.save!
+    end
+
     helpers do
       def logger
         API.logger
@@ -31,6 +46,11 @@ module StoreV1
 
       def authenticate!
         error!("401 Unauthorized", 401) unless authenticated
+      end
+
+      def current_application
+        api_key = params[:api_key] || request.headers['X-Api-Key']
+        @application ||= Application.where(token: api_key).first
       end
 
       def current_user

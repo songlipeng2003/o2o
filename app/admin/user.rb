@@ -57,8 +57,10 @@ ActiveAdmin.register User do
       row :score
       row :gender
       row :nickname
-      row :avatar do |user|
-        image_tag user.avatar.url if user.avatar.url
+      row :avatar do
+        if user.avatar.attached?
+          image_tag(user.avatar, width: 300)
+        end
       end
       row :application
       row :created_at

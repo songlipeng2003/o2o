@@ -6,7 +6,11 @@ ActiveAdmin.register AppVersion do
   index do
     selectable_column
     id_column
-    column :file
+    column :file, sortable: false do |app|
+      if app.file.attached?
+        link_to '下载文件', app.file, target: '_blank'
+      end
+    end
     column :version
     actions
   end

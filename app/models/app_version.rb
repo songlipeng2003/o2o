@@ -2,5 +2,5 @@ class AppVersion < ActiveRecord::Base
   validates :file, presence: true
   validates :version, presence: true
 
-  mount_uploader :file, AppVersionFileUploader
+  has_one_attached :file
 end

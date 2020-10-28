@@ -3,7 +3,7 @@ class UploadFile < ActiveRecord::Base
 
   validates :file, presence: true
 
-  mount_uploader :file, FileUploader
+  has_one_attached :file
 
   before_save :update_file_attributes
 
