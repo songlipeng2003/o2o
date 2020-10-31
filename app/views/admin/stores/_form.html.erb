@@ -1,7 +1,7 @@
 <%= semantic_form_for [:admin, @store] do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
-    <%= f.input :store_type, :collection => Store::STORE_TYPES.invert %>
+    <%= f.input :store_type, as: :select, :collection => Store::STORE_TYPES.invert %>
     <%= f.input :province, :collection => Area.provinces,
       :input_html => { :class => :cascade_select, 'data-cascade-target' => 'store_city_id' } %>
     <%= f.input :city, :collection => (f.object.city ? f.object.city.parent.children : ''),
