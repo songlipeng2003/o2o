@@ -10,14 +10,6 @@ class Store < ActiveRecord::Base
     STORE_TYPE_JOIN => '加盟'
   }
 
-  belongs_to :province, class_name: 'Area'
-  belongs_to :city, class_name: 'Area'
-  belongs_to :area, class_name: 'Area'
-
-  has_many :store_users
-  has_many :orders
-  has_many :evaluations
-
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true
   validates :phone, presence: true
@@ -33,6 +25,14 @@ class Store < ActiveRecord::Base
   validates_associated :city
   validates_associated :area
 
+  belongs_to :province, class_name: 'Area'
+  belongs_to :city, class_name: 'Area'
+  belongs_to :area, class_name: 'Area'
+  belongs_to :category
+
+  has_many :store_users
+  has_many :orders
+  has_many :evaluations
   has_many :store_users
   has_many :orders
   has_many :products

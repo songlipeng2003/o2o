@@ -1,7 +1,7 @@
 ActiveAdmin.register Store do
   menu parent: '店铺\商品'
 
-  permit_params :name, :address, :phone, :description, :lon, :lat, :area_id, :province_id, :city_id
+  permit_params :name, :address, :phone, :description, :lon, :lat, :area_id, :province_id, :city_id, :category_id
 
 
   scope :all, default: true do |scope|
@@ -16,10 +16,11 @@ ActiveAdmin.register Store do
     selectable_column
     id_column
     column :name
+    column :category
     column :store_type do |store|
       store.store_type_name
     end
-    column :address
+    column :city
     column :phone
     actions  defaults: false do |store|
       content = link_to '查看', admin_store_path(store)

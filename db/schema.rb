@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_144459) do
+ActiveRecord::Schema.define(version: 2020_10_31_121134) do
 
   create_table "active_admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace", limit: 191
@@ -221,6 +221,12 @@ ActiveRecord::Schema.define(version: 2020_10_28_144459) do
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "parent_id"
+    t.string "image"
+    t.integer "sort", default: 255
+    t.string "ancestry"
+    t.integer "ancestry_depth"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "cities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -664,6 +670,8 @@ ActiveRecord::Schema.define(version: 2020_10_28_144459) do
     t.datetime "deleted_at"
     t.integer "orders_count", default: 0
     t.integer "store_type", default: 1
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_stores_on_category_id"
   end
 
   create_table "system_coupons", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

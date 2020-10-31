@@ -156,6 +156,10 @@ zh-CN:
       category:
         id: '编号'
         name: '名称'
+        image: 图片
+        parent: 父类
+        parent_id: 父类
+        sort: 排序
         created_at: '创建时间'
         updated_at: '更新时间'
       store:
@@ -177,6 +181,8 @@ zh-CN:
         city_id: '市'
         area: '区'
         area_id: '区'
+        category: 分类
+        category_id: 分类
         created_at: '创建时间'
         updated_at: '更新时间'
       area:
