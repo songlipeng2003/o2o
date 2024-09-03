@@ -1,7 +1,7 @@
 source 'https://gems.ruby-china.com'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.7'
 # Use sqli  te3 as the database for Active Record
 # gem 'pg', '~> 0.17.1'
 # gem 'activerecord-postgis-adapter', '~> 2.2.1'
@@ -110,7 +110,7 @@ gem 'sidekiq', '~> 6.4.0'
 gem 'evil_transform'
 
 # defualt value for model
-gem "default_value_for", "~> 3.3.0"
+gem "default_value_for", "~> 4.0.0"
 
 # model version
 gem 'paper_trail', '~> 10.3.1'
@@ -135,7 +135,7 @@ gem "cocoon"
 gem "rack-cors"
 
 # soft delete
-gem "paranoia", "~> 2.4.2"
+gem "paranoia", "~> 2.4.3"
 
 gem 'jpush'
 
